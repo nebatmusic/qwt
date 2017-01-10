@@ -1358,7 +1358,7 @@ void QwtSymbol::drawSymbols( QPainter *painter,
         const QRect br = boundingRect();
 
         const QRect rect( 0, 0, br.width(), br.height() );
-        
+
         if ( d_data->cache.pixmap.isNull() )
         {
             d_data->cache.pixmap = QwtPainter::backingStore( NULL, br.size() );
@@ -1368,7 +1368,7 @@ void QwtSymbol::drawSymbols( QPainter *painter,
             p.setRenderHints( painter->renderHints() );
             p.translate( -br.topLeft() );
 
-            const QPointF pos;
+            const QPointF pos( 0.0, 0.0 );
             renderSymbols( &p, &pos, 1 );
         }
 

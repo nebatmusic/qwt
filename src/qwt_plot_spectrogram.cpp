@@ -17,11 +17,9 @@
 #include <qpainter.h>
 #include <qmath.h>
 #include <qalgorithms.h>
-#if QT_VERSION >= 0x040400
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
-#endif
 
 #define DEBUG_RENDER 0
 
@@ -412,7 +410,7 @@ QImage QwtPlotSpectrogram::renderImage(
     if ( !intensityRange.isValid() )
         return QImage();
 
-    QImage::Format format = ( d_data->colorMap->format() == QwtColorMap::RGB )
+    const QImage::Format format = ( d_data->colorMap->format() == QwtColorMap::RGB )
         ? QImage::Format_ARGB32 : QImage::Format_Indexed8;
 
     QImage image( imageSize, format );
@@ -423,11 +421,11 @@ QImage QwtPlotSpectrogram::renderImage(
     d_data->data->initRaster( area, image.size() );
 
 #if DEBUG_RENDER
-	QElapsedTimer time;
-	time.start();
+    QElapsedTimer time;
+    time.start();
 #endif
 
-#if QT_VERSION >= 0x040400 && !defined(QT_NO_QFUTURE)
+#if !defined(QT_NO_QFUTURE)
     uint numThreads = renderThreadCount();
 
     if ( numThreads <= 0 )
@@ -457,7 +455,7 @@ QImage QwtPlotSpectrogram::renderImage(
     for ( int i = 0; i < futures.size(); i++ )
         futures[i].waitForFinished();
 
-#else // QT_VERSION < 0x040400
+#else 
     const QRect tile( 0, 0, image.width(), image.height() );
     renderTile( xMap, yMap, tile, &image );
 #endif
