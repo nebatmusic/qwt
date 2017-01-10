@@ -5,3 +5,4 @@
 - QwtPlotBarChart::columnRect introduced
 - QwtPlotRenderer: using QPdfWriter where possible
 - QwtPainter::devivePixelRatio added
+- qwtFuzzyGreaterOrEqual/qwtFuzzyLessOrEqual removed, qwtCubicPolynom added
