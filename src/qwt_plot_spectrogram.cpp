@@ -486,7 +486,7 @@ void QwtPlotSpectrogram::renderTile(
     const QRect &tile, QImage *image ) const
 {
     const QwtInterval range = d_data->data->interval( Qt::ZAxis );
-    if ( !range.isValid() )
+    if ( range.width() <= 0.0 )
         return;
 
     if ( d_data->colorMap->format() == QwtColorMap::RGB )

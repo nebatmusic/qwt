@@ -1,3 +1,5 @@
 - invalidating scale caches on locale changes
 - making QwtTextLabel aware of style sheets
 - QwtInterval::widthL introduced
+- no QwtPlotZoomer::zoomed signals when the zoom rectangle has not changed
+- QwtPlotBarChart::columnRect introduced
