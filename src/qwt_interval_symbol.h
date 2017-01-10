@@ -54,7 +54,7 @@ public:
     };
 
 public:
-    QwtIntervalSymbol( Style = NoSymbol );
+    explicit QwtIntervalSymbol( Style = NoSymbol );
     QwtIntervalSymbol( const QwtIntervalSymbol & );
     virtual ~QwtIntervalSymbol();
 
@@ -79,7 +79,6 @@ public:
         const QPointF& from, const QPointF& to ) const;
 
 private:
-
     class PrivateData;
     PrivateData* d_data;
 };

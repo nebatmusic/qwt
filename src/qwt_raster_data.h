@@ -28,6 +28,11 @@ class QwtScaleMap;
   derived raster data class needs to implement some sort of resampling,
   that maps the raster of the matrix into the requested raster of
   the raster item ( depending on resolution and scales of the canvas ).
+
+  QwtMatrixRasterData implements raster data, that returns values from
+  a given 2D matrix.
+
+  \sa QwtMatrixRasterData
 */
 class QWT_EXPORT QwtRasterData
 {
@@ -74,9 +79,7 @@ public:
     class ContourPlane;
 
 private:
-    // Disabled copy constructor and operator=
-    QwtRasterData( const QwtRasterData & );
-    QwtRasterData &operator=( const QwtRasterData & );
+    Q_DISABLE_COPY(QwtRasterData)
 
     QwtInterval d_intervals[3];
 };

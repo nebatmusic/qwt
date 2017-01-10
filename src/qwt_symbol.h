@@ -164,7 +164,7 @@ public:
     };
 
 public:
-    QwtSymbol( Style = NoSymbol );
+    explicit QwtSymbol( Style = NoSymbol );
     QwtSymbol( Style, const QBrush &, const QPen &, const QSize & );
     QwtSymbol( const QPainterPath &, const QBrush &, const QPen & );
 
@@ -222,9 +222,7 @@ protected:
         const QPointF *, int numPoints ) const;
 
 private:
-    // Disabled copy constructor and operator=
-    QwtSymbol( const QwtSymbol & );
-    QwtSymbol &operator=( const QwtSymbol & );
+    Q_DISABLE_COPY(QwtSymbol)
 
     class PrivateData;
     PrivateData *d_data;

@@ -44,13 +44,19 @@ public:
         RGB,
 
         /*!
-          The map is intended to map into 8 bit values, that
-          are indices into the color table.
+          Map values into 8 bit values, that
+          are used as indexes into the color table.
+
+          Indexed color maps are used to generate QImage::Format_Indexed8
+          images. The calculation of the color index is usually faster
+          and the resulting image has a lower memory footprint.
+
+          \sa colorIndex(), colorTable()
          */
         Indexed
     };
 
-    QwtColorMap( Format = QwtColorMap::RGB );
+    explicit QwtColorMap( Format = QwtColorMap::RGB );
     virtual ~QwtColorMap();
 
     Format format() const;
@@ -79,6 +85,8 @@ public:
     virtual QVector<QRgb> colorTable( const QwtInterval & ) const;
 
 private:
+    Q_DISABLE_COPY(QwtColorMap)
+
     Format d_format;
 };
 
@@ -105,7 +113,7 @@ public:
         ScaledColors
     };
 
-    QwtLinearColorMap( QwtColorMap::Format = QwtColorMap::RGB );
+    explicit QwtLinearColorMap( QwtColorMap::Format = QwtColorMap::RGB );
     QwtLinearColorMap( const QColor &from, const QColor &to,
         QwtColorMap::Format = QwtColorMap::RGB );
 
@@ -142,7 +150,7 @@ private:
 class QWT_EXPORT QwtAlphaColorMap: public QwtColorMap
 {
 public:
-    QwtAlphaColorMap( const QColor & = QColor( Qt::gray ) );
+    explicit QwtAlphaColorMap( const QColor & = QColor( Qt::gray ) );
     virtual ~QwtAlphaColorMap();
 
     void setColor( const QColor & );

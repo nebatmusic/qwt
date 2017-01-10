@@ -133,7 +133,7 @@ public:
     };
 
 public:
-    QwtColumnSymbol( Style = NoStyle );
+    explicit QwtColumnSymbol( Style = NoStyle );
     virtual ~QwtColumnSymbol();
 
     void setFrameStyle( FrameStyle style );
@@ -154,6 +154,8 @@ protected:
     void drawBox( QPainter *, const QwtColumnRect & ) const;
 
 private:
+    Q_DISABLE_COPY(QwtColumnSymbol)
+
     class PrivateData;
     PrivateData* d_data;
 };
