@@ -85,6 +85,7 @@ PlotMatrix::PlotMatrix( int numRows, int numColumns, QWidget *parent ):
         for ( int col = 0; col < numColumns; col++ )
         {
             QwtPlot *plot = new Plot( this );
+
             layout->addWidget( plot, row, col );
 
             for ( int axis = 0; axis < QwtPlot::axisCnt; axis++ )
