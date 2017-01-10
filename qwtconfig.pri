@@ -8,8 +8,8 @@
 ################################################################
 
 QWT_VER_MAJ      = 6
-QWT_VER_MIN      = 1
-QWT_VER_PAT      = 4
+QWT_VER_MIN      = 2
+QWT_VER_PAT      = 0
 QWT_VERSION      = $${QWT_VER_MAJ}.$${QWT_VER_MIN}.$${QWT_VER_PAT}
 
 ######################################################################
@@ -141,7 +141,7 @@ win32 {
 # Otherwise you have to build them from the examples directory.
 ######################################################################
 
-#QWT_CONFIG     += QwtExamples
+QWT_CONFIG     += QwtExamples
 
 ######################################################################
 # The playground is primarily intended for the Qwt development 
@@ -152,7 +152,7 @@ win32 {
 # Otherwise you have to build them from the playground directory.
 ######################################################################
 
-#QWT_CONFIG     += QwtPlayground
+QWT_CONFIG     += QwtPlayground
 
 ######################################################################
 # When Qt has been built as framework qmake wants 
@@ -171,5 +171,5 @@ macx:!static:CONFIG(qt_framework, qt_framework|qt_no_framework) {
 
 unix {
 
-    #QWT_CONFIG     += QwtPkgConfig
+    QWT_CONFIG     += QwtPkgConfig
 }
