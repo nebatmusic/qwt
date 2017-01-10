@@ -43,6 +43,47 @@
 bool QwtPainter::d_polylineSplitting = true;
 bool QwtPainter::d_roundingAlignment = true;
 
+static inline bool qwtIsRasterPaintEngineBuggy()
+{
+#if 0
+    static int isBuggy = -1; 
+    if ( isBuggy < 0 )
+    {
+        // auto detect bug of the raster paint engine,
+        // fixed with: https://codereview.qt-project.org/#/c/99456/
+
+        QImage image( 2, 3, QImage::Format_ARGB32 );
+        image.fill( 0u );
+
+        QPolygonF p;
+        p += QPointF(0, 1);
+        p += QPointF(0, 0);
+        p += QPointF(1, 0 );
+        p += QPointF(1, 2 );
+
+        QPainter painter( &image );
+        painter.drawPolyline( p );
+        painter.end();
+
+        isBuggy = ( image.pixel( 1, 1 ) == 0 ) ? 1 : 0;
+    }
+
+    return isBuggy == 1;
+#endif
+
+#if QT_VERSION < 0x040800
+    return false;
+#elif QT_VERSION < 0x050000
+    return true;
+#elif QT_VERSION < 0x050100
+    return false;
+#elif QT_VERSION < 0x050400
+    return true;
+#else
+    return false;
+#endif
+}
+
 static inline bool qwtIsClippingNeeded( 
     const QPainter *painter, QRectF &clipRect )
 {
@@ -67,29 +108,76 @@ static inline void qwtDrawPolyline( QPainter *painter,
     const T *points, int pointCount, bool polylineSplitting )
 {
     bool doSplit = false;
-    if ( polylineSplitting )
+    if ( polylineSplitting && pointCount > 3 )
     {
         const QPaintEngine *pe = painter->paintEngine();
         if ( pe && pe->type() == QPaintEngine::Raster )
         {
-            /*
-                The raster paint engine seems to use some algo with O(n*n).
-                ( Qt 4.3 is better than Qt 4.2, but remains unacceptable)
-                To work around this problem, we have to split the polygon into
-                smaller pieces.
-             */
-            doSplit = true;
+            if ( painter->pen().width() <= 1 )
+            {
+#if QT_VERSION < 0x040800
+                if ( painter->renderHints() & QPainter::Antialiasing )
+                {
+                    /*
+                        all versions <= 4.7 have issues with 
+                        antialiased lines
+                     */
+
+                    doSplit = true;
+                }
+#endif
+                // work around a bug with short lines below 2 pixels difference
+                // in height and width
+
+                doSplit = qwtIsRasterPaintEngineBuggy();
+            }
+            else
+            {
+                /*
+                   Raster paint engine is much faster when splitting
+                   the polygon, but of course we might see some issues where
+                   the pieces are joining
+                 */
+                doSplit = true;
+            }
         }
     }
 
     if ( doSplit )
     {
+        QPen pen = painter->pen();
+
         const int splitSize = 6;
 
-        for ( int i = 0; i < pointCount; i += splitSize )
+        if ( pen.width() <= 1 && pen.isSolid() && qwtIsRasterPaintEngineBuggy()
+            && !( painter->renderHints() & QPainter::Antialiasing ) )
         {
-            const int n = qMin( splitSize + 1, pointCount - i );
-            painter->drawPolyline( points + i, n );
+            int k = 0;
+
+            for ( int i = k + 1; i < pointCount; i++ )
+            {
+                const QPointF &p1 = points[i-1];
+                const QPointF &p2 = points[i];
+
+                const bool isBad = ( qAbs( p2.y() - p1.y() ) <= 1 )
+                    &&  qAbs( p2.x() - p1.x() ) <= 1;
+
+                if ( isBad || ( i - k >= splitSize ) )
+                {
+                    painter->drawPolyline( points + k, i - k + 1 );
+                    k = i;
+                }
+            }
+
+            painter->drawPolyline( points + k, pointCount - k );
+        }
+        else
+        {
+            for ( int i = 0; i < pointCount; i += splitSize )
+            {
+                const int n = qMin( splitSize + 1, pointCount - i );
+                painter->drawPolyline( points + i, n );
+            }
         }
     }
     else
@@ -219,6 +307,10 @@ void QwtPainter::setRoundingAlignment( bool enable )
   In some Qt versions the raster paint engine paints polylines of many points
   much faster when they are split in smaller chunks: f.e all supported Qt versions
   >= Qt 5.0 when drawing an antialiased polyline with a pen width >=2.
+
+  Also the raster paint engine has a nasty bug in many versions ( Qt 4.8 - ... )
+  for short lines ( https://codereview.qt-project.org/#/c/99456 ), that is worked
+  around in this mode.
 
   The default setting is true.
 
