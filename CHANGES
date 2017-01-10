@@ -1,1 +1,3 @@
 - invalidating scale caches on locale changes
+- making QwtTextLabel aware of style sheets
+- QwtInterval::widthL introduced
