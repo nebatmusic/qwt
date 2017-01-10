@@ -141,6 +141,7 @@ static inline void qwtUnscaleFont( QPainter *painter )
 */
 bool QwtPainter::isX11GraphicsSystem()
 {
+#if QT_VERSION < 0x050000
     static int onX11 = -1;
     if ( onX11 < 0 )
     {
@@ -151,6 +152,11 @@ bool QwtPainter::isX11GraphicsSystem()
     }
 
     return onX11 == 1;
+#else
+    // the X11 paint engine has been removed with Qt5 - so sad, as it was
+    // the best available graphic system around: no bugs + hardware accelerated.
+    return false;
+#endif
 }
 
 /*!
@@ -1249,6 +1255,38 @@ void QwtPainter::drawBackgound( QPainter *painter,
 }
 
 /*!
+  \return Pixel ratio for a paint device
+  \param paintDevice Paint device
+ */
+qreal QwtPainter::devicePixelRatio( const QPaintDevice *paintDevice )
+{
+    qreal pixelRatio = 0.0;
+
+#if QT_VERSION >= 0x050100
+    if ( paintDevice )
+    {
+#if QT_VERSION >= 0x050600
+        pixelRatio = paintDevice->devicePixelRatioF();
+#else
+        pixelRatio = paintDevice->devicePixelRatio();
+#endif
+    }
+#else
+    Q_UNUSED( paintDevice )
+#endif
+
+#if QT_VERSION >= 0x050000
+    if ( pixelRatio == 0.0 && qApp )
+        pixelRatio = qApp->devicePixelRatio();
+#endif
+
+    if ( pixelRatio == 0.0 )
+        pixelRatio = 1.0;
+
+    return pixelRatio;
+}
+
+/*!
   \return A pixmap that can be used as backing store
 
   \param widget Widget, for which the backingstore is intended
@@ -1258,40 +1296,23 @@ QPixmap QwtPainter::backingStore( QWidget *widget, const QSize &size )
 {
     QPixmap pm;
 
-#define QWT_HIGH_DPI 1
-
-#if QT_VERSION >= 0x050000 && QWT_HIGH_DPI
-    qreal pixelRatio = 1.0;
-
-    if ( widget && widget->windowHandle() )
-    {
-#if QT_VERSION < 0x050100
-        pixelRatio = widget->windowHandle()->devicePixelRatio();
-#else
-        pixelRatio = widget->devicePixelRatio();
-#endif
-    }
-    else
-    {
-        if ( qApp )
-            pixelRatio = qApp->devicePixelRatio();
-    }
+#if QT_VERSION >= 0x050000 
+    const qreal pixelRatio = QwtPainter::devicePixelRatio( widget );
 
     pm = QPixmap( size * pixelRatio );
     pm.setDevicePixelRatio( pixelRatio );
 #else
-    Q_UNUSED( widget )
     pm = QPixmap( size );
 #endif
 
-#if QT_VERSION < 0x050000 
 #ifdef Q_WS_X11
     if ( widget && isX11GraphicsSystem() )
     {
         if ( pm.x11Info().screen() != widget->x11Info().screen() )
             pm.x11SetScreen( widget->x11Info().screen() );
     }
-#endif
+#else
+    Q_UNUSED( widget )
 #endif
 
     return pm;

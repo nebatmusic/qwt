@@ -4,3 +4,4 @@
 - no QwtPlotZoomer::zoomed signals when the zoom rectangle has not changed
 - QwtPlotBarChart::columnRect introduced
 - QwtPlotRenderer: using QPdfWriter where possible
+- QwtPainter::devivePixelRatio added
