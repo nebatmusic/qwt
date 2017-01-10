@@ -1,4 +1,5 @@
 #ifndef _BAR_CHART_H_
+#define _BAR_CHART_H_ 1
 
 #include <qwt_plot.h>
 #include <qstringlist.h>
