@@ -88,9 +88,7 @@ contains(QWT_CONFIG, QwtDesigner) {
 
         contains(QWT_CONFIG, QwtDll) {
 
-            win32 {
-                DEFINES += QT_DLL QWT_DLL
-            }
+            DEFINES += QT_DLL QWT_DLL
         }
     }
 
