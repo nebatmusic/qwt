@@ -36,7 +36,7 @@ to control or display values, arrays, or ranges of type double.
 
   \section platforms Platforms
 
-  Qwt 6.2 might be usable in all environments where you find
+  Qwt 6.3 might be usable in all environments where you find
   <a href="https://www.qt.io">Qt</a>.
   It is compatible with Qt4 ( >= 4.4 ) and all Qt5 versions.
 
@@ -56,8 +56,8 @@ to control or display values, arrays, or ranges of type double.
   For getting a snapshot with all bugfixes for the latest 5.2 release:
   \code svn export svn://svn.code.sf.net/p/qwt/code/branches/qwt-5.2 \endcode
 
-  For getting a snapshot with all bugfixes for the latest 6.1 release:
-  \code svn export svn://svn.code.sf.net/p/qwt/code/branches/qwt-6.1 \endcode
+  For getting a snapshot with all bugfixes for the latest 6.3 release:
+  \code svn export svn://svn.code.sf.net/p/qwt/code/branches/qwt-6.3 \endcode
 
   For getting a development snapshot from the SVN repository:
   \code svn export svn://svn.code.sf.net/p/qwt/code/trunk/qwt \endcode
