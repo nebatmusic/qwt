@@ -22,6 +22,22 @@
 #include <qalgorithms.h>
 #include <qmath.h>
 
+static inline QRectF qwtIntersectedClipRect( const QRectF &rect, QPainter *painter )
+{
+    QRectF clipRect = rect;
+    if ( painter->hasClipping() )
+    {
+#if QT_VERSION >= 0x040800
+        const QRectF r = painter->clipBoundingRect();
+#else
+        const QRectF r = painter->clipRegion().boundingRect();
+#endif
+        clipRect &= r;
+    }
+
+    return clipRect;
+}
+
 static void qwtUpdateLegendIconSize( QwtPlotCurve *curve )
 {
     if ( curve->symbol() && 
@@ -447,28 +463,30 @@ void QwtPlotCurve::drawLines( QPainter *painter,
     if ( from > to )
         return;
 
-    const bool doAlign = QwtPainter::roundingAlignment( painter );
     const bool doFit = ( d_data->attributes & Fitted ) && d_data->curveFitter;
+    const bool doAlign = !doFit && QwtPainter::roundingAlignment( painter );
     const bool doFill = ( d_data->brush.style() != Qt::NoBrush )
             && ( d_data->brush.color().alpha() > 0 );
 
     QRectF clipRect;
     if ( d_data->paintAttributes & ClipPolygons )
     {
-        qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
-        clipRect = canvasRect.adjusted(-pw, -pw, pw, pw);
+        clipRect = qwtIntersectedClipRect( canvasRect, painter );
+
+        const qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
+        clipRect = clipRect.adjusted(-pw, -pw, pw, pw);
     }
 
     bool doIntegers = false;
 
 #if QT_VERSION < 0x040800
-
-    // For Qt <= 4.7 the raster paint engine is significantly faster
-    // for rendering QPolygon than for QPolygonF. So let's
-    // see if we can use it.
-
     if ( painter->paintEngine()->type() == QPaintEngine::Raster )
     {
+
+        // For Qt <= 4.7 the raster paint engine is significantly faster
+        // for rendering QPolygon than for QPolygonF. So let's
+        // see if we can use it.
+
         // In case of filling or fitting performance doesn't count
         // because both operations are much more expensive
         // then drawing the polyline itself
@@ -478,11 +496,19 @@ void QwtPlotCurve::drawLines( QPainter *painter,
     }
 #endif
 
-    const bool noDuplicates = d_data->paintAttributes & FilterPoints;
-
     QwtPointMapper mapper;
-    mapper.setFlag( QwtPointMapper::RoundPoints, doAlign );
-    mapper.setFlag( QwtPointMapper::WeedOutPoints, noDuplicates );
+
+    if ( doAlign )
+    {
+        mapper.setFlag( QwtPointMapper::RoundPoints, true );
+        mapper.setFlag( QwtPointMapper::WeedOutIntermediatePoints, 
+            testPaintAttribute( FilterPointsAggressive ) );
+    }
+
+    mapper.setFlag( QwtPointMapper::WeedOutPoints, 
+        testPaintAttribute( FilterPoints ) || 
+        testPaintAttribute( FilterPointsAggressive ) );
+
     mapper.setBoundingRect( canvasRect );
 
     if ( doIntegers )
@@ -490,7 +516,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
         QPolygon polyline = mapper.toPolygon( 
             xMap, yMap, data(), from, to );
 
-        if ( d_data->paintAttributes & ClipPolygons )
+        if ( testPaintAttribute( ClipPolygons ) )
         {
             polyline = QwtClipper::clipPolygon( 
                 clipRect.toAlignedRect(), polyline, false );
@@ -502,11 +528,17 @@ void QwtPlotCurve::drawLines( QPainter *painter,
     {
         QPolygonF polyline = mapper.toPolygonF( xMap, yMap, data(), from, to );
 
-        if ( doFit )
-            polyline = d_data->curveFitter->fitCurve( polyline );
-
         if ( doFill )
         {
+            if ( doFit )
+            {
+                // it might be better to extend and draw the curvePath, but for 
+                // the moment we keep an implementation, where we translate the
+                // path back to a polyline.
+
+                polyline = d_data->curveFitter->fitCurve( polyline );
+            }
+
             if ( painter->pen().style() != Qt::NoPen )
             {
                 // here we are wasting memory for the filled copy,
@@ -517,10 +549,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
                 filled.clear();
 
                 if ( d_data->paintAttributes & ClipPolygons )
-                {
-                    polyline = QwtClipper::clipPolygonF( 
-                        clipRect, polyline, false );
-                }
+                    polyline = QwtClipper::clipPolygonF( clipRect, polyline, false );
 
                 QwtPainter::drawPolyline( painter, polyline );
             }
@@ -531,13 +560,31 @@ void QwtPlotCurve::drawLines( QPainter *painter,
         }
         else
         {
-            if ( d_data->paintAttributes & ClipPolygons )
+            if ( testPaintAttribute( ClipPolygons ) )
             {
                 polyline = QwtClipper::clipPolygonF(
                     clipRect, polyline, false );
             }
 
-            QwtPainter::drawPolyline( painter, polyline );
+            if ( doFit )
+            {
+                if ( d_data->curveFitter->mode() == QwtCurveFitter::Path )
+                {
+                    const QPainterPath curvePath = 
+                        d_data->curveFitter->fitCurvePath( polyline );
+
+                    painter->drawPath( curvePath );
+                }
+                else
+                {
+                    polyline = d_data->curveFitter->fitCurve( polyline );
+                    QwtPainter::drawPolyline( painter, polyline );
+                }
+            }
+            else
+            {
+                QwtPainter::drawPolyline( painter, polyline );
+            }
         }
     }
 }
@@ -758,9 +805,11 @@ void QwtPlotCurve::drawSteps( QPainter *painter,
 
     if ( d_data->paintAttributes & ClipPolygons )
     {
-        qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
-        const QRectF clipRect = canvasRect.adjusted(-pw, -pw, pw, pw);
-        
+        QRectF clipRect = qwtIntersectedClipRect( canvasRect, painter );
+
+        const qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
+        clipRect = clipRect.adjusted(-pw, -pw, pw, pw);
+
         const QPolygonF clipped = QwtClipper::clipPolygonF( 
             clipRect, polygon, false );
 
@@ -870,7 +919,10 @@ void QwtPlotCurve::fillCurve( QPainter *painter,
         brush.setColor( d_data->pen.color() );
 
     if ( d_data->paintAttributes & ClipPolygons )
-        polygon = QwtClipper::clipPolygonF( canvasRect, polygon, true );
+    {
+        const QRectF clipRect = qwtIntersectedClipRect( canvasRect, painter );
+        polygon = QwtClipper::clipPolygonF( clipRect, polygon, true );
+    }
 
     painter->save();
 
@@ -950,7 +1002,9 @@ void QwtPlotCurve::drawSymbols( QPainter *painter, const QwtSymbol &symbol,
         QwtPainter::roundingAlignment( painter ) );
     mapper.setFlag( QwtPointMapper::WeedOutPoints, 
         testPaintAttribute( QwtPlotCurve::FilterPoints ) );
-    mapper.setBoundingRect( canvasRect );
+
+    const QRectF clipRect = qwtIntersectedClipRect( canvasRect, painter );
+    mapper.setBoundingRect( clipRect );
 
     const int chunkSize = 500;
 
