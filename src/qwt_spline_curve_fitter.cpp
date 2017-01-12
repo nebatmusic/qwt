@@ -26,7 +26,8 @@ public:
 };
 
 //! Constructor
-QwtSplineCurveFitter::QwtSplineCurveFitter()
+QwtSplineCurveFitter::QwtSplineCurveFitter():
+    QwtCurveFitter( QwtCurveFitter::Path )
 {
     d_data = new PrivateData;
 }
@@ -105,6 +106,18 @@ void QwtSplineCurveFitter::setSplineSize( int splineSize )
 int QwtSplineCurveFitter::splineSize() const
 {
     return d_data->splineSize;
+}
+
+/*!
+  \param points Series of data points
+  \return Curve path
+  \sa fitCurve()
+*/
+QPainterPath QwtSplineCurveFitter::fitCurvePath( const QPolygonF &points ) const
+{
+    QPainterPath path;
+    path.addPolygon( fitCurve( points ) );
+    return path;
 }
 
 /*!

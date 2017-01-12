@@ -55,6 +55,7 @@ public:
     int splineSize() const;
 
     virtual QPolygonF fitCurve( const QPolygonF & ) const;
+    virtual QPainterPath fitCurvePath( const QPolygonF & ) const;
 
 private:
     QPolygonF fitSpline( const QPolygonF & ) const;
