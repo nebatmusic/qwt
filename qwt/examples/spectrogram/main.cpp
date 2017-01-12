@@ -1,13 +1,14 @@
+#include "plot.h"
+#include <qwt_color_map.h>
 #include <qapplication.h>
 #include <qmainwindow.h>
 #include <qtoolbar.h>
+#include <qstatusbar.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qslider.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include "plot.h"
-#include "qwt_color_map.h"
 
 class MainWindow: public QMainWindow
 {
@@ -22,6 +23,7 @@ MainWindow::MainWindow( QWidget *parent ):
     QMainWindow( parent )
 {
     d_plot = new Plot( this );
+    d_plot->setContentsMargins( 0, 5, 0, 10 );
 
     setCentralWidget( d_plot );
 
@@ -65,14 +67,6 @@ MainWindow::MainWindow( QWidget *parent ):
     connect( colorTableBox, SIGNAL( currentIndexChanged( int ) ),
              d_plot, SLOT( setColorTableSize( int ) ) );
 
-    QComboBox *formatBox = new QComboBox( toolBar );
-    formatBox->addItem( "ARGB32" );
-    formatBox->addItem( "Indexed8" );
-    toolBar->addWidget( formatBox );
-
-    connect( formatBox, SIGNAL( currentIndexChanged( int ) ),
-             d_plot, SLOT( setColorFormat( int ) ) );
-
     toolBar->addWidget( new QLabel( " Opacity " ) );
     QSlider *slider = new QSlider( Qt::Horizontal );
     slider->setRange( 0, 255 );
@@ -98,6 +92,9 @@ MainWindow::MainWindow( QWidget *parent ):
     btnSpectrogram->setChecked( true );
     btnContour->setChecked( false );
 
+    connect( d_plot, SIGNAL( rendered( const QString& ) ),
+        statusBar(), SLOT( showMessage( const QString& ) ),
+        Qt::QueuedConnection );
 }
 
 int main( int argc, char **argv )
