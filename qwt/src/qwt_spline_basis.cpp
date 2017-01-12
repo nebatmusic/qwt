@@ -211,24 +211,32 @@ static QPainterPath qwtSplineBasisPath( const QPolygonF &points,
     return path;
 }
 
+//! Constructor
 QwtSplineBasis::QwtSplineBasis()
 {
 }
 
+//! Destructor
 QwtSplineBasis::~QwtSplineBasis()
 {
 }
 
+//! The locality is always 2
 uint QwtSplineBasis::locality() const
 {
     return 2;
 }
 
+/*!
+  Approximates a polygon piecewise with cubic Bezier curves
+  and returns them as QPainterPath.
+
+  \param points Control points
+  \return Painter path, that can be rendered by QPainter
+ */
 QPainterPath QwtSplineBasis::painterPath( const QPolygonF &points ) const
 {
-    // PeriodicPolygon/ClosedPolygon not implemented yet
-
-    if ( points.size()  < 4 )
+    if ( points.size() < 4 )
         return QPainterPath();
 
     QPainterPath path;

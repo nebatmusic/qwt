@@ -30,6 +30,16 @@ public:
 };
 
 /*!
+  \fn QPainterPath QwtSplineApproximation::painterPath( const QPolygonF &points ) const
+
+  Approximates a polygon piecewise with cubic Bezier curves
+  and returns them as QPainterPath.
+
+  \param points Control points
+  \return Painter path, that can be rendered by QPainter
+ */
+
+/*!
   \brief Constructor
 
   The default setting is a non closing spline with chordal parametrization
@@ -65,6 +75,13 @@ uint QwtSplineApproximation::locality() const
     return 0;
 }
 
+/*!
+  Define the parametrization for a parametric spline approximation
+  The default setting is a chordal parametrization.
+
+  \param type Type of parametrization, ususally one of QwtSplineParametrization::Type
+  \sa parametrization()
+ */
 void QwtSplineApproximation::setParametrization( int type )
 {
     if ( d_data->parametrization->type() != type )
@@ -74,6 +91,13 @@ void QwtSplineApproximation::setParametrization( int type )
     }
 }
 
+/*!
+  Define the parametrization for a parametric spline approximation
+  The default setting is a chordal parametrization.
+
+  \param parametrization Parametrization
+  \sa parametrization()
+ */
 void QwtSplineApproximation::setParametrization( QwtSplineParametrization *parametrization )
 {
     if ( ( parametrization != NULL ) && ( d_data->parametrization != parametrization ) )
@@ -83,16 +107,31 @@ void QwtSplineApproximation::setParametrization( QwtSplineParametrization *param
     }
 }   
 
+/*!
+  \return parametrization
+  \sa setParametrization()
+ */
 const QwtSplineParametrization *QwtSplineApproximation::parametrization() const
 {
     return d_data->parametrization;
 }
 
+/*!
+  Define the boundary type for the endpoints of the approximating
+  spline.
+
+  \param boundaryType Boundary type
+  \sa boundaryType()
+ */
 void QwtSplineApproximation::setBoundaryType( BoundaryType boundaryType )
 {
-    d_data->boundaryType = boundaryType;;
+    d_data->boundaryType = boundaryType;
 }
 
+/*!
+  \return Boundary type
+  \sa setBoundaryType()
+ */
 QwtSplineApproximation::BoundaryType QwtSplineApproximation::boundaryType() const
 {
     return d_data->boundaryType;

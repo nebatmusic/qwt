@@ -13,6 +13,14 @@
 #include "qwt_global.h"
 #include "qwt_spline_approximation.h"
 
+/*!
+  \brief An approximation using a basis spline
+
+  QwtSplineBasis approximates a set of points by a polynomials with C2 continuity
+  ( = first and second derivatives are equal ) at the end points.
+
+  The end points of the spline do not match the original points.
+ */
 class QWT_EXPORT QwtSplineBasis: public QwtSplineApproximation
 {
 public:
