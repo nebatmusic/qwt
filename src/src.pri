@@ -91,6 +91,8 @@ contains(QWT_CONFIG, QwtPlot) {
 
     HEADERS += \
         qwt_curve_fitter.h \
+        qwt_spline_curve_fitter.h \
+        qwt_weeding_curve_fitter.h \
         qwt_event_pattern.h \
         qwt_abstract_legend.h \
         qwt_legend.h \
@@ -138,6 +140,8 @@ contains(QWT_CONFIG, QwtPlot) {
 
     SOURCES += \
         qwt_curve_fitter.cpp \
+        qwt_spline_curve_fitter.cpp \
+        qwt_weeding_curve_fitter.cpp \
         qwt_abstract_legend.cpp \
         qwt_legend.cpp \
         qwt_legend_data.cpp \
