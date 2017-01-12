@@ -53,7 +53,8 @@ public:
     {
         /*!
            The bounding rectangle of the data is spanned by
-           the interval(Qt::XAxis) and interval(Qt::YAxis)
+           the interval(Qt::XAxis) and interval(Qt::YAxis).
+
            WithoutGaps indicates, that the data has no gaps
            ( unknown values ) in this area and the result of
            value() does not need to be checked for NaN values.

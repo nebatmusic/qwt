@@ -562,7 +562,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
         {
             if ( testPaintAttribute( ClipPolygons ) )
             {
-                polyline = QwtClipper::clipPolygonF( 
+                polyline = QwtClipper::clipPolygonF(
                     clipRect, polyline, false );
             }
 

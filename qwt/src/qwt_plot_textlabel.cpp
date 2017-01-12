@@ -216,7 +216,7 @@ void QwtPlotTextLabel::draw( QPainter *painter,
         pixmapRect.setRight( qCeil( rect.right() ) + pw );
         pixmapRect.setBottom( qCeil( rect.bottom() ) + pw );
         
-#if QT_VERSION >= 0x050000 
+#if QT_VERSION >= 0x050000
         const qreal pixelRatio = QwtPainter::devicePixelRatio( painter->device() );
         const QSize scaledSize = pixmapRect.size() * pixelRatio;
 #else
