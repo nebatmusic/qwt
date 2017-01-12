@@ -8,3 +8,4 @@
 - qwtFuzzyGreaterOrEqual/qwtFuzzyLessOrEqual removed, qwtCubicPolynom added
 - new color maps for hue/saturation/value, color map for alpha values fixed
 - QwtPlotSpectrogram::setMaxRGBTableSize added
+- QwtPlotCurve::closestPoint is virtual now
