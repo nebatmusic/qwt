@@ -1,13 +1,16 @@
+#include "plot.h"
+
+#include <qwt_color_map.h>
+
 #include <qapplication.h>
 #include <qmainwindow.h>
 #include <qtoolbar.h>
+#include <qstatusbar.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qslider.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include "plot.h"
-#include "qwt_color_map.h"
 
 class MainWindow: public QMainWindow
 {
@@ -22,6 +25,7 @@ MainWindow::MainWindow( QWidget *parent ):
     QMainWindow( parent )
 {
     d_plot = new Plot( this );
+    d_plot->setContentsMargins( 0, 5, 0, 10 );
 
     setCentralWidget( d_plot );
 
@@ -39,15 +43,31 @@ MainWindow::MainWindow( QWidget *parent ):
 #endif
 
     toolBar->addWidget( new QLabel("Color Map " ) );
+
     QComboBox *mapBox = new QComboBox( toolBar );
     mapBox->addItem( "RGB" );
-    mapBox->addItem( "Indexed Colors" );
     mapBox->addItem( "Hue" );
+    mapBox->addItem( "Saturation" );
+    mapBox->addItem( "Value" );
+    mapBox->addItem( "Sat.+Value" );
     mapBox->addItem( "Alpha" );
     mapBox->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
     toolBar->addWidget( mapBox );
+
     connect( mapBox, SIGNAL( currentIndexChanged( int ) ),
              d_plot, SLOT( setColorMap( int ) ) );
+
+    toolBar->addWidget( new QLabel("Table " ) );
+
+    QComboBox *colorTableBox = new QComboBox( toolBar );
+    colorTableBox->addItem( "None" );
+    colorTableBox->addItem( "256" );
+    colorTableBox->addItem( "1024" );
+    colorTableBox->addItem( "16384" );
+    toolBar->addWidget( colorTableBox );
+
+    connect( colorTableBox, SIGNAL( currentIndexChanged( int ) ),
+             d_plot, SLOT( setColorTableSize( int ) ) );
 
     toolBar->addWidget( new QLabel( " Opacity " ) );
     QSlider *slider = new QSlider( Qt::Horizontal );
@@ -74,6 +94,9 @@ MainWindow::MainWindow( QWidget *parent ):
     btnSpectrogram->setChecked( true );
     btnContour->setChecked( false );
 
+    connect( d_plot, SIGNAL( rendered( const QString& ) ),
+        statusBar(), SLOT( showMessage( const QString& ) ),
+        Qt::QueuedConnection );
 }
 
 int main( int argc, char **argv )

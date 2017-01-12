@@ -6,3 +6,5 @@
 - QwtPlotRenderer: using QPdfWriter where possible
 - QwtPainter::devivePixelRatio added
 - qwtFuzzyGreaterOrEqual/qwtFuzzyLessOrEqual removed, qwtCubicPolynom added
+- new color maps for hue/saturation/value, color map for alpha values fixed
+- QwtPlotSpectrogram::setMaxRGBTableSize added

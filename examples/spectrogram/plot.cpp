@@ -1,6 +1,5 @@
-#include <qprinter.h>
-#include <qprintdialog.h>
-#include <qnumeric.h>
+#include "plot.h"
+
 #include <qwt_color_map.h>
 #include <qwt_plot_spectrogram.h>
 #include <qwt_scale_widget.h>
@@ -9,7 +8,10 @@
 #include <qwt_plot_panner.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_renderer.h>
-#include "plot.h"
+
+#include <qprinter.h>
+#include <qprintdialog.h>
+#include <qelapsedtimer.h>
 
 class MyZoomer: public QwtPlotZoomer
 {
@@ -36,6 +38,11 @@ class SpectrogramData: public QwtRasterData
 public:
     SpectrogramData()
     {
+        // some minor performance improvements when the spectrogram item
+        // does not need to check for NaN values
+
+        setAttribute( QwtRasterData::WithoutGaps, true );
+
         setInterval( Qt::XAxis, QwtInterval( -1.5, 1.5 ) );
         setInterval( Qt::YAxis, QwtInterval( -1.5, 1.5 ) );
         setInterval( Qt::ZAxis, QwtInterval( 0.0, 10.0 ) );
@@ -53,110 +60,127 @@ public:
     }
 };
 
-class LinearColorMapRGB: public QwtLinearColorMap
+class LinearColorMap: public QwtLinearColorMap
 {
 public:
-    LinearColorMapRGB():
-        QwtLinearColorMap( Qt::darkCyan, Qt::red, QwtColorMap::RGB )
+    LinearColorMap( int formatType ):
+        QwtLinearColorMap( Qt::darkCyan, Qt::red )
     {
+        setFormat( ( QwtColorMap::Format ) formatType );
+
         addColorStop( 0.1, Qt::cyan );
         addColorStop( 0.6, Qt::green );
         addColorStop( 0.95, Qt::yellow );
     }
 };
 
-class LinearColorMapIndexed: public QwtLinearColorMap
+class HueColorMap: public QwtHueColorMap
 {
 public:
-    LinearColorMapIndexed():
-        QwtLinearColorMap( Qt::darkCyan, Qt::red, QwtColorMap::Indexed )
+    HueColorMap( int formatType ):
+        QwtHueColorMap( QwtColorMap::Indexed )
     {
-        addColorStop( 0.1, Qt::cyan );
-        addColorStop( 0.6, Qt::green );
-        addColorStop( 0.95, Qt::yellow );
+        setFormat( ( QwtColorMap::Format ) formatType );
+
+        //setHueInterval( 240, 60 );
+        //setHueInterval( 240, 420 );
+        setHueInterval( 0, 359 );
+        setSaturation( 150 );
+        setValue( 200 );
     }
 };
 
-class HueColorMap: public QwtColorMap
+class SaturationColorMap: public QwtSaturationValueColorMap
 {
 public:
-    // class backported from Qwt 6.2
-
-    HueColorMap():
-        d_hue1(0),
-        d_hue2(359),
-        d_saturation(150),
-        d_value(200)
+    SaturationColorMap( int formatType )
     {
-        updateTable();
+        setFormat( ( QwtColorMap::Format ) formatType );
 
+        setHue( 220 );
+        setSaturationInterval( 0, 255 );
+        setValueInterval( 255, 255 );
     }
+};
 
-    virtual QRgb rgb( const QwtInterval &interval, double value ) const
+class ValueColorMap: public QwtSaturationValueColorMap
+{
+public:
+    ValueColorMap( int formatType )
     {
-        if ( qIsNaN(value) )
-            return 0u;
+        setFormat( ( QwtColorMap::Format ) formatType );
 
-        const double width = interval.width();
-        if ( width <= 0 )
-            return 0u;
-
-        if ( value <= interval.minValue() )
-            return d_rgbMin;
-
-        if ( value >= interval.maxValue() )
-            return d_rgbMax;
-
-        const double ratio = ( value - interval.minValue() ) / width;
-        int hue = d_hue1 + qRound( ratio * ( d_hue2 - d_hue1 ) );
-
-        if ( hue >= 360 )
-        {
-            hue -= 360;
-
-            if ( hue >= 360 )
-                hue = hue % 360;
-        }
-
-        return d_rgbTable[hue];
+        setHue( 220 );
+        setSaturationInterval( 255, 255 );
+        setValueInterval( 70, 255 );
     }
+};
 
-    virtual unsigned char colorIndex( const QwtInterval &, double ) const
+class SVColorMap: public QwtSaturationValueColorMap
+{
+public:
+    SVColorMap( int formatType )
     {
-        // we don't support indexed colors
-        return 0;
+        setFormat( ( QwtColorMap::Format ) formatType );
+
+        setHue( 220 );
+        setSaturationInterval( 100, 255 );
+        setValueInterval( 70, 255 );
     }
-
-
-private:
-    void updateTable()
-    {
-        for ( int i = 0; i < 360; i++ )
-            d_rgbTable[i] = QColor::fromHsv( i, d_saturation, d_value ).rgb();
-
-        d_rgbMin = d_rgbTable[ d_hue1 % 360 ];
-        d_rgbMax = d_rgbTable[ d_hue2 % 360 ];
-    }
-
-    int d_hue1, d_hue2, d_saturation, d_value; 
-    QRgb d_rgbMin, d_rgbMax, d_rgbTable[360];
 };
 
 class AlphaColorMap: public QwtAlphaColorMap
 {
 public:
-    AlphaColorMap()
+    AlphaColorMap( int formatType )
     {
+        setFormat( ( QwtColorMap::Format ) formatType );
+
         //setColor( QColor("DarkSalmon") );
         setColor( QColor("SteelBlue") );
     }
+};
+
+class Spectrogram: public QwtPlotSpectrogram
+{
+public:
+    int elapsed() const
+    {
+        return d_elapsed;
+    }
+
+    QSize renderedSize() const
+    {
+        return d_renderedSize;
+    }
+
+protected:
+    virtual QImage renderImage(
+        const QwtScaleMap &xMap, const QwtScaleMap &yMap,
+        const QRectF &area, const QSize &imageSize ) const
+    {
+        QElapsedTimer t;
+        t.start();
+
+        QImage image = QwtPlotSpectrogram::renderImage(
+            xMap, yMap, area, imageSize );
+
+        d_elapsed = t.elapsed();
+        d_renderedSize = imageSize;
+
+        return image;
+    }
+
+private:
+    mutable int d_elapsed;
+    mutable QSize d_renderedSize;
 };
 
 Plot::Plot( QWidget *parent ):
     QwtPlot( parent ),
     d_alpha(255)
 {
-    d_spectrogram = new QwtPlotSpectrogram();
+    d_spectrogram = new Spectrogram();
     d_spectrogram->setRenderThreadCount( 0 ); // use system specific thread count
     d_spectrogram->setCachePolicy( QwtPlotRasterItem::PaintCache );
 
@@ -224,6 +248,26 @@ void Plot::showSpectrogram( bool on )
     replot();
 }
 
+void Plot::setColorTableSize( int type )
+{
+    int numColors = 0;
+    switch( type )
+    {
+        case 1:
+            numColors = 256;
+            break;
+        case 2:
+            numColors = 1024;
+            break;
+        case 3:
+            numColors = 16384;
+            break;
+    }
+
+    d_spectrogram->setMaxRGBTableSize( numColors );
+    replot();
+}
+
 void Plot::setColorMap( int type )
 {
     QwtScaleWidget *axis = axisWidget( QwtPlot::yRight );
@@ -231,33 +275,47 @@ void Plot::setColorMap( int type )
 
     d_mapType = type;
 
+    const QwtColorMap::Format format = QwtColorMap::RGB;
+
     int alpha = d_alpha;
     switch( type )
     {
         case Plot::HueMap:
         {
-            d_spectrogram->setColorMap( new HueColorMap() );
-            axis->setColorMap( zInterval, new HueColorMap() );
+            d_spectrogram->setColorMap( new HueColorMap( format ) );
+            axis->setColorMap( zInterval, new HueColorMap( format ) );
+            break;
+        }
+        case Plot::SaturationMap:
+        {
+            d_spectrogram->setColorMap( new SaturationColorMap( format ) );
+            axis->setColorMap( zInterval, new SaturationColorMap( format ) );
+            break;
+        }
+        case Plot::ValueMap:
+        {
+            d_spectrogram->setColorMap( new ValueColorMap( format ) );
+            axis->setColorMap( zInterval, new ValueColorMap( format ) );
+            break;
+        }
+        case Plot::SVMap:
+        {
+            d_spectrogram->setColorMap( new SVColorMap( format ) );
+            axis->setColorMap( zInterval, new SVColorMap( format ) );
             break;
         }
         case Plot::AlphaMap:
         {
             alpha = 255;
-            d_spectrogram->setColorMap( new AlphaColorMap() );
-            axis->setColorMap( zInterval, new AlphaColorMap() );
-            break;
-        }
-        case Plot::IndexMap:
-        {
-            d_spectrogram->setColorMap( new LinearColorMapIndexed() );
-            axis->setColorMap( zInterval, new LinearColorMapIndexed() );
+            d_spectrogram->setColorMap( new AlphaColorMap( format ) );
+            axis->setColorMap( zInterval, new AlphaColorMap( format ) );
             break;
         }
         case Plot::RGBMap:
         default:
         {
-            d_spectrogram->setColorMap( new LinearColorMapRGB() );
-            axis->setColorMap( zInterval, new LinearColorMapRGB() );
+            d_spectrogram->setColorMap( new LinearColorMap( format ) );
+            axis->setColorMap( zInterval, new LinearColorMap( format ) );
         }
     }
     d_spectrogram->setAlpha( alpha );
@@ -275,6 +333,25 @@ void Plot::setAlpha( int alpha )
     {
         d_spectrogram->setAlpha( alpha );
         replot();
+    }
+}
+
+void Plot::drawItems( QPainter *painter, const QRectF &canvasRect,
+        const QwtScaleMap maps[axisCnt] ) const
+{
+    QwtPlot::drawItems( painter, canvasRect, maps );
+
+    if ( d_spectrogram )
+    {
+        Spectrogram* spectrogram = static_cast<Spectrogram*>( d_spectrogram );
+
+        QString info( "%1 x %2 pixels: %3 ms" );
+        info = info.arg( spectrogram->renderedSize().width() );
+        info = info.arg( spectrogram->renderedSize().height() );
+        info = info.arg( spectrogram->elapsed() );
+
+        Plot* plot = const_cast<Plot *>( this );
+        plot->Q_EMIT rendered( info );
     }
 }
 
