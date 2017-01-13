@@ -22,44 +22,79 @@ class QwtSplineParametrization;
 /*!
   \brief Base class for a spline interpolation
 
-  Geometric Continuity
+  Spline interpolation is the process of interpolating a set of points
+  piecewise with polynomials. The initial set of points is preserved.
 
-    G0: curves are joined
-    G1: first derivatives are proportional at the join point
-        The curve tangents thus have the same direction, but not necessarily the 
-        same magnitude. i.e., C1'(1) = (a,b,c) and C2'(0) = (k*a, k*b, k*c).
-    G2: first and second derivatives are proportional at join point 
+  Splines can be classified according to conditions of the polynomials that
+  are met at the start/endpoints of the pieces: 
 
-  Parametric Continuity
+  - Geometric Continuity
 
-    C0: curves are joined
-    C1: first derivatives equal
-    C2: first and second derivatives are equal
+    - G0: polynamials are joined
+    - G1: first derivatives are proportional at the join point
+          The curve tangents thus have the same direction, but not necessarily the 
+          same magnitude. i.e., C1'(1) = (a,b,c) and C2'(0) = (k*a, k*b, k*c).
+    - G2: first and second derivatives are proportional at join point 
+
+  - Parametric Continuity
+
+    - C0: curves are joined
+    - C1: first derivatives equal
+    - C2: first and second derivatives are equal
 
   Geometric continuity requires the geometry to be continuous, while parametric 
   continuity requires that the underlying parameterization be continuous as well.
-
-  Parametric continuity of order n implies geometric continuity of order n, but not vice-versa. 
+  Parametric continuity of order n implies geometric continuity of order n,
+  but not vice-versa. 
 
   QwtSpline is a base class for spline interpolations of any continuity.
 */
 class QWT_EXPORT QwtSpline: public QwtSplineApproximation
 {
 public:
+    /*!
+      position of a boundary condition
+      \sa boundaryCondition(), boundaryValue()
+     */
     enum BoundaryPosition
     {
+        //! the condiation is at the beginning of the polynomial
         AtBeginning,
+
+        //! the condiation is at the end of the polynomial
         AtEnd
     };
 
+    /*!
+      boundary condition type
+
+      \sa boundaryCondition()
+      \sa QwtSplineC2::BoundaryConditionC2
+     */
     enum BoundaryCondition
     {
+        /*!
+          The first derivative is given
+          \sa boundaryValue()
+         */
         Clamped1,
 
-        // Natural := Clamped2 with boundary values: 0.0
+        /*!
+          The second derivative is given
+
+          \sa boundaryValue()
+          \note a condition having a second derivative of 0 
+                is also called "natural".
+         */
         Clamped2,
 
-        // Parabolic runout := Clamped3 with boundary values: 0.0
+        /*!
+          The third derivative is given
+
+          \sa boundaryValue()
+          \note a condition having a third derivative of 0 
+                is also called "parabolic runout".
+         */
         Clamped3,
 
         LinearRunout 
@@ -135,9 +170,12 @@ public:
 class QWT_EXPORT QwtSplineC2: public QwtSplineC1
 {
 public:
-    enum BoundaryConditionc2
+    /*!
+      boundary condition that requires C2 continuity
+      \sa QwtSpline::setBoundaryCondition, QwtSpline::BoundaryCondition
+     */
+    enum BoundaryConditionC2
     {
-        // conditions, that require C2 continuity
         CubicRunout = LinearRunout + 1, 
         NotAKnot
     };

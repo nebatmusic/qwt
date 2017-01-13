@@ -199,7 +199,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_sampling_thread.cpp \
         qwt_series_data.cpp \
         qwt_point_data.cpp \
-        qwt_scale_widget.cpp 
+        qwt_scale_widget.cpp
 
     contains(QWT_CONFIG, QwtOpenGL) {
 
@@ -224,6 +224,7 @@ contains(QWT_CONFIG, QwtPlot) {
 
         HEADERS += \
             qwt_plot_svgitem.h
+
         SOURCES += \
             qwt_plot_svgitem.cpp
     }

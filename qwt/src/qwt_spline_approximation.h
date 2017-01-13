@@ -18,12 +18,11 @@ class QwtSplineParametrization;
 /*!
   \brief Base class for a spline approximation
 
-  A spline approximation offers an algorithm for calculating a spline
-  from a given set of points. The start and endpoints of the spline
-  polynomials do not necessarily match the given points.
-
-  For interpolating spline algorithms ( preserving the points )
-  see QwtSpline.
+  A spline is a curve represented by a sequence of polynomials. Spline approximation
+  is the process of finding polynomials for a given set of points.
+  
+  When the algorithm preserves the initial points it is called interpolating.
+  For interpolating spline algorithms see QwtSpline.
 */
 class QWT_EXPORT QwtSplineApproximation
 {
