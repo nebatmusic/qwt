@@ -97,6 +97,14 @@ public:
          */
         Clamped3,
 
+        /*!
+          The first derivate at the endpoint is related to the first derivative
+          at its neighbour by the boundyry value. F,e when the boundary
+          value at the end is 1.0 then slope at the last 2 points is
+          the same.
+
+          \sa boundaryValue().
+         */
         LinearRunout 
     };
 
@@ -176,7 +184,19 @@ public:
      */
     enum BoundaryConditionC2
     {
+        /*!
+          The second derivate at the endpoint is related to the second derivatives
+          at the 2 neighbours: cv[0] := 2 * cv[1] - cv[2].
+
+          \sa boundaryValue().
+         */
         CubicRunout = LinearRunout + 1, 
+
+        /*!
+          The 3rd derivate at the endpoint matches the 3rd derivate at its neighbours.
+          Or in other words: the first/last curve segment extents the polynomial of its
+          neighboured polynomial
+         */
         NotAKnot
     };
 
