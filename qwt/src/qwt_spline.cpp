@@ -588,13 +588,7 @@ public:
     } boundaryConditions[2];
 };
 
-/*!
-  \brief Constructor
-
-  The default setting is a non closing spline with chordal parametrization
-
-  \sa setParametrization(), setClosing()
- */
+//! \brief Constructor
 QwtSpline::QwtSpline()
 {
     d_data = new PrivateData;
@@ -606,12 +600,26 @@ QwtSpline::~QwtSpline()
     delete d_data;
 }
 
+/*!
+  \brief Define the condition for an endpoint of the spline
+
+  \param position At the beginning or the end of the spline
+  \param condition Condition
+
+  \sa BoundaryCondition, QwtSplineC2::BoundaryCondition, boundaryCondition()
+ */
 void QwtSpline::setBoundaryCondition( BoundaryPosition position, int condition )
 {
     if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
         d_data->boundaryConditions[position].type = condition;
 }
 
+/*!
+  \return Condition for an endpoint of the spline
+  \param position At the beginning or the end of the spline
+
+  \sa setBoundaryCondition(), boundaryValue(), setBoundaryConditions()
+ */
 int QwtSpline::boundaryCondition( BoundaryPosition position ) const
 {
     if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
@@ -620,12 +628,29 @@ int QwtSpline::boundaryCondition( BoundaryPosition position ) const
     return d_data->boundaryConditions[0].type; // should never happen
 }
 
+/*!
+  \brief Define the boundary value
+
+  The boundary value is an parameter used in combination with
+  the boundary condition. Its meaning depends on the condition.
+
+  \param position At the beginning or the end of the spline
+  \param value Value used for the condition at the end point
+
+  \sa boundaryValue(), setBoundaryCondition()
+ */
 void QwtSpline::setBoundaryValue( BoundaryPosition position, double value )
 {
     if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
         d_data->boundaryConditions[position].value = value;
 }
 
+/*!
+  \return Boundary value
+  \param position At the beginning or the end of the spline
+
+  \sa setBoundaryValue(), boundaryCondition()
+ */
 double QwtSpline::boundaryValue( BoundaryPosition position ) const
 {
     if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
@@ -634,6 +659,16 @@ double QwtSpline::boundaryValue( BoundaryPosition position ) const
     return d_data->boundaryConditions[0].value; // should never happen
 }
 
+/*!
+  \brief Define the condition at the endpoints of a spline
+
+  \param condition Condition
+  \param valueBegin Used for the condition at the beginning of te spline
+  \param valueEnd Used for the condition at the end of te spline
+
+  \sa BoundaryCondition, QwtSplineC2::BoundaryCondition, 
+      tsetBoundaryCondition(), setBoundaryValue()
+ */
 void QwtSpline::setBoundaryConditions(
     int condition, double valueBegin, double valueEnd )
 {
@@ -644,7 +679,7 @@ void QwtSpline::setBoundaryConditions(
     setBoundaryValue( QwtSpline::AtEnd, valueEnd );
 }
 
-/*! \fn QVector<QLineF> bezierControlLines( const QPolygonF &points ) const
+/*! \fn QVector<QLineF> QwtSpline::bezierControlLines( const QPolygonF &points ) const
 
   \brief Interpolate a curve with Bezier curves
 
@@ -713,6 +748,22 @@ QPainterPath QwtSpline::painterPath( const QPolygonF &points ) const
     return path;
 }
 
+/*!
+  \brief Interpolate a curve by a polygon
+
+  Interpolates a polygon piecewise with Bezier curves
+  approximating them by polygons.
+
+  The approximation is based on "Piecewise Linear Approximation of Bézier Curves"
+  by Roger Willcocks ( http://www.rops.org )
+
+  \param points Control points
+  \param tolerance Maximum for the accepted error of the approximation
+   
+  \return polygon approximating the interpolating polynomials
+
+  \sa bezierControlLines(), QwtSplineBezier::toPolygon()
+ */
 QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance )
 {
     if ( tolerance <= 0.0 )
@@ -864,6 +915,15 @@ QwtSplineG1::~QwtSplineG1()
 {
 }
 
+/*!
+  \brief Constructor
+
+  The default setting is a non closing spline with no parametrization
+  ( QwtSplineParametrization::ParameterX ).
+
+  \sa QwtSplineApproximation::setParametrization(),
+      QwtSplineApproximation::setBoundaryType()
+ */
 QwtSplineC1::QwtSplineC1()
 {
     setParametrization( QwtSplineParametrization::ParameterX );
@@ -874,6 +934,13 @@ QwtSplineC1::~QwtSplineC1()
 {
 }
 
+/*!
+  \param points Control points
+  \param slopeNext Value of the first derivative at the second point
+
+  \return value of the first derivative at the first point
+  \sa slopeAtEnd(), QwtSpline::boundaryCondition(), QwtSpline::boundaryValue()
+ */
 double QwtSplineC1::slopeAtBeginning( const QPolygonF &points, double slopeNext ) const
 {
     if ( points.size() < 2 )
@@ -885,6 +952,13 @@ double QwtSplineC1::slopeAtBeginning( const QPolygonF &points, double slopeNext 
         points[0], points[1], slopeNext );
 }
 
+/*!
+  \param points Control points
+  \param slopeBefore Value of the first derivative at the point before the last one
+
+  \return value of the first derivative at the last point
+  \sa slopeAtBeginning(), QwtSpline::boundaryCondition(), QwtSpline::boundaryValue()
+ */
 double QwtSplineC1::slopeAtEnd( const QPolygonF &points, double slopeBefore ) const
 {
     const int n = points.size();
@@ -920,8 +994,6 @@ double QwtSplineC1::slopeAtEnd( const QPolygonF &points, double slopeBefore ) co
 
   \note Derived spline classes might overload painterPath() to avoid
         the extra loops for converting results into a QPainterPath
-
-  \sa slopesParametric()
  */
 QPainterPath QwtSplineC1::painterPath( const QPolygonF &points ) const
 {
@@ -1030,6 +1102,21 @@ QVector<QLineF> QwtSplineC1::bezierControlLines( const QPolygonF &points ) const
     return store.controlPoints;
 }
 
+/*!
+  \brief Find an interpolated polygon with "equidistant" points
+
+  The implementation is optimzed for non parametric curves
+  ( QwtSplineParametrization::ParameterX ) and falls back to
+  QwtSpline::equidistantPolygon() otherwise.
+ 
+  \param points Control nodes of the spline
+  \param distance Distance between 2 points according 
+                  to the parametrization
+  \param withNodes When true, also add the control 
+                   nodes ( even if not being equidistant )
+
+  \sa QwtSpline::equidistantPolygon()
+ */
 QPolygonF QwtSplineC1::equidistantPolygon( const QPolygonF &points,
     double distance, bool withNodes ) const
 {
@@ -1046,7 +1133,7 @@ QPolygonF QwtSplineC1::equidistantPolygon( const QPolygonF &points,
         }
     }
 
-    return QwtSplineG1::equidistantPolygon( points, distance, withNodes );
+    return QwtSpline::equidistantPolygon( points, distance, withNodes );
 }
 
 QVector<QwtSplinePolynomial> QwtSplineC1::polynomials(
@@ -1110,6 +1197,21 @@ QVector<QLineF> QwtSplineC2::bezierControlLines( const QPolygonF &points ) const
     return QwtSplineC1::bezierControlLines( points );
 }
 
+/*!
+  \brief Find an interpolated polygon with "equidistant" points
+
+  The implementation is optimzed for non parametric curves
+  ( QwtSplineParametrization::ParameterX ) and falls back to
+  QwtSpline::equidistantPolygon() otherwise.
+ 
+  \param points Control nodes of the spline
+  \param distance Distance between 2 points according 
+                  to the parametrization
+  \param withNodes When true, also add the control 
+                   nodes ( even if not being equidistant )
+
+  \sa QwtSpline::equidistantPolygon()
+ */
 QPolygonF QwtSplineC2::equidistantPolygon( const QPolygonF &points,
     double distance, bool withNodes ) const
 {
@@ -1126,7 +1228,7 @@ QPolygonF QwtSplineC2::equidistantPolygon( const QPolygonF &points,
         }
     }
 
-    return QwtSplineC1::equidistantPolygon( points, distance, withNodes );
+    return QwtSpline::equidistantPolygon( points, distance, withNodes );
 }
 
 QVector<double> QwtSplineC2::slopes( const QPolygonF &points ) const

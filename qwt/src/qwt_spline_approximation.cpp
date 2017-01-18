@@ -44,7 +44,7 @@ public:
 
   The default setting is a non closing spline with chordal parametrization
 
-  \sa setParametrization(), setClosing()
+  \sa setParametrization(), setBoundaryType()
  */
 QwtSplineApproximation::QwtSplineApproximation()
 {

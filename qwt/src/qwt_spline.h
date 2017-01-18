@@ -66,21 +66,26 @@ public:
     };
 
     /*!
-      boundary condition type
+      \brief Boundary condition 
 
-      \sa boundaryCondition()
+      A spline algorithm calculates polynomials by looking 
+      a couple of points back/ahead ( locality() ). At the ends 
+      additional rules are necessary to compensate the missing
+      points.
+
+      \sa boundaryCondition(), boundaryValue()
       \sa QwtSplineC2::BoundaryConditionC2
      */
     enum BoundaryCondition
     {
         /*!
-          The first derivative is given
+          The first derivative at the end point is given
           \sa boundaryValue()
          */
         Clamped1,
 
         /*!
-          The second derivative is given
+          The second derivative at the end point is given
 
           \sa boundaryValue()
           \note a condition having a second derivative of 0 
@@ -89,7 +94,7 @@ public:
         Clamped2,
 
         /*!
-          The third derivative is given
+          The third derivative at the end point is given
 
           \sa boundaryValue()
           \note a condition having a third derivative of 0 
@@ -99,8 +104,8 @@ public:
 
         /*!
           The first derivate at the endpoint is related to the first derivative
-          at its neighbour by the boundyry value. F,e when the boundary
-          value at the end is 1.0 then slope at the last 2 points is
+          at its neighbour by the boundary value. F,e when the boundary
+          value at the end is 1.0 then the slope at the last 2 points is
           the same.
 
           \sa boundaryValue().
@@ -179,16 +184,17 @@ class QWT_EXPORT QwtSplineC2: public QwtSplineC1
 {
 public:
     /*!
-      boundary condition that requires C2 continuity
-      \sa QwtSpline::setBoundaryCondition, QwtSpline::BoundaryCondition
+      Boundary condition that requires C2 continuity
+      
+      \sa QwtSpline::boundaryCondition, QwtSpline::BoundaryCondition
      */
     enum BoundaryConditionC2
     {
         /*!
           The second derivate at the endpoint is related to the second derivatives
-          at the 2 neighbours: cv[0] := 2 * cv[1] - cv[2].
+          at the 2 neighbours: cv[0] := 2.0 * cv[1] - cv[2].
 
-          \sa boundaryValue().
+          \note boundaryValue() is ignored
          */
         CubicRunout = LinearRunout + 1, 
 
@@ -196,6 +202,8 @@ public:
           The 3rd derivate at the endpoint matches the 3rd derivate at its neighbours.
           Or in other words: the first/last curve segment extents the polynomial of its
           neighboured polynomial
+
+          \note boundaryValue() is ignored
          */
         NotAKnot
     };
