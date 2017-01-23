@@ -1136,6 +1136,21 @@ QPolygonF QwtSplineC1::equidistantPolygon( const QPolygonF &points,
     return QwtSpline::equidistantPolygon( points, distance, withNodes );
 }
 
+/*!
+  \brief Calculate the interpolating polynomials for a non parametric spline
+
+  C1 spline interpolations are based on finding values for the first
+  derivates of f at the control points. The interpolating polynomials can
+  be calculated from the the first derivates using QwtSplinePolynomial::fromSlopes.
+
+  The default implementation is a 2 pass calculation. In several derived classes it
+  is overloaded by a one pass implementation.
+
+  \param points Control points
+  \return Interpolating polynomials
+
+  \note The x coordinates need to be increasing or decreasing
+ */
 QVector<QwtSplinePolynomial> QwtSplineC1::polynomials(
     const QPolygonF &points ) const
 {
@@ -1154,6 +1169,15 @@ QVector<QwtSplinePolynomial> QwtSplineC1::polynomials(
     return polynomials;
 }
 
+/*!
+  \brief Constructor
+
+  The default setting is a non closing spline with no parametrization
+  ( QwtSplineParametrization::ParameterX ).
+
+  \sa QwtSplineApproximation::setParametrization(),
+      QwtSplineApproximation::setBoundaryType()
+ */
 QwtSplineC2::QwtSplineC2()
 {
 }
@@ -1231,6 +1255,30 @@ QPolygonF QwtSplineC2::equidistantPolygon( const QPolygonF &points,
     return QwtSpline::equidistantPolygon( points, distance, withNodes );
 }
 
+/*! QVector<double> QwtSplineC2::slopes( const QPolygonF &points ) const
+
+  \brief Find the second derivative at the control points
+
+  \param points Control nodes of the spline
+  \return Vector with the values of the 2nd derivate at the control points
+
+  \sa slopes()
+  \note The x coordinates need to be increasing or decreasing
+ */
+
+/*!
+  \brief Find the first derivative at the control points
+
+  A 2 pass implementation calculating the 2nd derivatives first. Derived
+  classes might overload a more performant calculation in 1 pass.
+
+  \param points Control nodes of the spline
+  \return Vector with the values of the 1nd derivate at the control points
+
+  \sa curvatures()
+
+  \note The x coordinates need to be increasing or decreasing
+ */
 QVector<double> QwtSplineC2::slopes( const QPolygonF &points ) const
 {
     const QVector<double> curvatures = this->curvatures( points );
@@ -1258,6 +1306,21 @@ QVector<double> QwtSplineC2::slopes( const QPolygonF &points ) const
     return slopes;
 }
 
+/*!
+  \brief Calculate the interpolating polynomials for a non parametric spline
+
+  C2 spline interpolations are based on finding values for the second
+  derivates of f at the control points. The interpolating polynomials can
+  be calculated from the the second derivates using QwtSplinePolynomial::fromCurvatures.
+
+  The default implementation is a 2 pass calculation. In derived classes it
+  might be overloaded by a one pass implementation.
+
+  \param points Control points
+  \return Interpolating polynomials
+
+  \note The x coordinates need to be increasing or decreasing
+ */
 QVector<QwtSplinePolynomial> QwtSplineC2::polynomials( const QPolygonF &points ) const
 {
     QVector<QwtSplinePolynomial> polynomials;

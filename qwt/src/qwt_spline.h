@@ -154,6 +154,14 @@ public:
 /*!
   \brief Base class for spline interpolations providing a 
          first order parametric continuity ( C1 ) between adjoing curves
+
+  All interpolations with C1 continuity are based on rules for finding
+  the 1. derivate at some control points.
+
+  In case of non parametric splines those points are the curve points, while
+  for parametric splines the calculation is done twice using a parameter value t.
+
+  \sa QwtSplineParametrization
  */
 class QWT_EXPORT QwtSplineC1: public QwtSplineG1
 {
@@ -167,11 +175,10 @@ public:
     virtual QPolygonF equidistantPolygon( const QPolygonF &,
         double distance, bool withNodes ) const;
 
-    // calculating the parametric equations
+    // these methods are the non parametric part
     virtual QVector<QwtSplinePolynomial> polynomials( const QPolygonF & ) const;
     virtual QVector<double> slopes( const QPolygonF & ) const = 0;
 
-    // resolving the boundary conditions
     virtual double slopeAtBeginning( const QPolygonF &, double slopeNext ) const;
     virtual double slopeAtEnd( const QPolygonF &, double slopeBefore ) const;
 };
@@ -179,6 +186,14 @@ public:
 /*!
   \brief Base class for spline interpolations providing a 
          second order parametric continuity ( C2 ) between adjoing curves
+
+  All interpolations with C2 continuity are based on rules for finding
+  the 2. derivate at some control points.
+
+  In case of non parametric splines those points are the curve points, while
+  for parametric splines the calculation is done twice using a parameter value t.
+
+  \sa QwtSplineParametrization
  */
 class QWT_EXPORT QwtSplineC2: public QwtSplineC1
 {
