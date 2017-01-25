@@ -980,6 +980,16 @@ double QwtSplineC1::slopeAtEnd( const QPolygonF &points, double slopeBefore ) co
     return -slope;
 }
 
+/*! \fn QVector<double> QwtSplineC1::slopes( const QPolygonF &points ) const
+
+  \brief Find the first derivative at the control points
+
+  \param points Control nodes of the spline
+  \return Vector with the values of the 2nd derivate at the control points
+
+  \note The x coordinates need to be increasing or decreasing
+ */
+
 /*!
   \brief Calculate an interpolated painter path
 
@@ -1195,10 +1205,13 @@ QwtSplineC2::~QwtSplineC2()
 
   \param points Control points
   \return Painter path, that can be rendered by QPainter
+
+  \note The implementation simply calls QwtSplineC1::painterPath(), but is 
+        intended to be replaced by a one pass calculation some day.
  */
 QPainterPath QwtSplineC2::painterPath( const QPolygonF &points ) const
 {
-    // could be implemented from curvaturesX without the extra
+    // could be implemented from curvatures without the extra
     // loop for calculating the slopes vector. TODO ...
 
     return QwtSplineC1::painterPath( points );
@@ -1212,10 +1225,14 @@ QPainterPath QwtSplineC2::painterPath( const QPolygonF &points ) const
 
   \param points Control points
   \return Control points of the interpolating Bezier curves
+
+  \note The implementation simply calls QwtSplineC1::bezierControlLines(),
+        but is intended to be replaced by a more efficient implementation
+        that builds the polynomials by the curvatures some day.
  */
 QVector<QLineF> QwtSplineC2::bezierControlLines( const QPolygonF &points ) const
 {
-    // could be implemented from curvaturesX without the extra
+    // could be implemented from curvatures without the extra
     // loop for calculating the slopes vector. TODO ...
 
     return QwtSplineC1::bezierControlLines( points );
@@ -1255,7 +1272,7 @@ QPolygonF QwtSplineC2::equidistantPolygon( const QPolygonF &points,
     return QwtSpline::equidistantPolygon( points, distance, withNodes );
 }
 
-/*! QVector<double> QwtSplineC2::slopes( const QPolygonF &points ) const
+/*! \fn QVector<double> QwtSplineC2::curvatures( const QPolygonF &points ) const
 
   \brief Find the second derivative at the control points
 
@@ -1269,8 +1286,9 @@ QPolygonF QwtSplineC2::equidistantPolygon( const QPolygonF &points,
 /*!
   \brief Find the first derivative at the control points
 
-  A 2 pass implementation calculating the 2nd derivatives first. Derived
-  classes might overload a more performant calculation in 1 pass.
+  An implementation calculating the 2nd derivatives and then building
+  the slopes in a 2nd loop. QwtSplineCubic overloads it with a more
+  performant implementation doing it in one loop.
 
   \param points Control nodes of the spline
   \return Vector with the values of the 1nd derivate at the control points
