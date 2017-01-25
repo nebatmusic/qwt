@@ -439,6 +439,12 @@ static inline SplineStore qwtSplineLocal(
     return store;
 }
 
+/*!
+  \brief Constructor
+
+  \param type Spline type, specifying the type of interpolation
+  \sa type()
+ */
 QwtSplineLocal::QwtSplineLocal( Type type ):
     d_type( type )
 {
@@ -449,10 +455,14 @@ QwtSplineLocal::QwtSplineLocal( Type type ):
     setBoundaryValue( QwtSpline::AtEnd, 0.0 );
 }
 
+//! \Destructor
 QwtSplineLocal::~QwtSplineLocal()
 {
 }
 
+/*!
+  \return Spline type, specifying the type of interpolation
+ */
 QwtSplineLocal::Type QwtSplineLocal::type() const
 {
     return d_type;
@@ -498,18 +508,45 @@ QVector<QLineF> QwtSplineLocal::bezierControlLines( const QPolygonF &points ) co
     return QwtSplineC1::bezierControlLines( points );
 }
 
+/*! 
+  \brief Find the first derivative at the control points
+
+  \param points Control nodes of the spline
+  \return Vector with the values of the 2nd derivate at the control points
+
+  \note The x coordinates need to be increasing or decreasing
+ */
 QVector<double> QwtSplineLocal::slopes( const QPolygonF &points ) const
 {
     using namespace QwtSplineLocalP;
     return qwtSplineLocal<SlopeStore>( this, points ).slopes;
 }
 
+/*!
+  \brief Calculate the interpolating polynomials for a non parametric spline
+
+  \param points Control points
+  \return Interpolating polynomials
+
+  \note The x coordinates need to be increasing or decreasing
+  \note The implementation simply calls QwtSplineC1::polynomials(), but is 
+        intended to be replaced by a one pass calculation some day.
+ */
 QVector<QwtSplinePolynomial> QwtSplineLocal::polynomials( const QPolygonF &points ) const
 {
     // Polynomial store -> TODO
     return QwtSplineC1::polynomials( points );
 }
 
+/*!
+  The locality of an spline interpolation identifies how many adjacent
+  polynoms are affected, when changing the position of one point.
+
+  The Cardinal, ParabolicBlending and PChip algorithms have a locality of 1,
+  while the Akima interpolation has a locality of 2.
+
+  \return 1 or 2.
+ */
 uint QwtSplineLocal::locality() const
 {
     switch ( d_type )

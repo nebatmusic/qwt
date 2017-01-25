@@ -1150,11 +1150,11 @@ QPolygonF QwtSplineC1::equidistantPolygon( const QPolygonF &points,
   \brief Calculate the interpolating polynomials for a non parametric spline
 
   C1 spline interpolations are based on finding values for the first
-  derivates of f at the control points. The interpolating polynomials can
-  be calculated from the the first derivates using QwtSplinePolynomial::fromSlopes.
+  derivates at the control points. The interpolating polynomials can
+  be calculated from the the first derivates using QwtSplinePolynomial::fromSlopes().
 
-  The default implementation is a 2 pass calculation. In several derived classes it
-  is overloaded by a one pass implementation.
+  The default implementation is a two pass calculation. In derived classes it
+  might be overloaded by a one pass implementation.
 
   \param points Control points
   \return Interpolating polynomials
