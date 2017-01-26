@@ -11,7 +11,7 @@
 #define QWT_SPLINE_BASIS_H 1
 
 #include "qwt_global.h"
-#include "qwt_spline_approximation.h"
+#include "qwt_spline.h"
 
 /*!
   \brief An approximation using a basis spline

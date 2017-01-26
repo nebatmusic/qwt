@@ -62,13 +62,13 @@ CLASSHEADERS = \
     QwtScaleEngine \
     QwtScaleMap \
     QwtSimpleCompassRose \
-    QwtSplineApproximation \
     QwtSplineBasis \
     QwtSpline \
     QwtSplineC1 \
     QwtSplineC2 \
     QwtSplineCubic \
     QwtSplineG1 \
+    QwtSplineInterpolating \
     QwtSplineLocal \
     QwtSplineParameter \
     QwtSplinePleasing \
