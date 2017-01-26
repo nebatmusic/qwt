@@ -258,8 +258,7 @@ static SplineStore qwtSplinePathPleasing( const QPolygonF &points,
   The default setting is a non closing spline with uniform parametrization.
   ( QwtSplineParametrization::ParameterUniform ).
 
-  \sa QwtSplineApproximation::setParametrization(),
-      QwtSplineApproximation::setBoundaryType()
+  \sa QwtSpline::setParametrization(), QwtSpline::setBoundaryType()
  */
 QwtSplinePleasing::QwtSplinePleasing()
 {
@@ -292,7 +291,7 @@ QPainterPath QwtSplinePleasing::painterPath( const QPolygonF &points ) const
     if ( size <= 2 )
         return QwtSplineG1::painterPath( points );
 
-    const bool isClosing = ( boundaryType() == QwtSplineApproximation::ClosedPolygon );
+    const bool isClosing = ( boundaryType() == QwtSpline::ClosedPolygon );
 
     using namespace QwtSplinePleasingP;
 
@@ -330,7 +329,7 @@ QVector<QLineF> QwtSplinePleasing::bezierControlLines(
     if ( size <= 2 )
         return QVector<QLineF>();
 
-    const bool isClosing = ( boundaryType() == QwtSplineApproximation::ClosedPolygon );
+    const bool isClosing = ( boundaryType() == QwtSpline::ClosedPolygon );
 
     using namespace QwtSplinePleasingP;
 

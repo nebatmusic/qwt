@@ -21,7 +21,7 @@
 
   The end points of the spline do not match the original points.
  */
-class QWT_EXPORT QwtSplineBasis: public QwtSplineApproximation
+class QWT_EXPORT QwtSplineBasis: public QwtSpline
 {
 public:
     QwtSplineBasis();

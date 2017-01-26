@@ -968,10 +968,10 @@ QwtSplineCubic::QwtSplineCubic()
 
     // a natural spline
 
-    setBoundaryCondition( QwtSpline::AtBeginning, QwtSplineC1::Clamped2 );
+    setBoundaryCondition( QwtSpline::AtBeginning, QwtSpline::Clamped2 );
     setBoundaryValue( QwtSpline::AtBeginning, 0.0 );
 
-    setBoundaryCondition( QwtSpline::AtEnd, QwtSplineC1::Clamped2 );
+    setBoundaryCondition( QwtSpline::AtEnd, QwtSpline::Clamped2 );
     setBoundaryValue( QwtSpline::AtEnd, 0.0 );
 }
 
@@ -1011,8 +1011,8 @@ QVector<double> QwtSplineCubic::slopes( const QPolygonF &points ) const
     if ( points.size() <= 2 )
         return QVector<double>();
 
-    if ( ( boundaryType() == QwtSplineApproximation::PeriodicPolygon )
-        || ( boundaryType() == QwtSplineApproximation::ClosedPolygon ) )
+    if ( ( boundaryType() == QwtSpline::PeriodicPolygon )
+        || ( boundaryType() == QwtSpline::ClosedPolygon ) )
     {
         EquationSystem2<SlopeStore> eqs;
         eqs.resolve( points );
@@ -1083,8 +1083,8 @@ QVector<double> QwtSplineCubic::curvatures( const QPolygonF &points ) const
     if ( points.size() <= 2 )
         return QVector<double>();
 
-    if ( ( boundaryType() == QwtSplineApproximation::PeriodicPolygon )
-        || ( boundaryType() == QwtSplineApproximation::ClosedPolygon ) )
+    if ( ( boundaryType() == QwtSpline::PeriodicPolygon )
+        || ( boundaryType() == QwtSpline::ClosedPolygon ) )
     {
         EquationSystem2<CurvatureStore> eqs;
         eqs.resolve( points );
@@ -1094,8 +1094,8 @@ QVector<double> QwtSplineCubic::curvatures( const QPolygonF &points ) const
 
     if ( points.size() == 3 )
     {
-        if ( boundaryCondition( QwtSpline::AtBeginning ) == QwtSplineCubic::NotAKnot 
-            || boundaryCondition( QwtSpline::AtEnd ) == QwtSplineCubic::NotAKnot )
+        if ( boundaryCondition( QwtSpline::AtBeginning ) == QwtSplineC2::NotAKnot 
+            || boundaryCondition( QwtSpline::AtEnd ) == QwtSplineC2::NotAKnot )
         {
             return QVector<double>();
         }

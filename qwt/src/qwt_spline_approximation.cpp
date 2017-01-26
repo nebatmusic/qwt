@@ -10,14 +10,22 @@
 #include "qwt_spline_approximation.h"
 #include "qwt_spline_parametrization.h"
 
-class QwtSplineApproximation::PrivateData
+class QwtSpline::PrivateData
 {
 public:
     PrivateData():
-        boundaryType( QwtSplineApproximation::ConditionalBoundaries )
+        boundaryType( QwtSpline::ConditionalBoundaries )
     {
         parametrization = new QwtSplineParametrization( 
             QwtSplineParametrization::ParameterChordal );
+
+        // parabolic runout at both ends
+        
+        boundaryConditions[0].type = QwtSpline::Clamped3;
+        boundaryConditions[0].value = 0.0;
+        
+        boundaryConditions[1].type = QwtSpline::Clamped3;
+        boundaryConditions[1].value = 0.0;
     }
 
     ~PrivateData()
@@ -26,11 +34,18 @@ public:
     }
 
     QwtSplineParametrization *parametrization;
-    QwtSplineApproximation::BoundaryType boundaryType;
+    QwtSpline::BoundaryType boundaryType;
+
+    struct
+    {   
+        int type;
+        double value;
+    
+    } boundaryConditions[2];
 };
 
 /*!
-  \fn QPainterPath QwtSplineApproximation::painterPath( const QPolygonF &points ) const
+  \fn QPainterPath QwtSpline::painterPath( const QPolygonF &points ) const
 
   Approximates a polygon piecewise with cubic Bezier curves
   and returns them as QPainterPath.
@@ -46,13 +61,13 @@ public:
 
   \sa setParametrization(), setBoundaryType()
  */
-QwtSplineApproximation::QwtSplineApproximation()
+QwtSpline::QwtSpline()
 {
     d_data = new PrivateData;
 }
 
 //! Destructor
-QwtSplineApproximation::~QwtSplineApproximation()
+QwtSpline::~QwtSpline()
 {
     delete d_data;
 }
@@ -70,7 +85,7 @@ QwtSplineApproximation::~QwtSplineApproximation()
 
   \return Order of locality
  */
-uint QwtSplineApproximation::locality() const
+uint QwtSpline::locality() const
 {
     return 0;
 }
@@ -82,7 +97,7 @@ uint QwtSplineApproximation::locality() const
   \param type Type of parametrization, ususally one of QwtSplineParametrization::Type
   \sa parametrization()
  */
-void QwtSplineApproximation::setParametrization( int type )
+void QwtSpline::setParametrization( int type )
 {
     if ( d_data->parametrization->type() != type )
     {
@@ -98,7 +113,7 @@ void QwtSplineApproximation::setParametrization( int type )
   \param parametrization Parametrization
   \sa parametrization()
  */
-void QwtSplineApproximation::setParametrization( QwtSplineParametrization *parametrization )
+void QwtSpline::setParametrization( QwtSplineParametrization *parametrization )
 {
     if ( ( parametrization != NULL ) && ( d_data->parametrization != parametrization ) )
     {
@@ -111,7 +126,7 @@ void QwtSplineApproximation::setParametrization( QwtSplineParametrization *param
   \return parametrization
   \sa setParametrization()
  */
-const QwtSplineParametrization *QwtSplineApproximation::parametrization() const
+const QwtSplineParametrization *QwtSpline::parametrization() const
 {
     return d_data->parametrization;
 }
@@ -123,7 +138,7 @@ const QwtSplineParametrization *QwtSplineApproximation::parametrization() const
   \param boundaryType Boundary type
   \sa boundaryType()
  */
-void QwtSplineApproximation::setBoundaryType( BoundaryType boundaryType )
+void QwtSpline::setBoundaryType( BoundaryType boundaryType )
 {
     d_data->boundaryType = boundaryType;
 }
@@ -132,7 +147,87 @@ void QwtSplineApproximation::setBoundaryType( BoundaryType boundaryType )
   \return Boundary type
   \sa setBoundaryType()
  */
-QwtSplineApproximation::BoundaryType QwtSplineApproximation::boundaryType() const
+QwtSpline::BoundaryType QwtSpline::boundaryType() const
 {
     return d_data->boundaryType;
 }
+
+/*!
+  \brief Define the condition for an endpoint of the spline
+
+  \param position At the beginning or the end of the spline
+  \param condition Condition
+    
+  \sa BoundaryCondition, QwtSplineC2::BoundaryCondition, boundaryCondition()
+ */
+void QwtSpline::setBoundaryCondition( BoundaryPosition position, int condition )
+{
+    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
+        d_data->boundaryConditions[position].type = condition;
+}
+
+/*!
+  \return Condition for an endpoint of the spline
+  \param position At the beginning or the end of the spline
+
+  \sa setBoundaryCondition(), boundaryValue(), setBoundaryConditions()
+ */
+int QwtSpline::boundaryCondition( BoundaryPosition position ) const
+{
+    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
+        return d_data->boundaryConditions[position].type;
+        
+    return d_data->boundaryConditions[0].type; // should never happen
+}   
+
+/*!
+  \brief Define the boundary value
+
+  The boundary value is an parameter used in combination with
+  the boundary condition. Its meaning depends on the condition.
+
+  \param position At the beginning or the end of the spline
+  \param value Value used for the condition at the end point
+
+  \sa boundaryValue(), setBoundaryCondition()
+ */
+void QwtSpline::setBoundaryValue( BoundaryPosition position, double value )
+{
+    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
+        d_data->boundaryConditions[position].value = value;
+}       
+
+/*!
+  \return Boundary value
+  \param position At the beginning or the end of the spline
+
+  \sa setBoundaryValue(), boundaryCondition()
+ */
+double QwtSpline::boundaryValue( BoundaryPosition position ) const
+{
+    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
+        return d_data->boundaryConditions[position].value;
+        
+    return d_data->boundaryConditions[0].value; // should never happen
+}   
+
+/*!
+  \brief Define the condition at the endpoints of a spline
+
+  \param condition Condition
+  \param valueBegin Used for the condition at the beginning of te spline
+  \param valueEnd Used for the condition at the end of te spline
+
+  \sa BoundaryCondition, QwtSplineC2::BoundaryCondition, 
+      tsetBoundaryCondition(), setBoundaryValue()
+ */
+void QwtSpline::setBoundaryConditions(
+    int condition, double valueBegin, double valueEnd )
+{   
+    setBoundaryCondition( QwtSpline::AtBeginning, condition );
+    setBoundaryValue( QwtSpline::AtBeginning, valueBegin ); 
+    
+    setBoundaryCondition( QwtSpline::AtEnd, condition );
+    setBoundaryValue( QwtSpline::AtEnd, valueEnd );
+}   
+

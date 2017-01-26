@@ -212,7 +212,7 @@ private:
     }
 
     Mode d_mode;
-    QwtSplineApproximation *d_spline;
+    QwtSpline *d_spline;
 };
 
 class Curve: public QwtPlotCurve

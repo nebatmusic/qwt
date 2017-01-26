@@ -16,15 +16,37 @@
 class QwtSplineParametrization;
 
 /*!
-  \brief Base class for a spline approximation
+  \brief Base class for all splines 
 
   A spline is a curve represented by a sequence of polynomials. Spline approximation
   is the process of finding polynomials for a given set of points.
-  
   When the algorithm preserves the initial points it is called interpolating.
-  For interpolating spline algorithms see QwtSpline.
+
+  Splines can be classified according to conditions of the polynomials that
+  are met at the start/endpoints of the pieces: 
+
+  - Geometric Continuity
+
+    - G0: polynamials are joined
+    - G1: first derivatives are proportional at the join point
+          The curve tangents thus have the same direction, but not necessarily the 
+          same magnitude. i.e., C1'(1) = (a,b,c) and C2'(0) = (k*a, k*b, k*c).
+    - G2: first and second derivatives are proportional at join point 
+
+  - Parametric Continuity
+
+    - C0: curves are joined
+    - C1: first derivatives equal
+    - C2: first and second derivatives are equal
+
+  Geometric continuity requires the geometry to be continuous, while parametric 
+  continuity requires that the underlying parameterization be continuous as well.
+  Parametric continuity of order n implies geometric continuity of order n,
+  but not vice-versa. 
+
+  QwtSpline is the base class for spline approximations of any continuity.
 */
-class QWT_EXPORT QwtSplineApproximation
+class QWT_EXPORT QwtSpline
 {
 public:
     /*!
@@ -62,8 +84,69 @@ public:
         ClosedPolygon
     };
 
-    QwtSplineApproximation();
-    virtual ~QwtSplineApproximation();
+    /*!
+      position of a boundary condition
+      \sa boundaryCondition(), boundaryValue()
+     */
+    enum BoundaryPosition
+    {
+        //! the condiation is at the beginning of the polynomial
+        AtBeginning,
+
+        //! the condiation is at the end of the polynomial
+        AtEnd
+    };
+
+    /*!
+      \brief Boundary condition 
+
+      A spline algorithm calculates polynomials by looking 
+      a couple of points back/ahead ( locality() ). At the ends 
+      additional rules are necessary to compensate the missing
+      points.
+
+      \sa boundaryCondition(), boundaryValue()
+      \sa QwtSplineC2::BoundaryConditionC2
+     */
+    enum BoundaryCondition
+    {
+        /*!
+          The first derivative at the end point is given
+          \sa boundaryValue()
+         */
+        Clamped1,
+        
+        /*!
+          The second derivative at the end point is given
+
+          \sa boundaryValue()
+          \note a condition having a second derivative of 0 
+                is also called "natural".
+         */
+        Clamped2,
+        
+        /*!
+          The third derivative at the end point is given
+
+          \sa boundaryValue()
+          \note a condition having a third derivative of 0 
+                is also called "parabolic runout".
+         */
+        Clamped3,
+
+        /*!
+          The first derivate at the endpoint is related to the first derivative
+          at its neighbour by the boundary value. F,e when the boundary
+          value at the end is 1.0 then the slope at the last 2 points is
+          the same.
+
+          \sa boundaryValue().
+         */
+        LinearRunout
+    };  
+
+    QwtSpline();
+    virtual ~QwtSpline();
 
     void setParametrization( int type );
     void setParametrization( QwtSplineParametrization * );
@@ -72,11 +155,20 @@ public:
     void setBoundaryType( BoundaryType );
     BoundaryType boundaryType() const;
 
+    void setBoundaryValue( BoundaryPosition, double value );
+    double boundaryValue( BoundaryPosition ) const; 
+    
+    void setBoundaryCondition( BoundaryPosition, int condition );
+    int boundaryCondition( BoundaryPosition ) const;
+
+    void setBoundaryConditions( int condition,
+        double valueBegin = 0.0, double valueEnd = 0.0 );
+
     virtual QPainterPath painterPath( const QPolygonF & ) const = 0;
     virtual uint locality() const;
 
 private:
-    Q_DISABLE_COPY(QwtSplineApproximation)
+    Q_DISABLE_COPY(QwtSpline)
 
     class PrivateData;
     PrivateData *d_data;

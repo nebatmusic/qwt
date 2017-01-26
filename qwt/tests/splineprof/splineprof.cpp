@@ -4,7 +4,7 @@
 #include <qwt_spline_parametrization.h>
 #include <QElapsedTimer>
 
-void testSpline( const char *name, QwtSpline *spline, 
+void testSpline( const char *name, QwtSplineInterpolating *spline, 
 	int type, const QPolygonF &points )
 {
 	spline->setParametrization( type );

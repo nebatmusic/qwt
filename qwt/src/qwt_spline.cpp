@@ -390,7 +390,7 @@ template< class SplineStore, class Param >
 static inline SplineStore qwtSplineC1PathParametric( 
     const QwtSplineC1 *spline, const QPolygonF &points, Param param )
 {
-    const bool isClosing = ( spline->boundaryType() == QwtSplineApproximation::ClosedPolygon );
+    const bool isClosing = ( spline->boundaryType() == QwtSpline::ClosedPolygon );
     const int n = points.size();
 
     QPolygonF pointsX, pointsY;
@@ -566,117 +566,14 @@ static QPolygonF qwtPolygonParametric( double distance,
     return fittedPoints;
 }
 
-class QwtSpline::PrivateData
-{
-public:
-    PrivateData()
-    {
-        // parabolic runout at both ends
-
-        boundaryConditions[0].type = QwtSpline::Clamped3;
-        boundaryConditions[0].value = 0.0;
-
-        boundaryConditions[1].type = QwtSpline::Clamped3;
-        boundaryConditions[1].value = 0.0;
-    }
-
-    struct
-    {
-        int type;
-        double value;
-
-    } boundaryConditions[2];
-};
-
 //! \brief Constructor
-QwtSpline::QwtSpline()
+QwtSplineInterpolating::QwtSplineInterpolating()
 {
-    d_data = new PrivateData;
 }
 
 //! Destructor
-QwtSpline::~QwtSpline()
+QwtSplineInterpolating::~QwtSplineInterpolating()
 {
-    delete d_data;
-}
-
-/*!
-  \brief Define the condition for an endpoint of the spline
-
-  \param position At the beginning or the end of the spline
-  \param condition Condition
-
-  \sa BoundaryCondition, QwtSplineC2::BoundaryCondition, boundaryCondition()
- */
-void QwtSpline::setBoundaryCondition( BoundaryPosition position, int condition )
-{
-    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
-        d_data->boundaryConditions[position].type = condition;
-}
-
-/*!
-  \return Condition for an endpoint of the spline
-  \param position At the beginning or the end of the spline
-
-  \sa setBoundaryCondition(), boundaryValue(), setBoundaryConditions()
- */
-int QwtSpline::boundaryCondition( BoundaryPosition position ) const
-{
-    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
-        return d_data->boundaryConditions[position].type;
-
-    return d_data->boundaryConditions[0].type; // should never happen
-}
-
-/*!
-  \brief Define the boundary value
-
-  The boundary value is an parameter used in combination with
-  the boundary condition. Its meaning depends on the condition.
-
-  \param position At the beginning or the end of the spline
-  \param value Value used for the condition at the end point
-
-  \sa boundaryValue(), setBoundaryCondition()
- */
-void QwtSpline::setBoundaryValue( BoundaryPosition position, double value )
-{
-    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
-        d_data->boundaryConditions[position].value = value;
-}
-
-/*!
-  \return Boundary value
-  \param position At the beginning or the end of the spline
-
-  \sa setBoundaryValue(), boundaryCondition()
- */
-double QwtSpline::boundaryValue( BoundaryPosition position ) const
-{
-    if ( ( position == QwtSpline::AtBeginning ) || ( position == QwtSpline::AtEnd ) )
-        return d_data->boundaryConditions[position].value;
-
-    return d_data->boundaryConditions[0].value; // should never happen
-}
-
-/*!
-  \brief Define the condition at the endpoints of a spline
-
-  \param condition Condition
-  \param valueBegin Used for the condition at the beginning of te spline
-  \param valueEnd Used for the condition at the end of te spline
-
-  \sa BoundaryCondition, QwtSplineC2::BoundaryCondition, 
-      tsetBoundaryCondition(), setBoundaryValue()
- */
-void QwtSpline::setBoundaryConditions(
-    int condition, double valueBegin, double valueEnd )
-{
-    setBoundaryCondition( QwtSpline::AtBeginning, condition );
-    setBoundaryValue( QwtSpline::AtBeginning, valueBegin );
-
-    setBoundaryCondition( QwtSpline::AtEnd, condition );
-    setBoundaryValue( QwtSpline::AtEnd, valueEnd );
 }
 
 /*! \fn QVector<QLineF> QwtSpline::bezierControlLines( const QPolygonF &points ) const
@@ -707,7 +604,7 @@ void QwtSpline::setBoundaryConditions(
 
   \sa bezierControlLines()
  */
-QPainterPath QwtSpline::painterPath( const QPolygonF &points ) const
+QPainterPath QwtSplineInterpolating::painterPath( const QPolygonF &points ) const
 {
     const int n = points.size();
 
@@ -738,7 +635,7 @@ QPainterPath QwtSpline::painterPath( const QPolygonF &points ) const
     for ( int i = 0; i < n - 1; i++ )
         path.cubicTo( l[i].p1(), l[i].p2(), p[i+1] );
 
-    if ( ( boundaryType() == QwtSplineApproximation::ClosedPolygon )
+    if ( ( boundaryType() == QwtSpline::ClosedPolygon )
         && ( controlLines.size() >= n ) )
     {
         path.cubicTo( l[n-1].p1(), l[n-1].p2(), p[0] );
@@ -764,7 +661,7 @@ QPainterPath QwtSpline::painterPath( const QPolygonF &points ) const
 
   \sa bezierControlLines(), QwtSplineBezier::toPolygon()
  */
-QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance )
+QPolygonF QwtSplineInterpolating::polygon( const QPolygonF &points, double tolerance )
 {
     if ( tolerance <= 0.0 )
         return QPolygonF();
@@ -773,7 +670,7 @@ QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance )
     if ( controlLines.isEmpty() )
         return QPolygonF();
 
-    const bool isClosed = boundaryType() == QwtSplineApproximation::ClosedPolygon;
+    const bool isClosed = boundaryType() == QwtSpline::ClosedPolygon;
 
     // we can make checking the tolerance criterion check in the subdivison loop
     // cheaper, by translating it into some flatness value.
@@ -825,7 +722,7 @@ QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance )
 
   \sa bezierControlLines()
  */
-QPolygonF QwtSpline::equidistantPolygon( const QPolygonF &points, 
+QPolygonF QwtSplineInterpolating::equidistantPolygon( const QPolygonF &points, 
     double distance, bool withNodes ) const
 {
     if ( distance <= 0.0 )
@@ -883,7 +780,7 @@ QPolygonF QwtSpline::equidistantPolygon( const QPolygonF &points,
         }
     }
 
-    if ( ( boundaryType() == QwtSplineApproximation::ClosedPolygon )
+    if ( ( boundaryType() == QwtSpline::ClosedPolygon )
         && ( controlLines.size() >= n ) )
     {
         const double l = param->valueIncrement( p[n-1], p[0] );
@@ -921,8 +818,8 @@ QwtSplineG1::~QwtSplineG1()
   The default setting is a non closing spline with no parametrization
   ( QwtSplineParametrization::ParameterX ).
 
-  \sa QwtSplineApproximation::setParametrization(),
-      QwtSplineApproximation::setBoundaryType()
+  \sa QwtSpline::setParametrization(),
+      QwtSpline::setBoundaryType()
  */
 QwtSplineC1::QwtSplineC1()
 {
@@ -1009,7 +906,7 @@ QPainterPath QwtSplineC1::painterPath( const QPolygonF &points ) const
 {
     const int n = points.size();
     if ( n <= 2 )
-        return QwtSpline::painterPath( points );
+        return QwtSplineInterpolating::painterPath( points );
 
     using namespace QwtSplineC1P;
 
@@ -1143,7 +1040,7 @@ QPolygonF QwtSplineC1::equidistantPolygon( const QPolygonF &points,
         }
     }
 
-    return QwtSpline::equidistantPolygon( points, distance, withNodes );
+    return QwtSplineInterpolating::equidistantPolygon( points, distance, withNodes );
 }
 
 /*!
@@ -1185,8 +1082,7 @@ QVector<QwtSplinePolynomial> QwtSplineC1::polynomials(
   The default setting is a non closing spline with no parametrization
   ( QwtSplineParametrization::ParameterX ).
 
-  \sa QwtSplineApproximation::setParametrization(),
-      QwtSplineApproximation::setBoundaryType()
+  \sa QwtSpline::setParametrization(), QwtSpline::setBoundaryType()
  */
 QwtSplineC2::QwtSplineC2()
 {
@@ -1269,7 +1165,7 @@ QPolygonF QwtSplineC2::equidistantPolygon( const QPolygonF &points,
         }
     }
 
-    return QwtSpline::equidistantPolygon( points, distance, withNodes );
+    return QwtSplineInterpolating::equidistantPolygon( points, distance, withNodes );
 }
 
 /*! \fn QVector<double> QwtSplineC2::curvatures( const QPolygonF &points ) const
