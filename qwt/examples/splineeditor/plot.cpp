@@ -178,13 +178,7 @@ public:
 
     virtual QPolygonF fitCurve( const QPolygonF &points ) const
     {
-        QPainterPath path = fitCurvePath( points );
-
-        const QList<QPolygonF> subPaths = path.toSubpathPolygons();
-        if ( subPaths.size() == 1 )
-            subPaths.first();
-
-        return QPolygonF();
+        return d_spline->polygon( points, 0.5 );
     }
 
     virtual QPainterPath fitCurvePath( const QPolygonF &points ) const

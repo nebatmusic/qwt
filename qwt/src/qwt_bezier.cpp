@@ -33,6 +33,15 @@ namespace
         {
         }
 
+        static inline double minFlatness( double tolerance )
+        {
+            // we can make simplify the tolerance criterion check in
+            // the subdivison loop cheaper, by precalculating some
+            // flatness value.
+
+            return 16 * ( tolerance * tolerance );
+        }
+
         inline double flatness() const
         {
             // algo by Roger Willcocks ( http://www.rops.org )
@@ -94,41 +103,71 @@ namespace
     };
 }
 
-double QwtBezier::minFlatness( double tolerance )
+QwtBezier::QwtBezier( double tolerance ):
+    m_tolerance( qMax( tolerance, 0.0 ) ),
+    m_flatness( BezierData::minFlatness( m_tolerance ) )
 {
-    // according to QwtSplineBezier::flatness
-    return 16 * ( tolerance * tolerance );
 }
 
-void QwtBezier::toPolygon( double minFlatness,
-    const QPointF &p1, const QPointF &cp1,
-    const QPointF &cp2, const QPointF &p2,
-    QPolygonF &polygon )
+QwtBezier::~QwtBezier()
 {
+}
+
+void QwtBezier::setTolerance( double tolerance )
+{
+    m_tolerance = qMax( tolerance, 0.0 );
+    m_flatness = BezierData::minFlatness( m_tolerance );
+}
+
+QPolygonF QwtBezier::toPolygon( const QPointF &p1,
+    const QPointF &cp1, const QPointF &cp2, const QPointF &p2 ) const
+{
+    if ( m_flatness <= 0.0 )
+    {
+        // a flatness of 0.0 is not achievable
+        return QPolygonF(); 
+    }
+
+    QPolygonF polygon;
+    appendToPolygon( p1, cp1, cp2, p2, polygon );
+    polygon += p2;
+
+    return polygon;
+}
+
+void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
+    const QPointF &cp2, const QPointF &p2, QPolygonF &polygon ) const
+{
+    if ( m_flatness <= 0.0 )
+    {
+        // a flatness of 0.0 is not achievable
+        return;
+    }
+
     polygon += p1;
 
     // to avoid deep stacks we convert the recursive algo
     // to something iterative, where the parameters of the
-    // recursive calss are pushed to bezierStack instead
+    // recursive class are pushed to a stack instead
 
-    QStack<BezierData> bezierStack;
-    bezierStack.push( BezierData( p1, cp1, cp2, p2 ) );
+    QStack<BezierData> stack;
+    stack.push( BezierData( p1, cp1, cp2, p2 ) );
 
     while( true )
     {
-        BezierData &bz = bezierStack.top();
+        BezierData &bz = stack.top();
 
-        if ( bz.flatness() < minFlatness )
+        if ( bz.flatness() < m_flatness )
         {
-            if ( bezierStack.size() == 1 )
+            if ( stack.size() == 1 )
                 return;
 
             polygon += bz.p2();
-            bezierStack.pop();
+            stack.pop();
         }
         else
         {
-            bezierStack.push( bz.subdivided() );
+            stack.push( bz.subdivided() );
         }
     }
 }

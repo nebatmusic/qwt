@@ -16,16 +16,30 @@
 class QWT_EXPORT QwtBezier
 {
 public:
-    static double minFlatness( double tolerance );
+    QwtBezier( double tolerance = 0.5 );
+    ~QwtBezier();
 
-    static void toPolygon( double minFlatness,
-        const QPointF &p1, const QPointF &cp1,
-        const QPointF &cp2, const QPointF &p2,
-        QPolygonF &polygon );
+    void setTolerance( double tolerance );
+    double tolerance() const;
+        
+    QPolygonF toPolygon( const QPointF &p1, const QPointF &cp1,
+        const QPointF &cp2, const QPointF &p2 ) const;
 
-    static QPointF pointAt( const QPointF &p1,
-        const QPointF &cp1, const QPointF &cp2, const QPointF &p2, double t );
+    void appendToPolygon( const QPointF &p1, const QPointF &cp1,
+        const QPointF &cp2, const QPointF &p2, QPolygonF &polygon ) const;
+
+    static QPointF pointAt( const QPointF &p1, const QPointF &cp1,
+        const QPointF &cp2, const QPointF &p2, double t );
+
+private:
+    double m_tolerance;
+    double m_flatness;
 };
+
+inline double QwtBezier::tolerance() const
+{
+    return m_tolerance;
+}
 
 inline QPointF QwtBezier::pointAt( const QPointF &p1,
     const QPointF &cp1, const QPointF &cp2, const QPointF &p2, double t )
@@ -40,6 +54,5 @@ inline QPointF QwtBezier::pointAt( const QPointF &p1,
 
     return QPointF( x, y );
 }
-
 
 #endif

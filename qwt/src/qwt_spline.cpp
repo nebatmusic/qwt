@@ -473,6 +473,45 @@ public:
   \return Painter path, that can be rendered by QPainter
  */
 
+QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance ) const
+{
+    if ( tolerance <= 0.0 )
+        return QPolygonF();
+
+    const QPainterPath path = painterPath( points );
+    const int n = path.elementCount();
+    if ( n == 0 )
+        return QPolygonF();
+
+    const QPainterPath::Element el = path.elementAt( 0 );
+    if ( el.type != QPainterPath::MoveToElement )
+        return QPolygonF();
+
+    QPointF p1( el.x, el.y );
+
+    QPolygonF polygon;
+    QwtBezier bezier( tolerance );
+
+    for ( int i = 1; i < n; i += 3 )
+    {
+        const QPainterPath::Element el1 = path.elementAt( i );
+        const QPainterPath::Element el2 = path.elementAt( i + 1 );
+        const QPainterPath::Element el3 = path.elementAt( i + 2 );
+
+        const QPointF cp1( el1.x, el1.y );
+        const QPointF cp2( el2.x, el2.y );
+        const QPointF p2( el3.x, el3.y );
+
+        bezier.appendToPolygon( p1, cp1, cp2, p2, polygon );
+
+        p1 = p2;
+    }
+
+    polygon += p1;
+
+    return polygon;
+}
+
 /*!
   \brief Constructor
 
@@ -745,7 +784,8 @@ QPainterPath QwtSplineInterpolating::painterPath( const QPolygonF &points ) cons
 
   \sa bezierControlLines(), QwtSplineBezier::toPolygon()
  */
-QPolygonF QwtSplineInterpolating::polygon( const QPolygonF &points, double tolerance )
+QPolygonF QwtSplineInterpolating::polygon(
+    const QPolygonF &points, double tolerance ) const
 {
     if ( tolerance <= 0.0 )
         return QPolygonF();
@@ -756,33 +796,29 @@ QPolygonF QwtSplineInterpolating::polygon( const QPolygonF &points, double toler
 
     const bool isClosed = boundaryType() == QwtSpline::ClosedPolygon;
 
-    // we can make checking the tolerance criterion check in the subdivison loop
-    // cheaper, by translating it into some flatness value.
-    const double minFlatness = QwtBezier::minFlatness( tolerance );
+    QwtBezier bezier( tolerance );
 
     const QPointF *p = points.constData();
     const QLineF *cl = controlLines.constData();
 
     const int n = controlLines.size();
 
-    QPolygonF path;
+    QPolygonF polygon;
 
     for ( int i = 0; i < n - 1; i++ )
     {
         const QLineF &l = cl[i];
-        QwtBezier::toPolygon( minFlatness, 
-            p[i], l.p1(), l.p2(), p[i+1], path );
+        bezier.appendToPolygon( p[i], l.p1(), l.p2(), p[i+1], polygon );
     }
 
     const QPointF &pn = isClosed ? p[0] : p[n];
     const QLineF &l = cl[n-1];
 
-    QwtBezier::toPolygon( minFlatness, 
-        p[n-1], l.p1(), l.p2(), pn, path );
+    bezier.appendToPolygon( p[n-1], l.p1(), l.p2(), pn, polygon );
 
-    path += pn;
+    polygon += pn;
 
-    return path;
+    return polygon;
 }
 
 /*!

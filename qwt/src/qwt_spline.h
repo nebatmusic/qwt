@@ -168,7 +168,9 @@ public:
     void setBoundaryConditions( int condition,
         double valueBegin = 0.0, double valueEnd = 0.0 );
 
+    virtual QPolygonF polygon( const QPolygonF &, double tolerance ) const;
     virtual QPainterPath painterPath( const QPolygonF & ) const = 0;
+
     virtual uint locality() const;
 
 private:
@@ -193,7 +195,7 @@ public:
     virtual QPolygonF equidistantPolygon( const QPolygonF &, 
         double distance, bool withNodes ) const;
 
-    virtual QPolygonF polygon( const QPolygonF &, double tolerance );
+    virtual QPolygonF polygon( const QPolygonF &, double tolerance ) const;
 
     virtual QPainterPath painterPath( const QPolygonF & ) const;
     virtual QVector<QLineF> bezierControlLines( const QPolygonF &points ) const = 0;
