@@ -57,38 +57,75 @@ public:
         double dx, double dy, double cv1, double cv2 );
 
 public:
+    //! coefficient of the cubic summand 
     double c3;
+
+    //! coefficient of the quadratic summand 
     double c2;
+
+    //! coefficient of the linear summand 
     double c1;
 };
 
-inline QwtSplinePolynomial::QwtSplinePolynomial( double a, double b, double c ):
-    c3(a),
-    c2(b),
-    c1(c)
+/*!
+  \brief Constructor
+
+  \param a3 Coefficient of the cubic summand
+  \param a2 Coefficient of the quadratic summand
+  \param a1 Coefficient of the linear summand
+ */
+inline QwtSplinePolynomial::QwtSplinePolynomial( double a3, double a2, double a1 ):
+    c3(a3),
+    c2(a2),
+    c1(a1)
 {
 }
 
+/*!
+  \param other Other polynomial
+  \return true, when both polynomials have the same coefficients
+ */
 inline bool QwtSplinePolynomial::operator==( const QwtSplinePolynomial &other ) const
 {
     return ( c3 == other.c3 ) && ( c2 == other.c2 ) && ( c1 == other.c1 );
 }
 
+/*!
+  \param other Other polynomial
+  \return true, when the polynomials have different coefficients
+ */
 inline bool QwtSplinePolynomial::operator!=( const QwtSplinePolynomial &other ) const
 {
     return ( !( *this == other ) );
 }
 
+/*!
+  Calculate the value of a polynomial for a given x
+  \param x Parameter
+  \return Value at x
+ */
 inline double QwtSplinePolynomial::valueAt( double x ) const
 {
     return ( ( ( c3 * x ) + c2 ) * x + c1 ) * x;
 }   
 
+/*!
+  Calculate the value of the first derivate of a polynomial for a given x
+
+  \param x Parameter
+  \return Slope at x
+ */
 inline double QwtSplinePolynomial::slopeAt( double x ) const
 {   
     return ( 3.0 * c3 * x + 2.0 * c2 ) * x + c1;
 }
 
+/*!
+  Calculate the value of the second derivate of a polynomial for a given x
+
+  \param x Parameter
+  \return Curvature at x
+ */
 inline double QwtSplinePolynomial::curvatureAt( double x ) const
 {   
     return 6.0 * c3 * x + 2.0 * c2;

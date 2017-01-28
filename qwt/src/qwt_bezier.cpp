@@ -148,22 +148,19 @@ void QwtBezier::setTolerance( double tolerance )
   \param cp1 First control point
   \param cp2 Second control point
   \param p2 End point
-  \param t Parameter value, something between [0,1]
 
   \return Interpolating polygon
  */
 QPolygonF QwtBezier::toPolygon( const QPointF &p1,
     const QPointF &cp1, const QPointF &cp2, const QPointF &p2 ) const
 {
-    if ( m_flatness <= 0.0 )
+    QPolygonF polygon;
+
+    if ( m_flatness > 0.0 )
     {
         // a flatness of 0.0 is not achievable
-        return QPolygonF(); 
+        appendToPolygon( p1, cp1, cp2, p2, polygon );
     }
-
-    QPolygonF polygon;
-    appendToPolygon( p1, cp1, cp2, p2, polygon );
-    polygon += p2;
 
     return polygon;
 }
@@ -179,6 +176,9 @@ QPolygonF QwtBezier::toPolygon( const QPointF &p1,
   \param cp2 Second control point
   \param p2 End point
   \param polygon Polygon, where the interpolating points are added
+
+  \note If the last point of the incoming polygon matches p1 it won't be
+        inserted a second time.
  */     
 void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
     const QPointF &cp2, const QPointF &p2, QPolygonF &polygon ) const
@@ -189,7 +189,8 @@ void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
         return;
     }
 
-    polygon += p1;
+    if ( polygon.isEmpty() || polygon.last() != p1 )
+        polygon += p1;
 
     // to avoid deep stacks we convert the recursive algo
     // to something iterative, where the parameters of the
@@ -205,7 +206,10 @@ void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
         if ( bz.flatness() < m_flatness )
         {
             if ( stack.size() == 1 )
+            {
+                polygon += p2;
                 return;
+            }
 
             polygon += bz.p2();
             stack.pop();
@@ -215,4 +219,5 @@ void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
             stack.push( bz.subdivided() );
         }
     }
+
 }

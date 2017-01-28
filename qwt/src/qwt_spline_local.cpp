@@ -455,7 +455,7 @@ QwtSplineLocal::QwtSplineLocal( Type type ):
     setBoundaryValue( QwtSpline::AtEnd, 0.0 );
 }
 
-//! \Destructor
+//! Destructor
 QwtSplineLocal::~QwtSplineLocal()
 {
 }

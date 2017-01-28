@@ -471,6 +471,8 @@ public:
 
   \param points Control points
   \return Painter path, that can be rendered by QPainter
+
+  \sa polygon(), QwtBezier
  */
 
 /*!
@@ -487,7 +489,7 @@ public:
    
   \return polygon approximating the interpolating polynomials
 
-  \sa bezierControlLines(), QwtSplineBezier::toPolygon()
+  \sa bezierControlLines(), QwtBezier
  */
 QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance ) const
 {
@@ -522,8 +524,6 @@ QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance ) const
 
         p1 = p2;
     }
-
-    polygon += p1;
 
     return polygon;
 }
@@ -715,7 +715,7 @@ QwtSplineInterpolating::~QwtSplineInterpolating()
 {
 }
 
-/*! \fn QVector<QLineF> QwtSpline::bezierControlLines( const QPolygonF &points ) const
+/*! \fn QVector<QLineF> QwtSplineInterpolating::bezierControlLines( const QPolygonF &points ) const
 
   \brief Interpolate a curve with Bezier curves
 
@@ -832,8 +832,6 @@ QPolygonF QwtSplineInterpolating::polygon(
 
     bezier.appendToPolygon( p[n-1], l.p1(), l.p2(), pn, polygon );
 
-    polygon += pn;
-
     return polygon;
 }
 
@@ -855,6 +853,8 @@ QPolygonF QwtSplineInterpolating::polygon(
                   to the parametrization
   \param withNodes When true, also add the control 
                    nodes ( even if not being equidistant )
+
+  \return Interpolating polygon
 
   \sa bezierControlLines()
  */
@@ -1158,6 +1158,8 @@ QVector<QLineF> QwtSplineC1::bezierControlLines( const QPolygonF &points ) const
   \param withNodes When true, also add the control 
                    nodes ( even if not being equidistant )
 
+  \return Interpolating polygon
+
   \sa QwtSpline::equidistantPolygon()
  */
 QPolygonF QwtSplineC1::equidistantPolygon( const QPolygonF &points,
@@ -1282,6 +1284,8 @@ QVector<QLineF> QwtSplineC2::bezierControlLines( const QPolygonF &points ) const
                   to the parametrization
   \param withNodes When true, also add the control 
                    nodes ( even if not being equidistant )
+
+  \return Interpolating polygon
 
   \sa QwtSpline::equidistantPolygon()
  */
