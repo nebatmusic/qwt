@@ -473,6 +473,22 @@ public:
   \return Painter path, that can be rendered by QPainter
  */
 
+/*!
+  \brief Interpolate a curve by a polygon
+
+  Interpolates a polygon piecewise with Bezier curves
+  interpolating them in a 2nd pass by polygons.
+
+  The interpolation is based on "Piecewise Linear Approximation of Bézier Curves"
+  by Roger Willcocks ( http://www.rops.org )
+
+  \param points Control points
+  \param tolerance Maximum for the accepted error of the approximation
+   
+  \return polygon approximating the interpolating polynomials
+
+  \sa bezierControlLines(), QwtSplineBezier::toPolygon()
+ */
 QPolygonF QwtSpline::polygon( const QPolygonF &points, double tolerance ) const
 {
     if ( tolerance <= 0.0 )
