@@ -8,233 +8,92 @@
  *****************************************************************************/
 
 #include "qwt_spline_curve_fitter.h"
-#include "qwt_math.h"
-#include "qwt_spline.h"
-
-class QwtSplineCurveFitter::PrivateData
-{
-public:
-    PrivateData():
-        fitMode( QwtSplineCurveFitter::Auto ),
-        splineSize( 250 )
-    {
-    }
-
-    QwtSpline spline;
-    QwtSplineCurveFitter::FitMode fitMode;
-    int splineSize;
-};
+#include "qwt_spline_local.h"
+#include "qwt_spline_parametrization.h"
 
 //! Constructor
 QwtSplineCurveFitter::QwtSplineCurveFitter():
     QwtCurveFitter( QwtCurveFitter::Path )
 {
-    d_data = new PrivateData;
+    d_spline = new QwtSplineLocal( QwtSplineLocal::Cardinal );
+    d_spline->setParametrization( QwtSplineParametrization::ParameterUniform );
 }
 
 //! Destructor
 QwtSplineCurveFitter::~QwtSplineCurveFitter()
 {
-    delete d_data;
-}
-
-/*!
-  Select the algorithm used for building the spline
-
-  \param mode Mode representing a spline algorithm
-  \sa fitMode()
-*/
-void QwtSplineCurveFitter::setFitMode( FitMode mode )
-{
-    d_data->fitMode = mode;
-}
-
-/*!
-  \return Mode representing a spline algorithm
-  \sa setFitMode()
-*/
-QwtSplineCurveFitter::FitMode QwtSplineCurveFitter::fitMode() const
-{
-    return d_data->fitMode;
+    delete d_spline;
 }
 
 /*!
   Assign a spline
 
+  The spline needs to be allocated by new and will be deleted
+  in the destructor of the fitter.
+
   \param spline Spline
   \sa spline()
 */
-void QwtSplineCurveFitter::setSpline( const QwtSpline &spline )
+void QwtSplineCurveFitter::setSpline( QwtSpline *spline )
 {
-    d_data->spline = spline;
-    d_data->spline.reset();
+    if ( d_spline == spline )
+        return;
+
+    delete d_spline;
+    d_spline = spline;
 }
 
 /*!
   \return Spline
   \sa setSpline()
 */
-const QwtSpline &QwtSplineCurveFitter::spline() const
+const QwtSpline *QwtSplineCurveFitter::spline() const
 {
-    return d_data->spline;
+    return d_spline;
 }
 
 /*!
   \return Spline
   \sa setSpline()
 */
-QwtSpline &QwtSplineCurveFitter::spline()
+QwtSpline *QwtSplineCurveFitter::spline() 
 {
-    return d_data->spline;
-}
-
-/*!
-   Assign a spline size ( has to be at least 10 points )
-
-   \param splineSize Spline size
-   \sa splineSize()
-*/
-void QwtSplineCurveFitter::setSplineSize( int splineSize )
-{
-    d_data->splineSize = qMax( splineSize, 10 );
-}
-
-/*!
-  \return Spline size
-  \sa setSplineSize()
-*/
-int QwtSplineCurveFitter::splineSize() const
-{
-    return d_data->splineSize;
-}
-
-/*!
-  \param points Series of data points
-  \return Curve path
-  \sa fitCurve()
-*/
-QPainterPath QwtSplineCurveFitter::fitCurvePath( const QPolygonF &points ) const
-{
-    QPainterPath path;
-    path.addPolygon( fitCurve( points ) );
-    return path;
+    return d_spline;
 }
 
 /*!
   Find a curve which has the best fit to a series of data points
 
   \param points Series of data points
-  \return Curve points
+  \return Fitted Curve
+
+  \sa fitCurvePath()
 */
 QPolygonF QwtSplineCurveFitter::fitCurve( const QPolygonF &points ) const
 {
-    const int size = points.size();
-    if ( size <= 2 )
-        return points;
+    const QPainterPath path = fitCurvePath( points );
 
-    FitMode fitMode = d_data->fitMode;
-    if ( fitMode == Auto )
-    {
-        fitMode = Spline;
+    const QList<QPolygonF> subPaths = fitCurvePath( points ).toSubpathPolygons();
+    if ( subPaths.size() == 1 )
+        subPaths.first();
 
-        const QPointF *p = points.data();
-        for ( int i = 1; i < size; i++ )
-        {
-            if ( p[i].x() <= p[i-1].x() )
-            {
-                fitMode = ParametricSpline;
-                break;
-            }
-        };
-    }
-
-    if ( fitMode == ParametricSpline )
-        return fitParametric( points );
-    else
-        return fitSpline( points );
+    return QPolygonF();
 }
 
-QPolygonF QwtSplineCurveFitter::fitSpline( const QPolygonF &points ) const
+/*!
+  Find a curve path which has the best fit to a series of data points
+
+  \param points Series of data points
+  \return Fitted Curve
+
+  \sa fitCurve()
+*/
+QPainterPath QwtSplineCurveFitter::fitCurvePath( const QPolygonF &points ) const
 {
-    d_data->spline.setPoints( points );
-    if ( !d_data->spline.isValid() )
-        return points;
+    QPainterPath path;
 
-    QPolygonF fittedPoints( d_data->splineSize );
+    if ( d_spline )
+        path = d_spline->painterPath( points );
 
-    const double x1 = points[0].x();
-    const double x2 = points[int( points.size() - 1 )].x();
-    const double dx = x2 - x1;
-    const double delta = dx / ( d_data->splineSize - 1 );
-
-    for ( int i = 0; i < d_data->splineSize; i++ )
-    {
-        QPointF &p = fittedPoints[i];
-
-        const double v = x1 + i * delta;
-        const double sv = d_data->spline.value( v );
-
-        p.setX( v );
-        p.setY( sv );
-    }
-    d_data->spline.reset();
-
-    return fittedPoints;
-}
-
-QPolygonF QwtSplineCurveFitter::fitParametric( const QPolygonF &points ) const
-{
-    int i;
-    const int size = points.size();
-
-    QPolygonF fittedPoints( d_data->splineSize );
-    QPolygonF splinePointsX( size );
-    QPolygonF splinePointsY( size );
-
-    const QPointF *p = points.data();
-    QPointF *spX = splinePointsX.data();
-    QPointF *spY = splinePointsY.data();
-
-    double param = 0.0;
-    for ( i = 0; i < size; i++ )
-    {
-        const double x = p[i].x();
-        const double y = p[i].y();
-        if ( i > 0 )
-        {
-            const double delta = qSqrt( qwtSqr( x - spX[i-1].y() )
-                      + qwtSqr( y - spY[i-1].y() ) );
-            param += qMax( delta, 1.0 );
-        }
-        spX[i].setX( param );
-        spX[i].setY( x );
-        spY[i].setX( param );
-        spY[i].setY( y );
-    }
-
-    d_data->spline.setPoints( splinePointsX );
-    if ( !d_data->spline.isValid() )
-        return points;
-
-    const double deltaX =
-        splinePointsX[size - 1].x() / ( d_data->splineSize - 1 );
-    for ( i = 0; i < d_data->splineSize; i++ )
-    {
-        const double dtmp = i * deltaX;
-        fittedPoints[i].setX( d_data->spline.value( dtmp ) );
-    }
-
-    d_data->spline.setPoints( splinePointsY );
-    if ( !d_data->spline.isValid() )
-        return points;
-
-    const double deltaY =
-        splinePointsY[size - 1].x() / ( d_data->splineSize - 1 );
-    for ( i = 0; i < d_data->splineSize; i++ )
-    {
-        const double dtmp = i * deltaY;
-        fittedPoints[i].setY( d_data->spline.value( dtmp ) );
-    }
-
-    return fittedPoints;
+    return path;
 }

@@ -15,54 +15,29 @@
 class QwtSpline;
 
 /*!
-  \brief A curve fitter using cubic splines
+  \brief A curve fitter using a spline interpolation
+
+  The default setting for the spline is a cardinal spline with
+  uniform parametrization.
+
+  \sa QwtSpline, QwtSplineLocal
 */
 class QWT_EXPORT QwtSplineCurveFitter: public QwtCurveFitter
 {
 public:
-    /*!
-      Spline type
-      The default setting is Auto
-      \sa setFitMode(), FitMode()
-     */
-    enum FitMode
-    {
-        /*!
-          Use the default spline algorithm for polygons with
-          increasing x values ( p[i-1] < p[i] ), otherwise use
-          a parametric spline algorithm.
-         */
-        Auto,
-
-        //! Use a default spline algorithm
-        Spline,
-
-        //! Use a parametric spline algorithm
-        ParametricSpline
-    };
-
     QwtSplineCurveFitter();
     virtual ~QwtSplineCurveFitter();
 
-    void setFitMode( FitMode );
-    FitMode fitMode() const;
+    void setSpline( QwtSpline * );
 
-    void setSpline( const QwtSpline& );
-    const QwtSpline &spline() const;
-    QwtSpline &spline();
-
-    void setSplineSize( int size );
-    int splineSize() const;
+    const QwtSpline *spline() const;
+    QwtSpline *spline();
 
     virtual QPolygonF fitCurve( const QPolygonF & ) const;
     virtual QPainterPath fitCurvePath( const QPolygonF & ) const;
 
 private:
-    QPolygonF fitSpline( const QPolygonF & ) const;
-    QPolygonF fitParametric( const QPolygonF & ) const;
-
-    class PrivateData;
-    PrivateData *d_data;
+    QwtSpline *d_spline;
 };
 
 #endif

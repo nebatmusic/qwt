@@ -12,3 +12,4 @@
 - QwtPlotCurve: polygon clipping includes the painter clip
 - QwtPlotCurve: aggressive weeding added - a fast weeding algo for huge datasets with increasing x or y values
 - QwtSymbol fine tuning of QwtSymbol::AutoCache 
+- A new implementation of various spline interpolations
