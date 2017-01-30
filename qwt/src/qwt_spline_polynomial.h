@@ -57,22 +57,22 @@ public:
         double dx, double dy, double cv1, double cv2 );
 
 public:
-    //! coefficient of the cubic summand 
+    //! 3rd degree coefficient
     double c3;
 
-    //! coefficient of the quadratic summand 
+    //! 2nd degree coefficient
     double c2;
 
-    //! coefficient of the linear summand 
+    //! 1st degree coefficient
     double c1;
 };
 
 /*!
   \brief Constructor
 
-  \param a3 Coefficient of the cubic summand
-  \param a2 Coefficient of the quadratic summand
-  \param a1 Coefficient of the linear summand
+  \param a3 3rd degree coefficient 
+  \param a2 2nd degree coefficient
+  \param a1 1st degree coefficient
  */
 inline QwtSplinePolynomial::QwtSplinePolynomial( double a3, double a2, double a1 ):
     c3(a3),
@@ -101,6 +101,7 @@ inline bool QwtSplinePolynomial::operator!=( const QwtSplinePolynomial &other ) 
 
 /*!
   Calculate the value of a polynomial for a given x
+
   \param x Parameter
   \return Value at x
  */
@@ -131,12 +132,35 @@ inline double QwtSplinePolynomial::curvatureAt( double x ) const
     return 6.0 * c3 * x + 2.0 * c2;
 }
 
+/*!
+  Find the coefficients for the polynomial including 2 points with
+  specific values for the 1st derivates at these points.
+
+  \param p1 First point
+  \param m1 Value of the first derivate at p1
+  \param p2 Second point
+  \param m2 Value of the first derivate at p2
+
+  \return Coefficients of the polynomials
+  \note The missing constant term of the polynomial is p1.y()
+ */
 inline QwtSplinePolynomial QwtSplinePolynomial::fromSlopes( 
     const QPointF &p1, double m1, const QPointF &p2, double m2 )
 {
     return fromSlopes( p2.x() - p1.x(), p2.y() - p1.y(), m1, m2 );
 }
 
+/*!
+  Find the coefficients for the polynomial from the offset between 2 points
+  and specific values for the 1st derivates at these points.
+
+  \param dx X-offset
+  \param dy Y-offset
+  \param m1 Value of the first derivate at p1
+  \param m2 Value of the first derivate at p2
+
+  \return Coefficients of the polynomials
+ */
 inline QwtSplinePolynomial QwtSplinePolynomial::fromSlopes( 
     double dx, double dy, double m1, double m2 )
 {
@@ -146,18 +170,41 @@ inline QwtSplinePolynomial QwtSplinePolynomial::fromSlopes(
     return QwtSplinePolynomial( c3, c2, m1 );
 }
 
+/*!
+  Find the coefficients for the polynomial including 2 points with
+  specific values for the 2nd derivates at these points.
+
+  \param p1 First point
+  \param cv1 Value of the second derivate at p1
+  \param p2 Second point
+  \param cv2 Value of the second derivate at p2
+
+  \return Coefficients of the polynomials
+  \note The missing constant term of the polynomial is p1.y()
+ */
 inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures( 
     const QPointF &p1, double cv1, const QPointF &p2, double cv2 )
 {
     return fromCurvatures( p2.x() - p1.x(), p2.y() - p1.y(), cv1, cv2 );
 }
 
+/*!
+  Find the coefficients for the polynomial from the offset between 2 points
+  and specific values for the 2nd derivates at these points.
+
+  \param dx X-offset
+  \param dy Y-offset
+  \param cv1 Value of the second derivate at p1
+  \param cv2 Value of the second derivate at p2
+
+  \return Coefficients of the polynomials
+ */
 inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures( 
-    double x, double y, double cv1, double cv2 )
+    double dx, double dy, double cv1, double cv2 )
 {
-    const double c3 = ( cv2 - cv1 ) / ( 6.0 * x );
+    const double c3 = ( cv2 - cv1 ) / ( 6.0 * dx );
     const double c2 = 0.5 * cv1;
-    const double c1 = y / x - ( c3 * x + c2 ) * x;
+    const double c1 = dy / dx - ( c3 * dx + c2 ) * dx;
 
     return QwtSplinePolynomial( c3, c2, c1 );
 }
