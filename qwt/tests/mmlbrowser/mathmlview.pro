@@ -7,14 +7,20 @@
 # modify it under the terms of the Qwt License, Version 1.0
 ################################################################
 
-include( $${PWD}/../qwtconfig.pri )
+include( $${PWD}/../tests.pri )
 
-TEMPLATE = subdirs
+INCLUDEPATH += $${QWT_ROOT}/textengines/mathml
+DEPENDPATH += $${QWT_ROOT}/textengines/mathml
 
-SUBDIRS += \
-    splinetest \
-    splineprof
+qwtAddLibrary($${QWT_OUT_ROOT}/lib, qwtmathml)
 
-contains(QWT_CONFIG, QwtMathML) {
-    SUBDIRS += mmlbrowser
-}
+TARGET   = mmlbrowser
+
+HEADERS = \
+    formulaview.h \
+    mainwindow.h
+
+SOURCES = \
+    formulaview.cpp \
+    mainwindow.cpp \
+    main.cpp
