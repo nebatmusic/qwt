@@ -91,8 +91,11 @@ public:
     void setAttribute( Attribute, bool on = true );
     bool testAttribute( Attribute ) const;
 
-    virtual void setInterval( Qt::Axis, const QwtInterval & );
-    const QwtInterval &interval(Qt::Axis) const;
+    /*!
+       \return Bounding interval for an axis
+       \sa setInterval
+     */
+    virtual QwtInterval interval( Qt::Axis ) const = 0;
 
     virtual QRectF pixelHint( const QRectF & ) const;
 

@@ -43,9 +43,17 @@ public:
 
         setAttribute( QwtRasterData::WithoutGaps, true );
 
-        setInterval( Qt::XAxis, QwtInterval( -1.5, 1.5 ) );
-        setInterval( Qt::YAxis, QwtInterval( -1.5, 1.5 ) );
-        setInterval( Qt::ZAxis, QwtInterval( 0.0, 10.0 ) );
+        d_intervals[ Qt::XAxis ] = QwtInterval( -1.5, 1.5 );
+        d_intervals[ Qt::YAxis ] = QwtInterval( -1.5, 1.5 );
+        d_intervals[ Qt::ZAxis ] = QwtInterval( 0.0, 10.0 );
+    }
+
+    virtual QwtInterval interval( Qt::Axis axis ) const
+    {
+        if ( axis >= 0 && axis <= 2 )
+            return d_intervals[ axis ];
+
+        return QwtInterval();
     }
 
     virtual double value( double x, double y ) const
@@ -58,6 +66,9 @@ public:
 
         return 1.0 / ( v1 * v1 + v2 * v2 );
     }
+
+private:
+    QwtInterval d_intervals[3];
 };
 
 class LinearColorMap: public QwtLinearColorMap
