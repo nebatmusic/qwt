@@ -1,4 +1,5 @@
 #include "formulaview.h"
+#include "treeview.h"
 #include "mainwindow.h"
 
 #include <qapplication.h>
@@ -8,14 +9,21 @@
 #include <qdebug.h>
 #include <qfiledialog.h>
 #include <qmimedata.h>
-#include <qstatusbar.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
+#include <qsplitter.h>
 
 MainWindow::MainWindow()
 {
-    d_view = new FormulaView( this );
-    setCentralWidget( d_view );
+    d_formulaView = new FormulaView();
+    d_treeView = new TreeView();
+    d_treeView->setRootPath( "mml" );
+
+    QSplitter* splitter = new QSplitter();
+    splitter->addWidget( d_treeView );
+    splitter->addWidget( d_formulaView );
+
+    setCentralWidget( splitter );
 
     QToolBar *toolBar = new QToolBar( this );
 
@@ -60,13 +68,28 @@ MainWindow::MainWindow()
 
     addToolBar( toolBar );
 
+    connect( d_treeView, SIGNAL( selected( const QString & ) ),
+        this, SLOT( loadFormula( const QString & ) ) );
+
     connect( btnLoad, SIGNAL( clicked() ), this, SLOT( load() ) );
-    connect( comboFontSizes, SIGNAL( currentIndexChanged( const QString & ) ), this, SLOT( updateFontSize( const QString & ) ) );
-    connect( checkTransformation, SIGNAL( toggled( bool ) ), this, SLOT( updateTransformation( const bool & ) ) );
-    connect( d_checkScale, SIGNAL( toggled( bool ) ), this, SLOT( updateScaling( const bool & ) ) );
-    connect( d_comboRotations, SIGNAL( currentIndexChanged( const QString & ) ), this, SLOT( updateRotation( const QString & ) ) );
-    connect( checkDrawFrames, SIGNAL( toggled( bool ) ), this, SLOT( updateDrawFrames( const bool & ) ) );
-    connect( checkColors, SIGNAL( toggled( bool ) ), this, SLOT( updateColors( const bool & ) ) );
+
+    connect( comboFontSizes, SIGNAL( currentIndexChanged( const QString & ) ),
+        this, SLOT( updateFontSize( const QString & ) ) );
+
+    connect( checkTransformation, SIGNAL( toggled( bool ) ),
+        this, SLOT( updateTransformation( const bool & ) ) );
+
+    connect( d_checkScale, SIGNAL( toggled( bool ) ),
+        this, SLOT( updateScaling( const bool & ) ) );
+
+    connect( d_comboRotations, SIGNAL( currentIndexChanged( const QString & ) ),
+        this, SLOT( updateRotation( const QString & ) ) );
+
+    connect( checkDrawFrames, SIGNAL( toggled( bool ) ),
+        this, SLOT( updateDrawFrames( const bool & ) ) );
+
+    connect( checkColors, SIGNAL( toggled( bool ) ),
+        this, SLOT( updateColors( const bool & ) ) );
 
     updateFontSize( comboFontSizes->currentText() );
     updateTransformation( checkTransformation->isChecked() );
@@ -74,51 +97,19 @@ MainWindow::MainWindow()
     updateRotation( d_comboRotations->currentText() );
     updateDrawFrames( checkDrawFrames->isChecked() );
     updateColors( checkColors->isChecked() );
-
-    setAcceptDrops(true);
 };
-
-void MainWindow::dragEnterEvent(QDragEnterEvent *event)
-{
-    if ( event->mimeData()->urls().count() == 1 )
-        event->acceptProposedAction();
-    else
-        event->ignore();
-}
-
-void MainWindow::dragMoveEvent(QDragMoveEvent *event)
-{
-    QString fileName = event->mimeData()->urls().first().toLocalFile();
-    QFileInfo fileInfo( fileName );
-
-    if ( fileInfo.exists() && fileInfo.completeSuffix() == "mml" )
-        event->acceptProposedAction();
-    else
-        event->ignore();
-}
-
-void MainWindow::dropEvent(QDropEvent *event)
-{
-    loadFormula( event->mimeData()->urls().first().toLocalFile() );
-
-    event->acceptProposedAction();
-}
 
 void MainWindow::load()
 {
-    const QString fileName = QFileDialog::getOpenFileName( NULL,
-        "Load a MathML File", QString::null, "MathML Files (*.mml)" );
+    const QString dirName = QFileDialog::getExistingDirectory( NULL, QString(), 
+        QString( "." ), QFileDialog::ShowDirsOnly );
 
-    if ( !fileName.isEmpty() )
-        loadFormula( fileName );
-    else
-        statusBar()->showMessage( QString::null );
+    if ( !dirName.isEmpty() )
+        d_treeView->setRootPath( dirName );
 }
 
 void MainWindow::loadFormula( const QString &fileName )
 {
-    statusBar()->showMessage( fileName );
-
     QFile file( fileName );
     if ( !file.open(QIODevice::ReadOnly | QIODevice::Text) )
         return;
@@ -126,12 +117,12 @@ void MainWindow::loadFormula( const QString &fileName )
     const QByteArray document = file.readAll();
     file.close();
 
-    d_view->setFormula( document );
+    d_formulaView->setFormula( document );
 }
 
 void MainWindow::updateFontSize( const QString &fontSize )
 {
-    d_view->setFontSize( fontSize.toInt() );
+    d_formulaView->setFontSize( fontSize.toInt() );
 }
 
 void MainWindow::updateTransformation( const bool &transformation )
@@ -139,25 +130,25 @@ void MainWindow::updateTransformation( const bool &transformation )
     d_checkScale->setEnabled( transformation );
     d_comboRotations->setEnabled( transformation );
 
-    d_view->setTransformation( transformation );
+    d_formulaView->setTransformation( transformation );
 }
 
 void MainWindow::updateScaling( const bool &scale )
 {
-    d_view->setScale( scale );
+    d_formulaView->setScale( scale );
 }
 
 void MainWindow::updateRotation( const QString &rotation )
 {
-    d_view->setRotation( rotation.toInt() );
+    d_formulaView->setRotation( rotation.toInt() );
 }
 
 void MainWindow::updateDrawFrames( const bool &drawFrames )
 {
-    d_view->setDrawFrames( drawFrames );
+    d_formulaView->setDrawFrames( drawFrames );
 }
 
 void MainWindow::updateColors( const bool &colors )
 {
-    d_view->setColors( colors );
+    d_formulaView->setColors( colors );
 }

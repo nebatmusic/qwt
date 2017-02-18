@@ -18,9 +18,11 @@ TARGET   = mmlbrowser
 
 HEADERS = \
     formulaview.h \
+    treeview.h \
     mainwindow.h
 
 SOURCES = \
     formulaview.cpp \
+    treeview.cpp \
     mainwindow.cpp \
     main.cpp

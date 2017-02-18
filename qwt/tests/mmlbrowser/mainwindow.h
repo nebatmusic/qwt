@@ -5,6 +5,7 @@
 #include <qmainwindow.h>
 
 class FormulaView;
+class TreeView;
 
 class QCheckBox;
 class QComboBox;
@@ -15,11 +16,6 @@ class MainWindow: public QMainWindow
 
 public:
     MainWindow();
-
-protected:
-    virtual void dragEnterEvent( QDragEnterEvent *event );
-    virtual void dragMoveEvent( QDragMoveEvent *event );
-    virtual void dropEvent( QDropEvent *event );
 
 private Q_SLOTS:
     void load();
@@ -32,7 +28,8 @@ private Q_SLOTS:
     void updateColors( const bool & );
 
 private:
-    FormulaView *d_view;
+    FormulaView *d_formulaView;
+    TreeView *d_treeView;
 
     QCheckBox *d_checkScale;
     QComboBox *d_comboRotations;
