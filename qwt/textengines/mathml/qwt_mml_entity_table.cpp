@@ -2024,13 +2024,14 @@ QString QwtMMLEntityTable::entities() const
     return result;
 }
 
-
-const QwtMMLEntityTable::Spec *QwtMMLEntityTable::search( 
+const QwtMMLEntityTable::Spec *QwtMMLEntityTable::search(
     const QString &value, const QwtMMLEntityTable::Spec *from ) const
 {
     const QwtMMLEntityTable::Spec *entity = from;
     if ( entity == 0 )
         entity = mml_entity_data;
+
+	// linear search -> bad
 
     for ( ; entity->name != 0; ++entity )
     {
@@ -2038,5 +2039,6 @@ const QwtMMLEntityTable::Spec *QwtMMLEntityTable::search(
         if ( value == ent_value )
             return entity;
     }
+
     return 0;
 }
