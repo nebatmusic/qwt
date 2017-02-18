@@ -2,11 +2,12 @@
 #define _QWT_MML_DOCUMENT_H_
 
 #include <qwt_global.h>
-#include <qstring.h>
-#include <qsize.h>
 
+class QString;
+class QSizeF;
 class QPainter;
 class QPointF;
+class QColor;
 
 class QwtMmlDocument;
 
@@ -28,8 +29,9 @@ public:
 
     void clear();
 
-    bool setContent( QString text, QString *errorMsg = 0,
-                     int *errorLine = 0, int *errorColumn = 0 );
+    bool setContent( const QString &text, QString *errorMsg = 0,
+        int *errorLine = 0, int *errorColumn = 0 );
+
     void paint( QPainter *, const QPointF &pos ) const;
     QSizeF size() const;
 
@@ -38,6 +40,17 @@ public:
 
     qreal baseFontPointSize() const;
     void setBaseFontPointSize( qreal size );
+
+    QColor foregroundColor() const;
+    void setForegroundColor( const QColor &color );
+
+    QColor backgroundColor() const;
+    void setBackgroundColor( const QColor &color );
+
+#ifdef MML_TEST
+    bool drawFrames() const;
+    void setDrawFrames( bool );
+#endif
 
 private:
     QwtMmlDocument *m_doc;
