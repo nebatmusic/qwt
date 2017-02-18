@@ -57,22 +57,22 @@ public:
         double dx, double dy, double cv1, double cv2 );
 
 public:
-    //! 3rd degree coefficient
+    //! coefficient of the cubic summand 
     double c3;
 
-    //! 2nd degree coefficient
+    //! coefficient of the quadratic summand 
     double c2;
 
-    //! 1st degree coefficient
+    //! coefficient of the linear summand 
     double c1;
 };
 
 /*!
   \brief Constructor
 
-  \param a3 3rd degree coefficient 
-  \param a2 2nd degree coefficient
-  \param a1 1st degree coefficient
+  \param a3 Coefficient of the cubic summand
+  \param a2 Coefficient of the quadratic summand
+  \param a1 Coefficient of the linear summand
  */
 inline QwtSplinePolynomial::QwtSplinePolynomial( double a3, double a2, double a1 ):
     c3(a3),
@@ -200,11 +200,11 @@ inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures(
   \return Coefficients of the polynomials
  */
 inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures( 
-    double dx, double dy, double cv1, double cv2 )
+    double x, double y, double cv1, double cv2 )
 {
-    const double c3 = ( cv2 - cv1 ) / ( 6.0 * dx );
+    const double c3 = ( cv2 - cv1 ) / ( 6.0 * x );
     const double c2 = 0.5 * cv1;
-    const double c1 = dy / dx - ( c3 * dx + c2 ) * dx;
+    const double c1 = y / x - ( c3 * x + c2 ) * x;
 
     return QwtSplinePolynomial( c3, c2, c1 );
 }
