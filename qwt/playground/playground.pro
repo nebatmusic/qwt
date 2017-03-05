@@ -28,10 +28,4 @@ contains(QWT_CONFIG, QwtPlot) {
         SUBDIRS += \
             svgmap
     }
-
-    contains(QWT_CONFIG, QwtMathML) {
-
-        SUBDIRS += \
-            mathmlview
-    }
 }
