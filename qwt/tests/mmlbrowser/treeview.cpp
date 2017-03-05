@@ -1,6 +1,5 @@
 #include "treeview.h"
 #include <qfilesystemmodel.h>
-#include <qdebug.h>
 
 class FileSystemModel: public QFileSystemModel
 {
@@ -21,9 +20,6 @@ TreeView::TreeView( QWidget *parent ):
     QTreeView( parent )
 {
     setModel( new FileSystemModel() );
-
-    connect( model(), SIGNAL( currentChanged(const QModelIndex &, const QModelIndex &) ),
-        SLOT( emitCurrent() ) );
 }
 
 void TreeView::setRootPath( const QString& rootPath )
