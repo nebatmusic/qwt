@@ -7,7 +7,7 @@
 # modify it under the terms of the Qwt License, Version 1.0
 ################################################################
 
-include( $${PWD}/../tests.pri )
+include( $${PWD}/../examples.pri )
 
 INCLUDEPATH += $${QWT_ROOT}/textengines/mathml
 DEPENDPATH += $${QWT_ROOT}/textengines/mathml

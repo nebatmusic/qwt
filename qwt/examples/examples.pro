@@ -49,3 +49,7 @@ contains(QWT_CONFIG, QwtWidgets) {
         dials \
         controls
 }
+
+contains(QWT_CONFIG, QwtMathML) {
+    SUBDIRS += mmlbrowser
+}

@@ -14,7 +14,3 @@ TEMPLATE = subdirs
 SUBDIRS += \
     splinetest \
     splineprof
-
-contains(QWT_CONFIG, QwtMathML) {
-    SUBDIRS += mmlbrowser
-}
