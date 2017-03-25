@@ -605,13 +605,24 @@ void QwtPlot::updateLayout()
             d_data->footerLabel->show();
     }
     else
+    {
         d_data->footerLabel->hide();
+    }
 
     for ( int axisId = 0; axisId < axisCnt; axisId++ )
     {
+        QwtScaleWidget* scaleWidget = axisWidget( axisId );
+
         if ( axisEnabled( axisId ) )
         {
-            axisWidget( axisId )->setGeometry( scaleRect[axisId] );
+            if ( scaleRect[axisId] != scaleWidget->geometry() )
+            {
+                scaleWidget->setGeometry( scaleRect[axisId] );
+
+                int startDist, endDist;
+                scaleWidget->getBorderDistHint( startDist, endDist );
+                scaleWidget->setBorderDist( startDist, endDist );
+            }
 
 #if 1
             if ( axisId == xBottom || axisId == xTop )
@@ -626,14 +637,16 @@ void QwtPlot::updateLayout()
                 r.translate( -scaleRect[ axisId ].x(),
                     -scaleRect[axisId].y() );
 
-                axisWidget( axisId )->setMask( r );
+                scaleWidget->setMask( r );
             }
 #endif
-            if ( !axisWidget( axisId )->isVisibleTo( this ) )
-                axisWidget( axisId )->show();
+            if ( !scaleWidget->isVisibleTo( this ) )
+                scaleWidget->show();
         }
         else
-            axisWidget( axisId )->hide();
+        {
+            scaleWidget->hide();
+        }
     }
 
     if ( d_data->legend )
