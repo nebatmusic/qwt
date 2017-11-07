@@ -22,7 +22,7 @@
 #include <qtconcurrentrun.h>
 
 #if !defined(QT_NO_QFUTURE)
-#define QWT_USE_THREADS 0
+#define QWT_USE_THREADS 1
 #endif
 
 #endif
