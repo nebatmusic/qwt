@@ -386,7 +386,7 @@ static inline SplineStore qwtSplineC1PathParametric(
 
 template< QwtSplinePolynomial toPolynomial( const QPointF &, double, const QPointF &, double ) >
 static QPolygonF qwtPolygonParametric( double distance,
-    const QPolygonF &points, const QVector<double> values, bool withNodes ) 
+    const QPolygonF &points, const QVector<double> &values, bool withNodes )
 {
     QPolygonF fittedPoints;
 
