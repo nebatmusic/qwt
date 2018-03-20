@@ -100,6 +100,8 @@ void QwtPlotMultiBarChart::setSamples(
     const QVector< QVector<double> > &samples )
 {
     QVector<QwtSetSample> s;
+    s.reserve( samples.size() );
+
     for ( int i = 0; i < samples.size(); i++ )
         s += QwtSetSample( i, samples[ i ] );
 
@@ -684,6 +686,9 @@ void QwtPlotMultiBarChart::drawBar( QPainter *painter,
 QList<QwtLegendData> QwtPlotMultiBarChart::legendData() const
 {
     QList<QwtLegendData> list;
+#if QT_VERSION >= 0x040700
+    list.reserve( d_data->barTitles.size() );
+#endif
 
     for ( int i = 0; i < d_data->barTitles.size(); i++ )
     {

@@ -875,6 +875,8 @@ QImage QwtPlotRasterItem::compose(
         const int numRows = image.height() / numThreads;
 
         QVector< QFuture<void> > futures;
+        futures.reserve( numThreads - 1 );
+
         for ( uint i = 0; i < numThreads; i++ )
         {
             QRect tile( 0, i * numRows, image.width(), numRows );

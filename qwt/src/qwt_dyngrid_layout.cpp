@@ -389,12 +389,16 @@ QList<QRect> QwtDynGridLayout::layoutItems( const QRect &rect,
         colX[c] = colX[c-1] + colWidth[c-1] + xySpace;
 
     const int itemCount = d_data->itemList.size();
+#if QT_VERSION >= 0x040700
+    itemGeometries.reserve( itemCount );
+#endif
+
     for ( int i = 0; i < itemCount; i++ )
     {
         const int row = i / numColumns;
         const int col = i % numColumns;
 
-        QRect itemGeometry( colX[col], rowY[row],
+        const QRect itemGeometry( colX[col], rowY[row],
             colWidth[col], rowHeight[row] );
         itemGeometries.append( itemGeometry );
     }

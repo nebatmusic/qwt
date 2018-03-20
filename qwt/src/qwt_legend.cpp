@@ -409,6 +409,10 @@ void QwtLegend::updateLegend( const QVariant &itemInfo,
             w->deleteLater();
         }
 
+#if QT_VERSION >= 0x040700
+        widgetList.reserve( data.size() );
+#endif
+
         for ( int i = widgetList.size(); i < data.size(); i++ )
         {
             QWidget *widget = createWidget( data[i] );
