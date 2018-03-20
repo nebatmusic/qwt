@@ -285,7 +285,7 @@ public:
 
 static void qwtRenderDots(
     const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-    const QwtDotsCommand command, const QPoint &pos, QImage *image ) 
+    const QwtDotsCommand &command, const QPoint &pos, QImage *image ) 
 {
     const QRgb rgb = command.rgb;
     QRgb *bits = reinterpret_cast<QRgb *>( image->bits() );
