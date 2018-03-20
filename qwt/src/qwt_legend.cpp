@@ -678,7 +678,7 @@ void QwtLegend::renderLegend( QPainter *painter,
     layoutRect.setBottom( qFloor( rect.bottom() ) - bottom );
 
     uint numCols = legendLayout->columnsForWidth( layoutRect.width() );
-    QList<QRect> itemRects =
+    const QList<QRect> itemRects =
         legendLayout->layoutItems( layoutRect, numCols );
 
     int index = 0;

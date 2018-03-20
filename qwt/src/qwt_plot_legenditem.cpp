@@ -666,9 +666,9 @@ void QwtPlotLegendItem::updateLegend( const QwtPlotItem *plotItem,
 
     QList<QwtLegendLayoutItem *> layoutItems;
 
-    QMap<const QwtPlotItem *, QList<QwtLegendLayoutItem *> >::iterator it = 
-        d_data->map.find( plotItem );
-    if ( it != d_data->map.end() )
+    QMap<const QwtPlotItem *, QList<QwtLegendLayoutItem *> >::const_iterator it =
+        d_data->map.constFind( plotItem );
+    if ( it != d_data->map.constEnd() )
         layoutItems = it.value();
 
     bool changed = false;
@@ -859,9 +859,9 @@ QList< QRect > QwtPlotLegendItem::legendGeometries(
 {
     QList<QwtLegendLayoutItem *> layoutItems;
 
-    QMap<const QwtPlotItem *, QList<QwtLegendLayoutItem *> >::iterator it =
-        d_data->map.find( plotItem );
-    if ( it != d_data->map.end() )
+    QMap<const QwtPlotItem *, QList<QwtLegendLayoutItem *> >::const_iterator it =
+        d_data->map.constFind( plotItem );
+    if ( it != d_data->map.constEnd() )
         layoutItems = it.value();
 
     QList<QRect> geometries;

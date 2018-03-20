@@ -85,8 +85,8 @@ public:
         const QString fontKey = font.key();
 
         QMap<QString, int>::const_iterator it =
-            d_ascentCache.find( fontKey );
-        if ( it == d_ascentCache.end() )
+            d_ascentCache.constFind( fontKey );
+        if ( it == d_ascentCache.constEnd() )
         {
             int ascent = findAscent( font );
             it = d_ascentCache.insert( fontKey, ascent );

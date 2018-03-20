@@ -206,9 +206,9 @@ void QwtPlotMultiBarChart::setSymbol( int valueIndex, QwtColumnSymbol *symbol )
 const QwtColumnSymbol *QwtPlotMultiBarChart::symbol( int valueIndex ) const
 {
     QMap<int, QwtColumnSymbol *>::const_iterator it =
-        d_data->symbolMap.find( valueIndex );
+        d_data->symbolMap.constFind( valueIndex );
 
-    return ( it == d_data->symbolMap.end() ) ? NULL : it.value();
+    return ( it == d_data->symbolMap.constEnd() ) ? NULL : it.value();
 }
 
 /*!
@@ -221,10 +221,10 @@ const QwtColumnSymbol *QwtPlotMultiBarChart::symbol( int valueIndex ) const
 */
 QwtColumnSymbol *QwtPlotMultiBarChart::symbol( int valueIndex ) 
 {
-    QMap<int, QwtColumnSymbol *>::iterator it =
-        d_data->symbolMap.find( valueIndex );
+    QMap<int, QwtColumnSymbol *>::const_iterator it =
+        d_data->symbolMap.constFind( valueIndex );
 
-    return ( it == d_data->symbolMap.end() ) ? NULL : it.value();
+    return ( it == d_data->symbolMap.constEnd() ) ? NULL : it.value();
 }
 
 /*!
@@ -232,12 +232,7 @@ QwtColumnSymbol *QwtPlotMultiBarChart::symbol( int valueIndex )
  */
 void QwtPlotMultiBarChart::resetSymbolMap()
 {
-    for ( QMap<int, QwtColumnSymbol *>::iterator it 
-        = d_data->symbolMap.begin(); it != d_data->symbolMap.end(); ++it )
-    {
-        delete it.value();
-    }
-
+    qDeleteAll( d_data->symbolMap );
     d_data->symbolMap.clear();
 }
 
