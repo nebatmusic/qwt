@@ -26,18 +26,18 @@ static QString taggedRichText( const QString &text, int flags )
     // By default QSimpleRichText is Qt::AlignLeft
     if ( flags & Qt::AlignJustify )
     {
-        richText.prepend( QString::fromLatin1( "<div align=\"justify\">" ) );
-        richText.append( QString::fromLatin1( "</div>" ) );
+        richText.prepend( QLatin1String( "<div align=\"justify\">" ) );
+        richText.append( QLatin1String ( "</div>" ) );
     }
     else if ( flags & Qt::AlignRight )
     {
-        richText.prepend( QString::fromLatin1( "<div align=\"right\">" ) );
-        richText.append( QString::fromLatin1( "</div>" ) );
+        richText.prepend( QLatin1String ( "<div align=\"right\">" ) );
+        richText.append( QLatin1String ( "</div>" ) );
     }
     else if ( flags & Qt::AlignHCenter )
     {
-        richText.prepend( QString::fromLatin1( "<div align=\"center\">" ) );
-        richText.append( QString::fromLatin1( "</div>" ) );
+        richText.prepend( QLatin1String ( "<div align=\"center\">" ) );
+        richText.append( QLatin1String ( "</div>" ) );
     }
 
     return richText;
