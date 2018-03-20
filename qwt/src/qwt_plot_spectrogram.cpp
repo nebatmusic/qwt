@@ -492,7 +492,7 @@ QImage QwtPlotSpectrogram::renderImage(
 
     const int numRows = imageSize.height() / numThreads;
 
-    QList< QFuture<void> > futures;
+    QVector< QFuture<void> > futures;
     for ( uint i = 0; i < numThreads; i++ )
     {
         QRect tile( 0, i * numRows, image.width(), numRows );
