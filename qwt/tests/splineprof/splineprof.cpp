@@ -2,14 +2,23 @@
 #include <qwt_spline_local.h>
 #include <qwt_spline_cubic.h>
 #include <qwt_spline_parametrization.h>
-#include <QElapsedTimer>
+
+#if QT_VERSION < 0x040700
+#include <qdatetime.h>
+#else
+#include <qelapsedtimer.h>
+#endif
 
 void testSpline( const char *name, QwtSplineInterpolating *spline, 
 	int type, const QPolygonF &points )
 {
 	spline->setParametrization( type );
 
+#if QT_VERSION < 0x040700
+  QTime timer;
+#else
 	QElapsedTimer timer;
+#endif
 	timer.start();
 	const QVector<QLineF> lines = spline->bezierControlLines( points );
 	qDebug() << name << ":" << timer.elapsed();
