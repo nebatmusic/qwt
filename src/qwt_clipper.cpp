@@ -317,7 +317,7 @@ private:
         NEdges
     };
 
-    QList<QPointF> cuttingPoints(
+    QVector<QPointF> cuttingPoints(
         Edge, const QPointF &pos, double radius ) const;
 
     double toAngle( const QPointF &, const QPointF & ) const;
@@ -334,7 +334,7 @@ QwtCircleClipper::QwtCircleClipper( const QRectF &r ):
 QVector<QwtInterval> QwtCircleClipper::clipCircle(
     const QPointF &pos, double radius ) const
 {
-    QList<QPointF> points;
+    QVector<QPointF> points;
     for ( int edge = 0; edge < NEdges; edge++ )
         points += cuttingPoints( static_cast<Edge>(edge), pos, radius );
 
@@ -349,13 +349,19 @@ QVector<QwtInterval> QwtCircleClipper::clipCircle(
     else
     {
         QList<double> angles;
+#if QT_VERSION >= 0x040700
+        angles.reserve( points.size() );
+#endif
+
         for ( int i = 0; i < points.size(); i++ )
             angles += toAngle( pos, points[i] );
+
         qSort( angles );
 
         const int in = d_rect.contains( qwtPolar2Pos( pos, radius,
             angles[0] + ( angles[1] - angles[0] ) / 2 ) );
 
+        intv.reserve( angles.size() / 2 );
         if ( in )
         {
             for ( int i = 0; i < angles.size() - 1; i += 2 )
@@ -365,6 +371,7 @@ QVector<QwtInterval> QwtCircleClipper::clipCircle(
         {
             for ( int i = 1; i < angles.size() - 1; i += 2 )
                 intv += QwtInterval( angles[i], angles[i+1] );
+
             intv += QwtInterval( angles.last(), angles.first() );
         }
     }
@@ -397,10 +404,10 @@ double QwtCircleClipper::toAngle(
     return angle;
 }
 
-QList<QPointF> QwtCircleClipper::cuttingPoints(
+QVector<QPointF> QwtCircleClipper::cuttingPoints(
     Edge edge, const QPointF &pos, double radius ) const
 {
-    QList<QPointF> points;
+    QVector<QPointF> points;
 
     if ( edge == Left || edge == Right )
     {
