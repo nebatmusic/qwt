@@ -24,8 +24,6 @@ namespace QwtClip
     template <class Point, typename T> class RightEdge;
     template <class Point, typename T> class TopEdge;
     template <class Point, typename T> class BottomEdge;
-
-    template <class Point> class PointBuffer;
 }
 
 template <class Point, typename Value>
@@ -123,84 +121,6 @@ private:
     const Value d_y2;
 };
 
-template<class Point>
-class QwtClip::PointBuffer
-{
-public:
-    explicit PointBuffer( int capacity = 0 ):
-        m_capacity( 0 ),
-        m_size( 0 ),
-        m_buffer( NULL )
-    {
-        if ( capacity > 0 )
-            reserve( capacity );
-    }
-
-    ~PointBuffer()
-    {
-        if ( m_buffer )
-            ::free( m_buffer );
-    }
-
-    inline void setPoints( int numPoints, const Point *points )
-    {
-        reserve( numPoints );
-
-        m_size = numPoints;
-        ::memcpy( m_buffer, points, m_size * sizeof( Point ) );
-    }
-
-    inline void reset() 
-    { 
-        m_size = 0; 
-    }
-
-    inline int size() const 
-    { 
-        return m_size; 
-    }
-
-    inline Point *data() const 
-    { 
-        return m_buffer; 
-    }
-
-    inline Point &operator[]( int i ) 
-    { 
-        return m_buffer[i]; 
-    }
-
-    inline const Point &operator[]( int i ) const 
-    { 
-        return m_buffer[i]; 
-    }
-
-    inline void add( const Point &point )
-    {
-        if ( m_capacity <= m_size )
-            reserve( m_size + 1 );
-
-        m_buffer[m_size++] = point;
-    }
-
-private:
-    inline void reserve( int size )
-    {
-        if ( m_capacity == 0 )
-            m_capacity = 1;
-
-        while ( m_capacity < size )
-            m_capacity *= 2;
-
-        m_buffer = static_cast<Point *>( 
-            ::realloc( m_buffer, m_capacity * sizeof( Point ) ) );
-    }
-
-    int m_capacity;
-    int m_size;
-    Point *m_buffer;
-};
-
 using namespace QwtClip;
 
 template <class Polygon, class Rect, class Point, typename T>
@@ -218,35 +138,31 @@ public:
         if ( d_clipRect.contains( polygon.boundingRect() ) )
             return polygon;
 #endif
+        Polygon points1( polygon );
 
-        PointBuffer<Point> points1;
-        PointBuffer<Point> points2( qMin( 256, polygon.size() ) );
-
-        points1.setPoints( polygon.size(), polygon.data() );
+        Polygon points2;
+        points2.reserve( qMin( 256, polygon.size() ) );
 
         clipEdge< LeftEdge<Point, T> >( closePolygon, points1, points2 );
         clipEdge< RightEdge<Point, T> >( closePolygon, points2, points1 );
         clipEdge< TopEdge<Point, T> >( closePolygon, points1, points2 );
         clipEdge< BottomEdge<Point, T> >( closePolygon, points2, points1 );
 
-        Polygon p;
-        p.resize( points1.size() );
-        ::memcpy( p.data(), points1.data(), points1.size() * sizeof( Point ) );
-
-        return p;
+        return points1;
     }
 
 private:
     template <class Edge>
     inline void clipEdge( bool closePolygon,
-        PointBuffer<Point> &points, PointBuffer<Point> &clippedPoints ) const
+        const Polygon &points, Polygon &clippedPoints ) const
     {
-        clippedPoints.reset();
+        clippedPoints.clear();
 
         if ( points.size() < 2 )
         {
             if ( points.size() == 1 )
-                clippedPoints.add( points[0] );
+                clippedPoints += points[0];
+
             return;
         }
 
@@ -265,32 +181,34 @@ private:
             lastPos = 0;
 
             if ( edge.isInside( points[0] ) )
-                clippedPoints.add( points[0] );
+                clippedPoints += points[0];
         }
 
         const uint nPoints = points.size();
+        const Point* p = points.constData();
+
         for ( uint i = start; i < nPoints; i++ )
         {
-            const Point &p1 = points[i];
-            const Point &p2 = points[lastPos];
+            const Point &p1 = p[i];
+            const Point &p2 = p[lastPos];
 
             if ( edge.isInside( p1 ) )
             {
                 if ( edge.isInside( p2 ) )
                 {
-                    clippedPoints.add( p1 );
+                    clippedPoints += p1;
                 }
                 else
                 {
-                    clippedPoints.add( edge.intersection( p1, p2 ) );
-                    clippedPoints.add( p1 );
+                    clippedPoints += edge.intersection( p1, p2 );
+                    clippedPoints += p1;
                 }
             }
             else
             {
                 if ( edge.isInside( p2 ) )
                 {
-                    clippedPoints.add( edge.intersection( p1, p2 ) );
+                    clippedPoints += edge.intersection( p1, p2 );
                 }
             }
             lastPos = i;
