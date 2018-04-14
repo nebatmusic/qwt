@@ -123,9 +123,10 @@ private:
 
 using namespace QwtClip;
 
-template <class Polygon, class Rect, class Point, typename T>
+template <class Polygon, class Rect, typename T>
 class QwtPolygonClipper
 {
+    typedef typename Polygon::value_type Point;
 public:
     explicit QwtPolygonClipper( const Rect &clipRect ):
         d_clipRect( clipRect )
@@ -169,49 +170,50 @@ private:
         const Edge edge( d_clipRect.x(), d_clipRect.x() + d_clipRect.width(),
             d_clipRect.y(), d_clipRect.y() + d_clipRect.height() );
 
-        int lastPos, start;
-        if ( closePolygon )
+        if ( !closePolygon )
         {
-            start = 0;
-            lastPos = points.size() - 1;
+            const Point &p1 = points.first();
+
+            if ( edge.isInside( p1 ) )
+                clippedPoints += p1;
         }
         else
         {
-            start = 1;
-            lastPos = 0;
+            const Point &p1 = points.first();
+            const Point &p2 = points.last();
 
-            if ( edge.isInside( points[0] ) )
-                clippedPoints += points[0];
+            if ( edge.isInside( p1 ) )
+            {   
+                if ( !edge.isInside( p2 ) )
+                    clippedPoints += edge.intersection( p1, p2 );
+                
+                clippedPoints += p1;
+            }
+            else if ( edge.isInside( p2 ) )
+            {   
+                clippedPoints += edge.intersection( p1, p2 );
+            }
         }
 
         const uint nPoints = points.size();
         const Point* p = points.constData();
 
-        for ( uint i = start; i < nPoints; i++ )
+        for ( uint i = 1; i < nPoints; i++ )
         {
             const Point &p1 = p[i];
-            const Point &p2 = p[lastPos];
+            const Point &p2 = p[i - 1];
 
             if ( edge.isInside( p1 ) )
             {
-                if ( edge.isInside( p2 ) )
-                {
-                    clippedPoints += p1;
-                }
-                else
-                {
+                if ( !edge.isInside( p2 ) )
                     clippedPoints += edge.intersection( p1, p2 );
-                    clippedPoints += p1;
-                }
+
+                clippedPoints += p1;
             }
-            else
+            else if ( edge.isInside( p2 ) )
             {
-                if ( edge.isInside( p2 ) )
-                {
-                    clippedPoints += edge.intersection( p1, p2 );
-                }
+                clippedPoints += edge.intersection( p1, p2 );
             }
-            lastPos = i;
         }
     }
 
@@ -379,7 +381,7 @@ QPolygon QwtClipper::clipPolygon(
 
     const QRect r( minX, minY, maxX - minX, maxY - minY );
 
-    QwtPolygonClipper<QPolygon, QRect, QPoint, int> clipper( r );
+    QwtPolygonClipper<QPolygon, QRect, int> clipper( r );
     return clipper.clipPolygon( polygon, closePolygon );
 }
 /*!
@@ -394,7 +396,7 @@ QPolygon QwtClipper::clipPolygon(
 QPolygon QwtClipper::clipPolygon(
     const QRect &clipRect, const QPolygon &polygon, bool closePolygon )
 {
-    QwtPolygonClipper<QPolygon, QRect, QPoint, int> clipper( clipRect );
+    QwtPolygonClipper<QPolygon, QRect, int> clipper( clipRect );
     return clipper.clipPolygon( polygon, closePolygon );
 }
 
@@ -410,7 +412,7 @@ QPolygon QwtClipper::clipPolygon(
 QPolygonF QwtClipper::clipPolygonF(
     const QRectF &clipRect, const QPolygonF &polygon, bool closePolygon )
 {
-    QwtPolygonClipper<QPolygonF, QRectF, QPointF, double> clipper( clipRect );
+    QwtPolygonClipper<QPolygonF, QRectF, double> clipper( clipRect );
     return clipper.clipPolygon( polygon, closePolygon );
 }
 
