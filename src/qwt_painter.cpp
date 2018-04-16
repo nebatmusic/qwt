@@ -451,7 +451,7 @@ void QwtPainter::drawPolygon( QPainter *painter, const QPolygonF &polygon )
 
     QPolygonF cpa = polygon;
     if ( deviceClipping )
-        cpa = QwtClipper::clipPolygonF( clipRect, polygon );
+        cpa = QwtClipper::clipPolygonF( clipRect, polygon, true );
 
     painter->drawPolygon( cpa );
 }
@@ -500,7 +500,7 @@ void QwtPainter::drawPolygon( QPainter *painter, const QPolygon &polygon )
 
     QPolygon cpa = polygon;
     if ( deviceClipping )
-        cpa = QwtClipper::clipPolygon( clipRect, polygon );
+        cpa = QwtClipper::clipPolygon( clipRect, polygon, true );
 
     painter->drawPolygon( cpa );
 }
