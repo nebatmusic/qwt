@@ -305,7 +305,7 @@ void QwtPlotRenderer::renderDocument( QwtPlot *plot,
 #endif
 #endif
     }
-    else if ( fmt == QLatin1String("ps") )
+    else if ( fmt == QLatin1String( "ps" ) )
     {
 #if QWT_FORMAT_POSTSCRIPT
         QPrinter printer;
@@ -321,7 +321,7 @@ void QwtPlotRenderer::renderDocument( QwtPlot *plot,
         render( plot, &painter, documentRect );
 #endif
     }
-    else if ( fmt == QLatin1String("svg") )
+    else if ( fmt == QLatin1String( "svg" ) )
     {
 #if QWT_FORMAT_SVG
         QSvgGenerator generator;
