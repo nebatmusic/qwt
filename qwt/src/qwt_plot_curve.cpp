@@ -518,8 +518,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
 
         if ( testPaintAttribute( ClipPolygons ) )
         {
-            polyline = QwtClipper::clipPolygon( 
-                clipRect.toAlignedRect(), polyline, false );
+            QwtClipper::clipPolygon( clipRect, polyline, false );
         }
 
         QwtPainter::drawPolyline( painter, polyline );
@@ -549,7 +548,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
                 filled.clear();
 
                 if ( d_data->paintAttributes & ClipPolygons )
-                    polyline = QwtClipper::clipPolygonF( clipRect, polyline, false );
+                    QwtClipper::clipPolygonF( clipRect, polyline, false );
 
                 QwtPainter::drawPolyline( painter, polyline );
             }
@@ -562,8 +561,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
         {
             if ( testPaintAttribute( ClipPolygons ) )
             {
-                polyline = QwtClipper::clipPolygonF(
-                    clipRect, polyline, false );
+                QwtClipper::clipPolygonF( clipRect, polyline, false );
             }
 
             if ( doFit )
@@ -810,7 +808,7 @@ void QwtPlotCurve::drawSteps( QPainter *painter,
         const qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
         clipRect = clipRect.adjusted(-pw, -pw, pw, pw);
 
-        const QPolygonF clipped = QwtClipper::clipPolygonF( 
+        const QPolygonF clipped = QwtClipper::clippedPolygonF( 
             clipRect, polygon, false );
 
         QwtPainter::drawPolyline( painter, clipped );
@@ -921,7 +919,7 @@ void QwtPlotCurve::fillCurve( QPainter *painter,
     if ( d_data->paintAttributes & ClipPolygons )
     {
         const QRectF clipRect = qwtIntersectedClipRect( canvasRect, painter );
-        polygon = QwtClipper::clipPolygonF( clipRect, polygon, true );
+        QwtClipper::clipPolygonF( clipRect, polygon, true );
     }
 
     painter->save();

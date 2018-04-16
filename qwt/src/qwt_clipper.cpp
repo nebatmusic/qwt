@@ -133,23 +133,20 @@ public:
     {
     }
 
-    Polygon clipPolygon( const Polygon &polygon, bool closePolygon ) const
+    void clipPolygon( Polygon &points1, bool closePolygon ) const
     {
 #if 0
-        if ( d_clipRect.contains( polygon.boundingRect() ) )
+        if ( d_clipRect.contains( points1.boundingRect() ) )
             return polygon;
 #endif
-        Polygon points1( polygon );
 
         Polygon points2;
-        points2.reserve( qMin( 256, polygon.size() ) );
+        points2.reserve( qMin( 256, points1.size() ) );
 
         clipEdge< LeftEdge<Point, T> >( closePolygon, points1, points2 );
         clipEdge< RightEdge<Point, T> >( closePolygon, points2, points1 );
         clipEdge< TopEdge<Point, T> >( closePolygon, points1, points2 );
         clipEdge< BottomEdge<Point, T> >( closePolygon, points2, points1 );
-
-        return points1;
     }
 
 private:
@@ -366,13 +363,11 @@ QVector<QPointF> QwtCircleClipper::cuttingPoints(
    Sutherland-Hodgman polygon clipping
 
    \param clipRect Clip rectangle
-   \param polygon Polygon
+   \param polygon Polygon IN/OUT
    \param closePolygon True, when the polygon is closed
-
-   \return Clipped polygon
 */
-QPolygon QwtClipper::clipPolygon(
-    const QRectF &clipRect, const QPolygon &polygon, bool closePolygon )
+void QwtClipper::clipPolygon(
+    const QRectF &clipRect, QPolygon &polygon, bool closePolygon )
 {
     const int minX = qCeil( clipRect.left() );
     const int maxX = qFloor( clipRect.right() );
@@ -382,22 +377,35 @@ QPolygon QwtClipper::clipPolygon(
     const QRect r( minX, minY, maxX - minX, maxY - minY );
 
     QwtPolygonClipper<QPolygon, QRect, int> clipper( r );
-    return clipper.clipPolygon( polygon, closePolygon );
+    clipper.clipPolygon( polygon, closePolygon );
 }
+
 /*!
    Sutherland-Hodgman polygon clipping
 
    \param clipRect Clip rectangle
-   \param polygon Polygon
+   \param polygon Polygon IN/OUT
    \param closePolygon True, when the polygon is closed
-
-   \return Clipped polygon
 */
-QPolygon QwtClipper::clipPolygon(
-    const QRect &clipRect, const QPolygon &polygon, bool closePolygon )
+void QwtClipper::clipPolygon(
+    const QRect &clipRect, QPolygon &polygon, bool closePolygon )
 {
     QwtPolygonClipper<QPolygon, QRect, int> clipper( clipRect );
-    return clipper.clipPolygon( polygon, closePolygon );
+    clipper.clipPolygon( polygon, closePolygon );
+}
+
+/*!
+   Sutherland-Hodgman polygon clipping
+
+   \param clipRect Clip rectangle
+   \param polygon Polygon IN/OUT
+   \param closePolygon True, when the polygon is closed
+*/
+void QwtClipper::clipPolygonF(
+    const QRectF &clipRect, QPolygonF &polygon, bool closePolygon )
+{
+    QwtPolygonClipper<QPolygonF, QRectF, double> clipper( clipRect );
+    clipper.clipPolygon( polygon, closePolygon );
 }
 
 /*!
@@ -409,11 +417,48 @@ QPolygon QwtClipper::clipPolygon(
 
    \return Clipped polygon
 */
-QPolygonF QwtClipper::clipPolygonF(
+QPolygon QwtClipper::clippedPolygon(
+    const QRectF &clipRect, const QPolygon &polygon, bool closePolygon )
+{
+    QPolygon points( polygon );
+    clipPolygon( clipRect, points, closePolygon );
+
+    return points;
+}
+/*!
+   Sutherland-Hodgman polygon clipping
+
+   \param clipRect Clip rectangle
+   \param polygon Polygon
+   \param closePolygon True, when the polygon is closed
+
+   \return Clipped polygon
+*/
+QPolygon QwtClipper::clippedPolygon(
+    const QRect &clipRect, const QPolygon &polygon, bool closePolygon )
+{
+    QPolygon points( polygon );
+    clipPolygon( clipRect, points, closePolygon );
+
+    return points;
+}
+
+/*!
+   Sutherland-Hodgman polygon clipping
+
+   \param clipRect Clip rectangle
+   \param polygon Polygon
+   \param closePolygon True, when the polygon is closed
+
+   \return Clipped polygon
+*/
+QPolygonF QwtClipper::clippedPolygonF(
     const QRectF &clipRect, const QPolygonF &polygon, bool closePolygon )
 {
-    QwtPolygonClipper<QPolygonF, QRectF, double> clipper( clipRect );
-    return clipper.clipPolygon( polygon, closePolygon );
+    QPolygonF points( polygon );
+    clipPolygonF( clipRect, points, closePolygon );
+
+    return points;
 }
 
 /*!
