@@ -53,8 +53,8 @@ static QString qwtExpandedFormat( const QString & format,
     {
         // in case of week 1, we might need to increment the year
 
-        static QLatin1String s_yyyy( "yyyy" );
-        static QLatin1String s_yy( "yy" );
+        QLatin1String s_yyyy( "yyyy" );
+        QLatin1String s_yy( "yy" );
 
         // week 1 might start in the previous year
 
