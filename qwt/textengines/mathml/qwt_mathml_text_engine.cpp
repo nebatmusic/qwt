@@ -35,8 +35,9 @@ QwtMathMLTextEngine::~QwtMathMLTextEngine()
    \return Calculated height
 */
 double QwtMathMLTextEngine::heightForWidth( const QFont& font, int flags,
-        const QString& text, double ) const
+        const QString& text, double width ) const
 {
+    Q_UNUSED( width )
     return textSize( font, flags, text ).height();
 }
 
