@@ -54,7 +54,7 @@ public:
         inverted( false ),
         wrapping( false )
     {
-    };
+    }
 
     Qt::Orientation orientation;
     double viewAngle;
