@@ -728,7 +728,14 @@ void QwtPlotCanvas::paintEvent( QPaintEvent *event )
         d_data->backingStore != NULL )
     {
         QPixmap &bs = *d_data->backingStore;
-        if ( bs.size() != size() )
+
+        qreal pixelRatio = 1.0;
+
+#if QT_VERSION >= 0x050000
+        pixelRatio = bs.devicePixelRatio();
+#endif
+
+        if ( bs.size() != size() * pixelRatio )
         {
             bs = QwtPainter::backingStore( this, size() );
 

@@ -17,6 +17,16 @@
 
 static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
 {
+    qreal pixelRatio = 1.0;
+
+#if QT_VERSION >= 0x050000
+#if QT_VERSION < 0x050100
+    pixelRatio = canvas->windowHandle()->devicePixelRatio();
+#else   
+    pixelRatio = canvas->devicePixelRatio();
+#endif
+#endif
+
     const QRect r( 0, 0, size.width(), size.height() );
 
     QPainterPath borderPath;
@@ -30,7 +40,12 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
         if ( canvas->contentsRect() == canvas->rect() )
             return QBitmap();
 
+#if QT_VERSION >= 0x050000
+        QBitmap mask( size * pixelRatio );
+        mask.setDevicePixelRatio( pixelRatio );
+#else
         QBitmap mask( size );
+#endif
         mask.fill( Qt::color0 );
 
         QPainter painter( &mask );
@@ -39,7 +54,12 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
         return mask;
     }
 
+#if QT_VERSION >= 0x050000
+    QImage image( size * pixelRatio, QImage::Format_ARGB32_Premultiplied );
+    image.setDevicePixelRatio( pixelRatio );
+#else
     QImage image( size, QImage::Format_ARGB32_Premultiplied );
+#endif
     image.fill( Qt::color0 );
 
     QPainter painter( &image );
@@ -67,7 +87,7 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
         {
             const double br = borderRadius.toDouble();
             const int fw = frameWidth.toInt();
-        
+  
             if ( br > 0.0 && fw > 0 )
             {
                 painter.setPen( QPen( Qt::color1, fw ) );
