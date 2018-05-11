@@ -36,7 +36,7 @@ static inline void qwtDrawLine( QPainter *painter, int pos,
     }
 }
 
-QVector<double> qwtTickList( const QwtScaleDiv &scaleDiv )
+static QVector<double> qwtTickList( const QwtScaleDiv &scaleDiv )
 {
     QVector<double> values;
 
