@@ -7,8 +7,8 @@
  * modify it under the terms of the Qwt License, Version 1.0
  *****************************************************************************/
 
-#ifndef _QWT_DATE_SCALE_DRAW_H_
-#define _QWT_DATE_SCALE_DRAW_H_ 1
+#ifndef QWT_DATE_SCALE_DRAW_H
+#define QWT_DATE_SCALE_DRAW_H
 
 #include "qwt_global.h"
 #include "qwt_scale_draw.h"

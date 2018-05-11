@@ -1,5 +1,5 @@
-#ifndef _KNOB_BOX_H_
-#define _KNOB_BOX_H_
+#ifndef KNOB_BOX_H_
+#define KNOB_BOX_H_
 
 #include <qwidget.h>
 

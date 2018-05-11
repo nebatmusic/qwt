@@ -1,5 +1,5 @@
-#ifndef _WHEELBOX_H_
-#define _WHEELBOX_H_
+#ifndef WHEELBOX_H
+#define WHEELBOX_H
 
 #include <qwidget.h>
 

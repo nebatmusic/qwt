@@ -1,5 +1,5 @@
-#ifndef _TRANSFORM_PLOT_H_
-#define _TRANSFORM_PLOT_H_
+#ifndef TRANSFORM_PLOT_H
+#define TRANSFORM_PLOT_H
 
 #include <qwt_plot.h>
 
@@ -24,4 +24,3 @@ private:
 };
 
 #endif
-

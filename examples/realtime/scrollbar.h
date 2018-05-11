@@ -1,5 +1,5 @@
-#ifndef _SCROLLBAR_H
-#define _SCROLLBAR_H 1
+#ifndef SCROLLBAR_H
+#define SCROLLBAR_H
 
 #include <qscrollbar.h>
 

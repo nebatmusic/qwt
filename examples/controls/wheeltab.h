@@ -1,5 +1,5 @@
-#ifndef _WHEEL_TAB_H
-#define _WHEEL_TAB_H 1
+#ifndef WHEEL_TAB_H
+#define WHEEL_TAB_H
 
 #include <qwidget.h>
 

@@ -1,4 +1,5 @@
-#ifndef _TV_PLOT_H_
+#ifndef TV_PLOT_H
+#define TV_PLOT_H
 
 #include <qwt_plot.h>
 

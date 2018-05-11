@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_COMPASS_ROSE_H
-#define QWT_COMPASS_ROSE_H 1
+#define QWT_COMPASS_ROSE_H
 
 #include "qwt_global.h"
 #include <qpalette.h>

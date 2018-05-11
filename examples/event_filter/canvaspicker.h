@@ -1,3 +1,6 @@
+#ifndef CANVAS_PICKER_H
+#define CANVAS_PICKER_H
+
 #include <qobject.h>
 
 class QPoint;
@@ -31,3 +34,5 @@ private:
     QwtPlotCurve *d_selectedCurve;
     int d_selectedPoint;
 };
+
+#endif

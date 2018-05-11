@@ -7,8 +7,8 @@
  * modify it under the terms of the Qwt License, Version 1.0
  *****************************************************************************/
 
-#ifndef _QWT_COMPAT_H_
-#define _QWT_COMPAT_H_
+#ifndef QWT_COMPAT_H
+#define QWT_COMPAT_H
 
 #include "qwt_global.h"
 #include "qwt_interval.h"

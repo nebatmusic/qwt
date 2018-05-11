@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_SPLINE_LOCAL_H
-#define QWT_SPLINE_LOCAL_H 1
+#define QWT_SPLINE_LOCAL_H
 
 #include "qwt_global.h"
 #include "qwt_spline.h"

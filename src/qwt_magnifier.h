@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_MAGNIFIER_H
-#define QWT_MAGNIFIER_H 1
+#define QWT_MAGNIFIER_H
 
 #include "qwt_global.h"
 #include <qobject.h>

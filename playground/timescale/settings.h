@@ -1,5 +1,5 @@
-#ifndef _SETTINGS_H_
-#define _SETTINGS_H_ 1
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 #include <qdatetime.h>
 

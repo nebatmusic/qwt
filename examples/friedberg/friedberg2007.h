@@ -1,5 +1,5 @@
-#ifndef _FRIEDBERG_2007_H_
-#define _FRIEDBERG_2007_H_
+#ifndef FRIEDBERG_2007_H
+#define FRIEDBERG_2007_H
 
 class Temperature
 {

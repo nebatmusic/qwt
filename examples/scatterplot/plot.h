@@ -1,5 +1,5 @@
-#ifndef _PLOT_H_
-#define _PLOT_H_ 1
+#ifndef PLOT_H
+#define PLOT_H
 
 #include <qwt_plot.h>
 
@@ -20,4 +20,4 @@ private:
     QwtPlotCurve *d_curve;
 };
 
-#endif // _PLOT_H_
+#endif

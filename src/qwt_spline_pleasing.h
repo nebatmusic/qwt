@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_SPLINE_PLEASING_H
-#define QWT_SPLINE_PLEASING_H 1
+#define QWT_SPLINE_PLEASING_H
 
 #include "qwt_spline.h"
 

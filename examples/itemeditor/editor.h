@@ -1,5 +1,5 @@
-#ifndef _EDITOR_H_
-#define _EDITOR_H_
+#ifndef EDITOR_H
+#define EDITOR_H
 
 #include <qobject.h>
 #include <qregion.h>

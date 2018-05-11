@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_DIAL_H
-#define QWT_DIAL_H 1
+#define QWT_DIAL_H
 
 #include "qwt_global.h"
 #include "qwt_abstract_slider.h"

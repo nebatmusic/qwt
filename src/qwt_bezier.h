@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_BEZIER_H
-#define QWT_BEZIER_H 1
+#define QWT_BEZIER_H
 
 #include "qwt_global.h"
 #include <qpolygon.h>

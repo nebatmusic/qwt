@@ -1,3 +1,6 @@
+#ifndef CPU_PLOT_H
+#define CPU_PLOT_H
+
 #include <qwt_plot.h>
 #include "cpustat.h"
 
@@ -45,3 +48,5 @@ private:
     int dataCount;
     CpuStat cpuStat;
 };
+
+#endif

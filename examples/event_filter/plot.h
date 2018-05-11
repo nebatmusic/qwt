@@ -1,3 +1,6 @@
+#ifndef COLOR_BAR_H
+#define COLOR_BAR_H
+
 #include <qwt_plot.h>
 
 class ColorBar;
@@ -23,3 +26,5 @@ private:
     ColorBar *d_colorBar;
     QwtWheel *d_wheel;
 };
+
+#endif

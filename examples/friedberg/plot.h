@@ -1,5 +1,5 @@
-#ifndef _PLOT_H_
-#define _PLOT_H_
+#ifndef PLOT_H
+#define PLOT_H
 
 #include <qwt_plot.h>
 #include <qwt_scale_div.h>

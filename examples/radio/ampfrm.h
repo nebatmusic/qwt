@@ -1,3 +1,6 @@
+#ifndef AMP_FRAME_H
+#define AMP_FRAME_H
+
 #include <qframe.h>
 
 class Knob;
@@ -25,5 +28,4 @@ private:
     double d_master;
 };
 
-
-
+#endif

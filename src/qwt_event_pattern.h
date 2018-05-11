@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_EVENT_PATTERN
-#define QWT_EVENT_PATTERN 1
+#define QWT_EVENT_PATTERN
 
 #include "qwt_global.h"
 #include <qnamespace.h>

@@ -1,5 +1,5 @@
-#ifndef _PANEL_
-#define _PANEL_
+#ifndef PANEL_H
+#define PANEL_H
 
 #include "settings.h"
 #include <qwidget.h>

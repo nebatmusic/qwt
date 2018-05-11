@@ -1,5 +1,5 @@
-#ifndef _PLOT_H
-#define _PLOT_H
+#ifndef PLOT_H
+#define PLOT_H
 
 #include <qwt_plot.h>
 #include "shapefactory.h"

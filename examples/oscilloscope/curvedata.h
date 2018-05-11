@@ -1,3 +1,6 @@
+#ifndef CURVE_DATA
+#define CURVE_DATA
+
 #include <qwt_series_data.h>
 #include <qpointer.h>
 
@@ -14,3 +17,5 @@ public:
 
     virtual QRectF boundingRect() const;
 };
+
+#endif

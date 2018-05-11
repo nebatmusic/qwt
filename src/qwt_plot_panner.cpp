@@ -81,7 +81,7 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
         {
             const double br = borderRadius.toDouble();
             const int fw = frameWidth.toInt();
-  
+
             if ( br > 0.0 && fw > 0 )
             {
                 painter.setPen( QPen( Qt::color1, fw ) );

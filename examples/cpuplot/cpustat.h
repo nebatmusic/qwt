@@ -1,3 +1,6 @@
+#ifndef CPU_STAT_H
+#define CPU_STAT_H
+
 #include <qdatetime.h>
 
 class CpuStat
@@ -21,3 +24,5 @@ private:
     void lookUp( double[NValues] ) const;
     double procValues[NValues];
 };
+
+#endif

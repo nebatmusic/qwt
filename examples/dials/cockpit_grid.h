@@ -1,3 +1,6 @@
+#ifndef COCKPIT_GRID
+#define COCKPIT_GRID
+
 #include <qframe.h>
 #include <qpalette.h>
 
@@ -26,3 +29,5 @@ private:
     SpeedoMeter *d_speedo;
     AttitudeIndicator *d_ai;
 };
+
+#endif

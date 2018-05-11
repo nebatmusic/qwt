@@ -1,3 +1,6 @@
+#ifndef ATTITUDE_INDICATOR_H
+#define ATTITUDE_INDICATOR_H
+
 #include <qwt_dial.h>
 #include <qwt_dial_needle.h>
 
@@ -37,3 +40,5 @@ protected:
 private:
     double d_gradient;
 };
+
+#endif

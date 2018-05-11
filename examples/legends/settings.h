@@ -1,5 +1,5 @@
-#ifndef _SETTINGS_
-#define _SETTINGS_
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 #include <qstring.h>
 

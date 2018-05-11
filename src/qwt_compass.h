@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_COMPASS_H
-#define QWT_COMPASS_H 1
+#define QWT_COMPASS_H
 
 #include "qwt_global.h"
 #include "qwt_dial.h"

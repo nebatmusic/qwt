@@ -1,3 +1,6 @@
+#ifndef SAMPLING_THREAD
+#define SAMPLING_THREAD
+
 #include <qwt_sampling_thread.h>
 
 class SamplingThread: public QwtSamplingThread
@@ -23,3 +26,5 @@ private:
     double d_frequency;
     double d_amplitude;
 };
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef _COMPLEX_NUMBER_H_
-#define _COMPLEX_NUMBER_H_
+#ifndef COMPLEX_NUMBER_H
+#define COMPLEX_NUMBER_H
 
 #include <math.h>
 
