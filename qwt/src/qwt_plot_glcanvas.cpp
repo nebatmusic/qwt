@@ -9,6 +9,7 @@
 
 #include "qwt_plot_glcanvas.h"
 #include "qwt_plot.h"
+#include "qwt_painter.h"
 #include <qevent.h>
 #include <qglframebufferobject.h>
 
@@ -143,37 +144,50 @@ void QwtPlotGLCanvas::paintGL()
 #else
     if ( testPaintAttribute( QwtPlotGLCanvas::BackingStore ) )
     {
+        const qreal pixelRatio = QwtPainter::devicePixelRatio( NULL );
+        const QRect rect( 0, 0, width() * pixelRatio, height() * pixelRatio );
+
         if ( hasFocusIndicator )
             painter.begin( this );
 
-        const QRect rect(0, 0, width(), height());
-
-        if ( d_data->fbo && d_data->fbo->size() != size() )
+        if ( d_data->fbo )
         {
-            delete d_data->fbo;
-            d_data->fbo = NULL;
+            if ( d_data->fbo->size() != rect.size() )
+            {
+                delete d_data->fbo;
+                d_data->fbo = NULL;
+            }
         }
 
-        if ( d_data->fbo == NULL || d_data->fbo->size() != size() )
+        if ( d_data->fbo == NULL )
         {
             QGLFramebufferObjectFormat format;
             format.setSamples( 4 );
             format.setAttachment(QGLFramebufferObject::CombinedDepthStencil);
 
-            d_data->fbo = new QGLFramebufferObject( size(), format );
+            d_data->fbo = new QGLFramebufferObject( rect.size(), format );
             d_data->fboDirty = true;
         }
 
         if ( d_data->fboDirty )
         {
             QPainter fboPainter( d_data->fbo );
-            draw( &fboPainter);
+            fboPainter.scale( pixelRatio, pixelRatio );
+            draw( &fboPainter );
             fboPainter.end();
 
             d_data->fboDirty = false;
         }
 
-        QGLFramebufferObject::blitFramebuffer( NULL, rect, d_data->fbo, rect );
+        /*
+            Why do we have this strange translation - but, anyway 
+            QwtPlotGLCanvas in combination with scaling factor
+            is not very likely to happen as using QwtPlotOpenGLCanvas
+            usually makes more sense then.
+         */
+
+        QGLFramebufferObject::blitFramebuffer( NULL,
+            rect.translated( 0, height() - rect.height() ), d_data->fbo, rect );
     }
     else
     {

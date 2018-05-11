@@ -9,6 +9,7 @@
 
 #include "qwt_plot_opengl_canvas.h"
 #include "qwt_plot.h"
+#include "qwt_painter.h"
 #include <qevent.h>
 #include <qopenglframebufferobject.h>
 #include <qopenglpaintdevice.h>
@@ -155,6 +156,9 @@ void QwtPlotOpenGLCanvas::paintGL()
     if ( testPaintAttribute( QwtPlotOpenGLCanvas::BackingStore ) &&
         QOpenGLFramebufferObject::hasOpenGLFramebufferBlit() )
     {
+        const qreal pixelRatio = QwtPainter::devicePixelRatio( NULL );
+        const QSize fboSize = size() * pixelRatio;
+
         if ( hasFocusIndicator )
             painter.begin( this );
 
@@ -168,10 +172,13 @@ void QwtPlotOpenGLCanvas::paintGL()
                - ???
          */
 
-        if ( d_data->fbo && d_data->fbo->size() != size() )
+        if ( d_data->fbo )
         {
-            delete d_data->fbo;
-            d_data->fbo = NULL;
+            if ( d_data->fbo->size() != fboSize )
+            {
+                delete d_data->fbo;
+                d_data->fbo = NULL;
+            }
         }
 
         if ( d_data->fbo == NULL )
@@ -180,7 +187,7 @@ void QwtPlotOpenGLCanvas::paintGL()
             fboFormat.setSamples( d_data->numSamples );
             fboFormat.setAttachment( QOpenGLFramebufferObject::CombinedDepthStencil );
 
-            d_data->fbo = new QOpenGLFramebufferObject( size(), fboFormat );
+            d_data->fbo = new QOpenGLFramebufferObject( fboSize, fboFormat );
             d_data->fboDirty = true;
         }
 
@@ -188,9 +195,10 @@ void QwtPlotOpenGLCanvas::paintGL()
         {
             d_data->fbo->bind();
 
-            QOpenGLPaintDevice pd( size() );
+            QOpenGLPaintDevice pd( fboSize );
 
             QPainter fboPainter( &pd );
+            fboPainter.scale( pixelRatio, pixelRatio );
             draw( &fboPainter);
             fboPainter.end();
         

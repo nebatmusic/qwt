@@ -29,6 +29,7 @@ int main ( int argc, char **argv )
 
 #if USE_OPENGL
     QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas();
+    canvas->setPaintAttribute( QwtPlotGLCanvas::BackingStore, false );
 #else
     QwtPlotCanvas *canvas = new QwtPlotCanvas();
     canvas->setPaintAttribute( QwtPlotCanvas::BackingStore, false );
