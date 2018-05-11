@@ -237,7 +237,7 @@ QRect QwtDial::boundingRect() const
 {
     const QRect cr = contentsRect();
 
-    const double dim = qMin( cr.width(), cr.height() );
+    const int dim = qMin( cr.width(), cr.height() );
 
     QRect inner( 0, 0, dim, dim );
     inner.moveCenter( cr.center() );
