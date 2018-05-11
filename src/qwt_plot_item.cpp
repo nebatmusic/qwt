@@ -557,7 +557,7 @@ QRectF QwtPlotItem::boundingRect() const
    \param right Returns the right margin
    \param bottom Returns the bottom margin
 
-   \return The default implementation returns 0 for all margins
+   The default implementation returns 0 for all margins
 
    \sa QwtPlot::getCanvasMarginsHint(), QwtPlot::updateCanvasMargins()
  */

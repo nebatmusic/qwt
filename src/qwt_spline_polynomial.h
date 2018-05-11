@@ -200,11 +200,11 @@ inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures(
   \return Coefficients of the polynomials
  */
 inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures( 
-    double x, double y, double cv1, double cv2 )
+    double dx, double dy, double cv1, double cv2 )
 {
-    const double c3 = ( cv2 - cv1 ) / ( 6.0 * x );
+    const double c3 = ( cv2 - cv1 ) / ( 6.0 * dx );
     const double c2 = 0.5 * cv1;
-    const double c1 = y / x - ( c3 * x + c2 ) * x;
+    const double c1 = dy / dx - ( c3 * dx + c2 ) * dx;
 
     return QwtSplinePolynomial( c3, c2, c1 );
 }
