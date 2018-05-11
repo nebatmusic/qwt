@@ -254,6 +254,8 @@ static inline QDateTime qwtToTimeSpec(
     return dt.toTimeSpec( spec );
 }
 
+#if 0
+
 static inline double qwtToJulianDay( int year, int month, int day )
 {
     // code from QDate but using doubles to avoid overflows
@@ -282,6 +284,8 @@ static inline qint64 qwtFloorDiv( int a, int b )
         
     return a / b;
 }   
+
+#endif
 
 static inline QDate qwtToDate( int year, int month = 1, int day = 1 )
 {
