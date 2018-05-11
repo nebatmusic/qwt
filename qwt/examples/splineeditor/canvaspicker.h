@@ -1,3 +1,6 @@
+#ifndef CANVAS_PICKER_H
+#define CANVAS_PICKER_H
+
 #include <qobject.h>
 
 class QPoint;
@@ -24,3 +27,5 @@ private:
     int d_selectedPoint;
     const bool d_sortedX;
 };
+
+#endif

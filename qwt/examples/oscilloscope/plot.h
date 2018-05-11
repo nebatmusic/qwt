@@ -1,3 +1,6 @@
+#ifndef PLOT_H
+#define PLOT_H
+
 #include <qwt_plot.h>
 #include <qwt_interval.h>
 #include <qwt_system_clock.h>
@@ -42,3 +45,5 @@ private:
 
     QwtSystemClock d_clock;
 };
+
+#endif

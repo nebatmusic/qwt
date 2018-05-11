@@ -1,3 +1,6 @@
+#ifndef SPEEDO_METER
+#define SPEEDO_METER
+
 #include <qstring.h>
 #include <qwt_dial.h>
 
@@ -16,3 +19,5 @@ protected:
 private:
     QString d_label;
 };
+
+#endif

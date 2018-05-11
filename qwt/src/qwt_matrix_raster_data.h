@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_MATRIX_RASTER_DATA_H
-#define QWT_MATRIX_RASTER_DATA_H 1
+#define QWT_MATRIX_RASTER_DATA_H
 
 #include "qwt_global.h"
 #include "qwt_raster_data.h"

@@ -1,3 +1,6 @@
+#ifndef PLOT_H
+#define PLOT_H
+
 #include <qwt_plot.h>
 #include <qwt_plot_spectrogram.h>
 
@@ -42,3 +45,5 @@ private:
     int d_mapType;
     int d_alpha;
 };
+
+#endif

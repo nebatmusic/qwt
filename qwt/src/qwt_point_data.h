@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_POINT_DATA_H
-#define QWT_POINT_DATA_H 1
+#define QWT_POINT_DATA_H
 
 #include "qwt_global.h"
 #include "qwt_series_data.h"

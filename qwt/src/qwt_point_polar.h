@@ -8,8 +8,8 @@
  *****************************************************************************/
 
 /*! \file */
-#ifndef _QWT_POINT_POLAR_H_
-#define _QWT_POINT_POLAR_H_ 1
+#ifndef QWT_POINT_POLAR_H
+#define QWT_POINT_POLAR_H
 
 #include "qwt_global.h"
 #include "qwt_math.h"

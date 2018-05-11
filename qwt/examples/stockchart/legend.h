@@ -1,5 +1,5 @@
-#ifndef _LEGEND_H_
-#define _LEGEND_H_
+#ifndef LEGEND_H
+#define LEGEND_H
 
 #include <qwt_abstract_legend.h>
 

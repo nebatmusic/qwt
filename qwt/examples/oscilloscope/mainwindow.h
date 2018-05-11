@@ -1,3 +1,6 @@
+#ifndef MAIN_WINDOW_H
+#define MAIN_WINDOW_H
+
 #include <qwidget.h>
 
 class Plot;
@@ -30,3 +33,5 @@ private:
 
     Plot *d_plot;
 };
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef _DIAL_TAB_H
-#define _DIAL_TAB_H 1
+#ifndef DIAL_TAB_H
+#define DIAL_TAB_H
 
 #include <qwidget.h>
 

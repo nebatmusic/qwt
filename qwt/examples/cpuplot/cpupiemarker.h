@@ -3,6 +3,9 @@
 // pie chart of user/total/idle cpu usage in percent.
 //-----------------------------------------------------------------
 
+#ifndef CPU_PIE_MARKER_H
+#define CPU_PIE_MARKER_H
+
 #include <qwt_plot_item.h>
 
 class CpuPieMarker: public QwtPlotItem
@@ -15,3 +18,5 @@ public:
     virtual void draw( QPainter *,
         const QwtScaleMap &, const QwtScaleMap &, const QRectF & ) const;
 };
+
+#endif

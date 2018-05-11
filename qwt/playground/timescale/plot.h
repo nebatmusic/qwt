@@ -1,5 +1,5 @@
-#ifndef _PLOT_H_
-#define _PLOT_H_
+#ifndef PLOT_H_
+#define PLOT_H_
 
 #include <qwt_plot.h>
 

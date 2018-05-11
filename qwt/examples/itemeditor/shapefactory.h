@@ -1,5 +1,5 @@
-#ifndef _SHAPE_FACTORY_H_
-#define _SHAPE_FACTORY_H_
+#ifndef SHAPE_FACTORY_H
+#define SHAPE_FACTORY_H
 
 #include <qpainterpath.h>
 

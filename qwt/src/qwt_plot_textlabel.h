@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_PLOT_TEXT_LABEL_H
-#define QWT_PLOT_TEXT_LABEL_H 1
+#define QWT_PLOT_TEXT_LABEL_H
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"

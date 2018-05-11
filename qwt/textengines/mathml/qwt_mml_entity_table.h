@@ -1,5 +1,5 @@
-#ifndef _QWT_MML_ENTITY_TABLE_H_
-#define _QWT_MML_ENTITY_TABLE_H_
+#ifndef QWT_MML_ENTITY_TABLE_H
+#define QWT_MML_ENTITY_TABLE_H
 
 #include <qwt_global.h>
 

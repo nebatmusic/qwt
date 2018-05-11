@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_NULL_PAINT_DEVICE_H
-#define QWT_NULL_PAINT_DEVICE_H 1
+#define QWT_NULL_PAINT_DEVICE_H
 
 #include "qwt_global.h"
 #include <qpaintdevice.h>

@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_SPLINE_POLYNOMIAL_H
-#define QWT_SPLINE_POLYNOMIAL_H 1
+#define QWT_SPLINE_POLYNOMIAL_H
 
 #include "qwt_global.h"
 #include <qpoint.h>

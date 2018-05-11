@@ -1,5 +1,5 @@
-#ifndef _QUOTE_FACTORY_H_
-#define _QUOTE_FACTORY_H_
+#ifndef QUOTE_FACTORY_H
+#define QUOTE_FACTORY_H
 
 #include <qwt_series_data.h>
 

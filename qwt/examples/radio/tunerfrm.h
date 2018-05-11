@@ -1,3 +1,6 @@
+#ifndef TUNER_FRAME_H
+#define TUNER_FRAME_H
+
 #include <qframe.h>
 
 class QwtWheel;
@@ -25,6 +28,4 @@ private:
     QwtSlider *d_sliderFrequency;
 };
 
-
-
-
+#endif

@@ -1,3 +1,6 @@
+#ifndef PLOT_H
+#define PLOT_H
+
 #include <qwt_plot.h>
 
 class QwtWheel;
@@ -35,3 +38,5 @@ private:
 
     int d_boundaryCondition;
 };
+
+#endif

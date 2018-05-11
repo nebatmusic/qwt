@@ -1,5 +1,5 @@
-#ifndef _PLOT_MATRIX_H_
-#define _PLOT_MATRIX_H_
+#ifndef PLOT_MATRIX_H
+#define PLOT_MATRIX_H
 
 #include <qframe.h>
 #include <qwt_plot.h>

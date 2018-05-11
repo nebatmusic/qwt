@@ -1,5 +1,5 @@
-#ifndef _TREE_VIEW_H_
-#define _TREE_VIEW_H_
+#ifndef TREE_VIEW_H
+#define TREE_VIEW_H
 
 #include <qtreeview.h>
 

@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_PLOT_PANNER_H
-#define QWT_PLOT_PANNER_H 1
+#define QWT_PLOT_PANNER_H
 
 #include "qwt_global.h"
 #include "qwt_panner.h"

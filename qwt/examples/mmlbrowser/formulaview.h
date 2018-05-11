@@ -1,5 +1,5 @@
-#ifndef _FORMULA_VIEW_H_
-#define _FORMULA_VIEW_H_
+#ifndef FORMULA_VIEW_H
+#define FORMULA_VIEW_H
 
 #include <qwidget.h>
 

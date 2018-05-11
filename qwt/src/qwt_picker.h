@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_PICKER
-#define QWT_PICKER 1
+#define QWT_PICKER
 
 #include "qwt_global.h"
 #include "qwt_text.h"

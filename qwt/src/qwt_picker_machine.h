@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_PICKER_MACHINE
-#define QWT_PICKER_MACHINE 1
+#define QWT_PICKER_MACHINE
 
 #include "qwt_global.h"
 #include <qlist.h>

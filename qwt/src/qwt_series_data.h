@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_SERIES_DATA_H
-#define QWT_SERIES_DATA_H 1
+#define QWT_SERIES_DATA_H
 
 #include "qwt_global.h"
 #include "qwt_samples.h"

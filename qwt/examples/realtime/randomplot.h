@@ -1,5 +1,5 @@
-#ifndef _RANDOMPLOT_H_
-#define _RANDOMPLOT_H_ 1
+#ifndef RANDOM_PLOT_H
+#define RANDOM_PLOT_H
 
 #include "incrementalplot.h"
 #include <qdatetime.h>
@@ -36,4 +36,4 @@ private:
     QTime d_timeStamp;
 };
 
-#endif // _RANDOMPLOT_H_
+#endif

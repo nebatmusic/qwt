@@ -7,8 +7,8 @@
  * modify it under the terms of the Qwt License, Version 1.0
  *****************************************************************************/
 
-#ifndef _QWT_DATE_H_
-#define _QWT_DATE_H_
+#ifndef QWT_DATE_H
+#define QWT_DATE_H
 
 #include "qwt_global.h"
 #include <qdatetime.h>

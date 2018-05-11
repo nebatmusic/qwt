@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #ifndef QWT_RASTER_DATA_H
-#define QWT_RASTER_DATA_H 1
+#define QWT_RASTER_DATA_H
 
 #include "qwt_global.h"
 #include "qwt_interval.h"

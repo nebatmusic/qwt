@@ -1,5 +1,5 @@
-#ifndef _PANEL_H_
-#define _PANEL_H_ 1
+#ifndef PANEL_H
+#define PANEL_H 1
 
 #include "settings.h"
 #include <qtabwidget.h>

@@ -1,3 +1,6 @@
+#ifndef PLOT_H
+#define PLOT_H
+
 #include <qwt_plot.h>
 #include <qdatetime.h>
 
@@ -19,3 +22,5 @@ private:
 
     QTime d_time;
 };
+
+#endif

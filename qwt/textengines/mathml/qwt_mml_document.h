@@ -1,5 +1,5 @@
-#ifndef _QWT_MML_DOCUMENT_H_
-#define _QWT_MML_DOCUMENT_H_
+#ifndef QWT_MML_DOCUMENT_H
+#define QWT_MML_DOCUMENT_H
 
 #include <qwt_global.h>
 

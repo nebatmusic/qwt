@@ -1,3 +1,6 @@
+#ifndef SCALE_PICKER_H
+#define SCALE_PICKER_H
+
 #include <qobject.h>
 #include <qrect.h>
 
@@ -18,3 +21,5 @@ private:
     void mouseClicked( const QwtScaleWidget *, const QPoint & );
     QRect scaleRect( const QwtScaleWidget * ) const;
 };
+
+#endif

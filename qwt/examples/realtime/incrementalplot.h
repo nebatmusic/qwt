@@ -1,5 +1,5 @@
-#ifndef _INCREMENTALPLOT_H_
-#define _INCREMENTALPLOT_H_ 1
+#ifndef INCREMENTAL_PLOT_H
+#define INCREMENTAL_PLOT_H
 
 #include <qwt_plot.h>
 
@@ -25,4 +25,4 @@ private:
     QwtPlotDirectPainter *d_directPainter;
 };
 
-#endif // _INCREMENTALPLOT_H_
+#endif

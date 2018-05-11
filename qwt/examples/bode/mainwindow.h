@@ -1,3 +1,6 @@
+#ifndef MAIN_WINDOW_H
+#define MAIN_WINDOW_H
+
 #include <qmainwindow.h>
 
 class QwtPlotZoomer;
@@ -33,3 +36,5 @@ private:
     QwtPlotPicker *d_picker;
     QwtPlotPanner *d_panner;
 };
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef _SLIDER_BOX_H_
-#define _SLIDER_BOX_H_ 1
+#ifndef SLIDER_BOX_H
+#define SLIDER_BOX_H
 
 #include <qwidget.h>
 
