@@ -332,8 +332,10 @@ void QwtPlotHistogram::setSamples(
 */
 void QwtPlotHistogram::drawSeries( QPainter *painter,
     const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-    const QRectF &, int from, int to ) const
+    const QRectF &canvasRect, int from, int to ) const
 {
+    Q_UNUSED( canvasRect )
+
     if ( !painter || dataSize() <= 0 )
         return;
 

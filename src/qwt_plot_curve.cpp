@@ -556,8 +556,10 @@ void QwtPlotCurve::drawLines( QPainter *painter,
 */
 void QwtPlotCurve::drawSticks( QPainter *painter,
     const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-    const QRectF &, int from, int to ) const
+    const QRectF &canvasRect, int from, int to ) const
 {
+    Q_UNUSED( canvasRect )
+
     painter->save();
     painter->setRenderHint( QPainter::Antialiasing, false );
 
