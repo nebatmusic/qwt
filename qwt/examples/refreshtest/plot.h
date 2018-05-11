@@ -1,5 +1,5 @@
 #ifndef PLOT_H
-#define PLOT_H 1
+#define PLOT_H
 
 #include <qwt_plot.h>
 #include <qwt_system_clock.h>
