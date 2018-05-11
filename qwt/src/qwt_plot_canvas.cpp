@@ -229,7 +229,7 @@ void QwtPlotCanvas::paintEvent( QPaintEvent *event )
         d_data->backingStore != NULL )
     {
         QPixmap &bs = *d_data->backingStore;
-        if ( bs.size() != size() )
+        if ( bs.size() != size() * QwtPainter::devicePixelRatio( &bs ) )
         {
             bs = QwtPainter::backingStore( this, size() );
 
