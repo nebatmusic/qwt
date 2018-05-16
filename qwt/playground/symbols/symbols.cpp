@@ -7,7 +7,6 @@
 #include <qwt_plot.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_curve.h>
-#include <qwt_plot_grid.h>
 #include <qwt_symbol.h>
 #include <qwt_graphic.h>
 #include <qwt_legend.h>
