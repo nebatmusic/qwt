@@ -219,7 +219,22 @@ void QwtPlotItem::setItemAttribute( ItemAttribute attribute, bool on )
             d_data->attributes &= ~attribute;
 
         if ( attribute == QwtPlotItem::Legend )
-            legendChanged();
+        {
+            if ( on )
+            {
+                legendChanged();
+            }
+            else
+            {
+                /*
+                    In the special case of taking an item from
+                    the legend we can't use legendChanged() as
+                    it depends on QwtPlotItem::Legend being enabled
+                 */
+                if ( d_data->plot )
+                    d_data->plot->updateLegend( this );
+            }
+        }
 
         itemChanged();
     }
