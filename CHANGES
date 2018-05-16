@@ -14,3 +14,4 @@
 - QwtSymbol fine tuning of QwtSymbol::AutoCache 
 - A new implementation of various spline interpolations
 - QwtRasterData::setInterval/interval changed into a pure virtual getter
+- QwtPlotCurve::setLegendAttributes added

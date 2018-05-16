@@ -247,6 +247,9 @@ public:
     void setLegendAttribute( LegendAttribute, bool on = true );
     bool testLegendAttribute( LegendAttribute ) const;
 
+    void setLegendAttributes( LegendAttributes );
+    LegendAttributes legendAttributes() const;
+
 #ifndef QWT_NO_COMPAT
     void setRawSamples( const double *xData, const double *yData, int size );
     void setSamples( const double *xData, const double *yData, int size );

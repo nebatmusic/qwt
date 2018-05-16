@@ -211,6 +211,32 @@ bool QwtPlotCurve::testLegendAttribute( LegendAttribute attribute ) const
 }
 
 /*!
+  Specify the attributes how to draw the legend icon
+
+  \param attributes Attributes
+  /sa setLegendAttribute(). legendIcon()
+*/
+void QwtPlotCurve::setLegendAttributes( LegendAttributes attributes )
+{
+    if ( attributes != d_data->legendAttributes )
+    {
+        d_data->legendAttributes = attributes;
+
+        qwtUpdateLegendIconSize( this );
+        legendChanged();
+    }
+}
+
+/*!
+  \return Attributes how to draw the legend icon
+  \sa setLegendAttributes(), testLegendAttribute()
+*/
+QwtPlotCurve::LegendAttributes QwtPlotCurve::legendAttributes() const
+{
+    return d_data->legendAttributes;
+}
+
+/*!
   Set the curve's drawing style
 
   \param style Curve style
