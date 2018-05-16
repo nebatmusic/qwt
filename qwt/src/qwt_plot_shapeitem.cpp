@@ -21,7 +21,7 @@ static QPainterPath qwtTransformPath( const QwtScaleMap &xMap,
 
     for ( int i = 0; i < path.elementCount(); i++ )
     {
-        const QPainterPath::Element &element = path.elementAt( i );
+        const QPainterPath::Element element = path.elementAt( i );
 
         double x = xMap.transform( element.x );
         double y = yMap.transform( element.y );
@@ -52,11 +52,11 @@ static QPainterPath qwtTransformPath( const QwtScaleMap &xMap,
             }
             case QPainterPath::CurveToElement:
             {
-                const QPainterPath::Element& element1 = path.elementAt( ++i );
+                const QPainterPath::Element element1 = path.elementAt( ++i );
                 const double x1 = xMap.transform( element1.x );
                 const double y1 = yMap.transform( element1.y );
 
-                const QPainterPath::Element& element2 = path.elementAt( ++i );
+                const QPainterPath::Element element2 = path.elementAt( ++i );
                 const double x2 = xMap.transform( element2.x );
                 const double y2 = yMap.transform( element2.y );
 
