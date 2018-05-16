@@ -295,6 +295,8 @@ void QwtLegend::setMaxColumns( uint numColums )
         d_data->view->contentsWidget->layout() );
     if ( tl )
         tl->setMaxColumns( numColums );
+
+    updateGeometry();
 }
 
 /*!
