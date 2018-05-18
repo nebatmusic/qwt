@@ -15,3 +15,5 @@
 - A new implementation of various spline interpolations
 - QwtRasterData::setInterval/interval changed into a pure virtual getter
 - QwtPlotCurve::setLegendAttributes added
+- Not aligning unknown paint engines ( f.e EMF )
+- QwtNullPaintDevice is using a different type than QPaintEngine::User now

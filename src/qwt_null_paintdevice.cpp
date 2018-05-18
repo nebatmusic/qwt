@@ -84,7 +84,12 @@ bool QwtNullPaintDevice::PaintEngine::end()
 
 QPaintEngine::Type QwtNullPaintDevice::PaintEngine::type() const
 {
-    return QPaintEngine::User;
+    /*
+        How to avoid conflicts with other 3rd party pain engines ?
+        At least we don't use QPaintEngine::User what is known to
+        be the value of some print engines
+     */
+    return static_cast< QPaintEngine::Type >( QPaintEngine::MaxUser - 2 );
 }
 
 void QwtNullPaintDevice::PaintEngine::drawRects(
