@@ -265,13 +265,26 @@ bool QwtPainter::isAligning( QPainter *painter )
 {
     if ( painter && painter->isActive() )
     {
-        switch ( painter->paintEngine()->type() )
+        const QPaintEngine::Type type = 
+            painter->paintEngine()->type();
+
+        if ( type >= QPaintEngine::User )
+        {
+            // we have no idea - better don't align
+            return false;
+        }
+
+        switch ( type )
         {
             case QPaintEngine::Pdf:
             case QPaintEngine::SVG:
+#if 0
+            case QPaintEngine::MacPrinter:
+#endif
                 return false;
 
-            default:;
+            default:
+                break;
         }
 
         const QTransform tr = painter->transform();
