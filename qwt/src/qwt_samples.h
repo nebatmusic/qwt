@@ -236,4 +236,45 @@ inline QwtInterval QwtOHLCSample::boundingInterval() const
     return QwtInterval( minY, maxY );
 }
 
+class QWT_EXPORT QwtVectorFieldSample
+{
+public:
+    QwtVectorFieldSample( double x = 0.0, double y = 0.0,
+        double u = 0.0, double v = 0.0 );
+
+    QwtVectorFieldSample( const QPointF& pos,
+        double u = 0.0, double v = 0.0 );
+
+    QPointF pos() const;
+
+    double x;
+    double y;
+
+    double u;
+    double v;
+};
+
+inline QwtVectorFieldSample::QwtVectorFieldSample(
+        double x, double y, double u, double v ):
+    x( x ),
+    y( y ),
+    u( u ),
+    v( v )
+{
+}
+
+inline QwtVectorFieldSample::QwtVectorFieldSample(
+        const QPointF &pos, double u, double v ):
+    x( pos.x() ),
+    y( pos.y() ),
+    u( u ),
+    v( v )
+{
+}
+
+inline QPointF QwtVectorFieldSample::pos() const
+{
+    return QPointF( x, y );
+}
+
 #endif

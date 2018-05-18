@@ -21,6 +21,7 @@ contains(QWT_CONFIG, QwtPlot) {
         rescaler \
         shapes \
         curvetracker \
+        vectorfield \
         symbols
 
     contains(QWT_CONFIG, QwtSvg) {

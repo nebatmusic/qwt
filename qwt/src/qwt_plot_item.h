@@ -123,6 +123,9 @@ public:
         //! For QwtPlotZoneItem
         Rtti_PlotZone,
 
+        //! For QwtPlotVectorField
+        Rtti_PlotVectorField,
+
         /*! 
            Values >= Rtti_PlotUserItem are reserved for plot items
            not implemented in the Qwt library.

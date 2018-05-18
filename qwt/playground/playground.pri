@@ -67,5 +67,5 @@ else {
 
 
 contains(QWT_CONFIG, QwtDll) {
-	DEFINES    += QT_DLL QWT_DLL
+    DEFINES    += QT_DLL QWT_DLL
 }

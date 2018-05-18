@@ -56,6 +56,11 @@ static inline QRectF qwtBoundingRect( const QwtOHLCSample &sample )
     return QRectF( interval.minValue(), sample.time, interval.width(), 0.0 );
 }
 
+static inline QRectF qwtBoundingRect( const QwtVectorFieldSample &sample )
+{
+    return QRectF( sample.x, sample.y, 0.0, 0.0 );
+}
+
 /*!
   \brief Calculate the bounding rectangle of a series subset
 
@@ -216,6 +221,23 @@ QRectF qwtBoundingRect(
 }
 
 /*!
+  \brief Calculate the bounding rectangle of a series subset
+
+  Slow implementation, that iterates over the series.
+
+  \param series Series
+  \param from Index of the first sample, <= 0 means from the beginning
+  \param to Index of the last sample, < 0 means to the end
+
+  \return Bounding rectangle
+*/
+QRectF qwtBoundingRect(
+    const QwtSeriesData<QwtVectorFieldSample> &series, int from, int to )
+{
+    return qwtBoundingRectT<QwtVectorFieldSample>( series, from, to );
+}
+
+/*!
    Constructor
    \param samples Samples
 */
@@ -297,9 +319,9 @@ QRectF QwtIntervalSeriesData::boundingRect() const
    Constructor
    \param samples Samples
 */
-QwtSetSeriesData::QwtSetSeriesData(
-        const QVector<QwtSetSample> &samples ):
-    QwtArraySeriesData<QwtSetSample>( samples )
+QwtVectorFieldData::QwtVectorFieldData(
+        const QVector<QwtVectorFieldSample> &samples ):
+    QwtArraySeriesData<QwtVectorFieldSample>( samples )
 {
 }
 
@@ -311,6 +333,20 @@ QwtSetSeriesData::QwtSetSeriesData(
 
   \return Bounding rectangle
 */
+QRectF QwtVectorFieldData::boundingRect() const
+{
+    if ( d_boundingRect.width() < 0.0 )
+        d_boundingRect = qwtBoundingRect( *this );
+
+    return d_boundingRect;
+}
+
+QwtSetSeriesData::QwtSetSeriesData(
+        const QVector<QwtSetSample> &samples ):
+    QwtArraySeriesData<QwtSetSample>( samples )
+{
+}
+
 QRectF QwtSetSeriesData::boundingRect() const
 {
     if ( d_boundingRect.width() < 0.0 )

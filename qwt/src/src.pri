@@ -135,6 +135,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_plot_legenditem.h \
         qwt_plot_seriesitem.h \
         qwt_plot_shapeitem.h \
+        qwt_plot_vectorfield.h \
         qwt_plot_abstract_canvas.h \
         qwt_plot_canvas.h \
         qwt_plot_panner.h \
@@ -182,6 +183,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_plot_legenditem.cpp \
         qwt_plot_seriesitem.cpp \
         qwt_plot_shapeitem.cpp \
+        qwt_plot_vectorfield.cpp \
         qwt_plot_marker.cpp \
         qwt_plot_textlabel.cpp \
         qwt_plot_layout.cpp \

@@ -123,6 +123,7 @@ contains(QWT_CONFIG, QwtPlot) {
         QwtPlotSvgItem \
         QwtPlotTextLabel \
         QwtPlotTradingCurve \
+        QwtPlotVectorField \
         QwtPlotZoneItem \
         QwtPlotZoomer \
         QwtScaleWidget \
