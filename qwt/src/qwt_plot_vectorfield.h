@@ -28,11 +28,43 @@ public:
         OriginCenter
     };
 
+    /*!
+        Attributes to modify the rendering
+        \sa setPaintAttribute(), testPaintAttribute()
+    */
+    enum PaintAttribute
+    {
+        FilterVectors = 0x01,
+        ShowInvalidVectors = 0x02,
+        LimitMagnitudeLength = 0x04
+    };
+
+    //! Paint attributes
+    typedef QFlags<PaintAttribute> PaintAttributes;
+
+    enum MagnitudeMode
+    {
+        MagnitudeAsColor = 0x01,
+        MagnitudeAsLength = 0x02
+    };
+
+    //! Paint attributes
+    typedef QFlags<MagnitudeMode> MagnitudeModes;
+
     explicit QwtPlotVectorField( const QString &title = QString() );
     explicit QwtPlotVectorField( const QwtText &title );
 
     virtual ~QwtPlotVectorField();
 
+    void setPaintAttribute( PaintAttribute, bool on = true );
+    bool testPaintAttribute( PaintAttribute ) const;
+
+    void setMagnitudeMode( MagnitudeMode, bool on = true );
+    bool testMagnitudeMode( MagnitudeMode ) const;
+
+    MagnitudeModes magnitudeModes() const;
+    void setMagnitudeModes( MagnitudeModes );
+    
 #if 1
     // temporary: there will be a QwtVectorSymbol later TODO ...
     void setPen( const QPen & );
@@ -77,5 +109,8 @@ private:
     class PrivateData;
     PrivateData *d_data;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS( QwtPlotVectorField::PaintAttributes )
+Q_DECLARE_OPERATORS_FOR_FLAGS( QwtPlotVectorField::MagnitudeModes )
 
 #endif

@@ -247,6 +247,8 @@ public:
 
     QPointF pos() const;
 
+    bool isValid() const;
+
     double x;
     double y;
 
@@ -275,6 +277,11 @@ inline QwtVectorFieldSample::QwtVectorFieldSample(
 inline QPointF QwtVectorFieldSample::pos() const
 {
     return QPointF( x, y );
+}
+
+inline bool QwtVectorFieldSample::isValid() const
+{
+    return !( u == 0.0 && v == 0.0 );
 }
 
 #endif

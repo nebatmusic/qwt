@@ -186,7 +186,9 @@ public:
         pen( Qt::NoPen ),
         brush( Qt::black ),
         indicatorOrigin( QwtPlotVectorField::OriginHead ),
-        magnitudeScaleFactor( 1.0 )
+        magnitudeScaleFactor( 1.0 ),
+        rasterSize( 20, 20 ),
+        magnitudeModes( MagnitudeAsLength )
     {
     }
 
@@ -198,6 +200,9 @@ public:
 
     qreal magnitudeScaleFactor;
     QSizeF rasterSize;
+
+    PaintAttributes paintAttributes;
+    MagnitudeModes magnitudeModes;
 };
 
 /*!
@@ -315,10 +320,68 @@ QSizeF QwtPlotVectorField::rasterSize() const
     return d_data->rasterSize;
 }
 
+/*!
+  Specify an attribute how to draw the curve
+
+  \param attribute Paint attribute
+  \param on On/Off
+  \sa testPaintAttribute()
+*/
+void QwtPlotVectorField::setPaintAttribute(
+    PaintAttribute attribute, bool on )
+{
+    if ( on )
+        d_data->paintAttributes |= attribute;
+    else
+        d_data->paintAttributes &= ~attribute;
+}
+
+/*!
+    \return True, when attribute is enabled
+    \sa PaintAttribute, setPaintAttribute()
+*/
+bool QwtPlotVectorField::testPaintAttribute(
+    PaintAttribute attribute ) const
+{
+    return ( d_data->paintAttributes & attribute );
+}
+
 //! \return QwtPlotItem::Rtti_PlotField
 int QwtPlotVectorField::rtti() const
 {
     return QwtPlotItem::Rtti_PlotVectorField;
+}
+
+void QwtPlotVectorField::setMagnitudeMode( MagnitudeMode mode, bool on )
+{
+    if ( on == testMagnitudeMode( mode ) )
+        return;
+
+    if ( on )
+        d_data->magnitudeModes |= mode;
+    else
+        d_data->magnitudeModes &= ~mode;
+
+    itemChanged();
+}
+
+bool QwtPlotVectorField::testMagnitudeMode( MagnitudeMode mode ) const
+{
+    return d_data->magnitudeModes & mode;
+}
+
+void QwtPlotVectorField::setMagnitudeModes( MagnitudeModes modes )
+{
+    if ( d_data->magnitudeModes != modes )
+    {
+        d_data->magnitudeModes = modes;
+        itemChanged();
+    }
+}
+
+QwtPlotVectorField::MagnitudeModes QwtPlotVectorField::magnitudeModes() const
+{
+    return d_data->magnitudeModes;
 }
 
 /*!
@@ -420,12 +483,14 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
     const bool isInvertingX = xMap.isInverting();
     const bool isInvertingY = yMap.isInverting();
 
+    const bool showInvalid = d_data->paintAttributes & ShowInvalidVectors;
+
     const QwtSeriesData<QwtVectorFieldSample> *series = data();
 
     painter->setPen( d_data->pen );
     painter->setBrush( d_data->brush );
 
-    if ( !d_data->rasterSize.isEmpty() )
+    if ( ( d_data->paintAttributes & FilterVectors ) && !d_data->rasterSize.isEmpty() )
     {
         const QRectF dataRect = QwtScaleMap::transform(
             xMap, yMap, boundingRect() );
@@ -435,9 +500,11 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
         for ( int i = from; i <= to; i++ )
         {
             const QwtVectorFieldSample sample = series->sample( i );
-
-            matrix.addSample( xMap.transform( sample.x ),
-                yMap.transform( sample.y ), sample.u, sample.v );
+            if ( showInvalid || sample.isValid() )
+            {
+                matrix.addSample( xMap.transform( sample.x ),
+                    yMap.transform( sample.y ), sample.u, sample.v );
+            }
         }
 
         const int numEntries = matrix.numRows() * matrix.numColumns();
@@ -481,6 +548,9 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
         {
             const QwtVectorFieldSample sample = series->sample( i );
 
+            if ( !( showInvalid || sample.isValid() ) )
+                continue;
+
             double xi = xMap.transform( sample.x );
             double yi = yMap.transform( sample.y );
 
@@ -516,11 +586,17 @@ void QwtPlotVectorField::drawArrow( QPainter *painter,
 {
     auto &arrow = d_data->arrow;
 
-    double tailLength = magnitude * d_data->magnitudeScaleFactor * arrow.tailWidth();
-#if 0
-    if ( tailLength > 40 )
-        tailLength = 40;
-#endif
+    double tailLength = 0.0;
+
+    if ( d_data->magnitudeModes & MagnitudeAsLength )
+    {
+        tailLength = magnitude * d_data->magnitudeScaleFactor * arrow.tailWidth();
+
+        if ( d_data->paintAttributes & LimitMagnitudeLength )
+        {
+            // TODO ...
+        }
+    }
 
     arrow.setTailLength( tailLength );
 
