@@ -145,6 +145,8 @@ void QwtScaleWidget::setLayoutFlag( LayoutFlag flag, bool on )
             d_data->layoutFlags |= flag;
         else
             d_data->layoutFlags &= ~flag;
+
+        update();
     }
 }
 
