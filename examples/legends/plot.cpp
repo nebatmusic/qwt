@@ -190,7 +190,7 @@ void Plot::applySettings( const Settings &settings )
         }
 
         d_legendItem->setMaxColumns( settings.legendItem.numColumns );
-        d_legendItem->setAlignment( Qt::Alignment( settings.legendItem.alignment ) );
+        d_legendItem->setAlignmentInCanvas( Qt::Alignment( settings.legendItem.alignment ) );
         d_legendItem->setBackgroundMode(
             QwtPlotLegendItem::BackgroundMode( settings.legendItem.backgroundMode ) );
         if ( settings.legendItem.backgroundMode == 
