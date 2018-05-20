@@ -66,8 +66,11 @@ public:
 
     virtual int rtti() const;
 
-    void setAlignment( Qt::Alignment );
-    Qt::Alignment alignment() const;
+    void setAlignmentInCanvas( Qt::Alignment );
+    Qt::Alignment alignmentInCanvas() const;
+
+    void setOffsetInCanvas( Qt::Orientations, int numPixels );
+    int offsetInCanvas( Qt::Orientation ) const;
 
     void setMaxColumns( uint );
     uint maxColumns() const;
@@ -86,9 +89,6 @@ public:
     
     void setFont( const QFont& );
     QFont font() const;
-
-    void setBorderDistance( int numPixels );
-    int borderDistance() const;
 
     void setBorderRadius( double );
     double borderRadius() const;

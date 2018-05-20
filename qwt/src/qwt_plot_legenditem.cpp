@@ -134,9 +134,9 @@ public:
         borderPen( Qt::NoPen ),
         backgroundBrush( Qt::NoBrush ),
         backgroundMode( QwtPlotLegendItem::LegendBackground ),
-        borderDistance( 10 ),
-        alignment( Qt::AlignRight | Qt::AlignBottom )
+        canvasAlignment( Qt::AlignRight | Qt::AlignBottom )
     {
+        canvasOffset[ 0 ] = canvasOffset[1] = 10;
         layout = new QwtDynGridLayout();
         layout->setMaxColumns( 2 );
 
@@ -159,8 +159,8 @@ public:
     QBrush backgroundBrush;
     QwtPlotLegendItem::BackgroundMode backgroundMode;
 
-    int borderDistance;
-    Qt::Alignment alignment;
+    int canvasOffset[2];
+    Qt::Alignment canvasAlignment;
 
     QMap< const QwtPlotItem *, QList<QwtLegendLayoutItem *> > map;
     QwtDynGridLayout *layout;
@@ -197,27 +197,27 @@ int QwtPlotLegendItem::rtti() const
 
   \param alignment Alignment flags
 
-  \sa alignment(), setMaxColumns()
+  \sa alignmentInCanvas(), setMaxColumns()
 
   \note To align a legend with many items horizontally 
         the number of columns need to be limited
  */
-void QwtPlotLegendItem::setAlignment( Qt::Alignment alignment )
+void QwtPlotLegendItem::setAlignmentInCanvas( Qt::Alignment alignment )
 {
-    if ( d_data->alignment != alignment )
+    if ( d_data->canvasAlignment != alignment )
     {
-        d_data->alignment = alignment;
+        d_data->canvasAlignment = alignment;
         itemChanged();
     }
 }
 
 /*!
   \return Alignment flags
-  \sa setAlignment()
+  \sa setAlignmentInCanvas()
  */
-Qt::Alignment QwtPlotLegendItem::alignment() const
+Qt::Alignment QwtPlotLegendItem::alignmentInCanvas() const
 {
-    return d_data->alignment;
+    return d_data->canvasAlignment;
 }
 
 /*!
@@ -387,32 +387,60 @@ QFont QwtPlotLegendItem::font() const
 }
 
 /*!
-  \brief Set the margin between the legend and the canvas border
+  \brief Set the distance between the legend and the canvas border
 
-  The default setting for the margin is 10 pixels.
+  The default setting is 10 pixels.
 
-  \param distance Margin in pixels
+  \param orientations Qt::Horizontal is for the left/right,
+                      Qt::Vertical for the top/bottom offset.
+                     
+  \param numPixels Distance in pixels
   \sa setMargin()
  */
-void QwtPlotLegendItem::setBorderDistance( int distance )
+void QwtPlotLegendItem::setOffsetInCanvas(
+    Qt::Orientations orientations, int numPixels )
 {
-    if ( distance < 0 )
-        distance = -1;
+    if ( numPixels < 0 )
+        numPixels = -1;
 
-    if ( distance != d_data->borderDistance )
+    bool isChanged = false;
+
+    int *offset = d_data->canvasOffset;
+
+    if ( orientations & Qt::Horizontal )
     {
-        d_data->borderDistance = distance;
-        itemChanged();
+        if ( numPixels != offset[0] )
+        {
+            offset[0] = numPixels;
+            isChanged = true;
+        }
     }
+
+    if ( orientations & Qt::Vertical )
+    {
+        if ( numPixels != offset[1] )
+        {
+            offset[1] = numPixels;
+            isChanged = true;
+        }   
+    }
+
+    if ( isChanged )
+        itemChanged();
 }
 
 /*!
-  \return Margin between the legend and the canvas border
-  \sa margin()
+  \param orientation Qt::Horizontal is for the left/right,
+                      Qt::Vertical for the top/bottom padding.
+                     
+  \return Distance between the legend and the canvas border
+  \sa setOffsetInCanvas()
  */
-int QwtPlotLegendItem::borderDistance() const
+int QwtPlotLegendItem::offsetInCanvas(
+    Qt::Orientation orientation ) const
 {
-    return d_data->borderDistance;
+    const int index = ( orientation == Qt::Vertical ) ? 1 : 0;
+    return d_data->canvasOffset[index];
 }
 
 /*!
@@ -619,33 +647,36 @@ QRect QwtPlotLegendItem::geometry( const QRectF &canvasRect ) const
     QRect rect;
     rect.setSize( d_data->layout->sizeHint() );
 
-    int margin = d_data->borderDistance;
-    if ( d_data->alignment & Qt::AlignHCenter )
+    if ( d_data->canvasAlignment & Qt::AlignHCenter )
     {
         int x = qRound( canvasRect.center().x() );
         rect.moveCenter( QPoint( x, rect.center().y() ) ); 
     }
-    else if ( d_data->alignment & Qt::AlignRight )
+    else if ( d_data->canvasAlignment & Qt::AlignRight )
     {
-        rect.moveRight( qFloor( canvasRect.right() - margin ) );
+        const int offset = offsetInCanvas( Qt::Horizontal );
+        rect.moveRight( qFloor( canvasRect.right() - offset ) );
     }
     else 
     {
-        rect.moveLeft( qCeil( canvasRect.left() + margin ) );
+        const int offset = offsetInCanvas( Qt::Horizontal );
+        rect.moveLeft( qCeil( canvasRect.left() + offset ) );
     }
 
-    if ( d_data->alignment & Qt::AlignVCenter )
+    if ( d_data->canvasAlignment & Qt::AlignVCenter )
     {
         int y = qRound( canvasRect.center().y() );
         rect.moveCenter( QPoint( rect.center().x(), y ) );
     }
-    else if ( d_data->alignment & Qt::AlignBottom )
+    else if ( d_data->canvasAlignment & Qt::AlignBottom )
     {
-        rect.moveBottom( qFloor( canvasRect.bottom() - margin ) );
+        const int offset = offsetInCanvas( Qt::Vertical );
+        rect.moveBottom( qFloor( canvasRect.bottom() - offset ) );
     }
     else 
     {
-        rect.moveTop( qCeil( canvasRect.top() + margin ) ); 
+        const int offset = offsetInCanvas( Qt::Vertical );
+        rect.moveTop( qCeil( canvasRect.top() + offset ) ); 
     }
 
     return rect;
