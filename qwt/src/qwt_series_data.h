@@ -242,13 +242,17 @@ public:
     virtual QRectF boundingRect() const;
 };
 
-class QWT_EXPORT QwtVectorFieldData: public QwtArraySeriesData<QwtVectorFieldSample>
+class QWT_EXPORT QwtVectorFieldData: public QwtArraySeriesData<QwtVectorSample>
 {
 public:
     QwtVectorFieldData(
-        const QVector<QwtVectorFieldSample> & = QVector<QwtVectorFieldSample>() );
+        const QVector<QwtVectorSample> & = QVector<QwtVectorSample>() );
 
     virtual QRectF boundingRect() const;
+    virtual qreal maxLength() const;
+
+protected:
+    mutable double d_maxLength;
 };
 
 /*!
@@ -282,7 +286,7 @@ QWT_EXPORT QRectF qwtBoundingRect(
     const QwtSeriesData<QwtOHLCSample> &, int from = 0, int to = -1 );
 
 QWT_EXPORT QRectF qwtBoundingRect(
-    const QwtSeriesData<QwtVectorFieldSample> &, int from = 0, int to = -1 );
+    const QwtSeriesData<QwtVectorSample> &, int from = 0, int to = -1 );
 
 /*!
     Binary search for a sorted series of samples

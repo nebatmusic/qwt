@@ -388,7 +388,7 @@ QwtPlotVectorField::MagnitudeModes QwtPlotVectorField::magnitudeModes() const
   Initialize data with an array of samples.
   \param samples Vector of points
 */
-void QwtPlotVectorField::setSamples( const QVector<QwtVectorFieldSample> &samples )
+void QwtPlotVectorField::setSamples( const QVector<QwtVectorSample> &samples )
 {
     setData( new QwtVectorFieldData( samples ) );
 }
@@ -485,7 +485,7 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
 
     const bool showInvalid = d_data->paintAttributes & ShowInvalidVectors;
 
-    const QwtSeriesData<QwtVectorFieldSample> *series = data();
+    const QwtSeriesData<QwtVectorSample> *series = data();
 
     painter->setPen( d_data->pen );
     painter->setBrush( d_data->brush );
@@ -499,7 +499,7 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
 
         for ( int i = from; i <= to; i++ )
         {
-            const QwtVectorFieldSample sample = series->sample( i );
+            const QwtVectorSample sample = series->sample( i );
             if ( showInvalid || sample.isValid() )
             {
                 matrix.addSample( xMap.transform( sample.x ),
@@ -546,7 +546,7 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
     {
         for ( int i = from; i <= to; i++ )
         {
-            const QwtVectorFieldSample sample = series->sample( i );
+            const QwtVectorSample sample = series->sample( i );
 
             if ( !( showInvalid || sample.isValid() ) )
                 continue;

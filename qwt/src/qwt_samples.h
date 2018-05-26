@@ -236,13 +236,13 @@ inline QwtInterval QwtOHLCSample::boundingInterval() const
     return QwtInterval( minY, maxY );
 }
 
-class QWT_EXPORT QwtVectorFieldSample
+class QWT_EXPORT QwtVectorSample
 {
 public:
-    QwtVectorFieldSample( double x = 0.0, double y = 0.0,
+    QwtVectorSample( double x = 0.0, double y = 0.0,
         double u = 0.0, double v = 0.0 );
 
-    QwtVectorFieldSample( const QPointF& pos,
+    QwtVectorSample( const QPointF& pos,
         double u = 0.0, double v = 0.0 );
 
     QPointF pos() const;
@@ -256,7 +256,7 @@ public:
     double v;
 };
 
-inline QwtVectorFieldSample::QwtVectorFieldSample(
+inline QwtVectorSample::QwtVectorSample(
         double x, double y, double u, double v ):
     x( x ),
     y( y ),
@@ -265,7 +265,7 @@ inline QwtVectorFieldSample::QwtVectorFieldSample(
 {
 }
 
-inline QwtVectorFieldSample::QwtVectorFieldSample(
+inline QwtVectorSample::QwtVectorSample(
         const QPointF &pos, double u, double v ):
     x( pos.x() ),
     y( pos.y() ),
@@ -274,12 +274,12 @@ inline QwtVectorFieldSample::QwtVectorFieldSample(
 {
 }
 
-inline QPointF QwtVectorFieldSample::pos() const
+inline QPointF QwtVectorSample::pos() const
 {
     return QPointF( x, y );
 }
 
-inline bool QwtVectorFieldSample::isValid() const
+inline bool QwtVectorSample::isValid() const
 {
     return !( u == 0.0 && v == 0.0 );
 }

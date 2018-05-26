@@ -18,7 +18,7 @@ class QPen;
 class QBrush;
 
 class QWT_EXPORT QwtPlotVectorField: 
-    public QwtPlotSeriesItem, QwtSeriesStore<QwtVectorFieldSample>
+    public QwtPlotSeriesItem, QwtSeriesStore<QwtVectorSample>
 {
 public:
     enum IndicatorOrigin
@@ -80,7 +80,7 @@ public:
     void setIndicatorOrigin( IndicatorOrigin );
     IndicatorOrigin indicatorOrigin() const;
 
-    void setSamples( const QVector<QwtVectorFieldSample> & );
+    void setSamples( const QVector<QwtVectorSample> & );
     void setSamples( QwtVectorFieldData * );
 
     virtual void drawSeries( QPainter *,

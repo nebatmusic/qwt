@@ -56,7 +56,7 @@ static inline QRectF qwtBoundingRect( const QwtOHLCSample &sample )
     return QRectF( interval.minValue(), sample.time, interval.width(), 0.0 );
 }
 
-static inline QRectF qwtBoundingRect( const QwtVectorFieldSample &sample )
+static inline QRectF qwtBoundingRect( const QwtVectorSample &sample )
 {
     return QRectF( sample.x, sample.y, 0.0, 0.0 );
 }
@@ -232,9 +232,9 @@ QRectF qwtBoundingRect(
   \return Bounding rectangle
 */
 QRectF qwtBoundingRect(
-    const QwtSeriesData<QwtVectorFieldSample> &series, int from, int to )
+    const QwtSeriesData<QwtVectorSample> &series, int from, int to )
 {
-    return qwtBoundingRectT<QwtVectorFieldSample>( series, from, to );
+    return qwtBoundingRectT<QwtVectorSample>( series, from, to );
 }
 
 /*!
@@ -320,8 +320,9 @@ QRectF QwtIntervalSeriesData::boundingRect() const
    \param samples Samples
 */
 QwtVectorFieldData::QwtVectorFieldData(
-        const QVector<QwtVectorFieldSample> &samples ):
-    QwtArraySeriesData<QwtVectorFieldSample>( samples )
+        const QVector<QwtVectorSample> &samples ):
+    QwtArraySeriesData<QwtVectorSample>( samples ),
+    d_maxLength( -1.0 )
 {
 }
 
@@ -339,6 +340,27 @@ QRectF QwtVectorFieldData::boundingRect() const
         d_boundingRect = qwtBoundingRect( *this );
 
     return d_boundingRect;
+}
+
+qreal QwtVectorFieldData::maxLength() const
+{
+    if ( d_maxLength < 0.0 )
+    {
+        double max = 0.0;
+
+        for ( uint i = 0; i < size(); i++ )
+        {
+            const QwtVectorSample s = sample( i );
+
+            const double l = s.u * s.u + s.v * s.v;
+            if ( l > max )
+                max = l;
+        }
+
+        d_maxLength = ::sqrt( max );
+    }
+
+    return d_maxLength;
 }
 
 QwtSetSeriesData::QwtSetSeriesData(
