@@ -17,3 +17,4 @@
 - QwtPlotCurve::setLegendAttributes added
 - Not aligning unknown paint engines ( f.e EMF )
 - QwtNullPaintDevice is using a different type than QPaintEngine::User now
+- QwtAbstractScale::setPenWidth extended by isCosmetic
