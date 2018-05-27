@@ -34,17 +34,17 @@ public:
     }
 
 private:
-    QVector<QwtVectorFieldSample> samples() const
+    QVector<QwtVectorSample> samples() const
     {
         const int dim = 10;
 
-        QVector<QwtVectorFieldSample> samples;
+        QVector<QwtVectorSample> samples;
 
         for ( int x = -dim; x < dim; x++ )
         {
             for ( int y = -dim; y < dim; y++ )
             {
-                samples += QwtVectorFieldSample( x, y, y, -x );
+                samples += QwtVectorSample( x, y, y, -x );
             }
         }
 
