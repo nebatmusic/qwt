@@ -34,13 +34,22 @@ public:
     */
     enum PaintAttribute
     {
-        FilterVectors = 0x01,
-        ShowInvalidVectors = 0x02,
-        LimitMagnitudeLength = 0x04
+        FilterVectors        = 0x01,
+        ShowNullVectors      = 0x02,
+        LimitLength          = 0x04
     };
 
     //! Paint attributes
     typedef QFlags<PaintAttribute> PaintAttributes;
+
+#if 0
+    what to do with vectors with u = 0
+    what to do with vectors without u + v = 0
+    is it possible to have u < 0
+
+    introducing a symbol
+    maximum for MagnitudeAsLength
+#endif
 
     enum MagnitudeMode
     {
@@ -95,13 +104,13 @@ public:
     qreal magnitudeScaleFactor() const;
 
 protected:
-    virtual void drawArrows( QPainter *,
+    virtual void drawSymbols( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    virtual void drawArrow( QPainter *,
-        double x, double y,
-        double direction, double magnitude ) const;
+    virtual void drawSymbol( QPainter *,
+        const QwtScaleMap &xMap, const QwtScaleMap &yMap,
+        double x, double y, double u, double v ) const;
 
 private:
     void init();

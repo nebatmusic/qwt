@@ -467,23 +467,22 @@ void QwtPlotVectorField::drawSeries( QPainter *painter,
     QElapsedTimer timer;
     timer.start();
 #endif
-    drawArrows( painter, xMap, yMap, canvasRect, from, to );
+
+    drawSymbols( painter, xMap, yMap, canvasRect, from, to );
+
 #if DEBUG_RENDER
     qDebug() << timer.elapsed();
 #endif
 }
 
-void QwtPlotVectorField::drawArrows( QPainter *painter,
+void QwtPlotVectorField::drawSymbols( QPainter *painter,
     const QwtScaleMap &xMap, const QwtScaleMap &yMap,
     const QRectF &canvasRect, int from, int to ) const
 {
     const bool doAlign = QwtPainter::roundingAlignment( painter );
     const bool doClip = false;
 
-    const bool isInvertingX = xMap.isInverting();
-    const bool isInvertingY = yMap.isInverting();
-
-    const bool showInvalid = d_data->paintAttributes & ShowInvalidVectors;
+    const bool showNulls = d_data->paintAttributes & ShowNullVectors;
 
     const QwtSeriesData<QwtVectorSample> *series = data();
 
@@ -500,7 +499,7 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
         for ( int i = from; i <= to; i++ )
         {
             const QwtVectorSample sample = series->sample( i );
-            if ( showInvalid || sample.isValid() )
+            if ( showNulls || !sample.isNull() )
             {
                 matrix.addSample( xMap.transform( sample.x ),
                     yMap.transform( sample.y ), sample.u, sample.v );
@@ -529,17 +528,7 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
             const double u = entry.u / entry.count;
             const double v = entry.v / entry.count;
 
-            const double magnitude = qwtVector2Magnitude( u, v );
-
-            double radians = qwtVector2Radians( u, v );
-
-            if ( isInvertingY )
-                radians = -radians;
-
-            if ( isInvertingX )
-                radians = M_PI - radians;
-
-            drawArrow( painter, xi, yi, radians, magnitude );
+            drawSymbol( painter, xMap, yMap, xi, yi, u, v );
         }
     }
     else
@@ -548,7 +537,7 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
         {
             const QwtVectorSample sample = series->sample( i );
 
-            if ( !( showInvalid || sample.isValid() ) )
+            if ( !( showNulls || !sample.isNull() ) )
                 continue;
 
             double xi = xMap.transform( sample.x );
@@ -566,24 +555,24 @@ void QwtPlotVectorField::drawArrows( QPainter *painter,
                     continue;
             }
 
-            const double magnitude = qwtVector2Magnitude( sample.u, sample.v );
-
-            double radians = qwtVector2Radians( sample.u, sample.v );
-
-            if ( isInvertingY )
-                radians = -radians;
-
-            if ( isInvertingX )
-                radians = M_PI - radians;
-
-            drawArrow( painter, xi, yi, radians, magnitude );
+            drawSymbol( painter, xMap, yMap, xi, yi, sample.u, sample.v );
         }
     }
 }
 
-void QwtPlotVectorField::drawArrow( QPainter *painter,
-    double x, double y, double direction, double magnitude ) const
+void QwtPlotVectorField::drawSymbol( QPainter *painter,
+    const QwtScaleMap &xMap, const QwtScaleMap &yMap,
+    double x, double y, double u, double v ) const
 {
+    const double magnitude = qwtVector2Magnitude( u, v );
+    double radians = qwtVector2Radians( u, v );
+
+    if ( yMap.isInverting() )
+        radians = -radians;
+
+    if ( xMap.isInverting() )
+        radians = M_PI - radians;
+
     auto &arrow = d_data->arrow;
 
     double tailLength = 0.0;
@@ -592,7 +581,7 @@ void QwtPlotVectorField::drawArrow( QPainter *painter,
     {
         tailLength = magnitude * d_data->magnitudeScaleFactor * arrow.tailWidth();
 
-        if ( d_data->paintAttributes & LimitMagnitudeLength )
+        if ( d_data->paintAttributes & LimitLength )
         {
             // TODO ...
         }
@@ -604,7 +593,7 @@ void QwtPlotVectorField::drawArrow( QPainter *painter,
 
     QTransform transform = oldTransform;
     transform.translate( x, y );
-    transform.rotateRadians( direction );
+    transform.rotateRadians( radians );
 
     if( d_data->indicatorOrigin == OriginTail )
     {

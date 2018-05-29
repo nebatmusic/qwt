@@ -247,7 +247,7 @@ public:
 
     QPointF pos() const;
 
-    bool isValid() const;
+    bool isNull() const;
 
     double x;
     double y;
@@ -279,9 +279,9 @@ inline QPointF QwtVectorSample::pos() const
     return QPointF( x, y );
 }
 
-inline bool QwtVectorSample::isValid() const
+inline bool QwtVectorSample::isNull() const
 {
-    return !( u == 0.0 && v == 0.0 );
+    return ( u == 0.0 ) && ( v == 0.0 );
 }
 
 #endif
