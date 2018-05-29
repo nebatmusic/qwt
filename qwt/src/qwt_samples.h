@@ -252,8 +252,8 @@ public:
     double x;
     double y;
 
-    double u;
-    double v;
+    double u; // component in x direction
+    double v; // component in y direction
 };
 
 inline QwtVectorSample::QwtVectorSample(

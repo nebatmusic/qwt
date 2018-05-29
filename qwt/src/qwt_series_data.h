@@ -249,10 +249,10 @@ public:
         const QVector<QwtVectorSample> & = QVector<QwtVectorSample>() );
 
     virtual QRectF boundingRect() const;
-    virtual qreal maxLength() const;
+    virtual double maxMagnitude() const;
 
 protected:
-    mutable double d_maxLength;
+    mutable double d_maxMagnitude;
 };
 
 /*!

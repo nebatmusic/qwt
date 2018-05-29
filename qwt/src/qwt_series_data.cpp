@@ -322,7 +322,7 @@ QRectF QwtIntervalSeriesData::boundingRect() const
 QwtVectorFieldData::QwtVectorFieldData(
         const QVector<QwtVectorSample> &samples ):
     QwtArraySeriesData<QwtVectorSample>( samples ),
-    d_maxLength( -1.0 )
+    d_maxMagnitude( -1.0 )
 {
 }
 
@@ -342,9 +342,9 @@ QRectF QwtVectorFieldData::boundingRect() const
     return d_boundingRect;
 }
 
-qreal QwtVectorFieldData::maxLength() const
+double QwtVectorFieldData::maxMagnitude() const
 {
-    if ( d_maxLength < 0.0 )
+    if ( d_maxMagnitude < 0.0 )
     {
         double max = 0.0;
 
@@ -357,10 +357,10 @@ qreal QwtVectorFieldData::maxLength() const
                 max = l;
         }
 
-        d_maxLength = ::sqrt( max );
+        d_maxMagnitude = ::sqrt( max );
     }
 
-    return d_maxLength;
+    return d_maxMagnitude;
 }
 
 QwtSetSeriesData::QwtSetSeriesData(
