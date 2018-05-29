@@ -22,7 +22,7 @@ class QwtAbstractScaleDraw::PrivateData
 public:
     PrivateData():
         spacing( 4.0 ),
-        penWidth( 0 ),
+        penWidthF( 0.0 ),
         penIsCosmetic( false ),
         minExtent( 0.0 )
     {
@@ -42,7 +42,7 @@ public:
 
     double spacing;
     double tickLength[QwtScaleDiv::NTickTypes];
-    int penWidth;
+    qreal penWidthF;
     bool penIsCosmetic;
 
     double minExtent;
@@ -139,26 +139,44 @@ const QwtScaleDiv& QwtAbstractScaleDraw::scaleDiv() const
 /*!
   \brief Specify the width of the scale pen
   \param width Pen width
-  \param isCosmetic When true the scale pen will be cosmetic
 
   \sa penWidth()
 */
-void QwtAbstractScaleDraw::setPenWidth( int width, bool isCosmetic )
+void QwtAbstractScaleDraw::setPenWidthF( qreal width )
 {
-    if ( width < 0 )
-        width = 0;
+    if ( width < 0.0 )
+        width = 0.0;
 
-    d_data->penWidth = width;
-    d_data->penIsCosmetic = isCosmetic;
+    d_data->penWidthF = width;
 }
 
 /*!
     \return Scale pen width
     \sa setPenWidth()
 */
-int QwtAbstractScaleDraw::penWidth() const
+qreal QwtAbstractScaleDraw::penWidthF() const
 {
-    return d_data->penWidth;
+    return d_data->penWidthF;
+}
+
+/*! 
+  \brief Specify whether the scale pen is cosmetic
+  \param on When true the scale pen will be cosmetic
+
+  \sa isPenCosmetic()
+*/
+void QwtAbstractScaleDraw::setPenCosmetic( bool on )
+{
+    d_data->penIsCosmetic = on;
+}
+
+/*!
+    \return True, when the scale pen is cosmetic
+    \sa setPenWidth(), setPenCosmetic
+*/
+bool QwtAbstractScaleDraw::isPenCosmetic() const
+{
+    return d_data->penIsCosmetic;
 }
 
 /*!
@@ -172,10 +190,23 @@ int QwtAbstractScaleDraw::penWidth() const
 void QwtAbstractScaleDraw::draw( QPainter *painter,
     const QPalette& palette ) const
 {
+    qreal penWidthF = d_data->penWidthF;
+
+    if ( QwtPainter::isX11GraphicsSystem() )
+    {
+        // With Qt4/X11 a width of 0 results in a faster render path
+
+        if ( penWidthF <= 1.0 )
+        {
+            if ( d_data->penIsCosmetic || !painter->transform().isScaling() )
+                penWidthF = 0.0;
+        }
+    }
+
     painter->save();
 
     QPen pen = painter->pen();
-    pen.setWidth( d_data->penWidth );
+    pen.setWidthF( penWidthF );
     pen.setCosmetic( d_data->penIsCosmetic );
     painter->setPen( pen );
 

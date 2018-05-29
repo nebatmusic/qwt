@@ -25,7 +25,7 @@ public:
         setTickLength( QwtScaleDiv::MediumTick, 4 );
         setTickLength( QwtScaleDiv::MajorTick, 8 );
 
-        setPenWidth( 1 );
+        setPenWidthF( 1.0 );
     }
 
     virtual QwtText label( double value ) const

@@ -74,7 +74,7 @@ QwtDial *CockpitGrid::createDial( int pos )
             d_speedo = new SpeedoMeter( this );
             d_speedo->setScaleStepSize( 20.0 );
             d_speedo->setScale( 0.0, 240.0 );
-            d_speedo->scaleDraw()->setPenWidth( 2 );
+            d_speedo->scaleDraw()->setPenWidthF( 2 );
 
             QTimer *timer = new QTimer( d_speedo );
             timer->connect( timer, SIGNAL( timeout() ),
@@ -87,7 +87,7 @@ QwtDial *CockpitGrid::createDial( int pos )
         case 2:
         {
             d_ai = new AttitudeIndicator( this );
-            d_ai->scaleDraw()->setPenWidth( 3 );
+            d_ai->scaleDraw()->setPenWidthF( 3 );
 
             QTimer *gradientTimer = new QTimer( d_ai );
             gradientTimer->connect( gradientTimer, SIGNAL( timeout() ),

@@ -71,8 +71,11 @@ public:
     void setSpacing( double margin );
     double spacing() const;
 
-    void setPenWidth( int width, bool isCosmetic = false );
-    int penWidth() const;
+    void setPenWidthF( qreal width );
+    qreal penWidthF() const;
+
+    void setPenCosmetic( bool );
+    bool isPenCosmetic() const;
 
     virtual void draw( QPainter *, const QPalette & ) const;
 
