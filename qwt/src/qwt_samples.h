@@ -240,10 +240,10 @@ class QWT_EXPORT QwtVectorSample
 {
 public:
     QwtVectorSample( double x = 0.0, double y = 0.0,
-        double u = 0.0, double v = 0.0 );
+        double vx = 0.0, double vy = 0.0 );
 
     QwtVectorSample( const QPointF& pos,
-        double u = 0.0, double v = 0.0 );
+        double vx = 0.0, double vy = 0.0 );
 
     QPointF pos() const;
 
@@ -252,25 +252,25 @@ public:
     double x;
     double y;
 
-    double u; // component in x direction
-    double v; // component in y direction
+    double vx;
+    double vy;
 };
 
 inline QwtVectorSample::QwtVectorSample(
-        double x, double y, double u, double v ):
+        double x, double y, double vx, double vy ):
     x( x ),
     y( y ),
-    u( u ),
-    v( v )
+    vx( vx ),
+    vy( vy )
 {
 }
 
 inline QwtVectorSample::QwtVectorSample(
-        const QPointF &pos, double u, double v ):
+        const QPointF &pos, double vx, double vy ):
     x( pos.x() ),
     y( pos.y() ),
-    u( u ),
-    v( v )
+    vx( vx ),
+    vy( vy )
 {
 }
 
@@ -281,7 +281,7 @@ inline QPointF QwtVectorSample::pos() const
 
 inline bool QwtVectorSample::isNull() const
 {
-    return ( u == 0.0 ) && ( v == 0.0 );
+    return ( vx == 0.0 ) && ( vy == 0.0 );
 }
 
 #endif

@@ -22,18 +22,18 @@
 #include <qdebug.h>
 #endif
 
-static inline double qwtVector2Radians( double u, double v )
+static inline double qwtVector2Radians( double vx, double vy )
 {
-    if ( u == 0.0 )
-        return ( v >= 0 ) ? M_PI_2 : 3 * M_PI_2;
+    if ( vx == 0.0 )
+        return ( vy >= 0 ) ? M_PI_2 : 3 * M_PI_2;
 
-    const double radians = ::atan( v / u );
-    return ( v >= 0.0 ) ? radians : ( 2 * M_PI - radians ); 
+    const double radians = ::atan( vy / vx );
+    return ( vy >= 0.0 ) ? radians : ( 2 * M_PI - radians ); 
 }
 
-static inline double qwtVector2Magnitude( double u, double v )
+static inline double qwtVector2Magnitude( double vx, double vy )
 {
-    return sqrt( u * u + v * v );
+    return sqrt( vx * vx + vy * vy );
 }
 
 namespace
@@ -88,19 +88,19 @@ namespace
                 count( 0 ),
                 x( 0 ),
                 y( 0 ),
-                u( 0 ),
-                v( 0 )
+                vx( 0 ),
+                vy( 0 )
             {
             }
 
             inline void addSample( double sx, double sy,
-                double su, double sv )
+                double svx, double svy )
             {
                 x += sx;
                 y += sy;
 
-                u += su;
-                v += sv;
+                vx += svx;
+                vy += svy;
 
                 count++;
             }
@@ -109,8 +109,8 @@ namespace
 
             double x;
             double y;
-            double u;
-            double v;
+            double vx;
+            double vy;
         };
 
         FilterMatrix( const QRectF& dataRect,
@@ -408,6 +408,19 @@ void QwtPlotVectorField::setSamples( QwtVectorFieldData *data )
     setData( data );
 }  
 
+QRectF QwtPlotVectorField::boundingRect() const
+{
+#if 0
+    /*
+        The bounding rectangle of the samples comes from the origins
+        only, but as we know the scaling factor for the magnitude 
+        ( qwtVector2Magnitude ) here, we could try to include it ?
+     */
+#endif
+
+    return QwtPlotSeriesItem::boundingRect();
+}
+
 QwtGraphic QwtPlotVectorField::legendIcon(
     int index, const QSizeF &size ) const
 {
@@ -502,7 +515,7 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
             if ( showNulls || !sample.isNull() )
             {
                 matrix.addSample( xMap.transform( sample.x ),
-                    yMap.transform( sample.y ), sample.u, sample.v );
+                    yMap.transform( sample.y ), sample.vx, sample.vy );
             }
         }
 
@@ -525,10 +538,10 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
                 yi = qRound( yi );
             }
 
-            const double u = entry.u / entry.count;
-            const double v = entry.v / entry.count;
+            const double vx = entry.vx / entry.count;
+            const double vy = entry.vy / entry.count;
 
-            drawSymbol( painter, xMap, yMap, xi, yi, u, v );
+            drawSymbol( painter, xMap, yMap, xi, yi, vx, vy );
         }
     }
     else
@@ -555,7 +568,7 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
                     continue;
             }
 
-            drawSymbol( painter, xMap, yMap, xi, yi, sample.u, sample.v );
+            drawSymbol( painter, xMap, yMap, xi, yi, sample.vx, sample.vy );
         }
     }
 }

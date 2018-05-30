@@ -40,6 +40,7 @@ static inline QRectF qwtBoundingRect( const QwtSetSample &sample )
     {
         if ( sample.set[i] < minY )
             minY = sample.set[i];
+
         if ( sample.set[i] > maxY )
             maxY = sample.set[i];
     }
@@ -58,7 +59,14 @@ static inline QRectF qwtBoundingRect( const QwtOHLCSample &sample )
 
 static inline QRectF qwtBoundingRect( const QwtVectorSample &sample )
 {
-    return QRectF( sample.x, sample.y, 0.0, 0.0 );
+    /*
+        When displaying a sample as an arrow its length will be
+        proportional to the magnitude - but not the same.
+        As the factor between length and magnitude is not known
+        we can't include vx/vy into the bounding rectangle.
+     */
+
+    return QRectF( sample.x, sample.y, 0, 0 );
 }
 
 /*!
@@ -352,7 +360,7 @@ double QwtVectorFieldData::maxMagnitude() const
         {
             const QwtVectorSample s = sample( i );
 
-            const double l = s.u * s.u + s.v * s.v;
+            const double l = s.vx * s.vx + s.vy * s.vy;
             if ( l > max )
                 max = l;
         }
