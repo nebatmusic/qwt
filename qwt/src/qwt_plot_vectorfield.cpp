@@ -586,7 +586,7 @@ void QwtPlotVectorField::drawSymbol( QPainter *painter,
     if ( xMap.isInverting() )
         radians = M_PI - radians;
 
-    auto &arrow = d_data->arrow;
+    Arrow &arrow = d_data->arrow;
 
     double tailLength = 0.0;
 
