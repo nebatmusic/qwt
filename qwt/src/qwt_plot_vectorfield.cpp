@@ -27,8 +27,7 @@ static inline double qwtVector2Radians( double vx, double vy )
     if ( vx == 0.0 )
         return ( vy >= 0 ) ? M_PI_2 : 3 * M_PI_2;
 
-    const double radians = ::atan( vy / vx );
-    return ( vy >= 0.0 ) ? radians : ( 2 * M_PI - radians ); 
+    return ::atan2( vy, vx );
 }
 
 static inline double qwtVector2Magnitude( double vx, double vy )
