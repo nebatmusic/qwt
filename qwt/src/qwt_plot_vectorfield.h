@@ -111,8 +111,7 @@ protected:
         const QRectF &canvasRect, int from, int to ) const;
 
     virtual void drawSymbol( QPainter *,
-        const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        double x, double y, double u, double v ) const;
+        double x, double y, double vx, double vy ) const;
 
 private:
     void init();

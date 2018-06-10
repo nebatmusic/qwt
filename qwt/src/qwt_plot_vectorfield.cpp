@@ -496,6 +496,9 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
 
     const bool showNulls = d_data->paintAttributes & ShowNullVectors;
 
+    const bool isInvertingX = xMap.isInverting();
+    const bool isInvertingY = yMap.isInverting();
+
     const QwtSeriesData<QwtVectorSample> *series = data();
 
     painter->setPen( d_data->pen );
@@ -540,7 +543,8 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
             const double vx = entry.vx / entry.count;
             const double vy = entry.vy / entry.count;
 
-            drawSymbol( painter, xMap, yMap, xi, yi, vx, vy );
+            drawSymbol( painter, xi, yi, 
+                isInvertingX ? -vx : vx, isInvertingY ? -vy : vy );
         }
     }
     else
@@ -567,23 +571,17 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
                     continue;
             }
 
-            drawSymbol( painter, xMap, yMap, xi, yi, sample.vx, sample.vy );
+            drawSymbol( painter, xi, yi,
+                isInvertingX ? -sample.vx : sample.vx,
+                isInvertingY ? -sample.vy : sample.vy );
         }
     }
 }
 
 void QwtPlotVectorField::drawSymbol( QPainter *painter,
-    const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-    double x, double y, double u, double v ) const
+    double x, double y, double vx, double vy ) const
 {
-    const double magnitude = qwtVector2Magnitude( u, v );
-    double radians = qwtVector2Radians( u, v );
-
-    if ( yMap.isInverting() )
-        radians = -radians;
-
-    if ( xMap.isInverting() )
-        radians = M_PI - radians;
+    const double magnitude = qwtVector2Magnitude( vx, vy );
 
     Arrow &arrow = d_data->arrow;
 
@@ -604,8 +602,36 @@ void QwtPlotVectorField::drawSymbol( QPainter *painter,
     const QTransform oldTransform = painter->transform();
 
     QTransform transform = oldTransform;
-    transform.translate( x, y );
-    transform.rotateRadians( radians );
+    if ( !transform.isIdentity() )
+    {
+        transform.translate( x, y );
+
+        const double radians = qwtVector2Radians( vx, vy );
+        transform.rotateRadians( radians );
+    }
+    else
+    {
+        /*
+            When starting with no transformation ( f.e on screen )
+            the matrix can be found without having to use 
+            trigonometric functions
+         */
+
+        qreal sin, cos;
+        if ( magnitude == 0.0 )
+        {
+            // something
+            sin = 1.0;
+            cos = 0.0;
+        }
+        else
+        {
+            sin = vy / magnitude;
+            cos = vx / magnitude;
+        }
+
+        transform.setMatrix( cos, sin, 0.0, -sin, cos, 0.0, x, y, 1.0 );
+    }
 
     if( d_data->indicatorOrigin == OriginTail )
     {
