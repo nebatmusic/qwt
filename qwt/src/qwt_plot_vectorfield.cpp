@@ -22,6 +22,8 @@
 #include <qdebug.h>
 #endif
 
+#include <cstdlib>
+
 static inline double qwtVector2Radians( double vx, double vy )
 {
     if ( vx == 0.0 )
@@ -83,15 +85,6 @@ namespace
         class Entry
         {
         public:
-            Entry():
-                count( 0 ),
-                x( 0 ),
-                y( 0 ),
-                vx( 0 ),
-                vy( 0 )
-            {
-            }
-
             inline void addSample( double sx, double sy,
                 double svx, double svy )
             {
@@ -104,12 +97,13 @@ namespace
                 count++;
             }
 
-            int count;
+            quint32 count;
 
-            double x;
-            double y;
-            double vx;
-            double vy;
+            // screen positions -> float is good enough
+            float x;
+            float y;
+            float vx;
+            float vy;
         };
 
         FilterMatrix( const QRectF& dataRect,
@@ -132,7 +126,17 @@ namespace
             d_x1 = d_x0 + d_numColumns * d_dx;
             d_y1 = d_y0 + d_numRows * d_dy;
 
-            d_entries.resize( d_numRows * d_numColumns );
+            d_entries = ( Entry* )::calloc( d_numRows * d_numColumns, sizeof( Entry ) ); 
+            if ( d_entries == NULL )
+            {
+                qWarning() << "QwtPlotVectorField: raster for filtering too fine - running out of memory";
+            }
+        }
+
+        ~FilterMatrix()
+        {
+            if ( d_entries )
+                ::free( d_entries );
         }
 
         inline int numColumns() const
@@ -158,7 +162,7 @@ namespace
 
         const FilterMatrix::Entry* entries() const
         {
-            return d_entries.constData();
+            return d_entries;
         }
 
     private:
@@ -174,7 +178,7 @@ namespace
         int d_numColumns;
         int d_numRows;
 
-        QVector< Entry > d_entries;
+        Entry* d_entries;
     };
 }
 
@@ -329,10 +333,18 @@ QSizeF QwtPlotVectorField::rasterSize() const
 void QwtPlotVectorField::setPaintAttribute(
     PaintAttribute attribute, bool on )
 {
+    PaintAttributes attributes = d_data->paintAttributes;
+
     if ( on )
-        d_data->paintAttributes |= attribute;
+        attributes |= attribute;
     else
-        d_data->paintAttributes &= ~attribute;
+        attributes &= ~attribute;
+
+    if ( d_data->paintAttributes != attributes )
+    {
+        d_data->paintAttributes = attributes;
+        itemChanged();
+    }
 }
 
 /*!
@@ -510,6 +522,8 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
             xMap, yMap, boundingRect() );
 
         FilterMatrix matrix( dataRect, canvasRect, d_data->rasterSize );
+        if ( matrix.entries() == NULL )
+            return;
 
         for ( int i = from; i <= to; i++ )
         {

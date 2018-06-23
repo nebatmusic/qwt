@@ -17,8 +17,8 @@
 class QPen;
 class QBrush;
 
-class QWT_EXPORT QwtPlotVectorField: 
-    public QwtPlotSeriesItem, QwtSeriesStore<QwtVectorSample>
+class QWT_EXPORT QwtPlotVectorField:
+    public QwtPlotSeriesItem, public QwtSeriesStore<QwtVectorSample>
 {
 public:
     enum IndicatorOrigin
@@ -73,7 +73,7 @@ public:
 
     MagnitudeModes magnitudeModes() const;
     void setMagnitudeModes( MagnitudeModes );
-    
+
 #if 1
     // temporary: there will be a QwtVectorSymbol later TODO ...
     void setPen( const QPen & );
