@@ -9,9 +9,9 @@
 class Legend: public QwtLegend
 {
 protected:
-    virtual QWidget *createWidget( const QwtLegendData &data ) const
+    virtual QWidget *createWidget( const QwtLegendData &legendData ) const
     {
-        QWidget *w = QwtLegend::createWidget( data );
+        QWidget *w = QwtLegend::createWidget( legendData );
         if ( w )
         {
             w->setStyleSheet(

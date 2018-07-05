@@ -22,9 +22,9 @@
 class FunctionData: public QwtSyntheticPointData
 {
 public:
-    FunctionData( double( *y )( double ) ):
+    FunctionData( double( *fy )( double ) ):
         QwtSyntheticPointData( 100 ),
-        d_y( y )
+        d_y( fy )
     {
     }
 
