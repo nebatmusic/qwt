@@ -1353,8 +1353,12 @@ void QwtPicker::remove()
 {
     if ( d_data->isActive && !d_data->pickedPoints.isEmpty() )
     {
+#if QT_VERSION >= 0x050100
+        const QPoint pos = d_data->pickedPoints.takeLast();
+#else
         const QPoint pos = d_data->pickedPoints.last();
-        d_data->pickedPoints.removeLast();
+        d_data->pickedPoints.resize( d_data->pickedPoints.count() - 1 );
+#endif
 
         updateDisplay();
         Q_EMIT removed( pos );
