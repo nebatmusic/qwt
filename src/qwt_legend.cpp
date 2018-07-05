@@ -141,7 +141,7 @@ public:
 class QwtLegend::PrivateData::LegendView: public QScrollArea
 {
 public:
-    LegendView( QWidget *parent ):
+    explicit LegendView( QWidget *parent ):
         QScrollArea( parent )
     {
         contentsWidget = new QWidget( this );
@@ -295,6 +295,8 @@ void QwtLegend::setMaxColumns( uint numColums )
         d_data->view->contentsWidget->layout() );
     if ( tl )
         tl->setMaxColumns( numColums );
+
+    updateGeometry();
 }
 
 /*!
@@ -409,6 +411,10 @@ void QwtLegend::updateLegend( const QVariant &itemInfo,
             w->deleteLater();
         }
 
+#if QT_VERSION >= 0x040700
+        widgetList.reserve( legendData.size() );
+#endif
+
         for ( int i = widgetList.size(); i < legendData.size(); i++ )
         {
             QWidget *widget = createWidget( legendData[i] );
@@ -487,7 +493,7 @@ void QwtLegend::updateWidget( QWidget *widget, const QwtLegendData &legendData )
         if ( !legendData.value( QwtLegendData::ModeRole ).isValid() )
         {
             // use the default mode, when there is no specific
-            // hint from the legend legendData
+            // hint from the legend data
 
             label->setItemMode( defaultItemMode() );
         }
