@@ -567,7 +567,6 @@ void QwtPlotMultiBarChart::drawStackedBars( QPainter *painter,
 
         double sum = baseline();
 
-        const int numBars = sample.set.size();
         for ( int i = 0; i < numBars; i++ )
         {
             const double si = sample.set[ i ];
@@ -669,10 +668,10 @@ void QwtPlotMultiBarChart::drawBar( QPainter *painter,
     else
     {
         // we build a temporary default symbol
-        QwtColumnSymbol sym( QwtColumnSymbol::Box );
-        sym.setLineWidth( 1 );
-        sym.setFrameStyle( QwtColumnSymbol::Plain );
-        sym.draw( painter, rect );
+        QwtColumnSymbol columnSymbol( QwtColumnSymbol::Box );
+        columnSymbol.setLineWidth( 1 );
+        columnSymbol.setFrameStyle( QwtColumnSymbol::Plain );
+        columnSymbol.draw( painter, rect );
     }
 
     delete specialSym;

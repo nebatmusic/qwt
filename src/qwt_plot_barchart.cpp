@@ -329,10 +329,10 @@ void QwtPlotBarChart::drawBar( QPainter *painter,
     else
     {
         // we build a temporary default symbol
-        QwtColumnSymbol sym( QwtColumnSymbol::Box );
-        sym.setLineWidth( 1 );
-        sym.setFrameStyle( QwtColumnSymbol::Plain );
-        sym.draw( painter, rect );
+        QwtColumnSymbol columnSymbol( QwtColumnSymbol::Box );
+        columnSymbol.setLineWidth( 1 );
+        columnSymbol.setFrameStyle( QwtColumnSymbol::Plain );
+        columnSymbol.draw( painter, rect );
     }
 
     delete specialSym;

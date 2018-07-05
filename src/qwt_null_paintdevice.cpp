@@ -337,13 +337,13 @@ void QwtNullPaintDevice::PaintEngine::drawImage(
 }
 
 void QwtNullPaintDevice::PaintEngine::updateState(
-    const QPaintEngineState &state)
+    const QPaintEngineState &engineState)
 {
     QwtNullPaintDevice *device = nullDevice();
     if ( device == NULL )
         return;
 
-    device->updateState( state );
+    device->updateState( engineState );
 }
 
 inline QwtNullPaintDevice *QwtNullPaintDevice::PaintEngine::nullDevice()

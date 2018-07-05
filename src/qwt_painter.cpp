@@ -214,6 +214,10 @@ void QwtPainter::setRoundingAlignment( bool enable )
   much faster when they are split in smaller chunks: f.e all supported Qt versions
   >= Qt 5.0 when drawing an antialiased polyline with a pen width >=2.
 
+  Also the raster paint engine has a nasty bug in many versions ( Qt 4.8 - ... )
+  for short lines ( https://codereview.qt-project.org/#/c/99456 ), that is worked
+  around in this mode.
+
   The default setting is true.
 
   \sa polylineSplitting()
@@ -536,7 +540,9 @@ void QwtPainter::drawPolyline( QPainter *painter,
             polygon.constData(), polygon.size(), d_polylineSplitting );
     }
     else
+    {
         qwtDrawPolyline<QPoint>( painter, points, pointCount, d_polylineSplitting );
+    }
 }
 
 //! Wrapper for QPainter::drawPoint()
@@ -950,10 +956,10 @@ void QwtPainter::drawRoundedFrame( QPainter *painter,
     painter->setBrush( Qt::NoBrush );
 
     double lw2 = lineWidth * 0.5;
-    QRectF r = rect.adjusted( lw2, lw2, -lw2, -lw2 );
+    QRectF innerRect = rect.adjusted( lw2, lw2, -lw2, -lw2 );
 
     QPainterPath path;
-    path.addRoundedRect( r, xRadius, yRadius );
+    path.addRoundedRect( innerRect, xRadius, yRadius );
 
     enum Style
     {
@@ -1002,7 +1008,7 @@ void QwtPainter::drawRoundedFrame( QPainter *painter,
 
         for ( int i = 0; i < 4; i++ )
         {
-            QRectF r = pathList[2 * i].controlPointRect();
+            const QRectF r = pathList[2 * i].controlPointRect();
 
             QPen arcPen;
             arcPen.setCapStyle( Qt::FlatCap );

@@ -844,17 +844,14 @@ void QwtPlotRenderer::renderCanvas( const QwtPlot *plot,
                 canvas->property( "frameShadow" ).toInt() |
                 canvas->property( "frameShape" ).toInt();
 
-            const int frameWidth = canvas->property( "frameWidth" ).toInt();
-
-
             const QVariant borderRadius = canvas->property( "borderRadius" );
             if ( borderRadius.type() == QVariant::Double
                 && borderRadius.toDouble() > 0.0 )
             {
-                const double r = borderRadius.toDouble();
+                const double radius = borderRadius.toDouble();
 
                 QwtPainter::drawRoundedFrame( painter, canvasRect,
-                    r, r, canvas->palette(), frameWidth, frameStyle );
+                    radius, radius, canvas->palette(), frameWidth, frameStyle );
             }
             else
             {
