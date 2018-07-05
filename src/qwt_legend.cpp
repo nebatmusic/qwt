@@ -493,7 +493,7 @@ void QwtLegend::updateWidget( QWidget *widget, const QwtLegendData &legendData )
         if ( !legendData.value( QwtLegendData::ModeRole ).isValid() )
         {
             // use the default mode, when there is no specific
-            // hint from the legend legendData
+            // hint from the legend data
 
             label->setItemMode( defaultItemMode() );
         }
