@@ -79,9 +79,9 @@ void TransformPlot::legendChecked( const QVariant &itemInfo, bool on )
     if ( on && plotItem->rtti() == QwtPlotItem::Rtti_PlotCurve )
     {
         QwtPlotCurve *curve = static_cast<QwtPlotCurve *>( plotItem );
-        TransformData *data = static_cast<TransformData *>( curve->data() );
+        TransformData *curveData = static_cast<TransformData *>( curve->data() );
 
-        Q_EMIT selected( data->transform()->copy() );
+        Q_EMIT selected( curveData->transform()->copy() );
     }
 }
 

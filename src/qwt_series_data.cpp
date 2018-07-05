@@ -40,6 +40,7 @@ static inline QRectF qwtBoundingRect( const QwtSetSample &sample )
     {
         if ( sample.set[i] < minY )
             minY = sample.set[i];
+
         if ( sample.set[i] > maxY )
             maxY = sample.set[i];
     }
