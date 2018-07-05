@@ -178,7 +178,7 @@ namespace QwtSplineLocalP
             return qwtSlopePChip( dx1, dy1, s1, dx2, dy2, s2 );
         }
     };  
-};
+}
 
 template< class Slope >
 static inline double qwtSlopeP3( 

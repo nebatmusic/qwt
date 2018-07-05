@@ -193,7 +193,7 @@ namespace QwtSplineCubicP
         KahanSum d_sum;
 #endif
     };
-};
+}
 
 namespace QwtSplineCubicP
 {
@@ -367,7 +367,7 @@ namespace QwtSplineCubicP
         // p * x1 + q * x2 + u * x3 = r
         double p, q, u, r;
     };
-};
+}
          
 QDebug operator<<( QDebug debug, const QwtSplineCubicP::Equation2 &eq )
 {

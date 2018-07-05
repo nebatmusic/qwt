@@ -257,20 +257,20 @@ public:
 };
 
 inline QwtVectorSample::QwtVectorSample(
-        double x, double y, double vx, double vy ):
-    x( x ),
-    y( y ),
-    vx( vx ),
-    vy( vy )
+        double posX, double posY, double vectorX, double vectorY ):
+    x( posX ),
+    y( posY ),
+    vx( vectorX ),
+    vy( vectorY )
 {
 }
 
 inline QwtVectorSample::QwtVectorSample(
-        const QPointF &pos, double vx, double vy ):
+        const QPointF &pos, double vectorX, double vectorY ):
     x( pos.x() ),
     y( pos.y() ),
-    vx( vx ),
-    vy( vy )
+    vx( vectorX ),
+    vy( vectorY )
 {
 }
 

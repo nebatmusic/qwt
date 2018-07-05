@@ -208,6 +208,7 @@ void QwtAbstractScaleDraw::draw( QPainter *painter,
     QPen pen = painter->pen();
     pen.setWidthF( penWidthF );
     pen.setCosmetic( d_data->penIsCosmetic );
+
     painter->setPen( pen );
 
     if ( hasComponent( QwtAbstractScaleDraw::Labels ) )
@@ -232,7 +233,7 @@ void QwtAbstractScaleDraw::draw( QPainter *painter,
     {
         painter->save();
 
-        QPen pen = painter->pen();
+        pen = painter->pen();
         pen.setColor( palette.color( QPalette::WindowText ) );
         pen.setCapStyle( Qt::FlatCap );
 
@@ -261,7 +262,7 @@ void QwtAbstractScaleDraw::draw( QPainter *painter,
     {
         painter->save();
 
-        QPen pen = painter->pen();
+        pen = painter->pen();
         pen.setColor( palette.color( QPalette::WindowText ) );
         pen.setCapStyle( Qt::FlatCap );
 
