@@ -197,7 +197,7 @@ void QwtAbstractScaleDraw::draw( QPainter *painter,
     {
         painter->save();
 
-        QPen pen = painter->pen();
+        pen = painter->pen();
         pen.setColor( palette.color( QPalette::WindowText ) );
         pen.setCapStyle( Qt::FlatCap );
 
@@ -226,7 +226,7 @@ void QwtAbstractScaleDraw::draw( QPainter *painter,
     {
         painter->save();
 
-        QPen pen = painter->pen();
+        pen = painter->pen();
         pen.setColor( palette.color( QPalette::WindowText ) );
         pen.setCapStyle( Qt::FlatCap );
 

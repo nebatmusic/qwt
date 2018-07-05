@@ -250,6 +250,6 @@ namespace QwtDesignerPlugin
         QWidget *d_widget;
     };
 
-};
+}
 
 #endif

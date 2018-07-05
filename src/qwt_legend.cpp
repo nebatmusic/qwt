@@ -385,18 +385,18 @@ const QWidget *QwtLegend::contentsWidget() const
   \brief Update the entries for an item
 
   \param itemInfo Info for an item
-  \param data List of legend entry attributes for the item
+  \param legendData List of legend entry attributes for the item
  */
 void QwtLegend::updateLegend( const QVariant &itemInfo,
-    const QList<QwtLegendData> &data )
+    const QList<QwtLegendData> &legendData )
 {
     QList<QWidget *> widgetList = legendWidgets( itemInfo );
 
-    if ( widgetList.size() != data.size() )
+    if ( widgetList.size() != legendData.size() )
     {
         QLayout *contentsLayout = d_data->view->contentsWidget->layout();
 
-        while ( widgetList.size() > data.size() )
+        while ( widgetList.size() > legendData.size() )
         {
             QWidget *w = widgetList.takeLast();
 
@@ -409,9 +409,9 @@ void QwtLegend::updateLegend( const QVariant &itemInfo,
             w->deleteLater();
         }
 
-        for ( int i = widgetList.size(); i < data.size(); i++ )
+        for ( int i = widgetList.size(); i < legendData.size(); i++ )
         {
-            QWidget *widget = createWidget( data[i] );
+            QWidget *widget = createWidget( legendData[i] );
 
             if ( contentsLayout )
                 contentsLayout->addWidget( widget );
@@ -441,8 +441,8 @@ void QwtLegend::updateLegend( const QVariant &itemInfo,
         updateTabOrder();
     }
 
-    for ( int i = 0; i < data.size(); i++ )
-        updateWidget( widgetList[i], data[i] );
+    for ( int i = 0; i < legendData.size(); i++ )
+        updateWidget( widgetList[i], legendData[i] );
 }
 
 /*!
@@ -450,15 +450,15 @@ void QwtLegend::updateLegend( const QVariant &itemInfo,
 
   The default implementation returns a QwtLegendLabel.
 
-  \param data Attributes of the legend entry
+  \param legendData Attributes of the legend entry
   \return Widget representing data on the legend
 
   \note updateWidget() will called soon after createWidget()
         with the same attributes.
  */
-QWidget *QwtLegend::createWidget( const QwtLegendData &data ) const
+QWidget *QwtLegend::createWidget( const QwtLegendData &legendData ) const
 {
-    Q_UNUSED( data );
+    Q_UNUSED( legendData );
 
     QwtLegendLabel *label = new QwtLegendLabel();
     label->setItemMode( defaultItemMode() );
@@ -473,21 +473,21 @@ QWidget *QwtLegend::createWidget( const QwtLegendData &data ) const
   \brief Update the widget
 
   \param widget Usually a QwtLegendLabel
-  \param data Attributes to be displayed
+  \param legendData Attributes to be displayed
 
   \sa createWidget()
   \note When widget is no QwtLegendLabel updateWidget() does nothing.
  */
-void QwtLegend::updateWidget( QWidget *widget, const QwtLegendData &data )
+void QwtLegend::updateWidget( QWidget *widget, const QwtLegendData &legendData )
 {
     QwtLegendLabel *label = qobject_cast<QwtLegendLabel *>( widget );
     if ( label )
     {
-        label->setData( data );
-        if ( !data.value( QwtLegendData::ModeRole ).isValid() )
+        label->setData( legendData );
+        if ( !legendData.value( QwtLegendData::ModeRole ).isValid() )
         {
             // use the default mode, when there is no specific
-            // hint from the legend data
+            // hint from the legend legendData
 
             label->setItemMode( defaultItemMode() );
         }
@@ -678,7 +678,7 @@ void QwtLegend::renderLegend( QPainter *painter,
     layoutRect.setBottom( qFloor( rect.bottom() ) - bottom );
 
     uint numCols = legendLayout->columnsForWidth( layoutRect.width() );
-    QList<QRect> itemRects =
+    const QList<QRect> itemRects =
         legendLayout->layoutItems( layoutRect, numCols );
 
     int index = 0;
