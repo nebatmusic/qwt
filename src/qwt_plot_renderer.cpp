@@ -57,6 +57,14 @@ static QPainterPath qwtCanvasClip(
     return clipPath;
 }
 
+static inline QFont qwtResolvedFont( const QWidget *widget )
+{
+    QFont font = widget->font();
+    font.resolve( QFont::AllPropertiesResolved );
+
+    return font;
+}
+
 class QwtPlotRenderer::PrivateData
 {
 public:
@@ -595,7 +603,7 @@ void QwtPlotRenderer::render( QwtPlot *plot,
 void QwtPlotRenderer::renderTitle( const QwtPlot *plot,
     QPainter *painter, const QRectF &rect ) const
 {
-    painter->setFont( plot->titleLabel()->font() );
+    painter->setFont( qwtResolvedFont( plot->titleLabel() ) );
 
     const QColor color = plot->titleLabel()->palette().color(
             QPalette::Active, QPalette::Text );
@@ -614,7 +622,7 @@ void QwtPlotRenderer::renderTitle( const QwtPlot *plot,
 void QwtPlotRenderer::renderFooter( const QwtPlot *plot,
     QPainter *painter, const QRectF &rect ) const
 {
-    painter->setFont( plot->footerLabel()->font() );
+    painter->setFont( qwtResolvedFont( plot->footerLabel() ) );
 
     const QColor color = plot->footerLabel()->palette().color(
             QPalette::Active, QPalette::Text );
@@ -622,7 +630,6 @@ void QwtPlotRenderer::renderFooter( const QwtPlot *plot,
     painter->setPen( color );
     plot->footerLabel()->text().draw( painter, rect );
 }
-
 
 /*!
   Render the legend into a given rectangle.
@@ -714,7 +721,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
 
     scaleWidget->drawTitle( painter, align, rect );
 
-    painter->setFont( scaleWidget->font() );
+    painter->setFont( qwtResolvedFont( scaleWidget ) );
 
     QwtScaleDraw *sd = const_cast<QwtScaleDraw *>( scaleWidget->scaleDraw() );
     const QPointF sdPos = sd->pos();
