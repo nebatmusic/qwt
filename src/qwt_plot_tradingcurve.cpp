@@ -235,12 +235,14 @@ QPen QwtPlotTradingCurve::symbolPen() const
 void QwtPlotTradingCurve::setSymbolBrush(
     Direction direction, const QBrush &brush )
 {
-    if ( direction < 0 || direction >= 2 )
+    // silencing -Wtautological-constant-out-of-range-compare
+    const int index = static_cast< int >( direction );
+    if ( index < 0 || index >= 2 )
         return;
 
-    if ( brush != d_data->symbolBrush[ direction ] )
+    if ( brush != d_data->symbolBrush[ index ] )
     {
-        d_data->symbolBrush[ direction ] = brush;
+        d_data->symbolBrush[ index ] = brush;
 
         legendChanged();
         itemChanged();
@@ -256,10 +258,11 @@ void QwtPlotTradingCurve::setSymbolBrush(
 */
 QBrush QwtPlotTradingCurve::symbolBrush( Direction direction ) const
 {
-    if ( direction < 0 || direction >= 2 )
+    const int index = static_cast< int >( direction );
+    if ( index < 0 || index >= 2 )
         return QBrush();
 
-    return d_data->symbolBrush[ direction ];
+    return d_data->symbolBrush[ index ];
 }
 
 /*!
