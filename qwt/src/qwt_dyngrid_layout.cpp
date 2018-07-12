@@ -82,7 +82,6 @@ void QwtDynGridLayout::init()
 {
     d_data = new QwtDynGridLayout::PrivateData;
     d_data->maxColumns = d_data->numRows = d_data->numColumns = 0;
-    d_data->expanding = 0;
 }
 
 //! Destructor
@@ -300,7 +299,7 @@ int QwtDynGridLayout::maxRowWidth( int numColumns ) const
     {
         col = index % numColumns;
         colWidth[col] = qMax( colWidth[col],
-            d_data->itemSizeHints[int( index )].width() );
+            d_data->itemSizeHints[index].width() );
     }
 
     int rowWidth = 2 * margin() + ( numColumns - 1 ) * spacing();
@@ -430,7 +429,7 @@ void QwtDynGridLayout::layoutGrid( uint numColumns,
         const int row = index / numColumns;
         const int col = index % numColumns;
 
-        const QSize &size = d_data->itemSizeHints[int( index )];
+        const QSize &size = d_data->itemSizeHints[index];
 
         rowHeight[row] = ( col == 0 )
             ? size.height() : qMax( rowHeight[row], size.height() );

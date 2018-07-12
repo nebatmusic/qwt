@@ -843,7 +843,7 @@ QRect QwtPicker::trackerRect( const QFont &font ) const
         && rubberBand() != NoRubberBand )
     {
         const QPoint last =
-            d_data->pickedPoints[int( d_data->pickedPoints.count() ) - 2];
+            d_data->pickedPoints[ d_data->pickedPoints.count() - 2];
 
         alignment |= ( pos.x() >= last.x() ) ? Qt::AlignRight : Qt::AlignLeft;
         alignment |= ( pos.y() > last.y() ) ? Qt::AlignBottom : Qt::AlignTop;

@@ -284,7 +284,7 @@ static double qwtDivideMajorStep( double stepSize, int maxMinSteps,
             }
 
             if ( numSteps > 0 )
-                minStepSize = double( stepSize ) / numSteps;
+                minStepSize = stepSize / numSteps;
 
             break;
         }
@@ -308,7 +308,7 @@ static double qwtDivideMajorStep( double stepSize, int maxMinSteps,
             }
 
             if ( numSteps > 0 )
-                minStepSize = double( stepSize ) / numSteps;
+                minStepSize = stepSize / numSteps;
 
             break;
         }
@@ -332,7 +332,7 @@ static double qwtDivideMajorStep( double stepSize, int maxMinSteps,
             }
 
             if ( numSteps > 0 )
-                minStepSize = double( stepSize ) / numSteps;
+                minStepSize = stepSize / numSteps;
 
             break;
         }
@@ -377,7 +377,7 @@ static double qwtDivideMajorStep( double stepSize, int maxMinSteps,
                 limits, sizeof( limits ) / sizeof( int ) );
 
             if ( numSteps > 0 )
-                minStepSize = double( stepSize ) / numSteps;
+                minStepSize = stepSize / numSteps;
 
             break;
         }
@@ -398,7 +398,7 @@ static double qwtDivideMajorStep( double stepSize, int maxMinSteps,
                     limits, sizeof( limits ) / sizeof( int ) );
 
                 if ( numSteps > 0 )
-                    minStepSize = double( stepSize ) / numSteps;
+                    minStepSize = stepSize / numSteps;
             }
                 
             break;

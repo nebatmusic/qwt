@@ -369,18 +369,20 @@ namespace QwtSplineCubicP
     };
 }
          
-QDebug operator<<( QDebug debug, const QwtSplineCubicP::Equation2 &eq )
+#if 0
+static QDebug operator<<( QDebug debug, const QwtSplineCubicP::Equation2 &eq )
 {
     debug.nospace() << "EQ2(" << eq.p << ", " << eq.q << ", " << eq.r << ")";
     return debug.space();
 }
 
-QDebug operator<<( QDebug debug, const QwtSplineCubicP::Equation3 &eq )
+static QDebug operator<<( QDebug debug, const QwtSplineCubicP::Equation3 &eq )
 {
     debug.nospace() << "EQ3(" << eq.p << ", " 
         << eq.q << ", " << eq.u << ", " << eq.r << ")";
     return debug.space();
 }
+#endif
 
 namespace QwtSplineCubicP
 {

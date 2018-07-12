@@ -369,7 +369,7 @@ int SplineTester::verifyNodesM( const QPolygonF &points, const QVector<double> &
     return numErrors;
 }
 
-void testSplines( SplineTester::Type splineType, const QPolygonF &points )
+static void testSplines( SplineTester::Type splineType, const QPolygonF &points )
 {
     struct Condition
     {
@@ -454,14 +454,14 @@ void testSplines( SplineTester::Type splineType, const QPolygonF &points )
     }
 }
 
-void testSplines( const QPolygonF &points )
+static void testSplines( const QPolygonF &points )
 {
     testSplines( SplineTester::Cardinal, points );
     testSplines( SplineTester::Akima, points );
     testSplines( SplineTester::Cubic, points );
 }
 
-void testSplines()
+static void testSplines()
 {
     QPolygonF points;
 
@@ -519,7 +519,7 @@ void testSplines()
     testSplines( points );
 }
 
-void testPaths( const char *prompt, const QwtSpline &spline,
+static void testPaths( const char *prompt, const QwtSpline &spline,
     const QPolygonF& points1, const QPolygonF& points2 )
 {
     const QPainterPath path1 = spline.painterPath( points1 );
@@ -538,7 +538,7 @@ void testPaths( const char *prompt, const QwtSpline &spline,
     }
 }
 
-void testDuplicates()
+static void testDuplicates()
 {
     QwtSplineLocal spline( QwtSplineLocal::Cardinal );
     spline.setParametrization( QwtSplineParametrization::ParameterChordal );

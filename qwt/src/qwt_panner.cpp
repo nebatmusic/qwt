@@ -44,9 +44,9 @@ public:
         restoreCursor( NULL ),
         hasCursor( false ),
 #endif
-        isEnabled( false )
+        isEnabled( false ),
+        orientations( Qt::Vertical | Qt::Horizontal )
     {
-        orientations = Qt::Vertical | Qt::Horizontal;
     }
 
     ~PrivateData()

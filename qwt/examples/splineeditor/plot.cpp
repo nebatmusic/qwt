@@ -193,15 +193,11 @@ private:
 
         // always the same at both ends
 
-        QwtSpline *spline = dynamic_cast<QwtSpline *>( d_spline );
-        if ( spline )
-        {
-            spline->setBoundaryCondition( QwtSpline::AtBeginning, condition );
-            spline->setBoundaryValue( QwtSpline::AtBeginning, value );
+        d_spline->setBoundaryCondition( QwtSpline::AtBeginning, condition );
+        d_spline->setBoundaryValue( QwtSpline::AtBeginning, value );
 
-            spline->setBoundaryCondition( QwtSpline::AtEnd, condition );
-            spline->setBoundaryValue( QwtSpline::AtEnd, value );
-        }
+        d_spline->setBoundaryCondition( QwtSpline::AtEnd, condition );
+        d_spline->setBoundaryValue( QwtSpline::AtEnd, value );
     }
 
     QwtSpline *d_spline;

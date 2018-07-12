@@ -306,10 +306,9 @@ void QwtWidgetOverlay::resizeEvent( QResizeEvent* event )
 
 void QwtWidgetOverlay::draw( QPainter *painter ) const
 {
-    QWidget *widget = const_cast< QWidget *>( parentWidget() );
-    if ( widget )
+    if ( QWidget *widget = parentWidget() )
     {
-        painter->setClipRect( parentWidget()->contentsRect() );
+        painter->setClipRect( widget->contentsRect() );
 
         // something special for the plot canvas
 
