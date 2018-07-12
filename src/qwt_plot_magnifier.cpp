@@ -162,3 +162,7 @@ void QwtPlotMagnifier::rescale( double factor )
     if ( doReplot )
         plt->replot();
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_plot_magnifier.cpp"
+#endif

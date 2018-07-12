@@ -590,3 +590,7 @@ uint QwtDynGridLayout::numColumns() const
 {
     return d_data->numColumns;
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_dyngrid_layout.cpp"
+#endif

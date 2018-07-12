@@ -781,3 +781,7 @@ QSize QwtCounter::sizeHint() const
         d_data->valueEdit->minimumSizeHint().height() );
     return QSize( w, h );
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_counter.cpp"
+#endif

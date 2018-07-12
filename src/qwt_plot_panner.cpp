@@ -287,3 +287,6 @@ QPixmap QwtPlotPanner::grab() const
     return QwtPanner::grab();
 }   
 
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_plot_panner.cpp"
+#endif

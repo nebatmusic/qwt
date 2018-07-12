@@ -1108,3 +1108,7 @@ QPainterPath QwtPlotCanvas::borderPath( const QRect &rect ) const
     
     return QPainterPath();
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_plot_canvas.cpp"
+#endif

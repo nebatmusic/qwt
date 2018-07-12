@@ -1003,3 +1003,7 @@ QRect QwtThermo::alarmRect( const QRect &fillRect ) const
 
     return alarmRect;
 } 
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_thermo.cpp"
+#endif

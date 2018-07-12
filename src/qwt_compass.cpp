@@ -306,3 +306,7 @@ void QwtCompass::keyPressEvent( QKeyEvent *kev )
         QwtDial::keyPressEvent( kev );
     }
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_compass.cpp"
+#endif

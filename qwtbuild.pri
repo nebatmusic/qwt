@@ -28,6 +28,11 @@ sanitize {
     CONFIG *= sanitize_undefined
 }
 
+# Include the generated moc files in the corresponding cpp file
+# what increases the compile time significantly
+
+DEFINES += QWT_MOC_INCLUDE=1
+
 ######################################################################
 # release/debug mode
 ######################################################################
