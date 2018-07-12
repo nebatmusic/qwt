@@ -564,9 +564,15 @@ bool QwtLegend::eventFilter( QObject *object, QEvent *event )
             {
                 const QChildEvent *ce =
                     static_cast<const QChildEvent *>(event);
+
                 if ( ce->child()->isWidgetType() )
                 {
-                    QWidget *w = static_cast< QWidget * >( ce->child() );
+                    /*
+                        We are called from the ~QObject and ce->child() is
+                        no widget anymore. But all we need is the address
+                        to remove it from the map.
+                     */
+                    QWidget *w = reinterpret_cast< QWidget * >( ce->child() );
                     d_data->itemMap.removeWidget( w );
                 }
                 break;
