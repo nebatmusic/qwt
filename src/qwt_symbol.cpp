@@ -1651,7 +1651,7 @@ QRect QwtSymbol::boundingRect() const
         {
             qreal pw = 0.0;
             if ( d_data->pen.style() != Qt::NoPen )
-                pw = qMax( d_data->pen.widthF(), qreal( 1.0 ) );
+                pw = QwtPainter::effectivePenWidth( d_data->pen );
 
             rect.setSize( d_data->size + QSizeF( pw, pw ) );
             rect.moveCenter( QPointF( 0.0, 0.0 ) );
@@ -1670,7 +1670,7 @@ QRect QwtSymbol::boundingRect() const
         {
             qreal pw = 0.0;
             if ( d_data->pen.style() != Qt::NoPen )
-                pw = qMax( d_data->pen.widthF(), qreal( 1.0 ) );
+                pw = QwtPainter::effectivePenWidth( d_data->pen );
 
             rect.setSize( d_data->size + QSizeF( 2 * pw, 2 * pw ) );
             rect.moveCenter( QPointF( 0.0, 0.0 ) );

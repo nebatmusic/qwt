@@ -408,7 +408,7 @@ void QwtPlotShapeItem::draw( QPainter *painter,
 
     if ( testPaintAttribute( QwtPlotShapeItem::ClipPolygons ) )
     {
-        const qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
+        const qreal pw = QwtPainter::effectivePenWidth( painter->pen() );
         const QRectF clipRect = canvasRect.adjusted( -pw, -pw, pw, pw );
 
         QPainterPath clippedPath;

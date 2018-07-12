@@ -499,7 +499,7 @@ void QwtPlotCurve::drawLines( QPainter *painter,
     {
         clipRect = qwtIntersectedClipRect( canvasRect, painter );
 
-        const qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
+        const qreal pw = QwtPainter::effectivePenWidth( painter->pen() );
         clipRect = clipRect.adjusted(-pw, -pw, pw, pw);
     }
 
@@ -833,7 +833,7 @@ void QwtPlotCurve::drawSteps( QPainter *painter,
     {
         QRectF clipRect = qwtIntersectedClipRect( canvasRect, painter );
 
-        const qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF());
+        const qreal pw = QwtPainter::effectivePenWidth( painter->pen() );
         clipRect = clipRect.adjusted(-pw, -pw, pw, pw);
 
         const QPolygonF clipped = QwtClipper::clippedPolygonF( 

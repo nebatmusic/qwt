@@ -204,7 +204,7 @@ const QPen& QwtIntervalSymbol::pen() const
 void QwtIntervalSymbol::draw( QPainter *painter, Qt::Orientation orientation,
     const QPointF &from, const QPointF &to ) const
 {
-    const qreal pw = qMax( painter->pen().widthF(), qreal( 1.0 ) );
+    const qreal pw = QwtPainter::effectivePenWidth( painter->pen() );
 
     QPointF p1 = from;
     QPointF p2 = to;
