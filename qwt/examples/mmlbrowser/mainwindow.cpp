@@ -97,7 +97,7 @@ MainWindow::MainWindow()
     updateRotation( d_comboRotations->currentText() );
     updateDrawFrames( checkDrawFrames->isChecked() );
     updateColors( checkColors->isChecked() );
-};
+}
 
 void MainWindow::load()
 {

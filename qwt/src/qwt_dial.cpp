@@ -840,8 +840,7 @@ void QwtDial::wheelEvent( QWheelEvent *event )
 
 void QwtDial::setAngleRange( double angle, double span )
 {
-    QwtRoundScaleDraw *sd = const_cast<QwtRoundScaleDraw *>( scaleDraw() );
-    if ( sd  )
+    if ( QwtRoundScaleDraw *sd = scaleDraw() )
     {
         angle = qwtNormalizeDegrees( angle - 270.0 );
         sd->setAngleRange( angle, angle + span );

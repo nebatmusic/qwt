@@ -9,7 +9,7 @@
 #include <qelapsedtimer.h>
 #endif
 
-void testSpline( const char *name, QwtSplineInterpolating *spline, 
+static void testSpline( const char *name, QwtSplineInterpolating *spline, 
 	int type, const QPolygonF &points )
 {
 	spline->setParametrization( type );
@@ -24,7 +24,7 @@ void testSpline( const char *name, QwtSplineInterpolating *spline,
 	qDebug() << name << ":" << timer.elapsed();
 }
 
-void testSplines( int paramType, const QPolygonF &points )
+static void testSplines( int paramType, const QPolygonF &points )
 {
 #if 0
 	QwtSplinePleasing splinePleasing;
