@@ -91,7 +91,8 @@ PlotMatrix::PlotMatrix( int numRows, int numColumns, QWidget *parent ):
             for ( int axis = 0; axis < QwtPlot::axisCnt; axis++ )
             {
                 connect( plot->axisWidget( axis ),
-                    SIGNAL( scaleDivChanged() ), SLOT( scaleDivChanged() ) );
+                    SIGNAL( scaleDivChanged() ), SLOT( scaleDivChanged() ),
+                    Qt::QueuedConnection );
             }
             d_data->plotWidgets[row * numColumns + col] = plot;
         }
