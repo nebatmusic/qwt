@@ -54,7 +54,6 @@ public:
 
     SplineFitter( Mode mode ):
         QwtCurveFitter( QwtCurveFitter::Path ),
-        d_mode(mode),
         d_spline(NULL)
     {
         switch( mode )
@@ -205,7 +204,6 @@ private:
         }
     }
 
-    Mode d_mode;
     QwtSpline *d_spline;
 };
 
