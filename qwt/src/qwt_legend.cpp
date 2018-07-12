@@ -20,34 +20,37 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 
-class QwtLegendMap
+namespace
 {
-public:
-    inline bool isEmpty() const { return d_entries.isEmpty(); }
-
-    void insert( const QVariant &, const QList<QWidget *> & );
-    void remove( const QVariant & );
-
-    void removeWidget( const QWidget * );
-
-    QList<QWidget *> legendWidgets( const QVariant & ) const;
-    QVariant itemInfo( const QWidget * ) const;
-
-private:
-    // we don't know anything about itemInfo and therefore don't have
-    // any key that can be used for a map or hashtab.
-    // But a simple linear list is o.k. here, as we will never have
-    // more than a few entries.
-
-    class Entry
+    class QwtLegendMap
     {
     public:
-        QVariant itemInfo;
-        QList<QWidget *> widgets;
-    };
+        inline bool isEmpty() const { return d_entries.isEmpty(); }
 
-    QList< Entry > d_entries;
-};
+        void insert( const QVariant &, const QList<QWidget *> & );
+        void remove( const QVariant & );
+
+        void removeWidget( const QWidget * );
+
+        QList<QWidget *> legendWidgets( const QVariant & ) const;
+        QVariant itemInfo( const QWidget * ) const;
+
+    private:
+        // we don't know anything about itemInfo and therefore don't have
+        // any key that can be used for a map or hashtab.
+        // But a simple linear list is o.k. here, as we will never have
+        // more than a few entries.
+
+        class Entry
+        {
+        public:
+            QVariant itemInfo;
+            QList<QWidget *> widgets;
+        };
+
+        QList< Entry > d_entries;
+    };
+}
 
 void QwtLegendMap::insert( const QVariant &itemInfo,
     const QList<QWidget *> &widgets )
@@ -564,9 +567,15 @@ bool QwtLegend::eventFilter( QObject *object, QEvent *event )
             {
                 const QChildEvent *ce =
                     static_cast<const QChildEvent *>(event);
+
                 if ( ce->child()->isWidgetType() )
                 {
-                    QWidget *w = static_cast< QWidget * >( ce->child() );
+                    /*
+                        We are called from the ~QObject and ce->child() is
+                        no widget anymore. But all we need is the address
+                        to remove it from the map.
+                     */
+                    QWidget *w = reinterpret_cast< QWidget * >( ce->child() );
                     d_data->itemMap.removeWidget( w );
                 }
                 break;
