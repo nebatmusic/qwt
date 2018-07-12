@@ -15,154 +15,157 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 
-class QwtStyleSheetRecorder: public QwtNullPaintDevice
+namespace
 {
-public:
-    explicit QwtStyleSheetRecorder( const QSize &size ):
-        d_size( size )
+    class QwtStyleSheetRecorder: public QwtNullPaintDevice
     {
-    }
-
-    virtual void updateState( const QPaintEngineState &state )
-    {
-        if ( state.state() & QPaintEngine::DirtyPen )
+    public:
+        explicit QwtStyleSheetRecorder( const QSize &size ):
+            d_size( size )
         {
-            d_pen = state.pen();
         }
-        if ( state.state() & QPaintEngine::DirtyBrush )
+
+        virtual void updateState( const QPaintEngineState &state )
         {
-            d_brush = state.brush();
-        }
-        if ( state.state() & QPaintEngine::DirtyBrushOrigin )
-        {
-            d_origin = state.brushOrigin();
-        }
-    }
-
-    virtual void drawRects(const QRectF *rects, int count )
-    {
-        for ( int i = 0; i < count; i++ )
-            border.rectList += rects[i];
-    }
-
-    virtual void drawRects(const QRect *rects, int count )
-    {
-        for ( int i = 0; i < count; i++ )
-            border.rectList += rects[i];
-    }
-
-    virtual void drawPath( const QPainterPath &path )
-    {
-        const QRectF rect( QPointF( 0.0, 0.0 ), d_size );
-        if ( path.controlPointRect().contains( rect.center() ) )
-        {
-            setCornerRects( path );
-            alignCornerRects( rect );
-
-            background.path = path;
-            background.brush = d_brush;
-            background.origin = d_origin;
-        }
-        else
-        {
-            border.pathList += path;
-        }
-    }
-
-    void setCornerRects( const QPainterPath &path )
-    {
-        QPointF pos( 0.0, 0.0 );
-
-        for ( int i = 0; i < path.elementCount(); i++ )
-        {
-            QPainterPath::Element el = path.elementAt(i); 
-            switch( el.type )
+            if ( state.state() & QPaintEngine::DirtyPen )
             {
-                case QPainterPath::MoveToElement:
-                case QPainterPath::LineToElement:
-                {
-                    pos.setX( el.x );
-                    pos.setY( el.y );
-                    break;
-                }
-                case QPainterPath::CurveToElement:
-                {
-                    QRectF r( pos, QPointF( el.x, el.y ) );
-                    clipRects += r.normalized();
+                d_pen = state.pen();
+            }
+            if ( state.state() & QPaintEngine::DirtyBrush )
+            {
+                d_brush = state.brush();
+            }
+            if ( state.state() & QPaintEngine::DirtyBrushOrigin )
+            {
+                d_origin = state.brushOrigin();
+            }
+        }
 
-                    pos.setX( el.x );
-                    pos.setY( el.y );
+        virtual void drawRects(const QRectF *rects, int count )
+        {
+            for ( int i = 0; i < count; i++ )
+                border.rectList += rects[i];
+        }
 
-                    break;
-                }
-                case QPainterPath::CurveToDataElement:
+        virtual void drawRects(const QRect *rects, int count )
+        {
+            for ( int i = 0; i < count; i++ )
+                border.rectList += rects[i];
+        }
+
+        virtual void drawPath( const QPainterPath &path )
+        {
+            const QRectF rect( QPointF( 0.0, 0.0 ), d_size );
+            if ( path.controlPointRect().contains( rect.center() ) )
+            {
+                setCornerRects( path );
+                alignCornerRects( rect );
+
+                background.path = path;
+                background.brush = d_brush;
+                background.origin = d_origin;
+            }
+            else
+            {
+                border.pathList += path;
+            }
+        }
+
+        void setCornerRects( const QPainterPath &path )
+        {
+            QPointF pos( 0.0, 0.0 );
+
+            for ( int i = 0; i < path.elementCount(); i++ )
+            {
+                QPainterPath::Element el = path.elementAt(i); 
+                switch( el.type )
                 {
-                    if ( clipRects.size() > 0 )
+                    case QPainterPath::MoveToElement:
+                    case QPainterPath::LineToElement:
                     {
-                        QRectF r = clipRects.last();
-                        r.setCoords( 
-                            qMin( r.left(), el.x ),
-                            qMin( r.top(), el.y ),
-                            qMax( r.right(), el.x ),
-                            qMax( r.bottom(), el.y )
-                        );
-                        clipRects.last() = r.normalized();
+                        pos.setX( el.x );
+                        pos.setY( el.y );
+                        break;
                     }
-                    break;
+                    case QPainterPath::CurveToElement:
+                    {
+                        QRectF r( pos, QPointF( el.x, el.y ) );
+                        clipRects += r.normalized();
+
+                        pos.setX( el.x );
+                        pos.setY( el.y );
+
+                        break;
+                    }
+                    case QPainterPath::CurveToDataElement:
+                    {
+                        if ( clipRects.size() > 0 )
+                        {
+                            QRectF r = clipRects.last();
+                            r.setCoords( 
+                                qMin( r.left(), el.x ),
+                                qMin( r.top(), el.y ),
+                                qMax( r.right(), el.x ),
+                                qMax( r.bottom(), el.y )
+                            );
+                            clipRects.last() = r.normalized();
+                        }
+                        break;
+                    }
                 }
             }
         }
-    }
 
-protected:
-    virtual QSize sizeMetrics() const
-    {
-        return d_size;
-    }
-
-private:
-    void alignCornerRects( const QRectF &rect )
-    {
-        for ( int i = 0; i < clipRects.size(); i++ )
+    protected:
+        virtual QSize sizeMetrics() const
         {
-            QRectF &r = clipRects[i];
-            if ( r.center().x() < rect.center().x() )
-                r.setLeft( rect.left() );
-            else
-                r.setRight( rect.right() );
-
-            if ( r.center().y() < rect.center().y() )
-                r.setTop( rect.top() );
-            else
-                r.setBottom( rect.bottom() );
+            return d_size;
         }
-    }
+
+    private:
+        void alignCornerRects( const QRectF &rect )
+        {
+            for ( int i = 0; i < clipRects.size(); i++ )
+            {
+                QRectF &r = clipRects[i];
+                if ( r.center().x() < rect.center().x() )
+                    r.setLeft( rect.left() );
+                else
+                    r.setRight( rect.right() );
+
+                if ( r.center().y() < rect.center().y() )
+                    r.setTop( rect.top() );
+                else
+                    r.setBottom( rect.bottom() );
+            }
+        }
 
 
-public:
-    QVector<QRectF> clipRects;
+    public:
+        QVector<QRectF> clipRects;
 
-    struct Border
-    {
-        QList<QPainterPath> pathList;
-        QList<QRectF> rectList;
-        QRegion clipRegion;
-    } border;
+        struct Border
+        {
+            QList<QPainterPath> pathList;
+            QList<QRectF> rectList;
+            QRegion clipRegion;
+        } border;
 
-    struct Background
-    {
-        QPainterPath path;
-        QBrush brush;
-        QPointF origin;
-    } background;
+        struct Background
+        {
+            QPainterPath path;
+            QBrush brush;
+            QPointF origin;
+        } background;
 
-private:
-    const QSize d_size;
+    private:
+        const QSize d_size;
 
-    QPen d_pen;
-    QBrush d_brush;
-    QPointF d_origin;
-};
+        QPen d_pen;
+        QBrush d_brush;
+        QPointF d_origin;
+    };
+}
 
 static void qwtUpdateContentsRect( int fw, QWidget *canvas )
 {

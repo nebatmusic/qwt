@@ -20,30 +20,33 @@
 #include <qdesktopwidget.h>
 #include <qmath.h>
 
-class QwtTextEngineDict
+namespace
 {
-public:
-    static QwtTextEngineDict &dict();
-
-    void setTextEngine( QwtText::TextFormat, QwtTextEngine * );
-
-    const QwtTextEngine *textEngine( QwtText::TextFormat ) const;
-    const QwtTextEngine *textEngine( const QString &,
-        QwtText::TextFormat ) const;
-
-private:
-    QwtTextEngineDict();
-    ~QwtTextEngineDict();
-
-    typedef QMap<int, QwtTextEngine *> EngineMap;
-
-    inline const QwtTextEngine *engine( EngineMap::const_iterator &it ) const
+    class QwtTextEngineDict
     {
-        return it.value();
-    }
+    public:
+        static QwtTextEngineDict &dict();
 
-    EngineMap d_map;
-};
+        void setTextEngine( QwtText::TextFormat, QwtTextEngine * );
+
+        const QwtTextEngine *textEngine( QwtText::TextFormat ) const;
+        const QwtTextEngine *textEngine( const QString &,
+            QwtText::TextFormat ) const;
+
+    private:
+        QwtTextEngineDict();
+        ~QwtTextEngineDict();
+
+        typedef QMap<int, QwtTextEngine *> EngineMap;
+
+        inline const QwtTextEngine *engine( EngineMap::const_iterator &it ) const
+        {
+            return it.value();
+        }
+
+        EngineMap d_map;
+    };
+}
 
 QwtTextEngineDict &QwtTextEngineDict::dict()
 {

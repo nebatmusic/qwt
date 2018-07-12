@@ -17,36 +17,39 @@
 #include <qpainter.h>
 #include <qmath.h>
 
-class QwtLegendLayoutItem: public QLayoutItem
+namespace
 {
-public:
-    QwtLegendLayoutItem( const QwtPlotLegendItem *, const QwtPlotItem * );
-    virtual ~QwtLegendLayoutItem();
+    class QwtLegendLayoutItem: public QLayoutItem
+    {
+    public:
+        QwtLegendLayoutItem( const QwtPlotLegendItem *, const QwtPlotItem * );
+        virtual ~QwtLegendLayoutItem();
 
-    const QwtPlotItem *plotItem() const;
+        const QwtPlotItem *plotItem() const;
 
-    void setData( const QwtLegendData & );
-    const QwtLegendData &data() const;
+        void setData( const QwtLegendData & );
+        const QwtLegendData &data() const;
 
-    virtual Qt::Orientations expandingDirections() const;
-    virtual QRect geometry() const;
-    virtual bool hasHeightForWidth() const;
-    virtual int heightForWidth( int w ) const;
-    virtual bool isEmpty() const;
-    virtual QSize maximumSize() const;
-    virtual int minimumHeightForWidth( int w ) const;
-    virtual QSize minimumSize() const;
-    virtual void setGeometry( const QRect & r );
-    virtual QSize sizeHint() const;
+        virtual Qt::Orientations expandingDirections() const;
+        virtual QRect geometry() const;
+        virtual bool hasHeightForWidth() const;
+        virtual int heightForWidth( int w ) const;
+        virtual bool isEmpty() const;
+        virtual QSize maximumSize() const;
+        virtual int minimumHeightForWidth( int w ) const;
+        virtual QSize minimumSize() const;
+        virtual void setGeometry( const QRect & r );
+        virtual QSize sizeHint() const;
 
-private:
+    private:
 
-    const QwtPlotLegendItem *d_legendItem;
-    const QwtPlotItem *d_plotItem;
-    QwtLegendData d_data;
+        const QwtPlotLegendItem *d_legendItem;
+        const QwtPlotItem *d_plotItem;
+        QwtLegendData d_data;
 
-    QRect d_rect;
-};
+        QRect d_rect;
+    };
+}
 
 QwtLegendLayoutItem::QwtLegendLayoutItem( 
         const QwtPlotLegendItem *legendItem, const QwtPlotItem *plotItem ):

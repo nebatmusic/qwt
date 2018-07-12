@@ -13,6 +13,19 @@
 #include <qevent.h>
 #include <qglframebufferobject.h>
 
+namespace
+{
+    class QwtPlotGLCanvasFormat: public QGLFormat
+    {
+    public:
+        QwtPlotGLCanvasFormat():
+            QGLFormat( QGLFormat::defaultFormat() )
+        {
+            setSampleBuffers( true );
+        }
+    };
+}
+
 class QwtPlotGLCanvas::PrivateData
 {
 public:
@@ -29,16 +42,6 @@ public:
 
     bool fboDirty;
     QGLFramebufferObject* fbo;
-};
-
-class QwtPlotGLCanvasFormat: public QGLFormat
-{
-public:
-    QwtPlotGLCanvasFormat():
-        QGLFormat( QGLFormat::defaultFormat() )
-    {
-        setSampleBuffers( true );
-    }
 };
 
 /*! 

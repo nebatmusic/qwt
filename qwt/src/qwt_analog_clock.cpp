@@ -12,30 +12,33 @@
 #include <qmath.h>
 #include <qlocale.h>
 
-class QwtAnalogClockScaleDraw: public QwtRoundScaleDraw
+namespace
 {
-public:
-    QwtAnalogClockScaleDraw()
+    class QwtAnalogClockScaleDraw: public QwtRoundScaleDraw
     {
-        setSpacing( 8 );
+    public:
+        QwtAnalogClockScaleDraw()
+        {
+            setSpacing( 8 );
 
-        enableComponent( QwtAbstractScaleDraw::Backbone, false );
+            enableComponent( QwtAbstractScaleDraw::Backbone, false );
 
-        setTickLength( QwtScaleDiv::MinorTick, 2 );
-        setTickLength( QwtScaleDiv::MediumTick, 4 );
-        setTickLength( QwtScaleDiv::MajorTick, 8 );
+            setTickLength( QwtScaleDiv::MinorTick, 2 );
+            setTickLength( QwtScaleDiv::MediumTick, 4 );
+            setTickLength( QwtScaleDiv::MajorTick, 8 );
 
-        setPenWidthF( 1.0 );
-    }
+            setPenWidthF( 1.0 );
+        }
 
-    virtual QwtText label( double value ) const
-    {
-        if ( qFuzzyCompare( value + 1.0, 1.0 ) )
-            value = 60.0 * 60.0 * 12.0;
+        virtual QwtText label( double value ) const
+        {
+            if ( qFuzzyCompare( value + 1.0, 1.0 ) )
+                value = 60.0 * 60.0 * 12.0;
 
-        return QLocale().toString( qRound( value / ( 60.0 * 60.0 ) ) );
-    }
-};
+            return QLocale().toString( qRound( value / ( 60.0 * 60.0 ) ) );
+        }
+    };
+}
 
 /*!
   Constructor
