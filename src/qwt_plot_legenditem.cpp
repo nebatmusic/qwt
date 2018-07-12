@@ -715,7 +715,7 @@ void QwtPlotLegendItem::updateLegend( const QwtPlotItem *plotItem,
         }
         layoutItems.clear();
 
-        if ( it != d_data->map.end() )
+        if ( it != d_data->map.constEnd() )
             d_data->map.remove( plotItem );
 
         if ( !data.isEmpty() )

@@ -542,8 +542,8 @@ void QwtKnob::drawKnob( QPainter *painter, const QRectF &knobRect ) const
 
             const QColor c = palette().color( QPalette::Button );
             gradient.setColorAt(0, c.lighter(110));
-            gradient.setColorAt(qreal(0.5), c);
-            gradient.setColorAt(qreal(0.501), c.darker(102));
+            gradient.setColorAt( 0.5, c);
+            gradient.setColorAt( 0.501, c.darker(102));
             gradient.setColorAt(1, c.darker(115));
 
             brush = QBrush( gradient );
