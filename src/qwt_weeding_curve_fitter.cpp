@@ -108,8 +108,7 @@ void QwtWeedingCurveFitter::setChunkSize( uint numPoints )
 }
 
 /*!
-  
-  \return Maximum for the number of points passed to a run 
+  \return Maximum for the number of points passed to a run
           of the algorithm - or 0, when unlimited
   \sa setChunkSize()
 */
@@ -125,8 +124,10 @@ uint QwtWeedingCurveFitter::chunkSize() const
 */
 QPolygonF QwtWeedingCurveFitter::fitCurve( const QPolygonF &points ) const
 {
-    QPolygonF fittedPoints;
+    if ( points.isEmpty() )
+        return points;
 
+    QPolygonF fittedPoints;
     if ( d_data->chunkSize == 0 )
     {
         fittedPoints = simplify( points );
