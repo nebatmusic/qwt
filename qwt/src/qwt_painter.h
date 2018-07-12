@@ -44,7 +44,7 @@ public:
 
     static void setRoundingAlignment( bool );
     static bool roundingAlignment();
-    static bool roundingAlignment(QPainter *);
+    static bool roundingAlignment( const QPainter * );
 
     static void drawText( QPainter *, double x, double y, const QString & );
     static void drawText( QPainter *, const QPointF &, const QString & );
@@ -108,7 +108,7 @@ public:
         const QwtColorMap &, const QwtInterval &,
         const QwtScaleMap &, Qt::Orientation, const QRectF & );
 
-    static bool isAligning( QPainter *painter );
+    static bool isAligning( const QPainter *painter );
     static bool isX11GraphicsSystem();
 
     static void fillPixmap( const QWidget *, 
@@ -119,6 +119,8 @@ public:
 
     static QPixmap backingStore( QWidget *, const QSize & );
     static qreal devicePixelRatio( const QPaintDevice * );
+
+    static qreal effectivePenWidth( const QPen & );
 
 private:
     static bool d_polylineSplitting;
@@ -182,8 +184,18 @@ inline bool QwtPainter::roundingAlignment()
   \return roundingAlignment() && isAligning(painter);
   \param painter Painter
 */
-inline bool QwtPainter::roundingAlignment(QPainter *painter)
+inline bool QwtPainter::roundingAlignment( const QPainter *painter )
 {
     return d_roundingAlignment && isAligning(painter);
+}
+
+/*! 
+  \return pen.widthF() expanded to at least 1.0
+  \param pen Pen
+*/
+inline qreal QwtPainter::effectivePenWidth( const QPen &pen ) 
+{   
+    const qreal width = pen.widthF();
+    return ( width < 1.0 ) ? 1.0 : width;
 }
 #endif

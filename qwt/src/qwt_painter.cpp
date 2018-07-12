@@ -261,7 +261,7 @@ bool QwtPainter::isX11GraphicsSystem()
 
   \sa setRoundingAlignment()
 */
-bool QwtPainter::isAligning( QPainter *painter )
+bool QwtPainter::isAligning( const QPainter *painter )
 {
     if ( painter && painter->isActive() )
     {
@@ -1444,4 +1444,3 @@ QPixmap QwtPainter::backingStore( QWidget *widget, const QSize &size )
 
     return pm;
 }
-

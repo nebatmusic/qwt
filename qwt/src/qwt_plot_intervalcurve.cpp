@@ -446,7 +446,7 @@ void QwtPlotIntervalCurve::drawTube( QPainter *painter,
 
         if ( d_data->paintAttributes & ClipPolygons )
         {
-            qreal pw = qMax( qreal( 1.0 ), painter->pen().widthF() );
+            qreal pw = QwtPainter::effectivePenWidth( painter->pen() );
             const QRectF clipRect = canvasRect.adjusted( -pw, -pw, pw, pw );
 
             QPolygonF p( size );
