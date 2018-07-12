@@ -27,6 +27,8 @@ class QResizeEvent;
 
 class QWT_EXPORT QwtPlotRescaler: public QObject
 {
+    Q_OBJECT
+
 public:
     /*!
       The rescale policy defines how to rescale the reference axis and
