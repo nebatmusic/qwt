@@ -13,7 +13,7 @@
 #include <qdatetime.h>
 #include <limits.h>
 
-static inline double qwtMsecsForType( QwtDate::IntervalType type )
+static inline double qwtMsecsForType( int type )
 {
     static const double msecs[] =
     {
