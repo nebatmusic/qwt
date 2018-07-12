@@ -195,8 +195,8 @@ void CanvasPicker::select( const QPoint &pos )
     int index = -1;
 
     const QwtPlotItemList& itmList = plot()->itemList();
-    for ( QwtPlotItemIterator it = itmList.begin();
-        it != itmList.end(); ++it )
+    for ( QwtPlotItemIterator it = itmList.constBegin();
+        it != itmList.constEnd(); ++it )
     {
         if ( ( *it )->rtti() == QwtPlotItem::Rtti_PlotCurve )
         {
@@ -314,7 +314,7 @@ void CanvasPicker::shiftCurveCursor( bool up )
     const QwtPlotItemList &itemList = plot()->itemList();
 
     QwtPlotItemList curveList;
-    for ( it = itemList.begin(); it != itemList.end(); ++it )
+    for ( it = itemList.constBegin(); it != itemList.constEnd(); ++it )
     {
         if ( ( *it )->rtti() == QwtPlotItem::Rtti_PlotCurve )
             curveList += *it;
@@ -322,28 +322,28 @@ void CanvasPicker::shiftCurveCursor( bool up )
     if ( curveList.isEmpty() )
         return;
 
-    it = curveList.begin();
+    it = curveList.constBegin();
 
     if ( d_selectedCurve )
     {
-        for ( it = curveList.begin(); it != curveList.end(); ++it )
+        for ( it = curveList.constBegin(); it != curveList.constEnd(); ++it )
         {
             if ( d_selectedCurve == *it )
                 break;
         }
-        if ( it == curveList.end() ) // not found
-            it = curveList.begin();
+        if ( it == curveList.constEnd() ) // not found
+            it = curveList.constBegin();
 
         if ( up )
         {
             ++it;
-            if ( it == curveList.end() )
-                it = curveList.begin();
+            if ( it == curveList.constEnd() )
+                it = curveList.constBegin();
         }
         else
         {
-            if ( it == curveList.begin() )
-                it = curveList.end();
+            if ( it == curveList.constBegin() )
+                it = curveList.constEnd();
             --it;
         }
     }
