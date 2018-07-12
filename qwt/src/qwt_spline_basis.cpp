@@ -40,6 +40,7 @@ static QPolygonF qwtBasisUniformKnots( const QPolygonF& points )
 }
 #endif
 
+#if 0
 static inline void qwtSplineBezierControlPoints( const QwtSplineParametrization *param,
     const QPointF &p1, const QPointF &p2, const QPointF &p3, const QPointF &p4, 
     QPointF &cp1, QPointF &cp2 )
@@ -53,6 +54,7 @@ static inline void qwtSplineBezierControlPoints( const QwtSplineParametrization 
     cp1 = ( t2 + t3 ) / t123 * p2 + t1 / t123 * p3;
     cp2 = ( t3 * p2 + ( t1 + t2 ) * p3 ) / t123;
 }
+#endif
 
 static QPainterPath qwtSplineBasisPathUniform( const QPolygonF& points, 
     QwtSpline::BoundaryType boundaryType ) 
