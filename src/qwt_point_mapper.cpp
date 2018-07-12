@@ -74,108 +74,111 @@ static Qt::Orientation qwtProbeOrientation(
     return Qt::Horizontal;
 }
 
-template <class Polygon, class Point>
-class QwtPolygonQuadrupelX
+namespace
 {
-public:
-    inline void start( int x, int y )
+    template <class Polygon, class Point>
+    class QwtPolygonQuadrupelX
     {
-        x0 = x;
-        y1 = yMin = yMax = y2 = y;
-    }
+    public:
+        inline void start( int x, int y )
+        {
+            x0 = x;
+            y1 = yMin = yMax = y2 = y;
+        }
 
-    inline bool append( int x, int y )
+        inline bool append( int x, int y )
+        {
+            if ( x0 != x )
+                return false;
+
+            if ( y < yMin )
+                yMin = y;
+            else if ( y > yMax )
+                yMax = y;
+
+            y2 = y;
+
+            return true;
+        }
+
+        inline void flush( Polygon &polyline )
+        {
+            appendTo( y1, polyline );
+
+            if ( y2 > y1 )
+                qSwap( yMin, yMax );
+
+            if ( yMax != y1 )
+                appendTo( yMax, polyline );
+
+            if ( yMin != yMax )
+                appendTo( yMin, polyline );
+
+            if ( y2 != yMin )
+                appendTo( y2, polyline );
+        }
+
+    private:
+        inline void appendTo( int y, Polygon &polyline )
+        {
+            polyline += Point( x0, y );
+        }
+
+    private:
+        int x0, y1, yMin, yMax, y2;
+    };
+
+    template <class Polygon, class Point>
+    class QwtPolygonQuadrupelY
     {
-        if ( x0 != x )
-            return false;
+    public:
+        inline void start( int x, int y )
+        {
+            y0 = y;
+            x1 = xMin = xMax = x2 = x;
+        }
 
-        if ( y < yMin )
-            yMin = y;
-        else if ( y > yMax )
-            yMax = y;
+        inline bool append( int x, int y )
+        {
+            if ( y0 != y )
+                return false;
 
-        y2 = y;
+            if ( x < xMin )
+                xMin = x;
+            else if ( x > xMax )
+                xMax = x;
 
-        return true;
-    }
+            x2 = x;
 
-    inline void flush( Polygon &polyline )
-    {
-        appendTo( y1, polyline );
+            return true;
+        }
 
-        if ( y2 > y1 )
-            qSwap( yMin, yMax );
+        inline void flush( Polygon &polyline )
+        {
+            appendTo( x1, polyline );
 
-        if ( yMax != y1 )
-            appendTo( yMax, polyline );
+            if ( x2 > x1 )
+                qSwap( xMin, xMax );
 
-        if ( yMin != yMax )
-            appendTo( yMin, polyline );
+            if ( xMax != x1 )
+                appendTo( xMax, polyline );
 
-        if ( y2 != yMin )
-            appendTo( y2, polyline );
-    }
+            if ( xMin != xMax )
+                appendTo( xMin, polyline );
 
-private:
-    inline void appendTo( int y, Polygon &polyline )
-    {
-        polyline += Point( x0, y );
-    }
+            if ( x2 != xMin )
+                appendTo( x2, polyline );
+        }
 
-private:
-    int x0, y1, yMin, yMax, y2;
-};
+    private:
+        inline void appendTo( int x, Polygon &polyline )
+        {
+            polyline += Point( x, y0 );
+        }
 
-template <class Polygon, class Point>
-class QwtPolygonQuadrupelY
-{
-public:
-    inline void start( int x, int y )
-    {
-        y0 = y;
-        x1 = xMin = xMax = x2 = x;
-    }
-
-    inline bool append( int x, int y )
-    {
-        if ( y0 != y )
-            return false;
-
-        if ( x < xMin )
-            xMin = x;
-        else if ( x > xMax )
-            xMax = x;
-
-        x2 = x;
-
-        return true;
-    }
-
-    inline void flush( Polygon &polyline )
-    {
-        appendTo( x1, polyline );
-
-        if ( x2 > x1 )
-            qSwap( xMin, xMax );
-
-        if ( xMax != x1 )
-            appendTo( xMax, polyline );
-
-        if ( xMin != xMax )
-            appendTo( xMin, polyline );
-
-        if ( x2 != xMin )
-            appendTo( x2, polyline );
-    }
-
-private:
-    inline void appendTo( int x, Polygon &polyline )
-    {
-        polyline += Point( x, y0 );
-    }
-
-    int y0, x1, xMin, xMax, x2;
-};
+        int y0, x1, xMin, xMax, x2;
+    };
+}
 
 template <class Polygon, class Point, class PolygonQuadrupel>
 static Polygon qwtMapPointsQuad( const QwtScaleMap &xMap, const QwtScaleMap &yMap,

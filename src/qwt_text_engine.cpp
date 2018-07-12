@@ -43,39 +43,42 @@ static QString taggedRichText( const QString &text, int flags )
     return richText;
 }
 
-class QwtRichTextDocument: public QTextDocument
+namespace
 {
-public:
-    QwtRichTextDocument( const QString &text, int flags, const QFont &font )
+    class QwtRichTextDocument: public QTextDocument
     {
-        setUndoRedoEnabled( false );
-        setDefaultFont( font );
-        setHtml( text );
+    public:
+        QwtRichTextDocument( const QString &text, int flags, const QFont &font )
+        {
+            setUndoRedoEnabled( false );
+            setDefaultFont( font );
+            setHtml( text );
 
-        // make sure we have a document layout
-        ( void )documentLayout();
+            // make sure we have a document layout
+            ( void )documentLayout();
 
-        QTextOption option = defaultTextOption();
-        if ( flags & Qt::TextWordWrap )
-            option.setWrapMode( QTextOption::WordWrap );
-        else
-            option.setWrapMode( QTextOption::NoWrap );
+            QTextOption option = defaultTextOption();
+            if ( flags & Qt::TextWordWrap )
+                option.setWrapMode( QTextOption::WordWrap );
+            else
+                option.setWrapMode( QTextOption::NoWrap );
 
-        option.setAlignment( static_cast<Qt::Alignment>( flags ) );
-        setDefaultTextOption( option );
+            option.setAlignment( static_cast<Qt::Alignment>( flags ) );
+            setDefaultTextOption( option );
 
-        QTextFrame *root = rootFrame();
-        QTextFrameFormat fm = root->frameFormat();
-        fm.setBorder( 0 );
-        fm.setMargin( 0 );
-        fm.setPadding( 0 );
-        fm.setBottomMargin( 0 );
-        fm.setLeftMargin( 0 );
-        root->setFrameFormat( fm );
+            QTextFrame *root = rootFrame();
+            QTextFrameFormat fm = root->frameFormat();
+            fm.setBorder( 0 );
+            fm.setMargin( 0 );
+            fm.setPadding( 0 );
+            fm.setBottomMargin( 0 );
+            fm.setLeftMargin( 0 );
+            root->setFrameFormat( fm );
 
-        adjustSize();
-    }
-};
+            adjustSize();
+        }
+    };
+}
 
 class QwtPlainTextEngine::PrivateData
 {
