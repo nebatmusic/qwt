@@ -11,11 +11,14 @@
 # qmake internal options
 ######################################################################
 
-CONFIG           += qt     
+CONFIG           += qt
 CONFIG           += warn_on
 CONFIG           += no_keywords
 CONFIG           += silent
 CONFIG           -= depend_includepath
+
+# CONFIG += sanitize
+# CONFIG += pedantic
 
 ######################################################################
 # release/debug mode
@@ -25,7 +28,7 @@ win32 {
     # On Windows you can't mix release and debug libraries.
     # The designer is built in release mode. If you like to use it
     # you need a release version. For your own application development you
-    # might need a debug version. 
+    # might need a debug version.
     # Enable debug_and_release + build_all if you want to build both.
 
     CONFIG           += debug_and_release
@@ -41,56 +44,115 @@ else {
     VERSION           = $${QWT_VERSION}
 }
 
-linux-g++ | linux-g++-64 {
+linux {
 
-    # CONFIG           += separate_debug_info
+    pedantic {
 
-    # --- optional warnings 
+        DEFINES += QT_STRICT_ITERATORS
 
-    # QMAKE_CXXFLAGS   *= -Wfloat-equal 
-    # QMAKE_CXXFLAGS   *= -Wshadow 
-    # QMAKE_CXXFLAGS   *= -Wpointer-arith 
-    # QMAKE_CXXFLAGS   *= -Wconversion 
-    # QMAKE_CXXFLAGS   *= -Wsign-compare 
-    # QMAKE_CXXFLAGS   *= -Wsign-conversion 
-    # QMAKE_CXXFLAGS   *= -Wlogical-op
-    # QMAKE_CXXFLAGS   *= -Werror=format-security
-    # QMAKE_CXXFLAGS   *= -Woverloaded-virtual
-    # QMAKE_CXXFLAGS   *= -std=c++11
+        # Qt headers do not stand pedantic checks, so it's better
+        # to exclude them by declaring them as system includes
 
-    # --- optional debug options
+        QMAKE_CXXFLAGS += \
+            -isystem $$[QT_INSTALL_HEADERS] \
+            -isystem $$[QT_INSTALL_HEADERS]/QtCore \
+            -isystem $$[QT_INSTALL_HEADERS]/QtGui \
+            -isystem $$[QT_INSTALL_HEADERS]/QtWidgets
+    }
 
-    # QMAKE_CXXFLAGS_DEBUG   *= -fsanitize=address -fno-omit-frame-pointer 
-    # QMAKE_CXXFLAGS_DEBUG   *= -fsanitize=address -fno-omit-frame-pointer
-    # QMAKE_CXXFLAGS_DEBUG   *= -fsanitize=address
+    linux-g++ | linux-g++-64 {
 
-    # --- optional optimzations
- 
-    # qwt code doesn't check errno after calling math functions
-    # so it is perfectly safe to disable it in favor of better performance
-    QMAKE_CXXFLAGS   *= -fno-math-errno 
+        # CONFIG           += separate_debug_info
 
-    # qwt code doesn't rely ( at least intends not to do )
-    # on an exact implementation of IEEE or ISO rules/specifications
-	# QMAKE_CXXFLAGS   *= -funsafe-math-optimizations 
+        sanitize {
+        
+            #GCC_VERSION = $$system("$$QMAKE_CXX -dumpversion")
+            #equals(GCC_VERSION,4) || contains(GCC_VERSION, 4.* ) {
 
-    # also enables -fno-math-errno and -funsafe-math-optimizations
-    # QMAKE_CXXFLAGS   *= -ffast-math
+                #CONFIG -= sanitize
+            #}
+        }
 
-    # QMAKE_CXXFLAGS_DEBUG  *= -Og # since gcc 4.8
+        pedantic {
 
-    # QMAKE_CXXFLAGS_RELEASE  *= -O3
-    # QMAKE_CXXFLAGS_RELEASE  *= -Ofast
-    # QMAKE_CXXFLAGS_RELEASE  *= -Os
+            CONFIG -= warn_on
 
-    # when using the gold linker ( Qt < 4.8 ) - might be 
-    # necessary on non linux systems too
-    #QMAKE_LFLAGS += -lrt
+            QMAKE_CXXFLAGS *= -Wall
+            QMAKE_CXXFLAGS *= -Wextra
+            QMAKE_CXXFLAGS *= -Wpedantic
+
+            QMAKE_CXXFLAGS   *= -Wcast-qual
+            QMAKE_CXXFLAGS   *= -Wcast-align
+            QMAKE_CXXFLAGS   *= -Wuseless-cast
+            QMAKE_CXXFLAGS   *= -Wlogical-op
+            QMAKE_CXXFLAGS   *= -Wmissing-declarations
+            QMAKE_CXXFLAGS   *= -Wredundant-decls
+            QMAKE_CXXFLAGS   *= -Winline
+
+            QMAKE_CXXFLAGS   *= -Wdouble-promotion
+            QMAKE_CXXFLAGS   *= -Wformat
+
+            QMAKE_CXXFLAGS   *= -Wshadow 
+            QMAKE_CXXFLAGS   *= -Woverloaded-virtual
+
+            # checks qwt code does not pass, but should be able to
+            # QMAKE_CXXFLAGS   *= -Wconversion 
+
+            # checks qwt code does not pass
+
+            # QMAKE_CXXFLAGS   *= -Wfloat-equal 
+            # QMAKE_CXXFLAGS   *= -Wpadded
+            # QMAKE_CXXFLAGS   *= -Waggregate-return
+            # QMAKE_CXXFLAGS   *= -Wzero-as-null-pointer-constant
+        }
+
+        # --- optional optimzations
+
+        # qwt code doesn't check errno after calling math functions
+        # so it is perfectly safe to disable it in favor of better performance
+        QMAKE_CXXFLAGS   *= -fno-math-errno
+
+        # qwt code doesn't rely ( at least intends not to do )
+        # on an exact implementation of IEEE or ISO rules/specifications
+        QMAKE_CXXFLAGS   *= -funsafe-math-optimizations
+
+        # also enables -fno-math-errno and -funsafe-math-optimizations
+        # QMAKE_CXXFLAGS   *= -ffast-math
+
+        # QMAKE_CXXFLAGS_DEBUG  *= -Og # since gcc 4.8
+
+        # QMAKE_CXXFLAGS_RELEASE  *= -O3
+        # QMAKE_CXXFLAGS_RELEASE  *= -Ofast
+        # QMAKE_CXXFLAGS_RELEASE  *= -Os
+
+        # when using the gold linker ( Qt < 4.8 ) - might be
+        # necessary on non linux systems too
+        #QMAKE_LFLAGS += -lrt
+
+        sanitize {
+
+            # QMAKE_CXXFLAGS *= -fsanitize-address-use-after-scope
+            # QMAKE_LFLAGS *= -fsanitize-address-use-after-scope
+        }
+    }
+
+    linux-clang {
+
+        # workaround for a clang 3.8 bug
+        DEFINES += __STRICT_ANSI__
+
+        # QMAKE_CXXFLAGS_RELEASE  *= -O3
+    }
+
+    # QMAKE_CXXFLAGS   *= -Werror
 }
 
-linux-clang {
+sanitize {
 
-    #QMAKE_CXXFLAGS_RELEASE  *= -O3
+    CONFIG += sanitizer
+    CONFIG += sanitize_address
+    #CONFIG *= sanitize_memory
+    CONFIG *= sanitize_undefined
 }
 
 ######################################################################
