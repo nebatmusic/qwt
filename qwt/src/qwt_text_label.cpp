@@ -341,3 +341,6 @@ int QwtTextLabel::defaultIndent() const
     return QFontMetrics( fnt ).width( 'x' ) / 2;
 }
 
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_text_label.cpp"
+#endif

@@ -221,3 +221,7 @@ void QwtPlotOpenGLCanvas::resizeGL( int, int )
 {
     // nothing to do
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_plot_opengl_canvas.cpp"
+#endif

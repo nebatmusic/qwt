@@ -1015,3 +1015,7 @@ QRect QwtSlider::sliderRect() const
 {
     return d_data->sliderRect;
 }
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_slider.cpp"
+#endif

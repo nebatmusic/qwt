@@ -379,3 +379,5 @@ QPoint QwtPlotPicker::transform( const QPointF &pos ) const
 
     return p.toPoint();
 }
+
+#include "moc_qwt_plot_picker.cpp"

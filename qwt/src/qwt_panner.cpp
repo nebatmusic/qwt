@@ -537,3 +537,7 @@ void QwtPanner::showCursor( bool on )
     }
 }
 #endif
+
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_panner.cpp"
+#endif
