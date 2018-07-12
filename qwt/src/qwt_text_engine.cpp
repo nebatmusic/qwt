@@ -86,13 +86,15 @@ public:
 
         QMap<QString, int>::const_iterator it =
             d_ascentCache.constFind( fontKey );
-        if ( it == d_ascentCache.constEnd() )
-        {
-            int ascent = findAscent( font );
-            it = d_ascentCache.insert( fontKey, ascent );
-        }
+        if ( it != d_ascentCache.constEnd() )
+            return *it;
 
-        return ( *it );
+        const int ascent = findAscent( font );
+
+        QMap<QString, int>::iterator it2 =
+            d_ascentCache.insert( fontKey, ascent );
+
+        return *it2;
     }
 
 private:

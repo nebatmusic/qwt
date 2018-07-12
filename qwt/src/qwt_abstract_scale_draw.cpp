@@ -428,19 +428,18 @@ QwtText QwtAbstractScaleDraw::label( double value ) const
 const QwtText &QwtAbstractScaleDraw::tickLabel(
     const QFont &font, double value ) const
 {
-    QMap<double, QwtText>::const_iterator it = d_data->labelCache.constFind( value );
-    if ( it == d_data->labelCache.constEnd() )
-    {
-        QwtText lbl = label( value );
-        lbl.setRenderFlags( 0 );
-        lbl.setLayoutAttribute( QwtText::MinimumLayout );
+    QMap<double, QwtText>::const_iterator it1 = d_data->labelCache.constFind( value );
+    if ( it1 != d_data->labelCache.constEnd() )
+        return *it1;
 
-        ( void )lbl.textSize( font ); // initialize the internal cache
+    QwtText lbl = label( value );
+    lbl.setRenderFlags( 0 );
+    lbl.setLayoutAttribute( QwtText::MinimumLayout );
 
-        it = d_data->labelCache.insert( value, lbl );
-    }
+    ( void )lbl.textSize( font ); // initialize the internal cache
 
-    return ( *it );
+    QMap<double, QwtText>::iterator it2 = d_data->labelCache.insert( value, lbl );
+    return *it2;
 }
 
 /*!
