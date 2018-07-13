@@ -287,7 +287,7 @@ void QwtColumnSymbol::drawBox( QPainter *painter,
         }
         default:
         {
-            painter->fillRect( r, d_data->palette.window() );
+            painter->fillRect( r.adjusted( 0, 0, 1, 1 ), d_data->palette.window() );
         }
     }
 }
