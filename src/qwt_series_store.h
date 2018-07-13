@@ -21,12 +21,13 @@
   from the regular methods ( QwtPlotSeriesItem ) to make it possible
   to derive from QwtPlotSeriesItem without any hassle with templates.
 */
-class QwtAbstractSeriesStore
+class QWT_EXPORT QwtAbstractSeriesStore
 {
-protected:
+public:
     //! Destructor
     virtual ~QwtAbstractSeriesStore() {}
 
+protected:
 #ifndef QWT_PYTHON_WRAPPER
     //! dataChanged() indicates, that the series has been changed.
     virtual void dataChanged() = 0;
@@ -62,7 +63,7 @@ protected:
   that QwtPlotSeriesItem can be derived without any hassle with templates.
  */
 template <typename T>
-class QwtSeriesStore: public virtual QwtAbstractSeriesStore
+class QWT_EXPORT QwtSeriesStore: public virtual QwtAbstractSeriesStore
 {
 public:
     /*!
