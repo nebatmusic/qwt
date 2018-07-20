@@ -1,7 +1,6 @@
-#include <qapplication.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpainter.h>
+#include "cpupiemarker.h"
+#include "cpuplot.h"
+
 #include <qwt_plot_layout.h>
 #include <qwt_plot_curve.h>
 #include <qwt_scale_draw.h>
@@ -9,8 +8,11 @@
 #include <qwt_legend.h>
 #include <qwt_legend_label.h>
 #include <qwt_plot_canvas.h>
-#include "cpupiemarker.h"
-#include "cpuplot.h"
+
+#include <qapplication.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qpainter.h>
 
 class TimeScaleDraw: public QwtScaleDraw
 {

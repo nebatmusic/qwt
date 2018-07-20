@@ -1,5 +1,5 @@
 #include "transformplot.h"
-#include <qwt_curve_fitter.h>
+
 #include <qwt_plot_curve.h>
 #include <qwt_point_data.h>
 #include <qwt_transform.h>

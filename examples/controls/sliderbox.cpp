@@ -1,9 +1,11 @@
-#include <qlabel.h>
-#include <qlayout.h>
+#include "sliderbox.h"
+
 #include <qwt_slider.h>
 #include <qwt_scale_engine.h>
 #include <qwt_transform.h>
-#include "sliderbox.h"
+
+#include <qlabel.h>
+#include <qlayout.h>
 
 SliderBox::SliderBox( int sliderType, QWidget *parent ):
     QWidget( parent )

@@ -1,7 +1,7 @@
 #include "plot.h"
 #include "curvetracker.h"
+
 #include <qwt_picker_machine.h>
-#include <qwt_plot_layout.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_textlabel.h>

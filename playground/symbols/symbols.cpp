@@ -1,15 +1,17 @@
-#include <qapplication.h>
-#include <qpainter.h>
-#include <qbuffer.h>
-#ifdef QT_SVG_LIB
-#include <qsvggenerator.h>
-#endif
 #include <qwt_plot.h>
-#include <qwt_plot_marker.h>
 #include <qwt_plot_curve.h>
 #include <qwt_symbol.h>
 #include <qwt_graphic.h>
 #include <qwt_legend.h>
+#include <qwt_math.h>
+
+#include <qapplication.h>
+#include <qpainter.h>
+#include <qbuffer.h>
+
+#ifdef QT_SVG_LIB
+#include <qsvggenerator.h>
+#endif
 
 class MySymbol: public QwtSymbol
 {

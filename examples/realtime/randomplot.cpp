@@ -1,12 +1,13 @@
-#include <qglobal.h>
-#include <qtimer.h>
+#include "randomplot.h"
+#include "scrollzoomer.h"
+
 #include <qwt_plot_grid.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_layout.h>
 #include <qwt_scale_widget.h>
 #include <qwt_scale_draw.h>
-#include "scrollzoomer.h"
-#include "randomplot.h"
+
+#include <qtimer.h>
 
 const unsigned int c_rangeMax = 1000;
 

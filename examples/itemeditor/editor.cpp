@@ -1,8 +1,11 @@
 #include "editor.h"
+
 #include <qwt_plot.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_scale_map.h>
 #include <qwt_plot_shapeitem.h>
+#include <qwt_widget_overlay.h>
+
 #include <qevent.h>
 
 class Overlay: public QwtWidgetOverlay

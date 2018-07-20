@@ -1,9 +1,11 @@
-#include <qlabel.h>
-#include <qlayout.h>
+#include "knobbox.h"
+
 #include <qwt_knob.h>
 #include <qwt_scale_engine.h>
 #include <qwt_transform.h>
-#include "knobbox.h"
+
+#include <qlabel.h>
+#include <qlayout.h>
 
 KnobBox::KnobBox( QWidget *parent, int knobType ):
     QWidget( parent )

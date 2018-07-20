@@ -1,7 +1,9 @@
 #ifndef SHAPE_FACTORY_H
 #define SHAPE_FACTORY_H
 
-#include <qpainterpath.h>
+class QPainterPath;
+class QPointF;
+class QSizeF;
 
 namespace ShapeFactory
 {

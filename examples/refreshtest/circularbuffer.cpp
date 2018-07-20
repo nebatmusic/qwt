@@ -1,5 +1,5 @@
 #include "circularbuffer.h"
-#include <math.h>
+#include <cmath>
 
 CircularBuffer::CircularBuffer( double interval, size_t numPoints ):
     d_y( NULL ),

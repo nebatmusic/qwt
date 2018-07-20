@@ -1,5 +1,5 @@
-#include <qapplication.h>
 #include "plot.h"
+#include <qapplication.h>
 
 int main( int argc, char **argv )
 {

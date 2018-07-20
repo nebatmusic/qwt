@@ -1,5 +1,5 @@
 #include "plot.h"
-#include <qwt_color_map.h>
+
 #include <qapplication.h>
 #include <qmainwindow.h>
 #include <qtoolbar.h>

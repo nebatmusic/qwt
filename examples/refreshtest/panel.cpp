@@ -1,10 +1,12 @@
 #include "panel.h"
+
+#include <qwt_plot_curve.h>
+
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
-#include <qwt_plot_curve.h>
 
 class SpinBox: public QSpinBox
 {

@@ -1,12 +1,12 @@
+#include "mainwindow.h"
+#include "plot.h"
+#include "panel.h"
+
 #include <qstatusbar.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qevent.h>
+#include <qcoreevent.h>
 #include <qdatetime.h>
-#include <qwt_plot_canvas.h>
-#include "panel.h"
-#include "plot.h"
-#include "mainwindow.h"
 
 MainWindow::MainWindow( QWidget *parent ):
     QMainWindow( parent )

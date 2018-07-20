@@ -1,11 +1,13 @@
-#include <qlabel.h>
-#include <qlayout.h>
+#include "wheelbox.h"
+
 #include <qwt_wheel.h>
 #include <qwt_thermo.h>
 #include <qwt_scale_engine.h>
 #include <qwt_transform.h>
 #include <qwt_color_map.h>
-#include "wheelbox.h"
+
+#include <qlabel.h>
+#include <qlayout.h>
 
 WheelBox::WheelBox( Qt::Orientation orientation,
         int type, QWidget *parent ):

@@ -1,15 +1,16 @@
 #include "plot.h"
 #include "curvedata.h"
 #include "signaldata.h"
+
 #include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_directpainter.h>
-#include <qwt_curve_fitter.h>
 #include <qwt_painter.h>
-#include <qevent.h>
+
+#include <qcoreevent.h>
 
 class Canvas: public QwtPlotCanvas
 {

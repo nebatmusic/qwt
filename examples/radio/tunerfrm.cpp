@@ -1,15 +1,12 @@
-#include <qlayout.h>
-#include <qlabel.h>
+#include "tunerfrm.h"
+
 #include <qwt_wheel.h>
 #include <qwt_slider.h>
 #include <qwt_thermo.h>
 #include <qwt_math.h>
-#include "tunerfrm.h"
 
-#if QT_VERSION < 0x040600
-#define qFastSin(x) ::sin(x)
-#define qFastCos(x) ::cos(x)
-#endif
+#include <qlayout.h>
+#include <qlabel.h>
 
 class TuningThermo: public QWidget
 {
@@ -95,7 +92,7 @@ void TunerFrame::adjustFreq( double frq )
     const double factor = 13.0 / ( 108 - 87.5 );
 
     const double x = ( frq - 87.5 ) * factor;
-    const double field = qwtSqr( qFastSin( x ) * qFastCos( 4.0 * x ) );
+    const double field = qwtSqr( ::sin( x ) * ::cos( 4.0 * x ) );
 
     d_thermoTune->setValue( field );
 

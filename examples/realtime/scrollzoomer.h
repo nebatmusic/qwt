@@ -1,7 +1,6 @@
 #ifndef SCROLLZOOMER_H
 #define SCROLLZOOMER_H
 
-#include <qglobal.h>
 #include <qwt_plot_zoomer.h>
 #include <qwt_plot.h>
 

@@ -1,12 +1,12 @@
 #include "plot.h"
-#include <qglobal.h>
-#include <qpainter.h>
+
 #include <qwt_plot_grid.h>
-#include <qwt_plot_canvas.h>
 #include <qwt_plot_layout.h>
 #include <qwt_interval.h>
 #include <qwt_painter.h>
 #include <qwt_plot_item.h>
+
+#include <qpainter.h>
 
 class TextItem: public QwtPlotItem
 {

@@ -1,14 +1,14 @@
-#include <cstdlib>
+#include "mainwindow.h"
+#include "plot.h"
+
+#include <qwt_plot.h>
+#include <qwt_plot_rescaler.h>
+
 #include <qgroupbox.h>
 #include <qcombobox.h>
 #include <qlayout.h>
 #include <qstatusbar.h>
 #include <qlabel.h>
-#include <qwt_plot.h>
-#include <qwt_plot_rescaler.h>
-#include <qwt_scale_div.h>
-#include "plot.h"
-#include "mainwindow.h"
 
 MainWindow::MainWindow()
 {

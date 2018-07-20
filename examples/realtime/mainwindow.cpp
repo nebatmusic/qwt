@@ -1,16 +1,17 @@
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qstatusbar.h>
-#include <qtoolbar.h>
-#include <qtoolbutton.h>
-#include <qspinbox.h>
-#include <qcheckbox.h>
-#include <qwhatsthis.h>
-#include <qpixmap.h>
 #include "randomplot.h"
 #include "mainwindow.h"
 #include "start.xpm"
 #include "clear.xpm"
+
+#include <qaction.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qstatusbar.h>
+#include <qtoolbar.h>
+#include <qspinbox.h>
+#include <qcheckbox.h>
+#include <qwhatsthis.h>
+#include <qpixmap.h>
 
 class MyToolBar: public QToolBar
 {

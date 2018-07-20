@@ -1,11 +1,12 @@
-#include <qtoolbar.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qwt_plot_renderer.h>
-#include <qwt_plot_canvas.h>
 #include "plot.h"
 #include "panel.h"
 #include "mainwindow.h"
+
+#include <qwt_plot_renderer.h>
+
+#include <qtoolbar.h>
+#include <qtoolbutton.h>
+#include <qlayout.h>
 
 MainWindow::MainWindow( QWidget *parent ):
     QMainWindow( parent )

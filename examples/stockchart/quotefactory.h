@@ -1,11 +1,13 @@
 #ifndef QUOTE_FACTORY_H
 #define QUOTE_FACTORY_H
 
-#include <qwt_series_data.h>
+class QwtOHLCSample;
 
-class QuoteFactory
+class QString;
+template <typename T> class QVector;
+
+namespace QuoteFactory
 {
-public:
     enum Stock
     {
         BMW,
@@ -15,8 +17,8 @@ public:
         NumStocks
     };
 
-    static QVector<QwtOHLCSample> samples2010( Stock );
-    static QString title( Stock );
+    QVector<QwtOHLCSample> samples2010( Stock );
+    QString title( Stock );
 };
 
 #endif

@@ -1,7 +1,8 @@
-#include <qlayout.h>
+#include "mainwindow.h"
 #include "tunerfrm.h"
 #include "ampfrm.h"
-#include "mainwindow.h"
+
+#include <qlayout.h>
 
 MainWindow::MainWindow():
     QWidget()

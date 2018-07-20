@@ -1,11 +1,13 @@
-#include <qlabel.h>
-#include <qlayout.h>
+#include "dialbox.h"
+
 #include <qwt_dial.h>
 #include <qwt_dial_needle.h>
 #include <qwt_scale_engine.h>
 #include <qwt_transform.h>
 #include <qwt_round_scale_draw.h>
-#include "dialbox.h"
+
+#include <qlabel.h>
+#include <qlayout.h>
 
 DialBox::DialBox( QWidget *parent, int type ):
     QWidget( parent )

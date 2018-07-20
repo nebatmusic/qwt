@@ -1,11 +1,12 @@
+#include <qwt_thermo.h>
+#include <qwt_color_map.h>
+
 #include <qapplication.h>
 #include <qwidget.h>
 #include <qfont.h>
 #include <qlabel.h>
 #include <qgroupbox.h>
 #include <qlayout.h>
-#include <qwt_thermo.h>
-#include <qwt_color_map.h>
 
 class ValueBar: public QWidget
 {

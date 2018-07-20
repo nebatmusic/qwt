@@ -2,14 +2,15 @@
 #define EDITOR_H
 
 #include <qobject.h>
-#include <qregion.h>
 #include <qpointer.h>
-#include <qwt_widget_overlay.h>
+#include <qpoint.h>
 
 class QwtPlot;
 class QwtPlotShapeItem;
+class QwtWidgetOverlay;
+
 class QPainter;
-class QPoint;
+class QRegion;
 
 class Editor: public QObject
 {
