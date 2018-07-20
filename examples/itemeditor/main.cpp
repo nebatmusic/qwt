@@ -1,4 +1,5 @@
 #include "plot.h"
+
 #include <qapplication.h>
 #include <qmainwindow.h>
 #include <qtoolbar.h>

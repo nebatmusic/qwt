@@ -12,6 +12,7 @@
 
 #include "qwt_global.h"
 #include "qwt_interval.h"
+
 #include <qvector.h>
 #include <qrect.h>
 

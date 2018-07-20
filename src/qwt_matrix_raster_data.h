@@ -12,7 +12,8 @@
 
 #include "qwt_global.h"
 #include "qwt_raster_data.h"
-#include <qvector.h>
+
+template <typename T> class QVector;
 
 /*!
   \brief A class representing a matrix of values as raster data

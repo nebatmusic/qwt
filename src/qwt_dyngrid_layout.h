@@ -12,8 +12,8 @@
 
 #include "qwt_global.h"
 #include <qlayout.h>
-#include <qsize.h>
-#include <qlist.h>
+
+template <typename T> class QList;
 
 /*!
   \brief The QwtDynGridLayout class lays out widgets in a grid,

@@ -8,9 +8,8 @@
  *****************************************************************************/
 
 #include "qwt_dial_needle.h"
-#include "qwt_global.h"
 #include "qwt_math.h"
-#include "qwt_painter.h"
+
 #include <qapplication.h>
 #include <qpainter.h>
 

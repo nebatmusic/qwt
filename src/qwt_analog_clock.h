@@ -12,8 +12,8 @@
 
 #include "qwt_global.h"
 #include "qwt_dial.h"
-#include "qwt_dial_needle.h"
-#include <qdatetime.h>
+
+class QwtDialNeedle;
 
 /*!
   \brief An analog clock

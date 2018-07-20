@@ -12,7 +12,7 @@
 #include "qwt_clipper.h"
 #include "qwt_color_map.h"
 #include "qwt_scale_map.h"
-#include <qwindowdefs.h>
+
 #include <qwidget.h>
 #include <qframe.h>
 #include <qrect.h>
@@ -27,10 +27,6 @@
 #include <qpaintengine.h>
 #include <qapplication.h>
 #include <qdesktopwidget.h>
-
-#if QT_VERSION >= 0x050000
-#include <qwindow.h>
-#endif
 
 #if QT_VERSION < 0x050000 
 

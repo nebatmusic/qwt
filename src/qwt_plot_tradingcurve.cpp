@@ -9,8 +9,11 @@
 
 #include "qwt_plot_tradingcurve.h"
 #include "qwt_scale_map.h"
-#include "qwt_clipper.h"
 #include "qwt_painter.h"
+#include "qwt_text.h"
+#include "qwt_graphic.h"
+#include "qwt_math.h"
+
 #include <qpainter.h>
 
 static inline bool qwtIsSampleInside( const QwtOHLCSample &sample,

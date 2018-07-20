@@ -7,6 +7,7 @@
 #include <qwt_scale_widget.h>
 #include <qwt_scale_draw.h>
 
+#include <qpen.h>
 #include <qtimer.h>
 
 const unsigned int c_rangeMax = 1000;

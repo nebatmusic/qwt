@@ -14,7 +14,6 @@
 #include <qpalette.h>
 
 class QPainter;
-class QPoint;
 
 /*!
   \brief Base class for needles that can be used in a QwtDial.

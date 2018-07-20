@@ -1,4 +1,5 @@
 #include "plot.h"
+
 #include <qwt_color_map.h>
 #include <qwt_plot_spectrogram.h>
 #include <qwt_plot_layout.h>
@@ -9,6 +10,7 @@
 #include <qwt_plot_renderer.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_canvas.h>
+#include <qwt_interval.h>
 
 class RasterData: public QwtMatrixRasterData
 {

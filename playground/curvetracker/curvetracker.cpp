@@ -1,8 +1,12 @@
 #include "curvetracker.h"
+
 #include <qwt_picker_machine.h>
 #include <qwt_series_data.h>
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
+#include <qwt_text.h>
+
+#include <qpen.h>
 
 struct compareX
 {

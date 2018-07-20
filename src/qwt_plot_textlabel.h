@@ -12,7 +12,8 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
-#include "qwt_text.h"
+
+class QwtText;
 
 /*!
   \brief A plot item, which displays a text label

@@ -11,8 +11,9 @@
 #include "qwt_text.h"
 #include "qwt_plot.h"
 #include "qwt_legend_data.h"
-#include "qwt_scale_div.h"
+#include "qwt_scale_map.h"
 #include "qwt_graphic.h"
+
 #include <qpainter.h>
 
 class QwtPlotItem::PrivateData
@@ -50,6 +51,24 @@ public:
     QwtText title;
     QSize legendIconSize;
 };
+
+/*! 
+   Constructor
+*/  
+QwtPlotItem::QwtPlotItem()
+{   
+    d_data = new PrivateData;
+}   
+
+/*!
+   Constructor
+   \param title Title of the item
+*/  
+QwtPlotItem::QwtPlotItem( const QString &title )
+{
+    d_data = new PrivateData;
+    d_data->title = title; 
+}
 
 /*!
    Constructor

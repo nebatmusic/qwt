@@ -12,6 +12,7 @@
 
 #include "qwt_global.h"
 #include "qwt_text.h"
+
 #include <qframe.h>
 
 class QString;

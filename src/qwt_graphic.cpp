@@ -9,6 +9,7 @@
 
 #include "qwt_graphic.h"
 #include "qwt_painter_command.h"
+
 #include <qvector.h>
 #include <qpainter.h>
 #include <qpaintengine.h>

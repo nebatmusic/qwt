@@ -12,8 +12,8 @@
 
 #include "qwt_global.h"
 #include "qwt_scale_div.h"
-#include "qwt_interval.h"
 
+class QwtInterval;
 class QwtTransform;
 
 /*!

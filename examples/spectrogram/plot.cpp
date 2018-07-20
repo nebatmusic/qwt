@@ -8,8 +8,10 @@
 #include <qwt_plot_panner.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_renderer.h>
+#include <qwt_interval.h>
 
 #include <qprinter.h>
+#include <qpen.h>
 #include <qprintdialog.h>
 
 #if QT_VERSION < 0x040700

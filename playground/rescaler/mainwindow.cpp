@@ -3,6 +3,7 @@
 
 #include <qwt_plot.h>
 #include <qwt_plot_rescaler.h>
+#include <qwt_interval.h>
 
 #include <qgroupbox.h>
 #include <qcombobox.h>

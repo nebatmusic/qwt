@@ -1,6 +1,6 @@
 #include "plot.h"
 #include "colorbar.h"
-#include <qevent.h>
+
 #include <qwt_plot_layout.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
@@ -8,7 +8,9 @@
 #include <qwt_symbol.h>
 #include <qwt_scale_widget.h>
 #include <qwt_wheel.h>
-#include <stdlib.h>
+
+#include <qevent.h>
+#include <cstdlib>
 
 Plot::Plot( QWidget *parent ):
     QwtPlot( parent )

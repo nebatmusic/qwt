@@ -10,7 +10,6 @@
 #include "qwt_dial.h"
 #include "qwt_dial_needle.h"
 #include "qwt_math.h"
-#include "qwt_scale_engine.h"
 #include "qwt_scale_map.h"
 #include "qwt_round_scale_draw.h"
 #include "qwt_painter.h"
@@ -18,7 +17,6 @@
 #include <qpalette.h>
 #include <qpixmap.h>
 #include <qevent.h>
-#include <qalgorithms.h>
 #include <qmath.h>
 #include <qstyle.h>
 #include <qstyleoption.h>

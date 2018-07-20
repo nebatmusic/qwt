@@ -13,9 +13,11 @@
 #include "qwt_global.h"
 #include "qwt_samples.h"
 #include "qwt_point_3d.h"
-#include "qwt_point_polar.h"
+
 #include <qvector.h>
 #include <qrect.h>
+
+class QwtPointPolar;
 
 /*!
    \brief Abstract interface for iterating over samples

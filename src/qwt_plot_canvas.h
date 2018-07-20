@@ -12,10 +12,10 @@
 
 #include "qwt_global.h"
 #include <qframe.h>
-#include <qpainterpath.h>
 
 class QwtPlot;
 class QPixmap;
+class QPainterPath;
 
 /*!
   \brief Canvas of a QwtPlot.

@@ -10,9 +10,10 @@
 #include "qwt_plot_multi_barchart.h"
 #include "qwt_scale_map.h"
 #include "qwt_column_symbol.h"
-#include "qwt_painter.h"
-#include <qpainter.h>
-#include <qpalette.h>
+#include "qwt_text.h"
+#include "qwt_graphic.h"
+#include "qwt_legend_data.h"
+
 #include <qmap.h>
 
 inline static bool qwtIsIncreasing(

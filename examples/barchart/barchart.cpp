@@ -6,6 +6,7 @@
 #include <qwt_plot_layout.h>
 #include <qwt_legend.h>
 #include <qwt_scale_draw.h>
+#include <qwt_text.h>
 
 BarChart::BarChart( QWidget *parent ):
     QwtPlot( parent )

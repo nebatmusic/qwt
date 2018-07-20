@@ -1,5 +1,6 @@
 #include "qwt_spline_basis.h"
 #include "qwt_spline_parametrization.h"
+#include <qpainterpath.h>
 
 #if 0
 static QPolygonF qwtBasisUniformKnots( const QPolygonF& points ) 

@@ -8,7 +8,10 @@
  *****************************************************************************/
 
 #include "qwt_spline_cubic.h"
-#include <qdebug.h>
+#include "qwt_spline_polynomial.h"
+
+#include <qpolygon.h>
+#include <qpainterpath.h>
 
 #define SLOPES_INCREMENTAL 0
 #define KAHAN 0

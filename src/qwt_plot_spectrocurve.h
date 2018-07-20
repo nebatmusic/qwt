@@ -12,9 +12,7 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_seriesitem.h"
-#include "qwt_series_data.h"
 
-class QwtSymbol;
 class QwtColorMap;
 
 /*!

@@ -11,6 +11,9 @@
 #include "qwt_spline_local.h"
 #include "qwt_spline_parametrization.h"
 
+#include <qpolygon.h>
+#include <qpainterpath.h>
+
 //! Constructor
 QwtSplineCurveFitter::QwtSplineCurveFitter():
     QwtCurveFitter( QwtCurveFitter::Path )

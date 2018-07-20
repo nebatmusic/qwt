@@ -9,9 +9,11 @@
 
 #include "qwt_date_scale_engine.h"
 #include "qwt_math.h"
-#include "qwt_transform.h"
+#include "qwt_interval.h"
+
 #include <qdatetime.h>
-#include <limits.h>
+
+#include <limits>
 
 static inline double qwtMsecsForType( int type )
 {

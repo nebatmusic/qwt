@@ -8,11 +8,12 @@
  *****************************************************************************/
 
 #include "qwt_date.h"
+
 #include <qdebug.h>
 #include <qlocale.h>
-#include <math.h>
+
+#include <cmath>
 #include <limits>
-#include <limits.h>
 
 #if QT_VERSION >= 0x050000
 
@@ -23,8 +24,9 @@ static const QwtJulianDay maxJulianDayD = Q_INT64_C( 784354017364 );
 #else
 
 // QDate stores the Julian day as unsigned int, but
-// but it is QDate::fromJulianDay( int ). That's why
+// there is QDate::fromJulianDay( int ). That's why
 // we have the range [ 1, INT_MAX ]
+
 typedef int QwtJulianDay;
 static const QwtJulianDay minJulianDayD = 1;
 static const QwtJulianDay maxJulianDayD = std::numeric_limits<int>::max();

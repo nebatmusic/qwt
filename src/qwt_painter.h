@@ -12,18 +12,13 @@
 
 #include "qwt_global.h"
 
-#include <qpoint.h>
-#include <qrect.h>
-#include <qpen.h>
-#include <qline.h>
 #include <qpalette.h>
+#include <qpolygon.h>
+#include <qpen.h>
 
 class QPainter;
 class QBrush;
-class QColor;
 class QWidget;
-class QPolygonF;
-class QRectF;
 class QImage;
 class QPixmap;
 class QwtScaleMap;

@@ -12,7 +12,11 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
-#include <qpainterpath.h>
+
+#include <qstring.h>
+
+class QPainterPath;
+class QPolygonF;
 
 /*!
   \brief A plot item, which displays any graphical shape, 

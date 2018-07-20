@@ -11,10 +11,10 @@
 #define QWT_PICKER_MACHINE
 
 #include "qwt_global.h"
-#include <qlist.h>
 
-class QEvent;
 class QwtEventPattern;
+class QEvent;
+template <typename T> class QList;
 
 /*!
   \brief A state machine for QwtPicker selections

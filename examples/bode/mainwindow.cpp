@@ -17,6 +17,7 @@
 #include <qstatusbar.h>
 #include <qprinter.h>
 #include <qprintdialog.h>
+#include <qpen.h>
 
 class Zoomer: public QwtPlotZoomer
 {

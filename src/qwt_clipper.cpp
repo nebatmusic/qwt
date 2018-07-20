@@ -9,9 +9,11 @@
 
 #include "qwt_clipper.h"
 #include "qwt_point_polar.h"
+#include "qwt_interval.h"
+#include "qwt_math.h"
+
+#include <qpolygon.h>
 #include <qrect.h>
-#include <string.h>
-#include <stdlib.h>
 
 #if QT_VERSION < 0x040601
 #define qAtan(x) ::atan(x)

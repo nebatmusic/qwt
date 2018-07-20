@@ -11,11 +11,12 @@
 #define QWT_PLOT_RESCALER_H
 
 #include "qwt_global.h"
-#include "qwt_interval.h"
 #include "qwt_plot.h"
+
 #include <qobject.h>
 
 class QwtPlot;
+class QwtInterval;
 class QResizeEvent;
 
 /*!

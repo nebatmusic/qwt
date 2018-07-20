@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "plot.h"
 #include "transformplot.h"
+
 #include <qwt_transform.h>
 #include <qsplitter.h>
 #include <qmath.h>

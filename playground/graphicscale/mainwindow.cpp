@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "canvas.h"
+
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>

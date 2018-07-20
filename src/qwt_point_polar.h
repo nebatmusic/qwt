@@ -13,10 +13,8 @@
 
 #include "qwt_global.h"
 #include "qwt_math.h"
+
 #include <qpoint.h>
-#ifndef QT_NO_DEBUG_STREAM
-#include <qdebug.h>
-#endif
 
 /*!
   \brief A point in polar coordinates

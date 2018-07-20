@@ -17,10 +17,10 @@
 #include "qwt_spline_curve_fitter.h"
 #include "qwt_symbol.h"
 #include "qwt_point_mapper.h"
+#include "qwt_text.h"
+#include "qwt_graphic.h"
+
 #include <qpainter.h>
-#include <qpixmap.h>
-#include <qalgorithms.h>
-#include <qmath.h>
 
 static inline QRectF qwtIntersectedClipRect( const QRectF &rect, QPainter *painter )
 {
@@ -1135,8 +1135,7 @@ int QwtPlotCurve::closestPoint( const QPoint &pos, double *dist ) const
 
    \sa QwtPlotItem::setLegendIconSize(), QwtPlotItem::legendData()
  */
-QwtGraphic QwtPlotCurve::legendIcon( int index, 
-    const QSizeF &size ) const
+QwtGraphic QwtPlotCurve::legendIcon( int index, const QSizeF &size ) const
 {
     Q_UNUSED( index );
 

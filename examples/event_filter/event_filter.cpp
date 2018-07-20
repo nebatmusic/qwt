@@ -1,15 +1,12 @@
-//-----------------------------------------------------------------
-//      A demo program showing how to use event filtering
-//-----------------------------------------------------------------
+#include "plot.h"
+#include "canvaspicker.h"
+#include "scalepicker.h"
 
 #include <qapplication.h>
 #include <qmainwindow.h>
 #include <qwhatsthis.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
-#include "plot.h"
-#include "canvaspicker.h"
-#include "scalepicker.h"
 
 int main ( int argc, char **argv )
 {

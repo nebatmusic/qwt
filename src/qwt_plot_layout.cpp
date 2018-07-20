@@ -12,7 +12,7 @@
 #include "qwt_text_label.h"
 #include "qwt_scale_widget.h"
 #include "qwt_abstract_legend.h"
-#include <qscrollbar.h>
+
 #include <qmath.h>
 
 class QwtPlotLayout::LayoutData

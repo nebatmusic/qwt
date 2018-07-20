@@ -10,10 +10,13 @@
 #include "qwt_plot_panner.h"
 #include "qwt_scale_div.h"
 #include "qwt_plot.h"
+#include "qwt_scale_map.h"
 #include "qwt_painter.h"
+
 #include <qbitmap.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
+#include <qpainter.h>
 
 static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
 {

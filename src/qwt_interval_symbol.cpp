@@ -10,6 +10,7 @@
 #include "qwt_interval_symbol.h"
 #include "qwt_painter.h"
 #include "qwt_math.h"
+
 #include <qpainter.h>
 
 #if QT_VERSION < 0x040601

@@ -12,9 +12,9 @@
 
 #include "qwt_global.h"
 #include <qwidget.h>
-#include <qregion.h>
 
 class QPainter;
+class QRegion;
 
 /*!
    \brief An overlay for a widget

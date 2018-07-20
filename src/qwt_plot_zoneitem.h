@@ -12,8 +12,10 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
-#include "qwt_interval.h"
 
+#include <qnamespace.h>
+
+class QwtInterval;
 class QPen;
 class QBrush;
 

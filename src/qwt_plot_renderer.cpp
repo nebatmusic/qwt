@@ -14,19 +14,18 @@
 #include "qwt_abstract_legend.h"
 #include "qwt_scale_widget.h"
 #include "qwt_scale_engine.h"
+#include "qwt_scale_map.h"
 #include "qwt_text.h"
 #include "qwt_text_label.h"
 #include "qwt_math.h"
+
 #include <qpainter.h>
-#include <qpaintengine.h>
 #include <qtransform.h>
 #include <qprinter.h>
-#include <qprintdialog.h>
 #include <qfiledialog.h>
 #include <qfileinfo.h>
-#include <qstyle.h>
-#include <qstyleoption.h>
 #include <qimagewriter.h>
+#include <qvariant.h>
 
 #ifndef QWT_NO_SVG
 #ifdef QT_SVG_LIB

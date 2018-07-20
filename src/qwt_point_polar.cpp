@@ -109,6 +109,8 @@ QwtPointPolar QwtPointPolar::normalized() const
 
 #ifndef QT_NO_DEBUG_STREAM
 
+#include <qdebug.h>
+
 QDebug operator<<( QDebug debug, const QwtPointPolar &point )
 {
     debug.nospace() << "QwtPointPolar(" 

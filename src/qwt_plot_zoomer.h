@@ -12,7 +12,9 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_picker.h"
-#include <qstack.h>
+
+class QSizeF;
+template <typename T> class QStack;
 
 /*!
   \brief QwtPlotZoomer provides stacked zooming for a plot widget

@@ -10,7 +10,10 @@
 #include "qwt_plot_barchart.h"
 #include "qwt_scale_map.h"
 #include "qwt_column_symbol.h"
-#include "qwt_painter.h"
+#include "qwt_text.h"
+#include "qwt_graphic.h"
+#include "qwt_legend_data.h"
+
 #include <qpainter.h>
 
 class QwtPlotBarChart::PrivateData

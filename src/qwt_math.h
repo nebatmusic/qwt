@@ -24,7 +24,6 @@
 #endif
 
 #include <qmath.h>
-#include "qwt_global.h"
 
 #ifndef M_PI_2
 // For Qt <= 4.8.4 M_PI_2 is not known by MinGW-w64 

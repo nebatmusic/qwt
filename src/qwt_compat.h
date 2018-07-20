@@ -13,6 +13,7 @@
 #include "qwt_global.h"
 #include "qwt_interval.h"
 #include "qwt_point_3d.h"
+
 #include <qlist.h>
 #include <qvector.h>
 #include <qpoint.h>

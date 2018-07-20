@@ -1,8 +1,9 @@
+#include "colorbar.h"
+
 #include <qevent.h>
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qpainter.h>
-#include "colorbar.h"
 
 ColorBar::ColorBar( Qt::Orientation o, QWidget *parent ):
     QWidget( parent ),

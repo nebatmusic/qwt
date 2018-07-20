@@ -12,12 +12,13 @@
 
 #include "qwt_global.h"
 #include "qwt_spline.h"
-#include "qwt_spline_polynomial.h"
-#include <qpolygon.h>
-#include <qpainterpath.h>
-#include <qmath.h>
 
 class QwtSplineParametrization;
+class QwtSplinePolynomial;
+class QPainterPath;
+class QLineF;
+class QPolygonF;
+template <typename T> class QVector;
 
 /*!
   \brief Base class for all splines 

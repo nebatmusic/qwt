@@ -8,13 +8,15 @@
  *****************************************************************************/
 
 #include "qwt_arrow_button.h"
-#include "qwt_math.h"
 #include "qwt_counter.h"
+
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qvalidator.h>
 #include <qevent.h>
 #include <qstyle.h>
+
+#include <cmath>
 
 class QwtCounter::PrivateData
 {

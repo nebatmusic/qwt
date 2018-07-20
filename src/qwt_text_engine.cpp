@@ -8,8 +8,8 @@
  *****************************************************************************/
 
 #include "qwt_text_engine.h"
-#include "qwt_math.h"
 #include "qwt_painter.h"
+
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qimage.h>

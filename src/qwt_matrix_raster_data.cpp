@@ -8,8 +8,11 @@
  *****************************************************************************/
 
 #include "qwt_matrix_raster_data.h"
+#include "qwt_interval.h"
+
+#include <qvector.h>
 #include <qnumeric.h>
-#include <qmath.h>
+#include <qrect.h>
 
 class QwtMatrixRasterData::PrivateData
 {

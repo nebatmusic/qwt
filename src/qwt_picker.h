@@ -11,20 +11,27 @@
 #define QWT_PICKER
 
 #include "qwt_global.h"
-#include "qwt_text.h"
 #include "qwt_event_pattern.h"
-#include <qobject.h>
-#include <qpen.h>
-#include <qfont.h>
-#include <qrect.h>
-#include <qpainterpath.h>
 
+#include <qobject.h>
+
+class QwtPickerMachine;
+class QwtWidgetOverlay;
+class QwtText;
 class QWidget;
 class QMouseEvent;
 class QWheelEvent;
 class QKeyEvent;
-class QwtPickerMachine;
-class QwtWidgetOverlay;
+class QPainter;
+class QPen;
+class QFont;
+class QRegion;
+class QPainterPath;
+class QRegion;
+class QPoint;
+class QRect;
+class QSize;
+class QPolygon;
 
 /*!
   \brief QwtPicker provides selections on a widget
@@ -308,8 +315,8 @@ protected:
     virtual void widgetEnterEvent( QEvent * );
     virtual void widgetLeaveEvent( QEvent * );
 
-    virtual void stretchSelection( const QSize &oldSize,
-                                   const QSize &newSize );
+    virtual void stretchSelection(
+        const QSize &oldSize, const QSize &newSize );
 
     virtual void updateDisplay();
 

@@ -1,10 +1,12 @@
 #include "griditem.h"
+
 #include <qwt_scale_map.h>
 #include <qwt_painter.h>
+
 #include <qpainter.h>
 
 GridItem::GridItem():
-    QwtPlotItem( QwtText( "Grid" ) ),
+    QwtPlotItem( "Grid" ),
     m_orientations( Qt::Horizontal | Qt::Vertical ),
     m_gridAttributes( AutoUpdate | FillCanvas ),
     m_isXMinEnabled( false ),

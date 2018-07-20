@@ -12,16 +12,17 @@
 #include "qwt_plot_layout.h"
 #include "qwt_scale_widget.h"
 #include "qwt_scale_engine.h"
+#include "qwt_scale_map.h"
 #include "qwt_text_label.h"
 #include "qwt_legend.h"
 #include "qwt_legend_data.h"
 #include "qwt_plot_canvas.h"
+
 #include <qmath.h>
 #include <qpainter.h>
 #include <qpointer.h>
-#include <qpaintengine.h>
 #include <qapplication.h>
-#include <qevent.h>
+#include <qcoreevent.h>
 
 static inline void qwtEnableLegendItems( QwtPlot *plot, bool on )
 {

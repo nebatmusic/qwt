@@ -9,6 +9,7 @@
 
 #include "qwt_widget_overlay.h"
 #include "qwt_painter.h"
+
 #include <qpainter.h>
 #include <qpaintengine.h>
 #include <qimage.h>

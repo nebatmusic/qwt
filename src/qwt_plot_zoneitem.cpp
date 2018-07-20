@@ -10,6 +10,9 @@
 #include "qwt_plot_zoneitem.h"
 #include "qwt_painter.h"
 #include "qwt_scale_map.h"
+#include "qwt_text.h"
+#include "qwt_interval.h"
+
 #include <qpainter.h>
 
 class QwtPlotZoneItem::PrivateData

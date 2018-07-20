@@ -9,6 +9,9 @@
 
 #include "qwt_weeding_curve_fitter.h"
 #include "qwt_math.h"
+
+#include <qpainterpath.h>
+#include <qpolygon.h>
 #include <qstack.h>
 #include <qvector.h>
 

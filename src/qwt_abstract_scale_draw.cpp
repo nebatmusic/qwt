@@ -8,13 +8,14 @@
  *****************************************************************************/
 
 #include "qwt_abstract_scale_draw.h"
-#include "qwt_math.h"
 #include "qwt_text.h"
 #include "qwt_painter.h"
 #include "qwt_scale_map.h"
+
 #include <qpainter.h>
 #include <qpalette.h>
 #include <qmap.h>
+#include <qlist.h>
 #include <qlocale.h>
 
 class QwtAbstractScaleDraw::PrivateData

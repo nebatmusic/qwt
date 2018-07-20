@@ -12,6 +12,9 @@
 #include <qwt_date.h>
 #include <qwt_date_scale_engine.h>
 #include <qwt_date_scale_draw.h>
+#include <qwt_text.h>
+
+#include <qpen.h>
 
 class Zoomer: public QwtPlotZoomer
 {

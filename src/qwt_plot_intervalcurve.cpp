@@ -12,9 +12,11 @@
 #include "qwt_scale_map.h"
 #include "qwt_clipper.h"
 #include "qwt_painter.h"
-#include <string.h>
+#include "qwt_graphic.h"
+#include "qwt_text.h"
 
 #include <qpainter.h>
+#include <cstring>
 
 static inline bool qwtIsHSampleInside( const QwtIntervalSample &sample,
     double xMin, double xMax, double yMin, double yMax )

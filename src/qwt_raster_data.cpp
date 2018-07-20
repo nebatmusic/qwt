@@ -9,7 +9,13 @@
 
 #include "qwt_raster_data.h"
 #include "qwt_point_3d.h"
+#include "qwt_interval.h"
+
+#include <qrect.h>
+#include <qpolygon.h>
 #include <qnumeric.h>
+#include <qlist.h>
+#include <qmap.h>
 
 class QwtRasterData::ContourPlane
 {

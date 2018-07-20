@@ -12,7 +12,8 @@
 #include "qwt_scale_map.h"
 #include "qwt_symbol.h"
 #include "qwt_text.h"
-#include "qwt_math.h"
+#include "qwt_graphic.h"
+
 #include <qpainter.h>
 
 class QwtPlotMarker::PrivateData
@@ -46,6 +47,13 @@ public:
     double xValue;
     double yValue;
 };
+
+//! Sets alignment to Qt::AlignCenter, and style to QwtPlotMarker::NoLine
+QwtPlotMarker::QwtPlotMarker()
+{
+    d_data = new PrivateData;
+    setZ( 30.0 );
+}
 
 //! Sets alignment to Qt::AlignCenter, and style to QwtPlotMarker::NoLine
 QwtPlotMarker::QwtPlotMarker( const QString &title ):
@@ -574,8 +582,7 @@ QRectF QwtPlotMarker::boundingRect() const
 
    \sa setLegendIconSize(), legendData()
 */
-QwtGraphic QwtPlotMarker::legendIcon( int index,
-    const QSizeF &size ) const
+QwtGraphic QwtPlotMarker::legendIcon( int index, const QSizeF &size ) const
 {
     Q_UNUSED( index );
 

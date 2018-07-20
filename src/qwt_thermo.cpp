@@ -8,10 +8,10 @@
  *****************************************************************************/
 
 #include "qwt_thermo.h"
-#include "qwt_scale_engine.h"
 #include "qwt_scale_draw.h"
 #include "qwt_scale_map.h"
 #include "qwt_color_map.h"
+
 #include <qpainter.h>
 #include <qevent.h>
 #include <qdrawutil.h>

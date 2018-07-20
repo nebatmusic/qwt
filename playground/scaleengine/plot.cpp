@@ -1,9 +1,11 @@
 #include "plot.h"
+
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
 #include <qwt_symbol.h>
 #include <qwt_plot_picker.h>
 #include <qwt_scale_engine.h>
+#include <qwt_transform.h>
 
 Plot::Plot( QWidget *parent ):
     QwtPlot( parent )

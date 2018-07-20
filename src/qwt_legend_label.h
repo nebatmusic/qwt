@@ -11,12 +11,10 @@
 #define QWT_LEGEND_LABEL_H
 
 #include "qwt_global.h"
-#include "qwt_legend_data.h"
-#include "qwt_text.h"
 #include "qwt_text_label.h"
-#include <qpixmap.h>
+#include "qwt_legend_data.h"
 
-class QwtLegendData;
+class QwtText;
 
 /*!
   \brief A widget representing something on a QwtLegend.

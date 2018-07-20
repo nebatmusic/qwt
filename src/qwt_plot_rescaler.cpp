@@ -12,8 +12,8 @@
 #include "qwt_scale_div.h"
 #include "qwt_interval.h"
 #include "qwt_plot_canvas.h"
+
 #include <qevent.h>
-#include <qalgorithms.h>
 
 class QwtPlotRescaler::AxisData
 {

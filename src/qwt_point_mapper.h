@@ -11,12 +11,15 @@
 #define QWT_POINT_MAPPER_H
 
 #include "qwt_global.h"
-#include "qwt_series_data.h"
-#include <qimage.h>
 
 class QwtScaleMap;
+template <typename T> class QwtSeriesData;
 class QPolygonF;
+class QPointF;
+class QRectF;
 class QPolygon;
+class QPen;
+class QImage;
 
 /*!
   \brief A helper class for translating a series of points

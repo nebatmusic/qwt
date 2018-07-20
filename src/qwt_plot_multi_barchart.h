@@ -12,10 +12,10 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_abstract_barchart.h"
-#include "qwt_series_data.h"
 
 class QwtColumnRect;
 class QwtColumnSymbol;
+template <typename T> class QwtSeriesData;
 
 /*!
   \brief QwtPlotMultiBarChart displays a series of a samples that consist

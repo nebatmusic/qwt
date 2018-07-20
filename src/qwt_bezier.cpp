@@ -8,6 +8,8 @@
  *****************************************************************************/
 
 #include "qwt_bezier.h"
+
+#include <qpolygon.h>
 #include <qstack.h>
 
 namespace 
@@ -221,3 +223,29 @@ void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
     }
 
 }
+
+/*!
+  Find a point on a Bézier Curve
+
+  \param p1 Start point
+  \param cp1 First control point
+  \param cp2 Second control point
+  \param p2 End point
+  \param t Parameter value, something between [0,1]
+
+  \return Point on the curve
+ */
+QPointF QwtBezier::pointAt( const QPointF &p1,
+    const QPointF &cp1, const QPointF &cp2, const QPointF &p2, double t )
+{
+    const double d1 = 3.0 * t;
+    const double d2 = 3.0 * t * t;
+    const double d3 = t * t * t;
+    const double s  = 1.0 - t;
+
+    const double x = (( s * p1.x() + d1 * cp1.x() ) * s + d2 * cp2.x() ) * s + d3 * p2.x();
+    const double y = (( s * p1.y() + d1 * cp1.y() ) * s + d2 * cp2.y() ) * s + d3 * p2.y();
+
+    return QPointF( x, y );
+}
+

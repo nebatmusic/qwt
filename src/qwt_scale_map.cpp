@@ -9,6 +9,7 @@
 
 #include "qwt_scale_map.h"
 #include "qwt_math.h"
+
 #include <qrect.h>
 #include <qdebug.h>
 

@@ -12,9 +12,9 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_seriesitem.h"
-#include "qwt_series_data.h"
 
 class QwtIntervalSymbol;
+template <typename T> class QwtSeriesData;
 
 /*!
   \brief QwtPlotIntervalCurve represents a series of samples, where each value

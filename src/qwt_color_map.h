@@ -11,9 +11,10 @@
 #define QWT_COLOR_MAP_H
 
 #include "qwt_global.h"
-#include "qwt_interval.h"
 #include <qcolor.h>
-#include <qvector.h>
+
+class QwtInterval;
+template <typename T> class QVector;
 
 /*!
   \brief QwtColorMap is used to map values into colors.

@@ -1,5 +1,6 @@
 #include "dialtab.h"
 #include "dialbox.h"
+
 #include <qlayout.h>
 
 DialTab::DialTab( QWidget *parent ):
