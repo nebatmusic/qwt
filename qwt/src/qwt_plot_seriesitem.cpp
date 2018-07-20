@@ -41,6 +41,7 @@ QwtPlotSeriesItem::QwtPlotSeriesItem( const QString &title ):
     QwtPlotItem( QwtText( title ) )
 {
     d_data = new PrivateData();
+    setItemInterest( QwtPlotItem::ScaleInterest, true );
 }
 
 //! Destructor
