@@ -3,6 +3,7 @@
 #include "start.xpm"
 #include "clear.xpm"
 
+#include <qaction.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qstatusbar.h>
