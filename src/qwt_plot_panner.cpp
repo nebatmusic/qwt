@@ -15,16 +15,24 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 
+#if QT_VERSION >= 0x050000
+#if QT_VERSION < 0x050100
+#define QWT_USE_WINDOW_HANDLE 1
+#endif
+#endif
+
+#ifdef QWT_USE_WINDOW_HANDLE
+#include <qwindow.h>
+#endif
+
 static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
 {
     qreal pixelRatio = 1.0;
 
-#if QT_VERSION >= 0x050000
-#if QT_VERSION < 0x050100
+#ifdef QWT_USE_WINDOW_HANDLE
     pixelRatio = canvas->windowHandle()->devicePixelRatio();
 #else   
     pixelRatio = canvas->devicePixelRatio();
-#endif
 #endif
 
     const QRect r( 0, 0, size.width(), size.height() );
