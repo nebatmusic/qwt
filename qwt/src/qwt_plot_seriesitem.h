@@ -14,6 +14,8 @@
 #include "qwt_plot_item.h"
 #include "qwt_series_store.h"
 
+#include <qstring.h>
+
 class QwtScaleDiv;
 
 /*!
