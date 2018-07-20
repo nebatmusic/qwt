@@ -1,10 +1,10 @@
-#include <qevent.h>
-#include <qwt_plot_canvas.h>
-#include <qwt_plot_layout.h>
-#include <qwt_scale_engine.h>
-#include <qwt_scale_widget.h>
-#include "scrollbar.h"
 #include "scrollzoomer.h"
+#include "scrollbar.h"
+
+#include <qwt_plot_layout.h>
+#include <qwt_scale_widget.h>
+
+#include <qevent.h>
 
 class ScrollData
 {

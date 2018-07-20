@@ -1,9 +1,10 @@
 #include "knob.h"
+
 #include <qwt_math.h>
-#include <qpen.h>
 #include <qwt_knob.h>
 #include <qwt_round_scale_draw.h>
 #include <qwt_scale_engine.h>
+
 #include <qlabel.h>
 #include <qevent.h>
 

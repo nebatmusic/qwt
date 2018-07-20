@@ -1,9 +1,10 @@
 #ifndef PLOT_H
 #define PLOT_H
 
+#include "settings.h"
+
 #include <qwt_plot.h>
 #include <qwt_system_clock.h>
-#include "settings.h"
 
 class QwtPlotGrid;
 class QwtPlotCurve;

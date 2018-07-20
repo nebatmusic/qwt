@@ -1,10 +1,12 @@
-#include <qlayout.h>
-#include <qtimer.h>
-#include <qwt_analog_clock.h>
-#include <qwt_round_scale_draw.h>
 #include "attitude_indicator.h"
 #include "speedo_meter.h"
 #include "cockpit_grid.h"
+
+#include <qwt_analog_clock.h>
+#include <qwt_round_scale_draw.h>
+
+#include <qlayout.h>
+#include <qtimer.h>
 
 CockpitGrid::CockpitGrid( QWidget *parent ):
     QFrame( parent )

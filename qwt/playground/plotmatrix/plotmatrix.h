@@ -2,7 +2,8 @@
 #define PLOT_MATRIX_H
 
 #include <qframe.h>
-#include <qwt_plot.h>
+
+class QwtPlot;
 
 class PlotMatrix: public QFrame
 {

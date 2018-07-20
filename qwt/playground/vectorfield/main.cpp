@@ -1,11 +1,9 @@
-#include <qapplication.h>
 #include <qwt_plot.h>
 #include <qwt_plot_vectorfield.h>
 #include <qwt_plot_grid.h>
 #include <qwt_legend.h>
-#include <qpen.h>
-#include <qbrush.h>
-#include <cmath>
+
+#include <qapplication.h>
 
 class VectorField: public QwtPlotVectorField
 {

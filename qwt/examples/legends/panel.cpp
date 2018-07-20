@@ -1,5 +1,9 @@
 #include "panel.h"
 #include "settings.h"
+
+#include <qwt_plot.h>
+#include <qwt_plot_legenditem.h>
+
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qcombobox.h>
@@ -7,8 +11,6 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qlineedit.h>
-#include <qwt_plot.h>
-#include <qwt_plot_legenditem.h>
 
 Panel::Panel( QWidget *parent ):
     QWidget( parent )

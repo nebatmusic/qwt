@@ -2,13 +2,12 @@
 #define MAIN_WINDOW_H
 
 #include <qmainwindow.h>
-#include <qaction.h>
 
-class QSpinBox;
-class QPushButton;
 class RandomPlot;
 class Counter;
+
 class QCheckBox;
+class QAction;
 
 class MainWindow: public QMainWindow
 {

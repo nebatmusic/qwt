@@ -1,3 +1,14 @@
+#include "mainwindow.h"
+#include "plot.h"
+#include "pixmaps.h"
+
+#include <qwt_counter.h>
+#include <qwt_picker_machine.h>
+#include <qwt_plot_zoomer.h>
+#include <qwt_plot_panner.h>
+#include <qwt_plot_renderer.h>
+#include <qwt_text.h>
+
 #include <qregexp.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
@@ -5,19 +16,7 @@
 #include <qlayout.h>
 #include <qstatusbar.h>
 #include <qprinter.h>
-#include <qpicture.h>
-#include <qpainter.h>
 #include <qprintdialog.h>
-#include <qwt_counter.h>
-#include <qwt_picker_machine.h>
-#include <qwt_plot_zoomer.h>
-#include <qwt_plot_panner.h>
-#include <qwt_plot_renderer.h>
-#include <qwt_text.h>
-#include <qwt_math.h>
-#include "pixmaps.h"
-#include "plot.h"
-#include "mainwindow.h"
 
 class Zoomer: public QwtPlotZoomer
 {

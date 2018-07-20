@@ -1,8 +1,8 @@
 #ifndef CPU_PLOT_H
 #define CPU_PLOT_H
 
-#include <qwt_plot.h>
 #include "cpustat.h"
+#include <qwt_plot.h>
 
 #define HISTORY 60 // seconds
 

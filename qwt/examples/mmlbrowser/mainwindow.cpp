@@ -2,13 +2,9 @@
 #include "treeview.h"
 #include "mainwindow.h"
 
-#include <qapplication.h>
-#include <qbuffer.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qdebug.h>
 #include <qfiledialog.h>
-#include <qmimedata.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qsplitter.h>

@@ -3,10 +3,12 @@
 
 #include <qwt_plot.h>
 #include <qwt_scale_div.h>
-#include <qwt_series_data.h>
 
 class QwtPlotCurve;
 class QwtPlotIntervalCurve;
+class QwtIntervalSample;
+
+template <typename T> class QVector;
 
 class Plot: public QwtPlot
 {

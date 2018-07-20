@@ -1,9 +1,10 @@
+#include "barchart.h"
+
 #include <qapplication.h>
 #include <qmainwindow.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
-#include "barchart.h"
 
 class MainWindow: public QMainWindow
 {

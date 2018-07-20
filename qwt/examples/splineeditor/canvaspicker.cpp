@@ -1,9 +1,9 @@
-#include <qapplication.h>
-#include <qevent.h>
-#include <qwt_plot.h>
-#include <qwt_scale_map.h>
-#include <qwt_plot_curve.h>
 #include "canvaspicker.h"
+
+#include <qwt_plot.h>
+#include <qwt_plot_curve.h>
+
+#include <qevent.h>
 
 CanvasPicker::CanvasPicker( bool sortedX, QwtPlot *plot ):
     QObject( plot ),

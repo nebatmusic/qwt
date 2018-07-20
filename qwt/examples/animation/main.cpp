@@ -1,5 +1,5 @@
-#include <qapplication.h>
 #include "plot.h"
+#include <qapplication.h>
 
 #ifndef QWT_NO_OPENGL
 #define USE_OPENGL 1

@@ -1,5 +1,3 @@
-#include <qapplication.h>
-#include <qlayout.h>
 #include <qwt_plot.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_curve.h>
@@ -8,10 +6,13 @@
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_magnifier.h>
-#include <qwt_text.h>
 #include <qwt_symbol.h>
 #include <qwt_math.h>
-#include <math.h>
+
+#include <qapplication.h>
+#include <qlayout.h>
+
+#include <cmath>
 
 //-----------------------------------------------------------------
 //      A simple example which shows how to use QwtPlot connected

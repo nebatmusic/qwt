@@ -2,8 +2,7 @@
 #include "plot.h"
 #include "knob.h"
 #include "wheelbox.h"
-#include <qwt_scale_engine.h>
-#include <qlabel.h>
+
 #include <qlayout.h>
 
 MainWindow::MainWindow( QWidget *parent ):

@@ -1,8 +1,10 @@
-#include <qpainter.h>
-#include <qwt_scale_map.h>
-#include <qwt_plot_curve.h>
 #include "cpuplot.h"
 #include "cpupiemarker.h"
+
+#include <qwt_scale_map.h>
+#include <qwt_plot_curve.h>
+
+#include <qpainter.h>
 
 CpuPieMarker::CpuPieMarker()
 {

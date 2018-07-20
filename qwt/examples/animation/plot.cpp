@@ -1,11 +1,9 @@
-#include <qapplication.h>
+#include "plot.h"
+
 #include <qwt_math.h>
 #include <qwt_symbol.h>
 #include <qwt_plot_curve.h>
-#include <qwt_plot_canvas.h>
 #include <qwt_plot_layout.h>
-#include <qevent.h>
-#include "plot.h"
 
 class Curve: public QwtPlotCurve
 {

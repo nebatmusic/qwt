@@ -1,8 +1,8 @@
 #ifndef PLOT_H
 #define PLOT_H
 
-#include <qwt_plot.h>
 #include "shapefactory.h"
+#include <qwt_plot.h>
 
 class QColor;
 class QSizeF;

@@ -1,3 +1,6 @@
+#include "plot.h"
+#include "complexnumber.h"
+
 #include <qwt_math.h>
 #include <qwt_scale_engine.h>
 #include <qwt_symbol.h>
@@ -7,9 +10,6 @@
 #include <qwt_legend.h>
 #include <qwt_text.h>
 #include <qwt_plot_canvas.h>
-#include <qmath.h>
-#include "complexnumber.h"
-#include "plot.h"
 
 #if QT_VERSION < 0x040601
 #define qExp(x) ::exp(x)

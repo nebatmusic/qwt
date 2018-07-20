@@ -1,7 +1,6 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
-#include <qevent.h>
 #include <qmainwindow.h>
 
 class FormulaView;

@@ -1,4 +1,7 @@
-#include <qglobal.h>
+#include "plot.h"
+#include "circularbuffer.h"
+#include "settings.h"
+
 #include <qwt_painter.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
@@ -8,7 +11,6 @@
 #include <qwt_scale_draw.h>
 
 #ifndef QWT_NO_OPENGL
-#include <qevent.h>
 
 #if QT_VERSION >= 0x050400
 #define USE_OPENGL_WIDGET 1
@@ -20,10 +22,6 @@
 #include <qwt_plot_glcanvas.h>
 #endif
 #endif
-
-#include "plot.h"
-#include "circularbuffer.h"
-#include "settings.h"
 
 static double wave( double x )
 {

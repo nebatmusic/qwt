@@ -1,8 +1,8 @@
 #include "plot.h"
 #include "scalepicker.h"
 #include "canvaspicker.h"
+
 #include <qwt_plot_layout.h>
-#include <qwt_plot_canvas.h>
 #include <qwt_plot_curve.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_renderer.h>
@@ -15,10 +15,10 @@
 #include <qwt_spline_basis.h>
 #include <qwt_spline_parametrization.h>
 #include <qwt_curve_fitter.h>
-#include <qwt_spline_curve_fitter.h>
 #include <qwt_legend.h>
 #include <qwt_legend_label.h>
-#include <qevent.h>
+
+#include <qcoreevent.h>
 #include <qprinter.h>
 #include <qprintdialog.h>
 

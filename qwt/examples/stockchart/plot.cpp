@@ -2,14 +2,13 @@
 #include "legend.h"
 #include "griditem.h"
 #include "quotefactory.h"
-#include <qwt_legend.h>
+
 #include <qwt_plot_tradingcurve.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_zoneitem.h>
 #include <qwt_plot_renderer.h>
 #include <qwt_plot_zoomer.h>
 #include <qwt_plot_panner.h>
-#include <qwt_legend_label.h>
 #include <qwt_date.h>
 #include <qwt_date_scale_engine.h>
 #include <qwt_date_scale_draw.h>

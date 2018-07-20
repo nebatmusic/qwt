@@ -1,8 +1,6 @@
 #ifndef COMPLEX_NUMBER_H
 #define COMPLEX_NUMBER_H
 
-#include <math.h>
-
 class ComplexNumber
 {
 public:

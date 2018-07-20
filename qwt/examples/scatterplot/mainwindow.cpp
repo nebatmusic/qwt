@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "plot.h"
-#include <qmath.h>
+
+#include <cmath>
 
 static double randomValue()
 {

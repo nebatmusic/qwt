@@ -3,6 +3,8 @@
 
 #include <qwt_plot.h>
 
+class QwtTransform;
+
 class TransformPlot: public QwtPlot
 {
     Q_OBJECT

@@ -9,6 +9,10 @@
 #include <qelapsedtimer.h>
 #endif
 
+#include <qpolygon.h>
+#include <qline.h>
+#include <qdebug.h>
+
 static void testSpline( const char *name, QwtSplineInterpolating *spline, 
 	int type, const QPolygonF &points )
 {

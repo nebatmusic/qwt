@@ -1,3 +1,5 @@
+#include "plot.h"
+
 #include <qapplication.h>
 #include <qdesktopwidget.h>
 #include <qmainwindow.h>
@@ -5,7 +7,6 @@
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qtabwidget.h>
-#include "plot.h"
 
 class ToolButton: public QToolButton
 {

@@ -1,4 +1,5 @@
 #include "tvplot.h"
+
 #include <qwt_plot_layout.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_renderer.h>
@@ -8,8 +9,10 @@
 #include <qwt_plot_histogram.h>
 #include <qwt_column_symbol.h>
 #include <qwt_series_data.h>
+
 #include <qpen.h>
-#include <stdlib.h>
+
+#include <cstdlib>
 
 class Histogram: public QwtPlotHistogram
 {

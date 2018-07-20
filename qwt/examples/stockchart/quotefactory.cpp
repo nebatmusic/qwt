@@ -1,5 +1,7 @@
 #include "quotefactory.h"
+#include <qwt_samples.h>
 #include <qwt_date.h>
+#include <qvector.h>
 
 typedef struct
 {

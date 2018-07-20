@@ -1,7 +1,8 @@
+#include "cpustat.h"
+
 #include <qstringlist.h>
 #include <qfile.h>
 #include <qtextstream.h>
-#include "cpustat.h"
 
 CpuStat::CpuStat()
 {

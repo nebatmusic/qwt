@@ -1,7 +1,10 @@
 #include <qwt_spline_cubic.h>
 #include <qwt_spline_local.h>
 #include <qwt_spline_parametrization.h>
+#include <qwt_spline_polynomial.h>
+
 #include <qpolygon.h>
+#include <qpainterpath.h>
 #include <qdebug.h>
 
 #define DEBUG_ERRORS 1

@@ -3,7 +3,6 @@
 
 #include <qwidget.h>
 
-class QByteArray;
 class QSvgRenderer;
 class QwtGraphic;
 

@@ -1,13 +1,11 @@
-#include <qapplication.h>
-#include <qpainterpath.h>
 #include <qwt_plot.h>
 #include <qwt_legend.h>
-#include <qwt_point_data.h>
-#include <qwt_plot_canvas.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_magnifier.h>
 #include <qwt_plot_shapeitem.h>
-#include <qwt_scale_engine.h>
+
+#include <qapplication.h>
+#include <qpainterpath.h>
 
 class Plot : public QwtPlot
 {

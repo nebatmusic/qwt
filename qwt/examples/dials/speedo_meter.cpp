@@ -1,7 +1,9 @@
-#include <qpainter.h>
+#include "speedo_meter.h"
+
 #include <qwt_dial_needle.h>
 #include <qwt_round_scale_draw.h>
-#include "speedo_meter.h"
+
+#include <qpainter.h>
 
 SpeedoMeter::SpeedoMeter( QWidget *parent ):
     QwtDial( parent ),

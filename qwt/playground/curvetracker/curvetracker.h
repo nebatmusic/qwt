@@ -4,6 +4,7 @@
 #include <qwt_plot_picker.h>
 
 class QwtPlotCurve;
+class QLineF;
 
 class CurveTracker: public QwtPlotPicker
 {

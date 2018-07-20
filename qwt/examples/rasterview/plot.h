@@ -2,7 +2,8 @@
 #define PLOT_H
 
 #include <qwt_plot.h>
-#include <qwt_plot_spectrogram.h>
+
+class QwtPlotSpectrogram;
 
 class Plot: public QwtPlot
 {

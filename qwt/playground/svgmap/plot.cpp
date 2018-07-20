@@ -1,11 +1,11 @@
-#include <qfiledialog.h>
+#include "plot.h"
+
 #include <qwt_plot_svgitem.h>
-#include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
-#include <qwt_plot_canvas.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_magnifier.h>
-#include "plot.h"
+
+#include <qfiledialog.h>
 
 Plot::Plot( QWidget *parent ):
     QwtPlot( parent ),

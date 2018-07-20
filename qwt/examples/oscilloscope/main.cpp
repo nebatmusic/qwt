@@ -1,6 +1,7 @@
-#include <qapplication.h>
 #include "mainwindow.h"
 #include "samplingthread.h"
+
+#include <qapplication.h>
 
 int main( int argc, char **argv )
 {
