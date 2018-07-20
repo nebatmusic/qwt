@@ -12,9 +12,9 @@
 #include "qwt_scale_map.h"
 #include "qwt_math.h"
 #include "qwt_painter.h"
-#include <qpen.h>
+#include "qwt_text.h"
+
 #include <qpainter.h>
-#include <qmath.h>
 
 #if QT_VERSION < 0x040601
 #define qFastSin(x) qSin(x)

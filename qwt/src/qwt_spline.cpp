@@ -9,8 +9,10 @@
 
 #include "qwt_spline.h"
 #include "qwt_spline_parametrization.h"
+#include "qwt_spline_polynomial.h"
 #include "qwt_bezier.h"
-#include "qwt_math.h"
+
+#include <qpainterpath.h>
 
 namespace QwtSplineC1P
 {

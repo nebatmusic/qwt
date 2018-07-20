@@ -12,15 +12,12 @@
 #include "qwt_painter.h"
 #include "qwt_math.h"
 #include "qwt_widget_overlay.h"
-#include <qapplication.h>
+#include "qwt_text.h"
+
 #include <qevent.h>
 #include <qpainter.h>
-#include <qframe.h>
 #include <qcursor.h>
-#include <qbitmap.h>
 #include <qpointer.h>
-#include <qpaintengine.h>
-#include <qmath.h>
 
 static inline QRegion qwtMaskRegion( const QRect &r, int penWidth )
 {

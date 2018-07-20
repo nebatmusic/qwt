@@ -12,13 +12,12 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_seriesitem.h"
-#include "qwt_column_symbol.h"
-#include <qcolor.h>
-#include <qvector.h>
 
-class QwtIntervalData;
-class QString;
+class QwtColumnSymbol;
+class QwtColumnRect;
+class QColor;
 class QPolygonF;
+template <typename T> class QVector;
 
 /*!
   \brief QwtPlotHistogram represents a series of samples, where an interval

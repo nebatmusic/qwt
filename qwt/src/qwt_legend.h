@@ -12,6 +12,8 @@
 
 #include "qwt_global.h"
 #include "qwt_abstract_legend.h"
+#include "qwt_legend_data.h"
+
 #include <qvariant.h>
 
 class QScrollBar;

@@ -8,8 +8,6 @@
  *****************************************************************************/
 
 #include "qwt_interval.h"
-#include "qwt_math.h"
-#include <qalgorithms.h>
 
 /*!
   \brief Normalize the limits of the interval
@@ -41,8 +39,10 @@ QwtInterval QwtInterval::normalized() const
 QwtInterval QwtInterval::inverted() const
 {
     BorderFlags borderFlags = IncludeBorders;
+
     if ( d_borderFlags & ExcludeMinimum )
         borderFlags |= ExcludeMaximum;
+
     if ( d_borderFlags & ExcludeMaximum )
         borderFlags |= ExcludeMinimum;
 
@@ -337,6 +337,8 @@ QwtInterval& QwtInterval::operator|=( double value )
 }
 
 #ifndef QT_NO_DEBUG_STREAM
+
+#include <qdebug.h>
 
 QDebug operator<<( QDebug debug, const QwtInterval &interval )
 {

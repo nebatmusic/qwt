@@ -9,7 +9,6 @@
 
 #include "qwt_plot_canvas.h"
 #include "qwt_painter.h"
-#include "qwt_math.h"
 #include "qwt_plot.h"
 
 #ifndef QWT_NO_OPENGL
@@ -46,9 +45,6 @@ typedef QGLWidget QwtPlotCanvasSurfaceGL;
 #endif // !QWT_NO_OPENGL
 
 #include <qpainter.h>
-#include <qstyle.h>
-#include <qstyleoption.h>
-#include <qpaintengine.h>
 #include <qevent.h>
 
 class QwtPlotCanvas::PrivateData

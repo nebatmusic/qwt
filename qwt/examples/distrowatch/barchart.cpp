@@ -7,8 +7,10 @@
 #include <qwt_plot_layout.h>
 #include <qwt_legend.h>
 #include <qwt_scale_draw.h>
+#include <qwt_text.h>
 
 #include <qapplication.h>
+#include <qpainter.h>
 
 class DistroScaleDraw: public QwtScaleDraw
 {

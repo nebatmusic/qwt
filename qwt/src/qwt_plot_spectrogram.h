@@ -13,9 +13,9 @@
 #include "qwt_global.h"
 #include "qwt_raster_data.h"
 #include "qwt_plot_rasteritem.h"
-#include <qlist.h>
 
 class QwtColorMap;
+template <typename T> class QList;
 
 /*!
   \brief A plot item, which displays a spectrogram

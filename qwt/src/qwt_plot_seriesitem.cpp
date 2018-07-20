@@ -8,6 +8,8 @@
  *****************************************************************************/
 
 #include "qwt_plot_seriesitem.h"
+#include "qwt_scale_div.h"
+#include "qwt_text.h"
 
 class QwtPlotSeriesItem::PrivateData
 {

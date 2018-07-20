@@ -14,7 +14,9 @@
 #include "qwt_math.h"
 #include "qwt_scale_div.h"
 #include "qwt_text.h"
+#include "qwt_interval.h"
 #include "qwt_scale_engine.h"
+
 #include <qpainter.h>
 #include <qevent.h>
 #include <qmath.h>

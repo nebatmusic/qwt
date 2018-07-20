@@ -10,7 +10,7 @@
 #include "qwt_symbol.h"
 #include "qwt_painter.h"
 #include "qwt_graphic.h"
-#include <qapplication.h>
+
 #include <qpainter.h>
 #include <qpainterpath.h>
 #include <qpixmap.h>

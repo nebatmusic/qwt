@@ -11,21 +11,21 @@
 #define QWT_PLOT_H
 
 #include "qwt_global.h"
-#include "qwt_text.h"
 #include "qwt_plot_dict.h"
-#include "qwt_scale_map.h"
-#include "qwt_interval.h"
+
 #include <qframe.h>
-#include <qlist.h>
-#include <qvariant.h>
 
 class QwtPlotLayout;
 class QwtAbstractLegend;
 class QwtScaleWidget;
 class QwtScaleEngine;
 class QwtScaleDiv;
+class QwtScaleMap;
 class QwtScaleDraw;
 class QwtTextLabel;
+class QwtInterval;
+class QwtText;
+template <typename T> class QList;
 
 /*!
   \brief A 2-D plotting widget

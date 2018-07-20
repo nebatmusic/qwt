@@ -11,14 +11,13 @@
 #include "qwt_legend_label.h"
 #include "qwt_dyngrid_layout.h"
 #include "qwt_math.h"
-#include "qwt_plot_item.h"
 #include "qwt_painter.h"
+#include "qwt_graphic.h"
+
 #include <qapplication.h>
 #include <qscrollbar.h>
 #include <qscrollarea.h>
 #include <qpainter.h>
-#include <qstyle.h>
-#include <qstyleoption.h>
 
 namespace
 {

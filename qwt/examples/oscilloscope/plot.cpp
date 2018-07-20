@@ -7,6 +7,8 @@
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_marker.h>
 #include <qwt_plot_curve.h>
+#include <qwt_scale_div.h>
+#include <qwt_scale_map.h>
 #include <qwt_plot_directpainter.h>
 #include <qwt_painter.h>
 

@@ -11,12 +11,14 @@
 #define QWT_CLIPPER_H
 
 #include "qwt_global.h"
-#include "qwt_interval.h"
-#include <qpolygon.h>
-#include <qvector.h>
 
+class QwtInterval;
+class QPointF;
 class QRect;
 class QRectF;
+class QPolygon;
+class QPolygonF;
+template <typename T> class QVector;
 
 /*!
   \brief Some clipping algorithms

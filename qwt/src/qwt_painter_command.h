@@ -11,6 +11,7 @@
 #define QWT_PAINTER_COMMAND_H
 
 #include "qwt_global.h"
+
 #include <qpaintengine.h>
 #include <qpixmap.h>
 #include <qimage.h>

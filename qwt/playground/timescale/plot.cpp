@@ -1,5 +1,6 @@
 #include "plot.h"
 #include "settings.h"
+
 #include <qwt_date.h>
 #include <qwt_date_scale_draw.h>
 #include <qwt_date_scale_engine.h>

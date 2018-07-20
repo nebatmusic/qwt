@@ -10,6 +10,7 @@
 #include "qwt_panner.h"
 #include "qwt_picker.h"
 #include "qwt_painter.h"
+
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qevent.h>

@@ -12,6 +12,7 @@
 #include "qwt_interval.h"
 #include "qwt_scale_map.h"
 #include "qwt_color_map.h"
+
 #include <qimage.h>
 #include <qpen.h>
 #include <qpainter.h>
@@ -24,7 +25,7 @@
 #define DEBUG_RENDER 0
 
 #if DEBUG_RENDER
-#include <QElapsedTimer>
+#include <qelapsedtimer.h>
 #endif
 
 static inline bool qwtIsNaN( double d )

@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 #include "qwt_dyngrid_layout.h"
-#include "qwt_math.h"
+
 #include <qvector.h>
 #include <qlist.h>
 

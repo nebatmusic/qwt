@@ -9,10 +9,13 @@
 
 #include "qwt_scale_engine.h"
 #include "qwt_math.h"
-#include "qwt_scale_map.h"
-#include <qalgorithms.h>
+#include "qwt_interval.h"
+#include "qwt_transform.h"
+
 #include <qmath.h>
-#include <float.h>
+#include <qdebug.h>
+
+#include <cfloat>
 #include <limits>
 
 #if QT_VERSION < 0x040601

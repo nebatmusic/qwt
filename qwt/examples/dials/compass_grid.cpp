@@ -5,6 +5,7 @@
 #include <qwt_dial_needle.h>
 
 #include <qlayout.h>
+#include <qmap.h>
 
 CompassGrid::CompassGrid( QWidget *parent ):
     QFrame( parent )

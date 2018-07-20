@@ -12,9 +12,9 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
-#include "qwt_scale_div.h"
-#include "qwt_series_data.h"
 #include "qwt_series_store.h"
+
+class QwtScaleDiv;
 
 /*!
   \brief Base class for plot items representing a series of samples

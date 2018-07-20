@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include "qwt_date_scale_draw.h"
+#include "qwt_text.h"
 
 class QwtDateScaleDraw::PrivateData
 {

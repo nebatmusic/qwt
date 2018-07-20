@@ -10,6 +10,7 @@
 #include "qwt_text_label.h"
 #include "qwt_text.h"
 #include "qwt_painter.h"
+
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qpainter.h>

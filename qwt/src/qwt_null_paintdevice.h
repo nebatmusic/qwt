@@ -11,6 +11,7 @@
 #define QWT_NULL_PAINT_DEVICE_H
 
 #include "qwt_global.h"
+
 #include <qpaintdevice.h>
 #include <qpaintengine.h>
 

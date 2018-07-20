@@ -13,7 +13,8 @@
 #include "qwt_scale_div.h"
 #include "qwt_scale_map.h"
 #include "qwt_interval.h"
-#include <qevent.h>
+
+#include <qcoreevent.h>
 
 class QwtAbstractScale::PrivateData
 {

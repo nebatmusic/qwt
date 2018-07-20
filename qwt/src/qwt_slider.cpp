@@ -11,10 +11,10 @@
 #include "qwt_painter.h"
 #include "qwt_scale_draw.h"
 #include "qwt_scale_map.h"
+
 #include <qevent.h>
 #include <qdrawutil.h>
 #include <qpainter.h>
-#include <qalgorithms.h>
 #include <qmath.h>
 #include <qstyle.h>
 #include <qstyleoption.h>

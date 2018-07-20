@@ -11,6 +11,7 @@
 #define QWT_SPLINE_PARAMETRIZATION_H
 
 #include "qwt_global.h"
+
 #include <qmath.h>
 #include <qpoint.h>
 

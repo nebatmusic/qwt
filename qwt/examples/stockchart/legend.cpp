@@ -1,7 +1,9 @@
 #include "legend.h"
+
 #include <qwt_legend_data.h>
 #include <qwt_text.h>
 #include <qwt_plot_item.h>
+
 #include <qtreeview.h>
 #include <qlayout.h>
 #include <qstyle.h>

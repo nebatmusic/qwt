@@ -11,16 +11,17 @@
 #define QWT_SYMBOL_H
 
 #include "qwt_global.h"
+
 #include <qpolygon.h>
+#include <qpen.h>
+#include <qbrush.h>
 
 class QPainter;
-class QRect;
 class QSize;
 class QBrush;
 class QPen;
 class QColor;
 class QPointF;
-class QPolygonF;
 class QPainterPath;
 class QPixmap;
 class QByteArray;

@@ -10,13 +10,10 @@
 #ifndef QWT_PLOT_MARKER_H
 #define QWT_PLOT_MARKER_H
 
-#include <qpen.h>
-#include <qfont.h>
-#include <qstring.h>
-#include <qbrush.h>
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
 
+class QString;
 class QRectF;
 class QwtText;
 class QwtSymbol;
@@ -68,7 +65,8 @@ public:
         Cross
     };
 
-    explicit QwtPlotMarker( const QString &title = QString() );
+    explicit QwtPlotMarker();
+    explicit QwtPlotMarker( const QString &title );
     explicit QwtPlotMarker( const QwtText &title );
 
     virtual ~QwtPlotMarker();

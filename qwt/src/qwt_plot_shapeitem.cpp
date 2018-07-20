@@ -9,9 +9,14 @@
 
 #include "qwt_plot_shapeitem.h"
 #include "qwt_scale_map.h"
+#include "qwt_text.h"
+#include "qwt_graphic.h"
 #include "qwt_painter.h"
 #include "qwt_weeding_curve_fitter.h"
 #include "qwt_clipper.h"
+
+#include <qpainter.h>
+#include <qpainterpath.h>
 
 static QPainterPath qwtTransformPath( const QwtScaleMap &xMap,
         const QwtScaleMap &yMap, const QPainterPath &path, bool doAlign )

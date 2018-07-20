@@ -8,9 +8,13 @@
  *****************************************************************************/
 
 #include "qwt_analog_clock.h"
+#include "qwt_dial_needle.h"
 #include "qwt_round_scale_draw.h"
-#include <qmath.h>
+#include "qwt_text.h"
+
 #include <qlocale.h>
+#include <qdatetime.h>
+#include <qmath.h>
 
 namespace
 {

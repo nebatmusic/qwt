@@ -8,8 +8,7 @@
  *****************************************************************************/
 
 #include "qwt_scale_div.h"
-#include "qwt_math.h"
-#include <qalgorithms.h>
+#include "qwt_interval.h"
 
 /*!
   Construct a division without ticks
@@ -316,6 +315,8 @@ QList<double> QwtScaleDiv::ticks( int type ) const
 }
 
 #ifndef QT_NO_DEBUG_STREAM
+
+#include <qdebug.h>
 
 QDebug operator<<( QDebug debug, const QwtScaleDiv &scaleDiv )
 {

@@ -10,8 +10,11 @@
 #include "qwt_plot_zoomer.h"
 #include "qwt_plot.h"
 #include "qwt_scale_div.h"
+#include "qwt_scale_map.h"
+#include "qwt_interval.h"
 #include "qwt_picker_machine.h"
-#include <qalgorithms.h>
+
+#include <qstack.h>
 
 static QwtInterval qwtExpandedZoomInterval( double v1, double v2, 
     double minRange, const QwtTransform* transform )

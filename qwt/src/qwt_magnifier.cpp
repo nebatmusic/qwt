@@ -9,6 +9,7 @@
 
 #include "qwt_magnifier.h"
 #include "qwt_math.h"
+
 #include <qevent.h>
 #include <qwidget.h>
 

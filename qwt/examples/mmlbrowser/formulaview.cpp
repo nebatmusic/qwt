@@ -1,5 +1,7 @@
 #include "formulaview.h"
+
 #include <qwt_mml_document.h>
+
 #include <qevent.h>
 #include <qpainter.h>
 

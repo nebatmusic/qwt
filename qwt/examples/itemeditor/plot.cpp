@@ -1,10 +1,13 @@
 #include "plot.h"
 #include "editor.h"
+
 #include <qwt_plot_shapeitem.h>
 #include <qwt_plot_magnifier.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_legend.h>
 #include <qwt_plot_renderer.h>
+
+#include <qpen.h>
 
 class Legend: public QwtLegend
 {

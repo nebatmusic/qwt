@@ -8,8 +8,7 @@
  *****************************************************************************/
 
 #include "qwt_point_data.h"
-#include "qwt_math.h"
-#include <string.h>
+#include <cstring>
 
 /*!
   Constructor

@@ -11,6 +11,7 @@
 #define QWT_EVENT_PATTERN
 
 #include "qwt_global.h"
+
 #include <qnamespace.h>
 #include <qvector.h>
 

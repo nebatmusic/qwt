@@ -10,16 +10,19 @@
 #include "qwt_plot_vectorfield.h"
 #include "qwt_scale_map.h"
 #include "qwt_painter.h"
-#include "qwt_math.h"
+#include "qwt_text.h"
 #include "qwt_graphic.h"
+
 #include <qpainter.h>
 #include <qpainterpath.h>
+#include <qdebug.h>
+
+#include <cmath>
 
 #define DEBUG_RENDER 0
 
 #if DEBUG_RENDER
 #include <qelapsedtimer.h>
-#include <qdebug.h>
 #endif
 
 #include <cstdlib>

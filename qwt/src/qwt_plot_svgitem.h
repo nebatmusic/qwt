@@ -12,6 +12,7 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
+
 #include <qstring.h>
 
 class QSvgRenderer;

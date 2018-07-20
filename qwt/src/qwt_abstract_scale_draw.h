@@ -12,8 +12,8 @@
 
 #include "qwt_global.h"
 #include "qwt_scale_div.h"
-#include "qwt_text.h"
 
+class QwtText;
 class QPalette;
 class QPainter;
 class QFont;

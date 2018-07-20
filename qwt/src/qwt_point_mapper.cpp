@@ -10,6 +10,8 @@
 #include "qwt_point_mapper.h"
 #include "qwt_scale_map.h"
 #include "qwt_pixel_matrix.h"
+#include "qwt_series_data.h"
+
 #include <qpolygon.h>
 #include <qimage.h>
 #include <qpen.h>
@@ -18,6 +20,8 @@
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
+
+#include <cmath>
 
 #if !defined(QT_NO_QFUTURE)
 #define QWT_USE_THREADS 1

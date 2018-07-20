@@ -8,10 +8,12 @@
  *****************************************************************************/
 
 #include "qwt_abstract_slider.h"
-#include "qwt_abstract_scale_draw.h"
-#include "qwt_math.h"
 #include "qwt_scale_map.h"
+#include "qwt_scale_div.h"
+
 #include <qevent.h>
+
+#include <cmath>
 
 #if QT_VERSION < 0x040601
 #define qFabs(x) ::fabs(x)

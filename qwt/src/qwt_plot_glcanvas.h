@@ -12,6 +12,7 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_abstract_canvas.h"
+
 #include <qgl.h>
 
 class QwtPlot;

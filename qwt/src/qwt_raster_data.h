@@ -11,12 +11,14 @@
 #define QWT_RASTER_DATA_H
 
 #include "qwt_global.h"
-#include "qwt_interval.h"
-#include <qmap.h>
-#include <qlist.h>
-#include <qpolygon.h>
+#include <qnamespace.h>
 
-class QwtScaleMap;
+class QwtInterval;
+class QPolygonF;
+class QRectF;
+class QSize;
+template <typename T> class QList;
+template <class Key, class T> class QMap;
 
 /*!
   \brief QwtRasterData defines an interface to any type of raster data.

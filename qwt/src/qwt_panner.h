@@ -12,9 +12,9 @@
 
 #include "qwt_global.h"
 #include <qwidget.h>
-#include <qpixmap.h>
 
 class QCursor;
+class QPixmap;
 
 /*!
   \brief QwtPanner provides panning of a widget

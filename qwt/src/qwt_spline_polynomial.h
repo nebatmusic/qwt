@@ -11,12 +11,9 @@
 #define QWT_SPLINE_POLYNOMIAL_H
 
 #include "qwt_global.h"
+
 #include <qpoint.h>
 #include <qmetatype.h>
-
-#ifndef QT_NO_DEBUG_STREAM
-#include <qdebug.h>
-#endif
 
 /*!
   \brief A cubic polynomial without constant term
@@ -212,6 +209,9 @@ inline QwtSplinePolynomial QwtSplinePolynomial::fromCurvatures(
 Q_DECLARE_METATYPE( QwtSplinePolynomial )
 
 #ifndef QT_NO_DEBUG_STREAM
+
+#include <qdebug.h>
+
 inline QDebug operator<<( QDebug debug, const QwtSplinePolynomial &polynomial )
 {
     debug.nospace() << "Polynom(" << polynomial.c3 << ", "

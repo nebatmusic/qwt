@@ -10,8 +10,9 @@
 #include "qwt_plot_abstract_canvas.h"
 #include "qwt_plot.h"
 #include "qwt_painter.h"
+#include "qwt_null_paintdevice.h"
+
 #include <qpainter.h>
-#include <qdrawutil.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
 

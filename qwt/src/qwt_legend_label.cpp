@@ -9,14 +9,11 @@
 
 #include "qwt_legend_label.h"
 #include "qwt_legend_data.h"
-#include "qwt_math.h"
-#include "qwt_painter.h"
-#include "qwt_symbol.h"
 #include "qwt_graphic.h"
+
 #include <qpainter.h>
 #include <qdrawutil.h>
 #include <qstyle.h>
-#include <qpen.h>
 #include <qevent.h>
 #include <qstyleoption.h>
 #include <qapplication.h>

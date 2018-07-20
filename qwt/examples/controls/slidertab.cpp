@@ -1,5 +1,6 @@
 #include "slidertab.h"
 #include "sliderbox.h"
+
 #include <qlayout.h>
 
 SliderTab::SliderTab( QWidget *parent ):

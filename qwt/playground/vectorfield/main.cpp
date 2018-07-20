@@ -4,6 +4,7 @@
 #include <qwt_legend.h>
 
 #include <qapplication.h>
+#include <qpen.h>
 
 class VectorField: public QwtPlotVectorField
 {

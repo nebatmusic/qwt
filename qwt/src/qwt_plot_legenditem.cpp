@@ -9,8 +9,10 @@
 
 #include "qwt_plot_legenditem.h"
 #include "qwt_dyngrid_layout.h"
-#include "qwt_scale_map.h"
-#include "qwt_painter.h"
+#include "qwt_text.h"
+#include "qwt_graphic.h"
+#include "qwt_legend_data.h"
+
 #include <qlayoutitem.h>
 #include <qpen.h>
 #include <qbrush.h>

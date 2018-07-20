@@ -12,16 +12,17 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_seriesitem.h"
-#include "qwt_series_data.h"
-#include "qwt_text.h"
-#include <qpen.h>
+
 #include <qstring.h>
 
-class QPainter;
-class QPolygonF;
 class QwtScaleMap;
 class QwtSymbol;
 class QwtCurveFitter;
+template <typename T> class QwtSeriesData;
+class QwtText;
+class QPainter;
+class QPolygonF;
+class QPen;
 
 /*!
   \brief A plot item, that represents a series of points

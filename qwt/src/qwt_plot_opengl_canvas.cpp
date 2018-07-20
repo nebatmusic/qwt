@@ -10,7 +10,9 @@
 #include "qwt_plot_opengl_canvas.h"
 #include "qwt_plot.h"
 #include "qwt_painter.h"
-#include <qevent.h>
+
+#include <qpainter.h>
+#include <qcoreevent.h>
 #include <qopenglframebufferobject.h>
 #include <qopenglpaintdevice.h>
 

@@ -7,6 +7,7 @@
 #include <qwt_widget_overlay.h>
 
 #include <qevent.h>
+#include <qpainter.h>
 
 class Overlay: public QwtWidgetOverlay
 {

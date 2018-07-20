@@ -12,7 +12,6 @@
 
 #include "qwt_global.h"
 #include "qwt_plot_item.h"
-#include "qwt_scale_div.h"
 
 class QPainter;
 class QPen;

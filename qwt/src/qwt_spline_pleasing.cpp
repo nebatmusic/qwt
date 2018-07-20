@@ -10,6 +10,8 @@
 #include "qwt_spline_pleasing.h"
 #include "qwt_spline_parametrization.h"
 
+#include <qpainterpath.h>
+
 static inline double qwtChordalLength( const QPointF &point1, const QPointF &point2 )
 {
     const double dx = point2.x() - point1.x();

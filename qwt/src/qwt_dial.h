@@ -12,12 +12,13 @@
 
 #include "qwt_global.h"
 #include "qwt_abstract_slider.h"
-#include "qwt_abstract_scale_draw.h"
+
 #include <qframe.h>
 #include <qpalette.h>
 
 class QwtDialNeedle;
 class QwtRoundScaleDraw;
+class QwtAbstractScaleDraw;
 
 /*!
   \brief QwtDial class provides a rounded range control.

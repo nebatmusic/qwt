@@ -1,11 +1,14 @@
 #include "plot.h"
 #include "settings.h"
+
 #include <qwt_plot_curve.h>
 #include <qwt_plot_legenditem.h>
 #include <qwt_legend.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
+
+#include <qpen.h>
 
 class LegendItem: public QwtPlotLegendItem
 {

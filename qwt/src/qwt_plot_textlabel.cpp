@@ -9,8 +9,10 @@
 
 #include "qwt_plot_textlabel.h"
 #include "qwt_painter.h"
-#include "qwt_scale_map.h"
+#include "qwt_text.h"
+
 #include <qpainter.h>
+#include <qpaintengine.h>
 #include <qpixmap.h>
 #include <qmath.h>
 
