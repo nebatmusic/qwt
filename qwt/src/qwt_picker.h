@@ -27,7 +27,6 @@ class QPen;
 class QFont;
 class QRegion;
 class QPainterPath;
-class QRegion;
 class QPoint;
 class QRect;
 class QSize;
