@@ -241,7 +241,7 @@ static inline QDateTime qwtToTimeSpec(
         return dt;
 
     const qint64 jd = dt.date().toJulianDay();
-    if ( jd < 0 || jd >= INT_MAX )
+    if ( jd < 0 || jd >= std::numeric_limits<int>::max() )
     {
         // the conversion between local time and UTC
         // is internally limited. To avoid

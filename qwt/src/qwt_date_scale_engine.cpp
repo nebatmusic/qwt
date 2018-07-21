@@ -684,7 +684,7 @@ static QwtScaleDiv qwtDivideToYears(
             QDateTime tickDate;
 
             const double years = qRound( i * minStepSize );
-            if ( years >= INT_MAX / 12 )
+            if ( years >= std::numeric_limits<int>::max() / 12 )
             {
                 tickDate = dt.addYears( years );
             }

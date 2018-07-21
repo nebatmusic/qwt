@@ -20,7 +20,7 @@
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
 
-#include <cfloat>
+#include <limits>
 
 class QwtPlotRasterItem::PrivateData
 {
@@ -798,8 +798,10 @@ QRectF QwtPlotRasterItem::boundingRect() const
     }
     else
     {
-        r.setLeft(-0.5 * FLT_MAX);
-        r.setWidth(FLT_MAX);
+        const float max = std::numeric_limits<float>::max();
+
+        r.setLeft( -0.5 * max );
+        r.setWidth( max );
     }
 
     if ( intervalY.isValid() )
@@ -809,8 +811,10 @@ QRectF QwtPlotRasterItem::boundingRect() const
     }
     else
     {
-        r.setTop(-0.5 * FLT_MAX);
-        r.setHeight(FLT_MAX);
+        const float max = std::numeric_limits<float>::max();
+
+        r.setTop( -0.5 * max );
+        r.setHeight( max );
     }
 
     return r.normalized();

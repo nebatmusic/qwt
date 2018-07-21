@@ -15,7 +15,6 @@
 #include <qmath.h>
 #include <qdebug.h>
 
-#include <cfloat>
 #include <limits>
 
 #if QT_VERSION < 0x040601
@@ -403,12 +402,13 @@ QList<double> QwtScaleEngine::strip( const QList<double>& ticks,
 QwtInterval QwtScaleEngine::buildInterval( double value ) const
 {
     const double delta = ( value == 0.0 ) ? 0.5 : qAbs( 0.5 * value );
+    const double max = std::numeric_limits<double>::max();
 
-    if ( DBL_MAX - delta < value )
-        return QwtInterval( DBL_MAX - delta, DBL_MAX );
+    if ( max - delta < value )
+        return QwtInterval( max - delta, max );
 
-    if ( -DBL_MAX + delta > value )
-        return QwtInterval( -DBL_MAX, -DBL_MAX + delta );
+    if ( -max + delta > value )
+        return QwtInterval( -max, -max + delta );
 
     return QwtInterval( value - delta, value + delta );
 }
@@ -758,14 +758,16 @@ QwtInterval QwtLinearScaleEngine::align(
     // calculating with doubles, we keep the original value
 
     const double eps = 0.000000000001; // since Qt 4.8: qFuzzyIsNull
-    if ( -DBL_MAX + stepSize <= x1 )
+    const double max = std::numeric_limits<double>::max();
+
+    if ( -max + stepSize <= x1 )
     {
         const double x = QwtScaleArithmetic::floorEps( x1, stepSize );
         if ( qAbs(x) <= eps || !qFuzzyCompare( x1, x ) )
             x1 = x;
     }
 
-    if ( DBL_MAX - stepSize >= x2 )
+    if ( max - stepSize >= x2 )
     {
         const double x = QwtScaleArithmetic::ceilEps( x2, stepSize );
         if ( qAbs(x) <= eps || !qFuzzyCompare( x2, x ) )
