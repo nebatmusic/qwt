@@ -36,6 +36,8 @@
 
 #endif
 
+#include <cstring>
+
 bool QwtPainter::d_polylineSplitting = true;
 bool QwtPainter::d_roundingAlignment = true;
 
@@ -597,7 +599,7 @@ void QwtPainter::drawPolyline( QPainter *painter,
     if ( deviceClipping )
     {
         QPolygonF polygon( pointCount );
-        ::memcpy( polygon.data(), points, pointCount * sizeof( QPointF ) );
+        std::memcpy( polygon.data(), points, pointCount * sizeof( QPointF ) );
 
         QwtClipper::clipPolygonF( clipRect, polygon );
         qwtDrawPolyline<QPointF>( painter,
@@ -656,7 +658,7 @@ void QwtPainter::drawPolyline( QPainter *painter,
     if ( deviceClipping )
     {
         QPolygon polygon( pointCount );
-        ::memcpy( polygon.data(), points, pointCount * sizeof( QPoint ) );
+        std::memcpy( polygon.data(), points, pointCount * sizeof( QPoint ) );
 
         QwtClipper::clipPolygon( clipRect, polygon );
         qwtDrawPolyline<QPoint>( painter,
@@ -688,10 +690,10 @@ void QwtPainter::drawPoint( QPainter *painter, const QPoint &pos )
 
     if ( deviceClipping )
     {
-        const int minX = qCeil( clipRect.left() );
-        const int maxX = qFloor( clipRect.right() );
-        const int minY = qCeil( clipRect.top() );
-        const int maxY = qFloor( clipRect.bottom() );
+        const int minX = qwtCeil( clipRect.left() );
+        const int maxX = qwtFloor( clipRect.right() );
+        const int minY = qwtCeil( clipRect.top() );
+        const int maxY = qwtFloor( clipRect.bottom() );
 
         if ( pos.x() < minX || pos.x() > maxX
             || pos.y() < minY || pos.y() > maxY )
@@ -712,10 +714,10 @@ void QwtPainter::drawPoints( QPainter *painter,
 
     if ( deviceClipping )
     {
-        const int minX = qCeil( clipRect.left() );
-        const int maxX = qFloor( clipRect.right() );
-        const int minY = qCeil( clipRect.top() );
-        const int maxY = qFloor( clipRect.bottom() );
+        const int minX = qwtCeil( clipRect.left() );
+        const int maxX = qwtFloor( clipRect.right() );
+        const int minY = qwtCeil( clipRect.top() );
+        const int maxY = qwtFloor( clipRect.bottom() );
 
         const QRect r( minX, minY, maxX - minX, maxY - minY );
 

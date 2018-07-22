@@ -8,6 +8,7 @@
 #include <qapplication.h>
 #include <qpainter.h>
 #include <qbuffer.h>
+#include <qmath.h>
 
 #ifdef QT_SVG_LIB
 #include <qsvggenerator.h>

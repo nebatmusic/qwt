@@ -173,7 +173,7 @@ void QwtSimpleCompassRose::drawRose(
 
     for ( int j = 1; j <= numThornLevels; j++ )
     {
-        double step =  qPow( 2.0, j ) * M_PI / numThorns;
+        double step =  std::pow( 2.0, j ) * M_PI / numThorns;
         if ( step > M_PI_2 )
             break;
 

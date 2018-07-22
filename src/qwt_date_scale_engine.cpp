@@ -39,7 +39,7 @@ static inline int qwtAlignValue(
     double value, double stepSize, bool up )
 {
     double d = value / stepSize;
-    d = up ? ::ceil( d ) : ::floor( d );
+    d = up ? std::ceil( d ) : std::floor( d );
 
     return static_cast<int>( d * stepSize );
 }
@@ -64,12 +64,12 @@ static double qwtIntervalWidth( const QDateTime &minDate,
         case QwtDate::Minute:
         {
             const double secsTo = minDate.secsTo( maxDate );
-            return ::floor( secsTo / 60 );
+            return std::floor( secsTo / 60 );
         }
         case QwtDate::Hour:
         {
             const double secsTo = minDate.secsTo( maxDate );
-            return ::floor( secsTo / 3600 );
+            return std::floor( secsTo / 3600 );
         }
         case QwtDate::Day:
         {
@@ -77,7 +77,7 @@ static double qwtIntervalWidth( const QDateTime &minDate,
         }
         case QwtDate::Week:
         {
-            return ::floor( minDate.daysTo( maxDate ) / 7.0 );
+            return std::floor( minDate.daysTo( maxDate ) / 7.0 );
         }
         case QwtDate::Month:
         {
@@ -143,8 +143,8 @@ static int qwtStepSize( int intervalSize, int maxSteps, uint base )
         {
             const double stepSize = double( intervalSize ) / numSteps;
 
-            const double p = ::floor( ::log( stepSize ) / ::log( double( base ) ) );
-            const double fraction = qPow( base, p );
+            const double p = std::floor( std::log( stepSize ) / std::log( double( base ) ) );
+            const double fraction = std::pow( base, p );
 
             for ( uint n = base; n >= 1; n /= 2 )
             {
@@ -166,7 +166,7 @@ static int qwtStepSize( int intervalSize, int maxSteps, uint base )
 static int qwtDivideInterval( double intervalSize, int numSteps, 
     const int limits[], size_t numLimits )
 {
-    const int v = qCeil( intervalSize / double( numSteps ) );
+    const int v = qwtCeil( intervalSize / double( numSteps ) );
 
     for ( uint i = 0; i < numLimits - 1; i++ )
     {
@@ -216,9 +216,9 @@ static double qwtDivideScale( double intervalSize, int numSteps,
         {
             const double v = intervalSize / double( numSteps );
             if ( v <= 5.0 )
-                stepSize = qCeil( v );
+                stepSize = std::ceil( v );
             else
-                stepSize = qCeil( v / 7 ) * 7;
+                stepSize = std::ceil( v / 7 ) * 7;
 
             break;
         }
@@ -518,7 +518,7 @@ static QwtScaleDiv qwtDivideToSeconds(
 
         if ( secondsMinor > 0.0 )
         {
-            const int numMinorSteps = qFloor( secondsMajor / secondsMinor );
+            const int numMinorSteps = qwtFloor( secondsMajor / secondsMinor );
 
             for ( int i = 1; i < numMinorSteps; i++ )
             {
@@ -660,7 +660,7 @@ static QwtScaleDiv qwtDivideToYears(
 
     int numMinorSteps = 0;
     if ( minStepSize > 0.0 )
-        numMinorSteps = qFloor( stepSize / minStepSize );
+        numMinorSteps = qwtFloor( stepSize / minStepSize );
 
     bool dateBC = minDate.date().year() < -1;
 
@@ -1017,7 +1017,7 @@ QwtScaleDiv QwtDateScaleEngine::divideScale( double x1, double x2,
         // ( even days might have 23/25 hours because of daylight saving )
         // the stepSize is used as a hint only
 
-        maxMajorSteps = qCeil( ( max - min ) / stepSize );
+        maxMajorSteps = qwtCeil( ( max - min ) / stepSize );
     }
 
     const QwtDate::IntervalType intvType = 

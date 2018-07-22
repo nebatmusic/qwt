@@ -19,7 +19,6 @@
 
 #include <qpainter.h>
 #include <qevent.h>
-#include <qmath.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
 
@@ -585,7 +584,7 @@ void QwtScaleWidget::layoutScale( bool update_geometry )
     d_data->scaleDraw->move( x, y );
     d_data->scaleDraw->setLength( length );
 
-    const int extent = qCeil( d_data->scaleDraw->extent( font() ) );
+    const int extent = qwtCeil( d_data->scaleDraw->extent( font() ) );
 
     d_data->titleOffset =
         d_data->margin + d_data->spacing + colorBarWidth + extent;
@@ -751,7 +750,7 @@ QSize QwtScaleWidget::minimumSizeHint() const
 
 int QwtScaleWidget::titleHeightForWidth( int width ) const
 {
-    return qCeil( d_data->title.heightForWidth( width, font() ) );
+    return qwtCeil( d_data->title.heightForWidth( width, font() ) );
 }
 
 /*!
@@ -765,7 +764,7 @@ int QwtScaleWidget::titleHeightForWidth( int width ) const
 
 int QwtScaleWidget::dimForLength( int length, const QFont &scaleFont ) const
 {
-    const int extent = qCeil( d_data->scaleDraw->extent( scaleFont ) );
+    const int extent = qwtCeil( d_data->scaleDraw->extent( scaleFont ) );
 
     int dim = d_data->margin + extent + 1;
 

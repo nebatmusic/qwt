@@ -10,12 +10,12 @@
 #include "qwt_symbol.h"
 #include "qwt_painter.h"
 #include "qwt_graphic.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpainterpath.h>
 #include <qpixmap.h>
 #include <qpaintengine.h>
-#include <qmath.h>
 #ifndef QWT_NO_SVG
 #include <qsvgrenderer.h>
 #endif
@@ -337,8 +337,8 @@ static inline void qwtDrawTriangleSymbols(
 
     if ( doAlign )
     {
-        sw2 = qFloor( sw2 );
-        sh2 = qFloor( sh2 );
+        sw2 = std::floor( sw2 );
+        sh2 = std::floor( sh2 );
     }
 
     QPolygonF triangle( 3 );
@@ -441,8 +441,8 @@ static inline void qwtDrawLineSymbols(
 
     if ( QwtPainter::roundingAlignment( painter ) )
     {
-        const int sw = qFloor( size.width() );
-        const int sh = qFloor( size.height() );
+        const int sw = qwtFloor( size.width() );
+        const int sh = qwtFloor( size.height() );
         const int sw2 = size.width() / 2;
         const int sh2 = size.height() / 2;
 
@@ -734,8 +734,8 @@ static inline void qwtDrawHexagonSymbols( QPainter *painter,
         double y1 = y - 2 * dy;
         if ( doAlign )
         {
-            x1 = qCeil( x1 );
-            y1 = qCeil( y1 );
+            x1 = std::ceil( x1 );
+            y1 = std::ceil( y1 );
         }
 
         const double x2 = x1 + 1 * dx;
@@ -1748,10 +1748,10 @@ QRect QwtSymbol::boundingRect() const
     }
 
     QRect r;
-    r.setLeft( qFloor( rect.left() ) );
-    r.setTop( qFloor( rect.top() ) );
-    r.setRight( qCeil( rect.right() ) );
-    r.setBottom( qCeil( rect.bottom() ) );
+    r.setLeft( qwtFloor( rect.left() ) );
+    r.setTop( qwtFloor( rect.top() ) );
+    r.setRight( qwtCeil( rect.right() ) );
+    r.setBottom( qwtCeil( rect.bottom() ) );
 
     if ( d_data->style != QwtSymbol::Pixmap )
         r.adjust( -1, -1, 1, 1 ); // for antialiasing

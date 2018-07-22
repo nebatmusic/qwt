@@ -10,11 +10,11 @@
 #include "qwt_plot_textlabel.h"
 #include "qwt_painter.h"
 #include "qwt_text.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpaintengine.h>
 #include <qpixmap.h>
-#include <qmath.h>
 
 static QRect qwtItemRect( int renderFlags,
     const QRectF &rect, const QSizeF &itemSize ) 
@@ -213,10 +213,10 @@ void QwtPlotTextLabel::draw( QPainter *painter,
             pw = qMax( d_data->text.borderPen().width(), 1 );
 
         QRect pixmapRect; 
-        pixmapRect.setLeft( qFloor( rect.left() ) - pw );
-        pixmapRect.setTop( qFloor( rect.top() ) - pw );
-        pixmapRect.setRight( qCeil( rect.right() ) + pw );
-        pixmapRect.setBottom( qCeil( rect.bottom() ) + pw );
+        pixmapRect.setLeft( qwtFloor( rect.left() ) - pw );
+        pixmapRect.setTop( qwtFloor( rect.top() ) - pw );
+        pixmapRect.setRight( qwtCeil( rect.right() ) + pw );
+        pixmapRect.setBottom( qwtCeil( rect.bottom() ) + pw );
         
 #if QT_VERSION >= 0x050000
         const qreal pixelRatio = QwtPainter::devicePixelRatio( painter->device() );

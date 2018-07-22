@@ -169,9 +169,9 @@ void QwtRoundScaleDraw::drawLabel( QPainter *painter, double value ) const
     const double arc = qwtRadians( tval );
 
     const double x = d_data->center.x() +
-        ( radius + sz.width() / 2.0 ) * qSin( arc );
+        ( radius + sz.width() / 2.0 ) * std::sin( arc );
     const double y = d_data->center.y() -
-        ( radius + sz.height() / 2.0 ) * qCos( arc );
+        ( radius + sz.height() / 2.0 ) * std::cos( arc );
 
     const QRectF r( x - sz.width() / 2, y - sz.height() / 2,
         sz.width(), sz.height() );
@@ -203,8 +203,8 @@ void QwtRoundScaleDraw::drawTick( QPainter *painter, double value, double len ) 
     {
         const double arc = qwtRadians( tval );
 
-        const double sinArc = qSin( arc );
-        const double cosArc = qCos( arc );
+        const double sinArc = std::sin( arc );
+        const double cosArc = std::cos( arc );
 
         const double x1 = cx + radius * sinArc;
         const double x2 = cx + ( radius + len ) * sinArc;
@@ -279,10 +279,10 @@ double QwtRoundScaleDraw::extent( const QFont &font ) const
                 const QSizeF sz = label.textSize( font );
                 const double off = qMax( sz.width(), sz.height() );
 
-                double x = off * qSin( arc );
-                double y = off * qCos( arc );
+                double x = off * std::sin( arc );
+                double y = off * std::cos( arc );
 
-                const double dist = qSqrt( x * x + y * y );
+                const double dist = std::sqrt( x * x + y * y );
                 if ( dist > d )
                     d = dist;
             }

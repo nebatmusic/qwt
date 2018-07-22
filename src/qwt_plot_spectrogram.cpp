@@ -12,12 +12,11 @@
 #include "qwt_interval.h"
 #include "qwt_scale_map.h"
 #include "qwt_color_map.h"
+#include "qwt_math.h"
 
 #include <qimage.h>
 #include <qpen.h>
 #include <qpainter.h>
-#include <qmath.h>
-#include <qalgorithms.h>
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
@@ -639,8 +638,8 @@ QSize QwtPlotSpectrogram::contourRasterSize(
     const QRectF pixelRect = pixelHint( area );
     if ( !pixelRect.isEmpty() )
     {
-        const QSize res( qCeil( rect.width() / pixelRect.width() ),
-            qCeil( rect.height() / pixelRect.height() ) );
+        const QSize res( qwtCeil( rect.width() / pixelRect.width() ),
+            qwtCeil( rect.height() / pixelRect.height() ) );
         raster = raster.boundedTo( res );
     }
 

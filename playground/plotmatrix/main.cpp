@@ -3,9 +3,9 @@
 #include <qwt_plot_grid.h>
 #include <qwt_plot.h>
 #include <qwt_scale_widget.h>
+#include <qwt_math.h>
 
 #include <qapplication.h>
-#include <qmath.h>
 
 class MainWindow: public PlotMatrix
 {
@@ -22,14 +22,14 @@ MainWindow::MainWindow():
 
     for ( int row = 0; row < numRows(); row++ )
     {
-        const double v = qPow( 10.0, row );
+        const double v = std::pow( 10.0, row );
         setAxisScale( QwtPlot::yLeft, row, -v, v );
         setAxisScale( QwtPlot::yRight, row, -v, v );
     }
 
     for ( int col = 0; col < numColumns(); col++ )
     {
-        const double v = qPow( 10.0, col );
+        const double v = std::pow( 10.0, col );
         setAxisScale( QwtPlot::xBottom, col, -v, v );
         setAxisScale( QwtPlot::xTop, col, -v, v );
     }

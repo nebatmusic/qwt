@@ -11,11 +11,11 @@
 #include "qwt_painter.h"
 #include "qwt_scale_draw.h"
 #include "qwt_scale_map.h"
+#include "qwt_math.h"
 
 #include <qevent.h>
 #include <qdrawutil.h>
 #include <qpainter.h>
-#include <qmath.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qapplication.h>
@@ -954,7 +954,7 @@ QSize QwtSlider::minimumSizeHint() const
         }
 
         scaleExtent += d_data->spacing;
-        scaleExtent += qCeil( scaleDraw()->extent( font() ) );
+        scaleExtent += qwtCeil( scaleDraw()->extent( font() ) );
     }
 
     sliderLength = qMax( sliderLength, 84 ); // from QSlider

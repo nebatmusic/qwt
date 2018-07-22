@@ -8,11 +8,11 @@
  *****************************************************************************/
 
 #include "qwt_date.h"
+#include "qwt_math.h"
 
 #include <qdebug.h>
 #include <qlocale.h>
 
-#include <cmath>
 #include <limits>
 
 #if QT_VERSION >= 0x050000
@@ -265,10 +265,10 @@ static inline double qwtToJulianDay( int year, int month, int day )
 
     const int m1 = ( month - 14 ) / 12;
     const int m2 = ( 367 * ( month - 2 - 12 * m1 ) ) / 12;
-    const double y1 = ::floor( ( 4900.0 + year + m1 ) / 100 );
+    const double y1 = std::floor( ( 4900.0 + year + m1 ) / 100 );
 
-    return ::floor( ( 1461.0 * ( year + 4800 + m1 ) ) / 4 ) + m2
-            - ::floor( ( 3 * y1 ) / 4 ) + day - 32075;
+    return std::floor( ( 1461.0 * ( year + 4800 + m1 ) ) / 4 ) + m2
+            - std::floor( ( 3 * y1 ) / 4 ) + day - 32075;
 }
 
 static inline qint64 qwtFloorDiv64( qint64 a, int b )
@@ -301,10 +301,10 @@ static inline QDate qwtToDate( int year, int month = 1, int day = 1 )
 
         const int m1 = ( month - 14 ) / 12;
         const int m2 = ( 367 * ( month - 2 - 12 * m1 ) ) / 12;
-        const double y1 = ::floor( ( 4900.0 + year + m1 ) / 100 );
+        const double y1 = std::floor( ( 4900.0 + year + m1 ) / 100 );
 
-        const double jd = ::floor( ( 1461.0 * ( year + 4800 + m1 ) ) / 4 ) + m2
-            - ::floor( ( 3 * y1 ) / 4 ) + day - 32075;
+        const double jd = std::floor( ( 1461.0 * ( year + 4800 + m1 ) ) / 4 ) + m2
+            - std::floor( ( 3 * y1 ) / 4 ) + day - 32075;
 
         if ( jd > maxJulianDayD )
         {
@@ -336,7 +336,7 @@ QDateTime QwtDate::toDateTime( double value, Qt::TimeSpec timeSpec )
 {
     const int msecsPerDay = 86400000;
 
-    const double days = static_cast<qint64>( ::floor( value / msecsPerDay ) );
+    const double days = static_cast<qint64>( std::floor( value / msecsPerDay ) );
 
     const double jd = QwtDate::JulianDayForEpoch + days;
     if ( ( jd > maxJulianDayD ) || ( jd < minJulianDayD ) )

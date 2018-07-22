@@ -15,10 +15,6 @@
 #include <qpolygon.h>
 #include <qrect.h>
 
-#if QT_VERSION < 0x040601
-#define qAtan(x) ::atan(x)
-#endif
-
 namespace QwtClip
 {
     // some templates used for inlining
@@ -306,7 +302,7 @@ double QwtCircleClipper::toAngle(
 
     const double m = qAbs( ( to.y() - from.y() ) / ( to.x() - from.x() ) );
 
-    double angle = qAtan( m );
+    double angle = std::atan( m );
     if ( to.x() > from.x() )
     {
         if ( to.y() > from.y() )
@@ -333,7 +329,7 @@ QVector<QPointF> QwtCircleClipper::cuttingPoints(
         const double x = ( edge == Left ) ? d_rect.left() : d_rect.right();
         if ( qAbs( pos.x() - x ) < radius )
         {
-            const double off = qSqrt( qwtSqr( radius ) - qwtSqr( pos.x() - x ) );
+            const double off = std::sqrt( qwtSqr( radius ) - qwtSqr( pos.x() - x ) );
             const double m_y1 = pos.y() + off;
             if ( m_y1 >= d_rect.top() && m_y1 <= d_rect.bottom() )
                 points += QPointF( x, m_y1 );
@@ -348,7 +344,7 @@ QVector<QPointF> QwtCircleClipper::cuttingPoints(
         const double y = ( edge == Top ) ? d_rect.top() : d_rect.bottom();
         if ( qAbs( pos.y() - y ) < radius )
         {
-            const double off = qSqrt( qwtSqr( radius ) - qwtSqr( pos.y() - y ) );
+            const double off = std::sqrt( qwtSqr( radius ) - qwtSqr( pos.y() - y ) );
             const double x1 = pos.x() + off;
             if ( x1 >= d_rect.left() && x1 <= d_rect.right() )
                 points += QPointF( x1, y );

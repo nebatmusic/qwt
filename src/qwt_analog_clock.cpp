@@ -11,10 +11,10 @@
 #include "qwt_dial_needle.h"
 #include "qwt_round_scale_draw.h"
 #include "qwt_text.h"
+#include "qwt_math.h"
 
 #include <qlocale.h>
 #include <qdatetime.h>
-#include <qmath.h>
 
 namespace
 {
@@ -208,9 +208,9 @@ void QwtAnalogClock::drawNeedle( QPainter *painter, const QPointF &center,
     {
         const double hours = value() / ( 60.0 * 60.0 );
         const double minutes = 
-            ( value() - qFloor(hours) * 60.0 * 60.0 ) / 60.0;
-        const double seconds = value() - qFloor(hours) * 60.0 * 60.0
-            - qFloor(minutes) * 60.0;
+            ( value() - std::floor(hours) * 60.0 * 60.0 ) / 60.0;
+        const double seconds = value() - std::floor(hours) * 60.0 * 60.0
+            - std::floor(minutes) * 60.0;
 
         double angle[NHands];
         angle[HourHand] = 360.0 * hours / 12.0;

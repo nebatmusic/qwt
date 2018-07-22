@@ -3,8 +3,9 @@
 #include "transformplot.h"
 
 #include <qwt_transform.h>
+#include <qwt_math.h>
+
 #include <qsplitter.h>
-#include <qmath.h>
 
 class TransformPos: public QwtTransform
 {
@@ -13,7 +14,7 @@ public:
         d_position( pos ),
         d_range( range ),
         d_factor( factor ),
-        d_powRange( qPow( d_range, d_factor ) )
+        d_powRange( std::pow( d_range, d_factor ) )
     {
     }
 
@@ -36,11 +37,11 @@ public:
 
         if ( value <= d_position )
         {
-            v = v1 + qPow( value - v1, d_factor );
+            v = v1 + std::pow( value - v1, d_factor );
         }
         else
         {
-            v = v1 + 2 * d_powRange - qPow( v2 - value, d_factor );
+            v = v1 + 2 * d_powRange - std::pow( v2 - value, d_factor );
         }
 
         return v;
@@ -64,11 +65,11 @@ public:
         double v;
         if ( value <= v1 + d_powRange )
         {
-            v = v1 + qPow( value - v1, 1.0 / d_factor );
+            v = v1 + std::pow( value - v1, 1.0 / d_factor );
         }
         else
         {
-            v = d_position + d_range - qPow( v2 - value, 1.0 / d_factor );
+            v = d_position + d_range - std::pow( v2 - value, 1.0 / d_factor );
         }
 
         return v;

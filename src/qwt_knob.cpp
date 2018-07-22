@@ -18,12 +18,10 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qevent.h>
-#include <qmath.h>
 #include <qapplication.h>
+#include <qmath.h>
 
 #if QT_VERSION < 0x040601
-#define qAtan2(y, x) ::atan2(y, x)
-#define qFabs(x) ::fabs(x)
 #define qFastCos(x) qCos(x)
 #define qFastSin(x) qSin(x)
 #endif
@@ -35,7 +33,7 @@ static QSize qwtKnobSizeHint( const QwtKnob *knob, int min )
         knobWidth = qMax( 3 * knob->markerSize(), min );
 
     // Add the scale radial thickness to the knobWidth
-    const int extent = qCeil( knob->scaleDraw()->extent( knob->font() ) );
+    const int extent = qwtCeil( knob->scaleDraw()->extent( knob->font() ) );
     const int d = 2 * ( extent + 4 ) + knobWidth;
 
     int left, right, top, bottom;
@@ -252,7 +250,7 @@ void QwtKnob::setNumTurns( int numTurns )
  */
 int QwtKnob::numTurns() const
 {
-    return qCeil( d_data->totalAngle / 360.0 );
+    return qwtCeil( d_data->totalAngle / 360.0 );
 }
 
 /*!
@@ -301,7 +299,7 @@ QRect QwtKnob::knobRect() const
 {
     const QRect cr = contentsRect();
 
-    const int extent = qCeil( scaleDraw()->extent( font() ) );
+    const int extent = qwtCeil( scaleDraw()->extent( font() ) );
     const int d = extent + d_data->scaleDist;
 
     int w = d_data->knobWidth;
@@ -389,7 +387,7 @@ double QwtKnob::scrolledTo( const QPoint &pos ) const
 
         const double v = scaleMap().transform( value() );
 
-        int numTurns = qFloor( ( v - scaleMap().p1() ) / 360.0 );
+        int numTurns = qwtFloor( ( v - scaleMap().p1() ) / 360.0 );
 
         double valueAngle = qwtNormalizeDegrees( v );
         if ( qAbs( valueAngle - angle ) > 180.0 )

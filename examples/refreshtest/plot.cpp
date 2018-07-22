@@ -13,6 +13,7 @@
 
 #ifndef QWT_NO_OPENGL
 #include <qevent.h>
+#include <qpainter.h>
 #include <qwt_plot_glcanvas.h>
 #endif
 
@@ -21,10 +22,10 @@ static double wave( double x )
     const double period = 1.0;
     const double c = 5.0;
 
-    double v = ::fmod( x, period );
+    double v = std::fmod( x, period );
 
     const double amplitude = qAbs( x - qRound( x / c ) * c ) / ( 0.5 * c );
-    v = amplitude * qSin( v / period * 2 * M_PI );
+    v = amplitude * std::sin( v / period * 2 * M_PI );
 
     return v;
 }

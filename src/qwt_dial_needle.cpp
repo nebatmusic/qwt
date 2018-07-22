@@ -12,10 +12,11 @@
 
 #include <qapplication.h>
 #include <qpainter.h>
+#include <qmath.h>
 
 #if QT_VERSION < 0x040601
-#define qFastSin(x) qSin(x)
-#define qFastCos(x) qCos(x)
+#define qFastSin(x) std::sin(x)
+#define qFastCos(x) std::cos(x)
 #endif
 
 static void qwtDrawStyle1Needle( QPainter *painter,

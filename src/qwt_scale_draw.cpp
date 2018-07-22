@@ -15,10 +15,11 @@
 #include "qwt_text.h"
 
 #include <qpainter.h>
+#include <qmath.h>
 
 #if QT_VERSION < 0x040601
-#define qFastSin(x) qSin(x)
-#define qFastCos(x) qCos(x)
+#define qFastSin(x) std::sin(x)
+#define qFastCos(x) std::cos(x)
 #endif
 
 class QwtScaleDraw::PrivateData
@@ -178,8 +179,8 @@ void QwtScaleDraw::getBorderDistHint(
     if ( e < 0.0 )
         e = 0.0;
 
-    start = qCeil( s );
-    end = qCeil( e );
+    start = qwtCeil( s );
+    end = qwtCeil( e );
 }
 
 /*!
