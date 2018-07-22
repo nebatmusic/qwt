@@ -820,7 +820,8 @@ void QwtLogScaleEngine::autoScale( int maxNumSteps,
         linearScaler.autoScale( maxNumSteps, x1, x2, stepSize );
 
         QwtInterval linearInterval = QwtInterval( x1, x2 ).normalized();
-        linearInterval = linearInterval.limited( LOG_MIN, LOG_MAX );
+        linearInterval = linearInterval.limited(
+            QwtLogTransform::LogMin, QwtLogTransform::LogMax );
 
         if ( linearInterval.maxValue() / linearInterval.minValue() < logBase )
         {
@@ -830,8 +831,8 @@ void QwtLogScaleEngine::autoScale( int maxNumSteps,
     }
 
     double logRef = 1.0;
-    if ( reference() > LOG_MIN / 2 )
-        logRef = qMin( reference(), LOG_MAX / 2 );
+    if ( reference() > QwtLogTransform::LogMin / 2 )
+        logRef = qMin( reference(), QwtLogTransform::LogMax / 2 );
 
     if ( testAttribute( QwtScaleEngine::Symmetric ) )
     {
@@ -843,7 +844,7 @@ void QwtLogScaleEngine::autoScale( int maxNumSteps,
     if ( testAttribute( QwtScaleEngine::IncludeReference ) )
         interval = interval.extend( logRef );
 
-    interval = interval.limited( LOG_MIN, LOG_MAX );
+    interval = interval.limited( QwtLogTransform::LogMin, QwtLogTransform::LogMax );
 
     if ( interval.width() == 0.0 )
         interval = buildInterval( interval.minValue() );
@@ -882,7 +883,7 @@ QwtScaleDiv QwtLogScaleEngine::divideScale( double x1, double x2,
     int maxMajorSteps, int maxMinorSteps, double stepSize ) const
 {
     QwtInterval interval = QwtInterval( x1, x2 ).normalized();
-    interval = interval.limited( LOG_MIN, LOG_MAX );
+    interval = interval.limited( QwtLogTransform::LogMin, QwtLogTransform::LogMax );
 
     if ( interval.width() <= 0 )
         return QwtScaleDiv();
