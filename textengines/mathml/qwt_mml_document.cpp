@@ -3435,6 +3435,9 @@ QwtMmlNode *QwtMmlDocument::domToMml( const QDomNode &dom_node, bool *ok, QStrin
             }
 
             // ...and continue just as in ChildAny
+#ifdef Q_FALLTHROUGH
+            Q_FALLTHROUGH();
+#endif
 
         case QwtMmlNodeSpec::ChildAny:
             if ( mml_type == MfencedNode )
