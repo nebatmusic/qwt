@@ -84,18 +84,6 @@
 #define M_SQRT1_2 (0.70710678118654752440)
 #endif
 
-#if 1
-#ifndef LOG_MIN
-//! Minimum value for logarithmic scales
-#define LOG_MIN 1.0e-100
-#endif
-
-#ifndef LOG_MAX
-//! Maximum value for logarithmic scales
-#define LOG_MAX 1.0e100
-#endif
-#endif
-
 QWT_EXPORT double qwtNormalizeRadians( double radians );
 QWT_EXPORT double qwtNormalizeDegrees( double degrees );
 
