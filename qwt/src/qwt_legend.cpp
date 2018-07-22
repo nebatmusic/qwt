@@ -686,10 +686,10 @@ void QwtLegend::renderLegend( QPainter *painter,
     getContentsMargins( &left, &top, &right, &bottom );
 
     QRect layoutRect;
-    layoutRect.setLeft( qCeil( rect.left() ) + left );
-    layoutRect.setTop( qCeil( rect.top() ) + top );
-    layoutRect.setRight( qFloor( rect.right() ) - right );
-    layoutRect.setBottom( qFloor( rect.bottom() ) - bottom );
+    layoutRect.setLeft( qwtCeil( rect.left() ) + left );
+    layoutRect.setTop( qwtCeil( rect.top() ) + top );
+    layoutRect.setRight( qwtFloor( rect.right() ) - right );
+    layoutRect.setBottom( qwtFloor( rect.bottom() ) - bottom );
 
     uint numCols = legendLayout->columnsForWidth( layoutRect.width() );
     const QList<QRect> itemRects =

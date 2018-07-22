@@ -9,6 +9,7 @@
 
 #include "qwt_graphic.h"
 #include "qwt_painter_command.h"
+#include "qwt_math.h"
 
 #include <qvector.h>
 #include <qpainter.h>
@@ -16,7 +17,6 @@
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qpainterpath.h>
-#include <qmath.h>
 
 static bool qwtHasScalablePen( const QPainter *painter )
 {
@@ -511,7 +511,7 @@ QRectF QwtGraphic::scaledBoundingRect( double sx, double sy ) const
 QSize QwtGraphic::sizeMetrics() const
 {
     const QSizeF sz = defaultSize();
-    return QSize( qCeil( sz.width() ), qCeil( sz.height() ) );
+    return QSize( qwtCeil( sz.width() ), qwtCeil( sz.height() ) );
 }
 
 /*!
@@ -746,8 +746,8 @@ QPixmap QwtGraphic::toPixmap() const
 
     const QSizeF sz = defaultSize();
 
-    const int w = qCeil( sz.width() );
-    const int h = qCeil( sz.height() );
+    const int w = qwtCeil( sz.width() );
+    const int h = qwtCeil( sz.height() );
 
     QPixmap pixmap( w, h );
     pixmap.fill( Qt::transparent );
@@ -838,8 +838,8 @@ QImage QwtGraphic::toImage() const
 
     const QSizeF sz = defaultSize();
 
-    const int w = qCeil( sz.width() );
-    const int h = qCeil( sz.height() );
+    const int w = qwtCeil( sz.width() );
+    const int h = qwtCeil( sz.height() );
 
     QImage image( w, h, QImage::Format_ARGB32 );
     image.fill( 0 );

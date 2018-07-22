@@ -11,6 +11,7 @@
 #include "qwt_scale_map.h"
 #include "qwt_pixel_matrix.h"
 #include "qwt_series_data.h"
+#include "qwt_math.h"
 
 #include <qpolygon.h>
 #include <qimage.h>
@@ -20,8 +21,6 @@
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
-
-#include <cmath>
 
 #if !defined(QT_NO_QFUTURE)
 #define QWT_USE_THREADS 1
@@ -38,7 +37,7 @@ static inline double qwtRoundValueF( double value )
 {
 #if 1
     // MS Windows and at least IRIX does not have C99's nearbyint() function
-    return ( value >= 0.0 ) ? ::floor( value + 0.5 ) : ::ceil( value - 0.5 );
+    return ( value >= 0.0 ) ? std::floor( value + 0.5 ) : std::ceil( value - 0.5 );
 #else
     return nearbyint( value );
 #endif

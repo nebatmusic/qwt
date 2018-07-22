@@ -13,11 +13,11 @@
 #include "qwt_scale_map.h"
 #include "qwt_round_scale_draw.h"
 #include "qwt_painter.h"
+
 #include <qpainter.h>
 #include <qpalette.h>
 #include <qpixmap.h>
 #include <qevent.h>
-#include <qmath.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qapplication.h>
@@ -254,7 +254,7 @@ QRect QwtDial::scaleInnerRect() const
     const QwtAbstractScaleDraw *sd = scaleDraw();
     if ( sd )
     {
-        int scaleDist = qCeil( sd->extent( font() ) );
+        int scaleDist = qwtCeil( sd->extent( font() ) );
         scaleDist++; // margin
 
         rect.adjust( scaleDist, scaleDist, -scaleDist, -scaleDist );
@@ -591,9 +591,9 @@ void QwtDial::setScaleDraw( QwtRoundScaleDraw *scaleDraw )
 void QwtDial::setScaleArc( double minArc, double maxArc )
 {
     if ( minArc != 360.0 && minArc != -360.0 )
-        minArc = ::fmod( minArc, 360.0 );
+        minArc = std::fmod( minArc, 360.0 );
     if ( maxArc != 360.0 && maxArc != -360.0 )
-        maxArc = ::fmod( maxArc, 360.0 );
+        maxArc = std::fmod( maxArc, 360.0 );
 
     double minScaleArc = qMin( minArc, maxArc );
     double maxScaleArc = qMax( minArc, maxArc );
@@ -687,7 +687,7 @@ QSize QwtDial::sizeHint() const
 {
     int sh = 0;
     if ( scaleDraw() )
-        sh = qCeil( scaleDraw()->extent( font() ) );
+        sh = qwtCeil( scaleDraw()->extent( font() ) );
 
     const int d = 6 * sh + 2 * lineWidth();
 
@@ -706,7 +706,7 @@ QSize QwtDial::minimumSizeHint() const
 {
     int sh = 0;
     if ( scaleDraw() )
-        sh = qCeil( scaleDraw()->extent( font() ) );
+        sh = qwtCeil( scaleDraw()->extent( font() ) );
 
     const int d = 3 * sh + 2 * lineWidth();
 

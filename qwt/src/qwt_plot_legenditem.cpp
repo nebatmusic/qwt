@@ -12,12 +12,12 @@
 #include "qwt_text.h"
 #include "qwt_graphic.h"
 #include "qwt_legend_data.h"
+#include "qwt_math.h"
 
 #include <qlayoutitem.h>
 #include <qpen.h>
 #include <qbrush.h>
 #include <qpainter.h>
-#include <qmath.h>
 
 namespace
 {
@@ -660,12 +660,12 @@ QRect QwtPlotLegendItem::geometry( const QRectF &canvasRect ) const
     else if ( d_data->canvasAlignment & Qt::AlignRight )
     {
         const int offset = offsetInCanvas( Qt::Horizontal );
-        rect.moveRight( qFloor( canvasRect.right() - offset ) );
+        rect.moveRight( qwtFloor( canvasRect.right() - offset ) );
     }
     else 
     {
         const int offset = offsetInCanvas( Qt::Horizontal );
-        rect.moveLeft( qCeil( canvasRect.left() + offset ) );
+        rect.moveLeft( qwtCeil( canvasRect.left() + offset ) );
     }
 
     if ( d_data->canvasAlignment & Qt::AlignVCenter )
@@ -676,12 +676,12 @@ QRect QwtPlotLegendItem::geometry( const QRectF &canvasRect ) const
     else if ( d_data->canvasAlignment & Qt::AlignBottom )
     {
         const int offset = offsetInCanvas( Qt::Vertical );
-        rect.moveBottom( qFloor( canvasRect.bottom() - offset ) );
+        rect.moveBottom( qwtFloor( canvasRect.bottom() - offset ) );
     }
     else 
     {
         const int offset = offsetInCanvas( Qt::Vertical );
-        rect.moveTop( qCeil( canvasRect.top() + offset ) ); 
+        rect.moveTop( qwtCeil( canvasRect.top() + offset ) ); 
     }
 
     return rect;
@@ -844,8 +844,8 @@ QSize QwtPlotLegendItem::minimumSize( const QwtLegendData &data ) const
     {
         const QSizeF sz = text.textSize( font() );
 
-        w += qCeil( sz.width() );
-        h = qMax( h, qCeil( sz.height() ) );
+        w += qwtCeil( sz.width() );
+        h = qMax( h, qwtCeil( sz.height() ) );
     }
 
     if ( graphic.width() > 0 && !text.isEmpty() )

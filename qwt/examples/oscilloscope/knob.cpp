@@ -7,6 +7,7 @@
 
 #include <qlabel.h>
 #include <qevent.h>
+#include <qmath.h>
 
 Knob::Knob( const QString &title, double min, double max, QWidget *parent ):
     QWidget( parent )

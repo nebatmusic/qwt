@@ -7,8 +7,8 @@
 #include <qdom.h>
 #include <qfontdatabase.h>
 #include <qmap.h>
-#include <qmath.h>
 #include <qpainter.h>
+#include <qmath.h>
 
 // *******************************************************************
 // Declarations
@@ -1545,6 +1545,10 @@ QwtMmlNode *QwtMmlDocument::domToMml( const QDomNode &dom_node, bool *ok,
                 *ok = false;
                 return 0;
             }
+
+#ifdef Q_FALLTHROUGH
+            Q_FALLTHROUGH();
+#endif
 
             // ...and continue just as in ChildAny
 

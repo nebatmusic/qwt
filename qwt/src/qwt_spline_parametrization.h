@@ -11,8 +11,8 @@
 #define QWT_SPLINE_PARAMETRIZATION_H
 
 #include "qwt_global.h"
+#include "qwt_math.h"
 
-#include <qmath.h>
 #include <qpoint.h>
 
 /*!
@@ -182,7 +182,7 @@ inline double QwtSplineParametrization::valueIncrementChordal(
     const double dx = point2.x() - point1.x();
     const double dy = point2.y() - point1.y();
 
-    return qSqrt( dx * dx + dy * dy );
+    return std::sqrt( dx * dx + dy * dy );
 }
 
 /*!
@@ -196,7 +196,7 @@ inline double QwtSplineParametrization::valueIncrementChordal(
 inline double QwtSplineParametrization::valueIncrementCentripetal(
     const QPointF &point1, const QPointF &point2 )
 {
-    return qSqrt( valueIncrementChordal( point1, point2 ) );
+    return std::sqrt( valueIncrementChordal( point1, point2 ) );
 }
 
 /*!

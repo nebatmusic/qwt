@@ -9,10 +9,6 @@
 #include "qwt_point_polar.h"
 #include "qwt_math.h"
 
-#if QT_VERSION < 0x040601
-#define qAtan2(y, x) ::atan2(y, x)
-#endif
-
 /*!
    Convert and assign values from a point in Cartesian coordinates
 
@@ -21,8 +17,8 @@
 */
 QwtPointPolar::QwtPointPolar( const QPointF &p )
 {
-    d_radius = qSqrt( qwtSqr( p.x() ) + qwtSqr( p.y() ) );
-    d_azimuth = qAtan2( p.y(), p.x() );
+    d_radius = std::sqrt( qwtSqr( p.x() ) + qwtSqr( p.y() ) );
+    d_azimuth = std::atan2( p.y(), p.x() );
 }
 
 /*!
@@ -31,8 +27,8 @@ QwtPointPolar::QwtPointPolar( const QPointF &p )
 */
 void QwtPointPolar::setPoint( const QPointF &p )
 {
-    d_radius = qSqrt( qwtSqr( p.x() ) + qwtSqr( p.y() ) );
-    d_azimuth = qAtan2( p.y(), p.x() );
+    d_radius = std::sqrt( qwtSqr( p.x() ) + qwtSqr( p.y() ) );
+    d_azimuth = std::atan2( p.y(), p.x() );
 }
 
 /*!
@@ -48,8 +44,8 @@ QPointF QwtPointPolar::toPoint() const
     if ( d_radius <= 0.0 )
         return QPointF( 0.0, 0.0 );
 
-    const double x = d_radius * qCos( d_azimuth );
-    const double y = d_radius * qSin( d_azimuth );
+    const double x = d_radius * std::cos( d_azimuth );
+    const double y = d_radius * std::sin( d_azimuth );
 
     return QPointF( x, y );
 }
@@ -99,7 +95,7 @@ QwtPointPolar QwtPointPolar::normalized() const
 
     double azimuth = d_azimuth;
     if ( azimuth < -2.0 * M_PI || azimuth >= 2 * M_PI )
-        azimuth = ::fmod( d_azimuth, 2 * M_PI );
+        azimuth = std::fmod( d_azimuth, 2 * M_PI );
 
     if ( azimuth < 0.0 )
         azimuth += 2 * M_PI;

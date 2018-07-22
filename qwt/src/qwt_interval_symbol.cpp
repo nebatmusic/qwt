@@ -12,11 +12,11 @@
 #include "qwt_math.h"
 
 #include <qpainter.h>
+#include <qmath.h>
 
 #if QT_VERSION < 0x040601
-#define qAtan2(y, x) ::atan2(y, x)
-#define qFastSin(x) qSin(x)
-#define qFastCos(x) qCos(x)
+#define qFastSin(x) std::sin(x)
+#define qFastCos(x) std::cos(x)
 #endif
 
 class QwtIntervalSymbol::PrivateData
@@ -250,7 +250,7 @@ void QwtIntervalSymbol::draw( QPainter *painter, Qt::Orientation orientation,
 
                     const double dx = p2.x() - p1.x();
                     const double dy = p2.y() - p1.y();
-                    const double angle = qAtan2( dy, dx ) + M_PI_2;
+                    const double angle = std::atan2( dy, dx ) + M_PI_2;
                     double dw2 = sw / 2.0;
 
                     const double cx = qFastCos( angle ) * dw2;
@@ -298,7 +298,7 @@ void QwtIntervalSymbol::draw( QPainter *painter, Qt::Orientation orientation,
 
                     const double dx = p2.x() - p1.x();
                     const double dy = p2.y() - p1.y();
-                    const double angle = qAtan2( dy, dx ) + M_PI_2;
+                    const double angle = std::atan2( dy, dx ) + M_PI_2;
                     double dw2 = sw / 2.0;
 
                     const double cx = qFastCos( angle ) * dw2;

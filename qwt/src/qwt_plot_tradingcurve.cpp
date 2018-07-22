@@ -454,7 +454,7 @@ void QwtPlotTradingCurve::drawSymbols( QPainter *painter,
 
     double symbolWidth = scaledSymbolWidth( xMap, yMap, canvasRect );
     if ( doAlign )
-        symbolWidth = qFloor( 0.5 * symbolWidth ) * 2.0;
+        symbolWidth = std::floor( 0.5 * symbolWidth ) * 2.0;
 
     QPen pen = d_data->symbolPen;
     pen.setCapStyle( Qt::FlatCap );

@@ -446,7 +446,7 @@ void QwtMagnifier::widgetWheelEvent( QWheelEvent *wheelEvent )
             in which case the delta value is a multiple
             of 120 (== 15 * 8).
          */
-        double f = qPow( d_data->wheelFactor, 
+        double f = std::pow( d_data->wheelFactor, 
             qAbs( wheelEvent->delta() / 120.0 ) );
 
         if ( wheelEvent->delta() > 0 )

@@ -15,6 +15,8 @@
 #include <qimage.h>
 #include <qevent.h>
 
+#include <cstdlib>
+
 static QImage::Format qwtMaskImageFormat()
 {
     if ( QwtPainter::isX11GraphicsSystem() )
@@ -98,7 +100,7 @@ public:
     {
         if ( rgbaBuffer )
         {
-            ::free( rgbaBuffer );
+            std::free( rgbaBuffer );
             rgbaBuffer = NULL;
         }
     }

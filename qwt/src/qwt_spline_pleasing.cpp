@@ -17,7 +17,7 @@ static inline double qwtChordalLength( const QPointF &point1, const QPointF &poi
     const double dx = point2.x() - point1.x();
     const double dy = point2.y() - point1.y();
 
-    return qSqrt( dx * dx + dy * dy );
+    return std::sqrt( dx * dx + dy * dy );
 }
 
 template< class Param >

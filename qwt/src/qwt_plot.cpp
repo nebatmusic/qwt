@@ -17,8 +17,8 @@
 #include "qwt_legend.h"
 #include "qwt_legend_data.h"
 #include "qwt_plot_canvas.h"
+#include "qwt_math.h"
 
-#include <qmath.h>
 #include <qpainter.h>
 #include <qpointer.h>
 #include <qapplication.h>
@@ -714,7 +714,7 @@ void QwtPlot::updateCanvasMargins()
     {
         if ( margins[axisId] >= 0.0 )
         {
-            const int m = qCeil( margins[axisId] );
+            const int m = qwtCeil( margins[axisId] );
             plotLayout()->setCanvasMargin( m, axisId);
             doUpdate = true;
         }

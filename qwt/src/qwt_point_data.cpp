@@ -37,10 +37,10 @@ QwtPointArrayData::QwtPointArrayData( const double *x,
         const double *y, size_t size )
 {
     d_x.resize( size );
-    ::memcpy( d_x.data(), x, size * sizeof( double ) );
+    std::memcpy( d_x.data(), x, size * sizeof( double ) );
 
     d_y.resize( size );
-    ::memcpy( d_y.data(), y, size * sizeof( double ) );
+    std::memcpy( d_y.data(), y, size * sizeof( double ) );
 }
 
 /*!

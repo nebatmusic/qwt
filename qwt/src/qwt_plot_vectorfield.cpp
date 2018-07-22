@@ -12,12 +12,13 @@
 #include "qwt_painter.h"
 #include "qwt_text.h"
 #include "qwt_graphic.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpainterpath.h>
 #include <qdebug.h>
 
-#include <cmath>
+#include <cstdlib>
 
 #define DEBUG_RENDER 0
 
@@ -25,14 +26,13 @@
 #include <qelapsedtimer.h>
 #endif
 
-#include <cstdlib>
 
 static inline double qwtVector2Radians( double vx, double vy )
 {
     if ( vx == 0.0 )
         return ( vy >= 0 ) ? M_PI_2 : 3 * M_PI_2;
 
-    return ::atan2( vy, vx );
+    return std::atan2( vy, vx );
 }
 
 static inline double qwtVector2Magnitude( double vx, double vy )
@@ -139,7 +139,7 @@ namespace
         ~FilterMatrix()
         {
             if ( d_entries )
-                ::free( d_entries );
+                std::free( d_entries );
         }
 
         inline int numColumns() const

@@ -13,8 +13,6 @@
 #include <qapplication.h>
 #include <qlayout.h>
 
-#include <cmath>
-
 //-----------------------------------------------------------------
 //      A simple example which shows how to use QwtPlot connected
 //      to a data class without any storage, calculating each values
@@ -137,8 +135,8 @@ void Plot::populate()
     cCos->attach( this );
 
     // Create sin and cos data
-    cSin->setData( new FunctionData( ::sin ) );
-    cCos->setData( new FunctionData( ::cos ) );
+    cSin->setData( new FunctionData( std::sin ) );
+    cCos->setData( new FunctionData( std::cos ) );
 
     // Insert markers
 
@@ -167,7 +165,7 @@ void Plot::populate()
     mPos->setRenderHint( QwtPlotItem::RenderAntialiased, true );
     mPos->setItemAttribute( QwtPlotItem::Legend, true );
     mPos->setSymbol( new ArrowSymbol() );
-    mPos->setValue( QPointF( x, ::sin( x ) ) );
+    mPos->setValue( QPointF( x, std::sin( x ) ) );
     mPos->setLabel( QString( "x = %1" ).arg( x ) );
     mPos->setLabelAlignment( Qt::AlignRight | Qt::AlignBottom );
     mPos->attach( this );

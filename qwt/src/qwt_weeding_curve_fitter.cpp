@@ -15,10 +15,6 @@
 #include <qstack.h>
 #include <qvector.h>
 
-#if QT_VERSION < 0x040601
-#define qFabs(x) ::fabs(x)
-#endif
-
 class QwtWeedingCurveFitter::PrivateData
 {
 public:
@@ -181,7 +177,7 @@ QPolygonF QwtWeedingCurveFitter::simplify( const QPolygonF &points ) const
         const double vecX = p[r.to].x() - p[r.from].x();
         const double vecY = p[r.to].y() - p[r.from].y();
 
-        const double vecLength = qSqrt( vecX * vecX + vecY * vecY );
+        const double vecLength = std::sqrt( vecX * vecX + vecY * vecY );
 
         const double unitVecX = ( vecLength != 0.0 ) ? vecX / vecLength : 0.0;
         const double unitVecY = ( vecLength != 0.0 ) ? vecY / vecLength : 0.0;
@@ -212,7 +208,7 @@ QPolygonF QwtWeedingCurveFitter::simplify( const QPolygonF &points ) const
                 }
                 else
                 {
-                    distToSegmentSqr = qFabs( toVecLength - s * s );
+                    distToSegmentSqr = std::fabs( toVecLength - s * s );
                 }
             }
 

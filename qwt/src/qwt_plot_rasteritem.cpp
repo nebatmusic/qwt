@@ -12,10 +12,10 @@
 #include "qwt_painter.h"
 #include "qwt_text.h"
 #include "qwt_interval.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpaintengine.h>
-#include <qmath.h>
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
@@ -315,10 +315,10 @@ static QRectF qwtExpandToPixels(const QRectF &rect, const QRectF &pixelRect)
     const double dy2 = pixelRect.bottom() - rect.bottom();
 
     QRectF r;
-    r.setLeft( pixelRect.left() - qCeil( dx1 / pw ) * pw );
-    r.setTop( pixelRect.top() - qCeil( dy1 / ph ) * ph );
-    r.setRight( pixelRect.right() - qFloor( dx2 / pw ) * pw );
-    r.setBottom( pixelRect.bottom() - qFloor( dy2 / ph ) * ph );
+    r.setLeft( pixelRect.left() - qwtCeil( dx1 / pw ) * pw );
+    r.setTop( pixelRect.top() - qwtCeil( dy1 / ph ) * ph );
+    r.setRight( pixelRect.right() - qwtFloor( dx2 / pw ) * pw );
+    r.setBottom( pixelRect.bottom() - qwtFloor( dy2 / ph ) * ph );
 
     return r;
 }

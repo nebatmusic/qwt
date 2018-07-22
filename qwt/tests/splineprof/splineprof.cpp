@@ -66,7 +66,7 @@ int main()
 	QPolygonF points;
 
 	for ( int i = 0; i < 10e6; i++ )
-		points += QPointF( i, ::sin( i ) );
+		points += QPointF( i, std::sin( i ) );
 
 #if 1
 	qDebug() << "=== X";

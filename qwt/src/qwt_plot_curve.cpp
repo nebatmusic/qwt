@@ -50,7 +50,7 @@ static void qwtUpdateLegendIconSize( QwtPlotCurve *curve )
         {
             // Avoid, that the line is completely covered by the symbol
 
-            int w = qCeil( 1.5 * sz.width() );
+            int w = qwtCeil( 1.5 * sz.width() );
             if ( w % 2 )
                 w++;
 
@@ -1121,7 +1121,7 @@ int QwtPlotCurve::closestPoint( const QPoint &pos, double *dist ) const
         }
     }
     if ( dist )
-        *dist = qSqrt( dmin );
+        *dist = std::sqrt( dmin );
 
     return index;
 }

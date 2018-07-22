@@ -9,8 +9,7 @@
 
 #include "qwt_series_data.h"
 #include "qwt_point_polar.h"
-
-#include <cmath>
+#include "qwt_math.h"
 
 static inline QRectF qwtBoundingRect( const QPointF &sample )
 {
@@ -367,7 +366,7 @@ double QwtVectorFieldData::maxMagnitude() const
                 max = l;
         }
 
-        d_maxMagnitude = ::sqrt( max );
+        d_maxMagnitude = std::sqrt( max );
     }
 
     return d_maxMagnitude;

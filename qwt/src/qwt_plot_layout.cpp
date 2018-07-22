@@ -12,8 +12,7 @@
 #include "qwt_text_label.h"
 #include "qwt_scale_widget.h"
 #include "qwt_abstract_legend.h"
-
-#include <qmath.h>
+#include "qwt_math.h"
 
 class QwtPlotLayout::LayoutData
 {
@@ -76,7 +75,7 @@ void QwtPlotLayout::LayoutData::init( const QwtPlot *plot, const QRectF &rect )
 
         const QSize hint = plot->legend()->sizeHint();
 
-        const int w = qMin( hint.width(), qFloor( rect.width() ) );
+        const int w = qMin( hint.width(), qwtFloor( rect.width() ) );
 
         int h = plot->legend()->heightForWidth( w );
         if ( h <= 0 )
@@ -590,7 +589,7 @@ QSize QwtPlotLayout::minimumSizeHint( const QwtPlot *plot ) const
             scl->getBorderDistHint( sd.minLeft, sd.minRight );
             sd.tickOffset = scl->margin();
             if ( scl->scaleDraw()->hasComponent( QwtAbstractScaleDraw::Ticks ) )
-                sd.tickOffset += qCeil( scl->scaleDraw()->maxTickLength() );
+                sd.tickOffset += qwtCeil( scl->scaleDraw()->maxTickLength() );
         }
 
         canvasBorder[axis] = fw + d_data->canvasMargin[axis] + 1;
@@ -891,7 +890,7 @@ void QwtPlotLayout::expandLineBreaks( Options options, const QRectF &rect,
                 w -= dimAxis[QwtPlot::yLeft] + dimAxis[QwtPlot::yRight];
             }
 
-            int d = qCeil( d_data->layoutData.title.text.heightForWidth( w ) );
+            int d = qwtCeil( d_data->layoutData.title.text.heightForWidth( w ) );
             if ( !( options & IgnoreFrames ) )
                 d += 2 * d_data->layoutData.title.frameWidth;
 
@@ -914,7 +913,7 @@ void QwtPlotLayout::expandLineBreaks( Options options, const QRectF &rect,
                 w -= dimAxis[QwtPlot::yLeft] + dimAxis[QwtPlot::yRight];
             }
 
-            int d = qCeil( d_data->layoutData.footer.text.heightForWidth( w ) );
+            int d = qwtCeil( d_data->layoutData.footer.text.heightForWidth( w ) );
             if ( !( options & IgnoreFrames ) )
                 d += 2 * d_data->layoutData.footer.frameWidth;
 
@@ -979,7 +978,7 @@ void QwtPlotLayout::expandLineBreaks( Options options, const QRectF &rect,
                 int d = scaleData.dimWithoutTitle;
                 if ( !scaleData.scaleWidget->title().isEmpty() )
                 {
-                    d += scaleData.scaleWidget->titleHeightForWidth( qFloor( length ) );
+                    d += scaleData.scaleWidget->titleHeightForWidth( qwtFloor( length ) );
                 }
 
 

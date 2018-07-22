@@ -78,10 +78,10 @@ static QPainterPath qwtCanvasClip(
     // To avoid too much rounding errors better
     // calculate it in target device resolution
 
-    int x1 = qCeil( canvasRect.left() );
-    int x2 = qFloor( canvasRect.right() );
-    int y1 = qCeil( canvasRect.top() );
-    int y2 = qFloor( canvasRect.bottom() );
+    int x1 = qwtCeil( canvasRect.left() );
+    int x2 = qwtFloor( canvasRect.right() );
+    int y1 = qwtCeil( canvasRect.top() );
+    int y2 = qwtFloor( canvasRect.bottom() );
 
     const QRect r( x1, y1, x2 - x1 - 1, y2 - y1 - 1 );
 
@@ -985,7 +985,7 @@ bool QwtPlotRenderer::updateCanvasMargins( QwtPlot *plot,
     {
         if ( margins[axisId] >= 0.0 )
         {
-            const int m = qCeil( margins[axisId] );
+            const int m = qwtCeil( margins[axisId] );
             plot->plotLayout()->setCanvasMargin( m, axisId);
             marginsChanged = true;
         }

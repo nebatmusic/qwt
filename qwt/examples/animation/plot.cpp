@@ -57,7 +57,7 @@ public:
         for ( int i = 0; i < numSamples; i++ )
         {
             const double v = 6.28 * double( i ) / double( numSamples - 1 );
-            points += QPointF( qSin( v - phase ), v );
+            points += QPointF( std::sin( v - phase ), v );
         }
 
         return points;
@@ -85,7 +85,7 @@ private:
         for ( int i = 0; i < numSamples; i++ )
         {
             const double v = 10.0 * i / double( numSamples - 1 );
-            points += QPointF( v, qCos( 3.0 * ( v + phase ) ) );
+            points += QPointF( v, std::cos( 3.0 * ( v + phase ) ) );
         }
 
         return points;
@@ -119,7 +119,7 @@ private:
         for ( int i = 0; i < numSamples; i++ )
         {
             const double v = i * 2.0 * M_PI / ( numSamples - 1 );
-            points += QPointF( qSin( v - phase ), qCos( 3.0 * ( v + phase ) ) );
+            points += QPointF( std::sin( v - phase ), std::cos( 3.0 * ( v + phase ) ) );
         }
 
         return points;
@@ -149,8 +149,8 @@ private:
     {
         const double speed = 0.05;
 
-        const double s = speed * qSin( phase );
-        const double c = qSqrt( 1.0 - s * s );
+        const double s = speed * std::sin( phase );
+        const double c = std::sqrt( 1.0 - s * s );
 
         for ( int i = 0; i < d_points.size(); i++ )
         {
@@ -174,7 +174,7 @@ private:
         {
             const double angle = i * ( 2.0 * M_PI / ( numSamples - 1 ) );
 
-            QPointF p( qCos( angle ), qSin( angle ) );
+            QPointF p( std::cos( angle ), std::sin( angle ) );
             if ( i % 2 )
                 p *= 0.4;
             

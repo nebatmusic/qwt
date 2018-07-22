@@ -1,5 +1,5 @@
 #include "circularbuffer.h"
-#include <cmath>
+#include <qwt_math.h>
 
 CircularBuffer::CircularBuffer( double interval, size_t numPoints ):
     d_y( NULL ),
@@ -37,10 +37,10 @@ void CircularBuffer::setReferenceTime( double timeStamp )
 {
     d_referenceTime = timeStamp;
 
-    const double startTime = ::fmod( d_referenceTime, d_values.size() * d_step );
+    const double startTime = std::fmod( d_referenceTime, d_values.size() * d_step );
 
     d_startIndex = int( startTime / d_step ); // floor
-    d_offset = ::fmod( startTime, d_step );
+    d_offset = std::fmod( startTime, d_step );
 }
 
 double CircularBuffer::referenceTime() const
