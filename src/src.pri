@@ -14,7 +14,6 @@ HEADERS += \
     qwt_bezier.h \
     qwt_clipper.h \
     qwt_color_map.h \
-    qwt_compat.h \
     qwt_column_symbol.h \
     qwt_date.h \
     qwt_date_scale_draw.h \
