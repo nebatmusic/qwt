@@ -251,11 +251,24 @@ public:
     void setLegendAttributes( LegendAttributes );
     LegendAttributes legendAttributes() const;
 
-#ifndef QWT_NO_COMPAT
     void setRawSamples( const double *xData, const double *yData, int size );
+    void setRawSamples( const float *xData, const float *yData, int size );
+
+    void setRawSamples( const double *yData, int size );
+    void setRawSamples( const float *yData, int size );
+
     void setSamples( const double *xData, const double *yData, int size );
+    void setSamples( const float *xData, const float *yData, int size );
+
     void setSamples( const QVector<double> &xData, const QVector<double> &yData );
-#endif
+    void setSamples( const QVector<float> &xData, const QVector<float> &yData );
+
+    void setSamples( const double *yData, int size );
+    void setSamples( const float *yData, int size );
+
+    void setSamples( const QVector<double> &yData );
+    void setSamples( const QVector<float> &yData );
+
     void setSamples( const QVector<QPointF> & );
     void setSamples( QwtSeriesData<QPointF> * );
 

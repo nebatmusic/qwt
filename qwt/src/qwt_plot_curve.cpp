@@ -1203,18 +1203,6 @@ QwtGraphic QwtPlotCurve::legendIcon( int index, const QSizeF &size ) const
 }
 
 /*!
-  Initialize data with an array of points.
-
-  \param samples Vector of points
-  \note QVector is implicitly shared
-  \note QPolygonF is derived from QVector<QPointF>
-*/
-void QwtPlotCurve::setSamples( const QVector<QPointF> &samples )
-{
-    setData( new QwtPointSeriesData( samples ) );
-}
-
-/*!
   Assign a series of points
 
   setSamples() is just a wrapper for setData() without any additional
@@ -1229,7 +1217,17 @@ void QwtPlotCurve::setSamples( QwtSeriesData<QPointF> *data )
     setData( data );
 }
 
-#ifndef QWT_NO_COMPAT
+/*!
+  Initialize data with an array of points.
+
+  \param samples Vector of points
+  \note QVector is implicitly shared
+  \note QPolygonF is derived from QVector<QPointF>
+*/
+void QwtPlotCurve::setSamples( const QVector<QPointF> &samples )
+{
+    setData( new QwtPointSeriesData( samples ) );
+}
 
 /*!
   \brief Initialize the data by pointing to memory blocks which 
@@ -1248,7 +1246,70 @@ void QwtPlotCurve::setSamples( QwtSeriesData<QPointF> *data )
 void QwtPlotCurve::setRawSamples( 
     const double *xData, const double *yData, int size )
 {
-    setData( new QwtCPointerData( xData, yData, size ) );
+    setData( new QwtCPointerData<double>( xData, yData, size ) );
+}
+
+/*!
+  \brief Initialize the data by pointing to memory blocks which 
+         are not managed by QwtPlotCurve.
+
+  setRawSamples is provided for efficiency. 
+  It is important to keep the pointers
+  during the lifetime of the underlying QwtCPointerData class.
+
+  \param xData pointer to x data
+  \param yData pointer to y data
+  \param size size of x and y
+
+  \sa QwtCPointerData
+*/
+void QwtPlotCurve::setRawSamples(
+    const float *xData, const float *yData, int size )
+{
+    setData( new QwtCPointerData<float>( xData, yData, size ) );
+}
+
+/*!
+  \brief Initialize the data by pointing to a memory block which 
+         is not managed by QwtPlotCurve.
+
+  The memory contains the y coordinates, while the index is
+  interpreted as x coordinate.
+
+  setRawSamples() is provided for efficiency. It is important to
+  keep the pointers during the lifetime of the underlying
+  QwtCPointerValueData class.
+
+  \param yData pointer to y data
+  \param size size of x and y
+
+  \sa QwtCPointerData
+*/
+void QwtPlotCurve::setRawSamples( const double *yData, int size )
+{
+    setData( new QwtCPointerValueData<double>( yData, size ) );
+}
+
+/*!
+  \brief Initialize the data by pointing to memory blocks which 
+         are not managed by QwtPlotCurve.
+
+  The memory contains the y coordinates, while the index is
+  interpreted as x coordinate.
+
+  setRawSamples() is provided for efficiency. It is important to
+  keep the pointers during the lifetime of the underlying
+  QwtCPointerValueData class.
+
+  \param xData pointer to x data
+  \param yData pointer to y data
+  \param size size of x and y
+
+  \sa QwtCPointerData
+*/
+void QwtPlotCurve::setRawSamples( const float *yData, int size )
+{
+    setData( new QwtCPointerValueData<float>( yData, size ) );
 }
 
 /*!
@@ -1265,7 +1326,24 @@ void QwtPlotCurve::setRawSamples(
 void QwtPlotCurve::setSamples( 
     const double *xData, const double *yData, int size )
 {
-    setData( new QwtPointArrayData( xData, yData, size ) );
+    setData( new QwtPointArrayData<double>( xData, yData, size ) );
+}
+
+/*!
+  Set data by copying x- and y-values from specified memory blocks.
+  Contrary to setRawSamples(), this function makes a 'deep copy' of
+  the data.
+
+  \param xData pointer to x values
+  \param yData pointer to y values
+  \param size size of xData and yData
+
+  \sa QwtPointArrayData
+*/
+void QwtPlotCurve::setSamples(
+    const float *xData, const float *yData, int size )
+{
+    setData( new QwtPointArrayData<float>( xData, yData, size ) );
 }
 
 /*!
@@ -1279,8 +1357,65 @@ void QwtPlotCurve::setSamples(
 void QwtPlotCurve::setSamples( const QVector<double> &xData,
     const QVector<double> &yData )
 {
-    setData( new QwtPointArrayData( xData, yData ) );
+    setData( new QwtPointArrayData<double>( xData, yData ) );
 }
 
-#endif // !QWT_NO_COMPAT
+/*! 
+  Set data by copying y-values from a specified memory block.
 
+  The memory contains the y coordinates, while the index is
+  interpreted as x coordinate.
+    
+  \param yData y data
+    
+  \sa QwtValuePointData
+*/
+void QwtPlotCurve::setSamples( const double *yData, int size )
+{
+    setData( new QwtValuePointData<double>( yData, size ) );
+}
+
+/*! 
+  Set data by copying y-values from a specified memory block.
+
+  The vector contains the y coordinates, while the index is
+  interpreted as x coordinate.
+    
+  \param yData y data
+    
+  \sa QwtValuePointData
+*/
+void QwtPlotCurve::setSamples( const float *yData, int size )
+{
+    setData( new QwtValuePointData<float>( yData, size ) );
+}
+
+/*! 
+  Initialize data with an array of y values (explicitly shared)
+
+  The vector contains the y coordinates, while the index is
+  the x coordinate.
+    
+  \param yData y data
+    
+  \sa QwtValuePointData
+*/
+void QwtPlotCurve::setSamples( const QVector<double> &yData )
+{
+    setData( new QwtValuePointData<double>( yData ) );
+}
+
+/*! 
+  Initialize data with an array of y values (explicitly shared)
+
+  The vector contains the y coordinates, while the index is
+  the x coordinate.
+    
+  \param yData y data
+    
+  \sa QwtValuePointData
+*/
+void QwtPlotCurve::setSamples( const QVector<float> &yData )
+{
+    setData( new QwtValuePointData<float>( yData ) );
+}
