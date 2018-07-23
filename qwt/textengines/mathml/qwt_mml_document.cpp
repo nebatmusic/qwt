@@ -1746,7 +1746,7 @@ qreal QwtMmlNode::interpretSpacing( const QString &value, bool *ok ) const
 
 qreal QwtMmlNode::lineWidth() const
 {
-    return qMax( 1.0, QFontMetricsF( font() ).lineWidth() );
+    return qMax( qreal( 1.0 ), QFontMetricsF( font() ).lineWidth() );
 }
 
 qreal QwtMmlNode::basePos() const
