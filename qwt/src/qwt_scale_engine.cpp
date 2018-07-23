@@ -1079,7 +1079,7 @@ void QwtLogScaleEngine::buildMinorTicks(
             mediumTickIndex = numTicks / 2;
 
         // substep factor = base^substeps
-        const qreal minFactor = qMax( std::pow( logBase, minStep ), qreal( logBase ) );
+        const qreal minFactor = qMax( std::pow( logBase, minStep ), logBase );
 
         for ( int i = 0; i < majorTicks.count(); i++ )
         {
