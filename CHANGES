@@ -22,3 +22,5 @@
 - LOG_MIN/LOG_MAX removed, use QwtTransform::LogMin/LogMax instead ( values differ ! )
 - QwtAbstractScaleDraw::setPenWidth changed to setPenWidthF/setPenCosmetic
 - qwt_compat.h removed
+- QwtValuePointData added for curves, where the x values are the index
+- a couple of new QwtPlotCurve::setSamples alternatives
