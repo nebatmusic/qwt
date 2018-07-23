@@ -20,3 +20,4 @@
 - QwtAbstractScale::setPenWidth extended by isCosmetic
 - qwtGetMin/qwtGetMax removed, qwtFloor/qwtCeil added
 - LOG_MIN/LOG_MAX removed, use QwtTransform::LogMin/LogMax instead ( values differ ! )
+- QwtAbstractScaleDraw::setPenWidth changed to setPenWidthF/setPenCosmetic

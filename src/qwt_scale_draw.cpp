@@ -22,6 +22,12 @@
 #define qFastCos(x) std::cos(x)
 #endif
 
+static inline double qwtEffectivePenWidth( const QwtAbstractScaleDraw* scaleDraw )
+{
+    const double pw = scaleDraw->penWidthF();
+    return qMax( pw, 1.0 );
+}
+
 class QwtScaleDraw::PrivateData
 {
 public:
@@ -302,8 +308,7 @@ double QwtScaleDraw::extent( const QFont &font ) const
 
     if ( hasComponent( QwtAbstractScaleDraw::Backbone ) )
     {
-        const double pw = qMax( 1, penWidth() );  // pen width can be zero
-        d += pw;
+        d += qwtEffectivePenWidth( this );
     }
 
     d = qMax( d, minimumExtent() );
@@ -338,7 +343,7 @@ int QwtScaleDraw::minLength( const QFont &font ) const
     int lengthForTicks = 0;
     if ( hasComponent( QwtAbstractScaleDraw::Ticks ) )
     {
-        const double pw = qMax( 1, penWidth() );  // penwidth can be zero
+        const double pw = qwtEffectivePenWidth( this );
         lengthForTicks = qCeil( ( majorCount + minorCount ) * ( pw + 1.0 ) );
     }
 
@@ -359,7 +364,7 @@ QPointF QwtScaleDraw::labelPosition( double value ) const
     const double tval = scaleMap().transform( value );
     double dist = spacing();
     if ( hasComponent( QwtAbstractScaleDraw::Backbone ) )
-        dist += qMax( 1, penWidth() );
+        dist += qwtEffectivePenWidth( this );
 
     if ( hasComponent( QwtAbstractScaleDraw::Ticks ) )
         dist += tickLength( QwtScaleDiv::MajorTick );
@@ -420,7 +425,7 @@ void QwtScaleDraw::drawTick( QPainter *painter, double value, double len ) const
     if ( roundingAlignment )
         tval = qRound( tval );
 
-    const int pw = penWidth();
+    const int pw = qCeil( penWidthF() );
     int a = 0;
     if ( pw > 1 && roundingAlignment )
         a = 1;
@@ -497,7 +502,7 @@ void QwtScaleDraw::drawBackbone( QPainter *painter ) const
 
     const QPointF &pos = d_data->pos;
     const double len = d_data->len;
-    const int pw = qMax( penWidth(), 1 );
+    const int pw = qCeil( qwtEffectivePenWidth( this ) );
 
     // pos indicates a border not the center of the backbone line
     // so we need to shift its position depending on the pen width
@@ -513,7 +518,7 @@ void QwtScaleDraw::drawBackbone( QPainter *painter ) const
     }
     else
     {
-        off = 0.5 * penWidth();
+        off = 0.5 * penWidthF();
     }
 
     switch ( alignment() )

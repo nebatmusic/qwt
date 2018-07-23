@@ -769,6 +769,7 @@ void QwtPlot::drawItems( QPainter *painter, const QRectF &canvasRect,
 
             painter->setRenderHint( QPainter::Antialiasing,
                 item->testRenderHint( QwtPlotItem::RenderAntialiased ) );
+
             painter->setRenderHint( QPainter::HighQualityAntialiasing,
                 item->testRenderHint( QwtPlotItem::RenderAntialiased ) );
 
