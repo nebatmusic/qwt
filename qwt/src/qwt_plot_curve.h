@@ -260,14 +260,14 @@ public:
     void setSamples( const double *xData, const double *yData, int size );
     void setSamples( const float *xData, const float *yData, int size );
 
-    void setSamples( const QVector<double> &xData, const QVector<double> &yData );
-    void setSamples( const QVector<float> &xData, const QVector<float> &yData );
-
     void setSamples( const double *yData, int size );
     void setSamples( const float *yData, int size );
 
     void setSamples( const QVector<double> &yData );
     void setSamples( const QVector<float> &yData );
+
+    void setSamples( const QVector<double> &xData, const QVector<double> &yData );
+    void setSamples( const QVector<float> &xData, const QVector<float> &yData );
 
     void setSamples( const QVector<QPointF> & );
     void setSamples( QwtSeriesData<QPointF> * );
