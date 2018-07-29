@@ -84,6 +84,59 @@
 #define M_SQRT1_2 (0.70710678118654752440)
 #endif
 
+/*
+    On systems, where qreal is a float you often run into
+    compiler issues with qMin/qMax.
+ */
+
+//! \return Minimum of a and b.
+QWT_DECL_CONSTEXPR inline float qwtMinF( float a, float b )
+{
+    return ( a < b ) ? a : b;
+}
+
+//! \return Minimum of a and b.
+QWT_DECL_CONSTEXPR inline double qwtMinF( double a, double b )
+{
+    return ( a < b ) ? a : b;
+}
+
+//! \return Minimum of a and b.
+QWT_DECL_CONSTEXPR inline qreal qwtMinF( float a, double b )
+{
+    return ( a < b ) ? a : b;
+}
+
+//! \return Minimum of a and b.
+QWT_DECL_CONSTEXPR inline qreal qwtMinF( double a, float b )
+{
+    return ( a < b ) ? a : b;
+}
+
+//! \return Maximum of a and b.
+QWT_DECL_CONSTEXPR inline float qwtMaxF( float a, float b )
+{
+    return ( a < b ) ? b : a;
+}   
+
+//! \return Maximum of a and b.
+QWT_DECL_CONSTEXPR inline double qwtMaxF( double a, double b )
+{
+    return ( a < b ) ? b : a;
+}
+
+//! \return Maximum of a and b.
+QWT_DECL_CONSTEXPR inline qreal qwtMaxF( float a, double b )
+{
+    return ( a < b ) ? b : a;
+}
+
+//! \return Maximum of a and b.
+QWT_DECL_CONSTEXPR inline qreal qwtMaxF( double a, float b )
+{
+    return ( a < b ) ? b : a;
+}
+
 QWT_EXPORT double qwtNormalizeRadians( double radians );
 QWT_EXPORT double qwtNormalizeDegrees( double degrees );
 
