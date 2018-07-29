@@ -311,8 +311,8 @@ double QwtScaleEngine::upperMargin() const
 
 void QwtScaleEngine::setMargins( double lower, double upper )
 {
-    d_data->lowerMargin = qMax( lower, 0.0 );
-    d_data->upperMargin = qMax( upper, 0.0 );
+    d_data->lowerMargin = qwtMaxF( lower, 0.0 );
+    d_data->upperMargin = qwtMaxF( upper, 0.0 );
 }
 
 /*!
@@ -832,11 +832,11 @@ void QwtLogScaleEngine::autoScale( int maxNumSteps,
 
     double logRef = 1.0;
     if ( reference() > QwtLogTransform::LogMin / 2 )
-        logRef = qMin( reference(), QwtLogTransform::LogMax / 2 );
+        logRef = qwtMinF( reference(), QwtLogTransform::LogMax / 2 );
 
     if ( testAttribute( QwtScaleEngine::Symmetric ) )
     {
-        const double delta = qMax( interval.maxValue() / logRef,
+        const double delta = qwtMaxF( interval.maxValue() / logRef,
             logRef / interval.minValue() );
         interval.setInterval( logRef / delta, logRef * delta );
     }
@@ -1079,7 +1079,7 @@ void QwtLogScaleEngine::buildMinorTicks(
             mediumTickIndex = numTicks / 2;
 
         // substep factor = base^substeps
-        const qreal minFactor = qMax( std::pow( logBase, minStep ), logBase );
+        const qreal minFactor = qwtMaxF( std::pow( logBase, minStep ), logBase );
 
         for ( int i = 0; i < majorTicks.count(); i++ )
         {

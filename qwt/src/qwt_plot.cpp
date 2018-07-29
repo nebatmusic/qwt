@@ -683,10 +683,10 @@ void QwtPlot::getCanvasMarginsHint(
                 maps[ item->xAxis() ], maps[ item->yAxis() ],
                 canvasRect, m[yLeft], m[xTop], m[yRight], m[xBottom] );
 
-            left = qMax( left, m[yLeft] );
-            top = qMax( top, m[xTop] );
-            right = qMax( right, m[yRight] );
-            bottom = qMax( bottom, m[xBottom] );
+            left = qwtMaxF( left, m[yLeft] );
+            top = qwtMaxF( top, m[xTop] );
+            right = qwtMaxF( right, m[yRight] );
+            bottom = qwtMaxF( bottom, m[xBottom] );
         }
     }
 }

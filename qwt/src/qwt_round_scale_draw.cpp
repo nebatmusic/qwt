@@ -226,8 +226,8 @@ void QwtRoundScaleDraw::drawBackbone( QPainter *painter ) const
     const double deg1 = scaleMap().p1();
     const double deg2 = scaleMap().p2();
 
-    const int a1 = qRound( qMin( deg1, deg2 ) - 90 );
-    const int a2 = qRound( qMax( deg1, deg2 ) - 90 );
+    const int a1 = qRound( qwtMinF( deg1, deg2 ) - 90 );
+    const int a2 = qRound( qwtMaxF( deg1, deg2 ) - 90 );
 
     const double radius = d_data->radius;
     const double x = d_data->center.x() - radius;
@@ -296,8 +296,7 @@ double QwtRoundScaleDraw::extent( const QFont &font ) const
 
     if ( hasComponent( QwtAbstractScaleDraw::Backbone ) )
     {
-        const double pw = penWidthF();
-        d += qMax( pw, 1.0 );
+        d += qwtMaxF( penWidthF(), 1.0 );
     }
 
     if ( hasComponent( QwtAbstractScaleDraw::Labels ) &&
@@ -307,7 +306,7 @@ double QwtRoundScaleDraw::extent( const QFont &font ) const
         d += spacing();
     }
 
-    d = qMax( d, minimumExtent() );
+    d = qwtMaxF( d, minimumExtent() );
 
     return d;
 }

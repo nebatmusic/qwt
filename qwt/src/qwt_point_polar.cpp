@@ -91,7 +91,7 @@ bool QwtPointPolar::operator!=( const QwtPointPolar &other ) const
 */
 QwtPointPolar QwtPointPolar::normalized() const
 {
-    const double radius = qMax( d_radius, 0.0 );
+    const double radius = qwtMaxF( d_radius, 0.0 );
 
     double azimuth = d_azimuth;
     if ( azimuth < -2.0 * M_PI || azimuth >= 2 * M_PI )

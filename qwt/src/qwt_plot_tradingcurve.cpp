@@ -283,7 +283,7 @@ QBrush QwtPlotTradingCurve::symbolBrush( Direction direction ) const
 */
 void QwtPlotTradingCurve::setSymbolExtent( double extent )
 {
-    extent = qMax( 0.0, extent );
+    extent = qwtMaxF( 0.0, extent );
     if ( extent != d_data->symbolExtent )
     {
         d_data->symbolExtent = extent;
@@ -311,7 +311,7 @@ double QwtPlotTradingCurve::symbolExtent() const
  */
 void QwtPlotTradingCurve::setMinSymbolWidth( double width )
 {
-    width = qMax( width, 0.0 );
+    width = qwtMaxF( width, 0.0 );
     if ( width != d_data->minSymbolWidth )
     {
         d_data->minSymbolWidth = width;
@@ -603,10 +603,10 @@ void QwtPlotTradingCurve::drawCandleStick( QPainter *painter,
     double width ) const
 {
     const double t = sample.time;
-    const double v1 = qMin( sample.low, sample.high );
-    const double v2 = qMin( sample.open, sample.close );
-    const double v3 = qMax( sample.low, sample.high );
-    const double v4 = qMax( sample.open, sample.close );
+    const double v1 = qwtMinF( sample.low, sample.high );
+    const double v2 = qwtMinF( sample.open, sample.close );
+    const double v3 = qwtMaxF( sample.low, sample.high );
+    const double v4 = qwtMaxF( sample.open, sample.close );
 
     if ( orientation == Qt::Vertical )
     {
@@ -680,9 +680,9 @@ double QwtPlotTradingCurve::scaledSymbolWidth(
 
     double width = qAbs( pos - map->p1() );
 
-    width = qMax( width,  d_data->minSymbolWidth );
+    width = qwtMaxF( width,  d_data->minSymbolWidth );
     if ( d_data->maxSymbolWidth > 0.0 )
-        width = qMin( width, d_data->maxSymbolWidth );
+        width = qwtMinF( width, d_data->maxSymbolWidth );
 
     return width;
 }

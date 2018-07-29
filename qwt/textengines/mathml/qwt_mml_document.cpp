@@ -1,5 +1,6 @@
 #include "qwt_mml_document.h"
 #include "qwt_mml_entity_table.h"
+#include "qwt_math.h"
 
 #include <qapplication.h>
 #include <qdebug.h>
@@ -1746,7 +1747,7 @@ qreal QwtMmlNode::interpretSpacing( const QString &value, bool *ok ) const
 
 qreal QwtMmlNode::lineWidth() const
 {
-    return qMax( qreal( 1.0 ), QFontMetricsF( font() ).lineWidth() );
+    return qwtMaxF( 1.0, QFontMetricsF( font() ).lineWidth() );
 }
 
 qreal QwtMmlNode::basePos() const
@@ -2208,7 +2209,7 @@ QRectF QwtMmlMfracNode::symbolRect() const
     QRectF num_rect = numerator()->myRect();
     QRectF denom_rect = denominator()->myRect();
     qreal spacing = g_mfrac_spacing * ( num_rect.height() + denom_rect.height() );
-    qreal my_width = qMax( num_rect.width(), denom_rect.width() ) + 2.0 * spacing;
+    qreal my_width = qwtMaxF( num_rect.width(), denom_rect.width() ) + 2.0 * spacing;
     int line_thickness = qCeil( lineThickness() );
 
     return QRectF( -0.5 * ( my_width + line_thickness ), -0.5 * line_thickness,
@@ -2801,7 +2802,7 @@ void QwtMmlMtableNode::CellSizeData::init( const QwtMmlNode *first_row )
             if ( col_cnt == col_widths.count() )
                 col_widths.append( mtdmr.width() );
             else
-                col_widths[col_cnt] = qMax( col_widths[col_cnt], mtdmr.width() );
+                col_widths[col_cnt] = qwtMaxF( col_widths[col_cnt], mtdmr.width() );
         }
 
         row_heights.append( mtr->myRect().height() );

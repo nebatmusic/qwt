@@ -456,7 +456,7 @@ int QwtPlotLegendItem::offsetInCanvas(
  */
 void QwtPlotLegendItem::setBorderRadius( double radius )
 {
-    radius = qMax( 0.0, radius );
+    radius = qwtMaxF( 0.0, radius );
 
     if ( radius != d_data->borderRadius )
     {

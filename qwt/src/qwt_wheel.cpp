@@ -973,7 +973,7 @@ QSize QwtWheel::minimumSizeHint() const
 */
 void QwtWheel::setSingleStep( double stepSize )
 {
-    d_data->singleStep = qMax( stepSize, 0.0 );
+    d_data->singleStep = qwtMaxF( stepSize, 0.0 );
 }
 
 /*!
@@ -1052,7 +1052,7 @@ int QwtWheel::pageStepCount() const
  */
 void QwtWheel::setRange( double min, double max )
 {
-    max = qMax( min, max );
+    max = qwtMaxF( min, max );
 
     if ( d_data->minimum == min && d_data->maximum == max )
         return;
@@ -1220,7 +1220,7 @@ void QwtWheel::setMass( double mass )
     }
     else
     {
-        d_data->mass = qMin( 100.0, mass );
+        d_data->mass = qwtMinF( 100.0, mass );
     }
 
     if ( d_data->mass <= 0.0 )

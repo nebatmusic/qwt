@@ -9,6 +9,7 @@
 
 #include "qwt_column_symbol.h"
 #include "qwt_painter.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpalette.h>
@@ -32,8 +33,8 @@ static void qwtDrawBox( QPainter *p, const QRectF &rect,
             return;
         }
 
-        lw = qMin( lw, rect.height() / 2.0 - 1.0 );
-        lw = qMin( lw, rect.width() / 2.0 - 1.0 );
+        lw = qwtMinF( lw, rect.height() / 2.0 - 1.0 );
+        lw = qwtMinF( lw, rect.width() / 2.0 - 1.0 );
 
         const QRectF outerRect = rect.adjusted( 0, 0, 1, 1 );
         QPolygonF polygon( outerRect );
@@ -75,8 +76,8 @@ static void qwtDrawPanel( QPainter *painter, const QRectF &rect,
             return;
         }
 
-        lw = qMin( lw, rect.height() / 2.0 - 1.0 );
-        lw = qMin( lw, rect.width() / 2.0 - 1.0 );
+        lw = qwtMinF( lw, rect.height() / 2.0 - 1.0 );
+        lw = qwtMinF( lw, rect.width() / 2.0 - 1.0 );
 
         const QRectF outerRect = rect.adjusted( 0, 0, 1, 1 );
         const QRectF innerRect = outerRect.adjusted( lw, lw, -lw, -lw );

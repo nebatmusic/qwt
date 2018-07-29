@@ -13,6 +13,7 @@
 #include "qwt_symbol.h"
 #include "qwt_text.h"
 #include "qwt_graphic.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 
@@ -304,8 +305,8 @@ void QwtPlotMarker::drawLabel( QPainter *painter,
 
     const int spacing = d_data->spacing;
 
-    const qreal xOff = qMax( pw2, symbolOff.width() );
-    const qreal yOff = qMax( pw2, symbolOff.height() );
+    const qreal xOff = qwtMaxF( pw2, symbolOff.width() );
+    const qreal yOff = qwtMaxF( pw2, symbolOff.height() );
 
     const QSizeF textSize = d_data->label.textSize( painter->font() );
 

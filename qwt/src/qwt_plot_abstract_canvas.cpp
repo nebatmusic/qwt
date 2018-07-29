@@ -11,6 +11,7 @@
 #include "qwt_plot.h"
 #include "qwt_painter.h"
 #include "qwt_null_paintdevice.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qstyle.h>
@@ -104,10 +105,10 @@ namespace
                         {
                             QRectF r = clipRects.last();
                             r.setCoords( 
-                                qMin( r.left(), el.x ),
-                                qMin( r.top(), el.y ),
-                                qMax( r.right(), el.x ),
-                                qMax( r.bottom(), el.y )
+                                qwtMinF( r.left(), el.x ),
+                                qwtMinF( r.top(), el.y ),
+                                qwtMaxF( r.right(), el.x ),
+                                qwtMaxF( r.bottom(), el.y )
                             );
                             clipRects.last() = r.normalized();
                         }
@@ -643,7 +644,7 @@ void QwtPlotAbstractCanvas::drawFocusIndicator( QPainter *painter )
 */
 void QwtPlotAbstractCanvas::setBorderRadius( double radius )
 {
-    d_data->borderRadius = qMax( 0.0, radius );
+    d_data->borderRadius = qwtMaxF( 0.0, radius );
 }
 
 /*!

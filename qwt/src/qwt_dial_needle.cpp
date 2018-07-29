@@ -70,7 +70,7 @@ static void qwtDrawShadedPointer( QPainter *painter,
     const QColor &lightColor, const QColor &darkColor,
     double length, double width )
 {
-    const double peak = qMax( length / 10.0, 5.0 );
+    const double peak = qwtMaxF( length / 10.0, 5.0 );
 
     const double knobWidth = width + 8;
     QRectF knobRect( 0, 0, knobWidth, knobWidth );
@@ -112,9 +112,9 @@ static void qwtDrawArrowNeedle( QPainter *painter,
     double length, double width )
 {
     if ( width <= 0 )
-        width = qMax( length * 0.06, 9.0 );
+        width = qwtMaxF( length * 0.06, 9.0 );
 
-    const double peak = qMax( 2.0, 0.4 * width );
+    const double peak = qwtMaxF( 2.0, 0.4 * width );
 
     QPainterPath path;
     path.moveTo( 0.0, 0.5 * width );
@@ -324,12 +324,12 @@ void QwtDialSimpleNeedle::drawNeedle( QPainter *painter,
     if ( d_style == Arrow )
     {
         if ( width <= 0.0 )
-            width = qMax(length * 0.06, 6.0);
+            width = qwtMaxF(length * 0.06, 6.0);
 
         qwtDrawArrowNeedle( painter, 
             palette(), colorGroup, length, width );
 
-        knobWidth = qMin( width * 2.0, 0.2 * length );
+        knobWidth = qwtMinF( width * 2.0, 0.2 * length );
     }
     else
     {
@@ -342,7 +342,7 @@ void QwtDialSimpleNeedle::drawNeedle( QPainter *painter,
         painter->setPen( pen );
         painter->drawLine( QPointF( 0.0, 0.0 ), QPointF( length, 0.0 ) );
 
-        knobWidth = qMax( width * 3.0, 5.0 );
+        knobWidth = qwtMaxF( width * 3.0, 5.0 );
     }
 
     if ( d_hasKnob && knobWidth > 0.0 )
@@ -377,7 +377,7 @@ void QwtCompassMagnetNeedle::drawNeedle( QPainter *painter,
 {
     if ( d_style == ThinStyle )
     {
-        const double width = qMax( length / 6.0, 3.0 );
+        const double width = qwtMaxF( length / 6.0, 3.0 );
 
         const int colorOffset = 10;
 
