@@ -134,8 +134,8 @@ MainWindow::MainWindow( QWidget *parent ):
     enableZoomMode( false );
     showInfo();
 
-    connect( cntDamp, SIGNAL( valueChanged( qreal ) ),
-        d_plot, SLOT( setDamp( qreal ) ) );
+    connect( cntDamp, SIGNAL( valueChanged( double ) ),
+        d_plot, SLOT( setDamp( double ) ) );
 
     connect( d_picker, SIGNAL( moved( const QPoint & ) ),
         SLOT( moved( const QPoint & ) ) );
