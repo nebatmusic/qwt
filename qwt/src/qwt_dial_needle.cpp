@@ -20,20 +20,19 @@
 #endif
 
 static void qwtDrawStyle1Needle( QPainter *painter,
-    const QPalette &palette, QPalette::ColorGroup colorGroup,
-    double length )
+    const QPalette &palette, QPalette::ColorGroup colorGroup, qreal length )
 {
-    const double r[] = { 0.4, 0.3, 1, 0.8, 1, 0.3, 0.4 };
-    const double a[] = { -45, -20, -15, 0, 15, 20, 45 };
+    const qreal r[] = { 0.4, 0.3, 1, 0.8, 1, 0.3, 0.4 };
+    const qreal a[] = { -45, -20, -15, 0, 15, 20, 45 };
 
     QPainterPath path;
     for ( int i = 0; i < 7; i++ )
     {
-        const double angle = a[i] / 180.0 * M_PI;
-        const double radius = r[i] * length;
+        const qreal angle = a[i] / 180.0 * M_PI;
+        const qreal radius = r[i] * length;
 
-        const double x = radius * qFastCos( angle );
-        const double y = radius * qFastSin( angle );
+        const qreal x = radius * qFastCos( angle );
+        const qreal y = radius * qFastSin( angle );
 
         path.lineTo( x, -y );
     }
@@ -44,10 +43,10 @@ static void qwtDrawStyle1Needle( QPainter *painter,
 }
 
 static void qwtDrawStyle2Needle( QPainter *painter,
-    const QPalette &palette, QPalette::ColorGroup colorGroup, double length )
+    const QPalette &palette, QPalette::ColorGroup colorGroup, qreal length )
 {
-    const double ratioX = 0.7;
-    const double ratioY = 0.3;
+    const qreal ratioX = 0.7;
+    const qreal ratioY = 0.3;
 
     QPainterPath path1;
     path1.lineTo( ratioX * length, 0.0 );
@@ -68,11 +67,11 @@ static void qwtDrawStyle2Needle( QPainter *painter,
 
 static void qwtDrawShadedPointer( QPainter *painter, 
     const QColor &lightColor, const QColor &darkColor,
-    double length, double width )
+    qreal length, qreal width )
 {
-    const double peak = qwtMaxF( length / 10.0, 5.0 );
+    const qreal peak = qwtMaxF( length / 10.0, 5.0 );
 
-    const double knobWidth = width + 8;
+    const qreal knobWidth = width + 8;
     QRectF knobRect( 0, 0, knobWidth, knobWidth );
     knobRect.moveCenter( QPointF(0, 0) );
 
@@ -109,12 +108,12 @@ static void qwtDrawShadedPointer( QPainter *painter,
 
 static void qwtDrawArrowNeedle( QPainter *painter,
     const QPalette &palette, QPalette::ColorGroup colorGroup,
-    double length, double width )
+    qreal length, qreal width )
 {
     if ( width <= 0 )
         width = qwtMaxF( length * 0.06, 9.0 );
 
-    const double peak = qwtMaxF( 2.0, 0.4 * width );
+    const qreal peak = qwtMaxF( 2.0, 0.4 * width );
 
     QPainterPath path;
     path.moveTo( 0.0, 0.5 * width );
@@ -145,10 +144,9 @@ static void qwtDrawArrowNeedle( QPainter *painter,
 }
 
 static void qwtDrawTriangleNeedle( QPainter *painter,
-    const QPalette &palette, QPalette::ColorGroup colorGroup,
-    double length )
+    const QPalette &palette, QPalette::ColorGroup colorGroup, qreal length )
 {
-    const double width = qRound( length / 3.0 );
+    const qreal width = qRound( length / 3.0 );
 
     QPainterPath path[4];
 
@@ -318,13 +316,13 @@ double QwtDialSimpleNeedle::width() const
 void QwtDialSimpleNeedle::drawNeedle( QPainter *painter, 
     double length, QPalette::ColorGroup colorGroup ) const
 {
-    double knobWidth = 0.0;
-    double width = d_width;
+    qreal knobWidth = 0.0;
+    qreal width = d_width;
 
     if ( d_style == Arrow )
     {
         if ( width <= 0.0 )
-            width = qwtMaxF(length * 0.06, 6.0);
+            width = qwtMaxF( length * 0.06, 6.0 );
 
         qwtDrawArrowNeedle( painter, 
             palette(), colorGroup, length, width );
@@ -377,7 +375,7 @@ void QwtCompassMagnetNeedle::drawNeedle( QPainter *painter,
 {
     if ( d_style == ThinStyle )
     {
-        const double width = qwtMaxF( length / 6.0, 3.0 );
+        const qreal width = qwtMaxF( length / 6.0, 3.0 );
 
         const int colorOffset = 10;
 
