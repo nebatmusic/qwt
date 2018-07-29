@@ -137,6 +137,21 @@ QWT_DECL_CONSTEXPR inline qreal qwtMaxF( double a, float b )
     return ( a < b ) ? b : a;
 }
 
+QWT_DECL_CONSTEXPR inline float qwtBoundF( double min, float value, double max)
+{
+    return qwtMaxF( min, qwtMinF( max, value ) );
+}
+
+QWT_DECL_CONSTEXPR inline double qwtBoundF( float min, double value, float max)
+{
+    return qwtMaxF( min, qwtMinF( max, value ) );
+}
+
+QWT_DECL_CONSTEXPR inline double qwtBoundF( double min, double value, double max)
+{
+    return qwtMaxF( min, qwtMinF( max, value ) );
+}
+
 QWT_EXPORT double qwtNormalizeRadians( double radians );
 QWT_EXPORT double qwtNormalizeDegrees( double degrees );
 
