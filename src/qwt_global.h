@@ -38,4 +38,25 @@
 #define QWT_EXPORT
 #endif
 
+#if QT_VERSION >= 0x040800
+#define QWT_DECL_CONSTEXPR Q_DECL_CONSTEXPR
 #endif 
+
+#if QT_VERSION >= 0x050000
+#define QWT_DECL_OVERRIDE Q_DECL_OVERRIDE
+#define QWT_DECL_FINAL Q_DECL_FINAL
+#endif
+
+#ifndef QWT_DECL_CONSTEXPR
+#define QWT_DECL_CONSTEXPR
+#endif
+
+#ifndef QWT_DECL_OVERRIDE
+#define QWT_DECL_OVERRIDE
+#endif
+
+#ifndef QWT_DECL_FINAL
+#define QWT_DECL_FINAL
+#endif
+
+#endif
