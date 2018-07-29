@@ -101,8 +101,8 @@ public:
 
     virtual QwtGraphic legendIcon( int index, const QSizeF & ) const;
 
-    void setMagnitudeScaleFactor( qreal factor );
-    qreal magnitudeScaleFactor() const;
+    void setMagnitudeScaleFactor( double factor );
+    double magnitudeScaleFactor() const;
 
 protected:
     virtual void drawSymbols( QPainter *,

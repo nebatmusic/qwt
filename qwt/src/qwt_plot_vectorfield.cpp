@@ -298,7 +298,7 @@ QwtPlotVectorField::IndicatorOrigin QwtPlotVectorField::indicatorOrigin() const
     return d_data->indicatorOrigin;
 }
 
-void QwtPlotVectorField::setMagnitudeScaleFactor( qreal factor )
+void QwtPlotVectorField::setMagnitudeScaleFactor( double factor )
 {
     if ( factor != d_data->magnitudeScaleFactor )
     {
@@ -307,7 +307,7 @@ void QwtPlotVectorField::setMagnitudeScaleFactor( qreal factor )
     }
 }
 
-qreal QwtPlotVectorField::magnitudeScaleFactor() const
+double QwtPlotVectorField::magnitudeScaleFactor() const
 {
     return d_data->magnitudeScaleFactor;
 }
