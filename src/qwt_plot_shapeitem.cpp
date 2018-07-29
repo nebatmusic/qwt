@@ -14,6 +14,7 @@
 #include "qwt_painter.h"
 #include "qwt_weeding_curve_fitter.h"
 #include "qwt_clipper.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpainterpath.h>
@@ -355,7 +356,7 @@ QBrush QwtPlotShapeItem::brush() const
  */
 void QwtPlotShapeItem::setRenderTolerance( double tolerance )
 {
-    tolerance = qMax( tolerance, 0.0 );
+    tolerance = qwtMaxF( tolerance, 0.0 );
 
     if ( tolerance != d_data->renderTolerance )
     {

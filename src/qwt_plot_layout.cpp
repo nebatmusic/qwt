@@ -1049,20 +1049,20 @@ void QwtPlotLayout::alignScales( Options options,
                       of the left scale.
                      */
                     const double cLeft = canvasRect.left(); // qreal -> double
-                    canvasRect.setLeft( qMax( cLeft, axisRect.left() - dx ) );
+                    canvasRect.setLeft( qwtMaxF( cLeft, axisRect.left() - dx ) );
                 }
                 else
                 {
                     const double minLeft = leftScaleRect.left();
                     const double left = axisRect.left() + leftOffset;
-                    axisRect.setLeft( qMax( left, minLeft ) );
+                    axisRect.setLeft( qwtMaxF( left, minLeft ) );
                 }
             }
             else
             {
                 if ( d_data->alignCanvasToScales[QwtPlot::yLeft] && leftOffset < 0 )
                 {
-                    canvasRect.setLeft( qMax( canvasRect.left(),
+                    canvasRect.setLeft( qwtMaxF( canvasRect.left(),
                         axisRect.left() - leftOffset ) );
                 }
                 else
@@ -1086,18 +1086,18 @@ void QwtPlotLayout::alignScales( Options options,
                       of the right scale.
                      */
                     const double cRight = canvasRect.right(); // qreal -> double
-                    canvasRect.setRight( qMin( cRight, axisRect.right() + dx ) );
+                    canvasRect.setRight( qwtMinF( cRight, axisRect.right() + dx ) );
                 }   
 
                 const double maxRight = rightScaleRect.right();
                 const double right = axisRect.right() - rightOffset;
-                axisRect.setRight( qMin( right, maxRight ) );
+                axisRect.setRight( qwtMinF( right, maxRight ) );
             }
             else
             {
                 if ( d_data->alignCanvasToScales[QwtPlot::yRight] && rightOffset < 0 )
                 {
-                    canvasRect.setRight( qMin( canvasRect.right(),
+                    canvasRect.setRight( qwtMinF( canvasRect.right(),
                         axisRect.right() + rightOffset ) );
                 }
                 else
@@ -1123,21 +1123,21 @@ void QwtPlotLayout::alignScales( Options options,
                       of the bottom scale.
                      */
                     const double cBottom = canvasRect.bottom(); // qreal -> double
-                    canvasRect.setBottom( qMin( cBottom, axisRect.bottom() + dy ) );
+                    canvasRect.setBottom( qwtMinF( cBottom, axisRect.bottom() + dy ) );
                 }
                 else
                 {
                     const double maxBottom = bottomScaleRect.top() +
                         d_data->layoutData.scale[QwtPlot::xBottom].tickOffset;
                     const double bottom = axisRect.bottom() - bottomOffset;
-                    axisRect.setBottom( qMin( bottom, maxBottom ) );
+                    axisRect.setBottom( qwtMinF( bottom, maxBottom ) );
                 }
             }
             else
             {
                 if ( d_data->alignCanvasToScales[QwtPlot::xBottom] && bottomOffset < 0 )
                 {
-                    canvasRect.setBottom( qMin( canvasRect.bottom(),
+                    canvasRect.setBottom( qwtMinF( canvasRect.bottom(),
                         axisRect.bottom() + bottomOffset ) );
                 }
                 else
@@ -1160,21 +1160,21 @@ void QwtPlotLayout::alignScales( Options options,
                       of the top scale.
                      */
                     const double cTop = canvasRect.top(); // qreal -> double
-                    canvasRect.setTop( qMax( cTop, axisRect.top() - dy ) );
+                    canvasRect.setTop( qwtMaxF( cTop, axisRect.top() - dy ) );
                 }
                 else
                 {
                     const double minTop = topScaleRect.bottom() -
                         d_data->layoutData.scale[QwtPlot::xTop].tickOffset;
                     const double top = axisRect.top() + topOffset;
-                    axisRect.setTop( qMax( top, minTop ) );
+                    axisRect.setTop( qwtMaxF( top, minTop ) );
                 }
             }
             else
             {
                 if ( d_data->alignCanvasToScales[QwtPlot::xTop] && topOffset < 0 )
                 {
-                    canvasRect.setTop( qMax( canvasRect.top(),
+                    canvasRect.setTop( qwtMaxF( canvasRect.top(),
                         axisRect.top() - topOffset ) );
                 }
                 else

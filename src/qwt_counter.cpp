@@ -201,8 +201,8 @@ bool QwtCounter::isReadOnly() const
 
 void QwtCounter::setValue( double value )
 {
-    const double vmin = qMin( d_data->minimum, d_data->maximum );
-    const double vmax = qMax( d_data->minimum, d_data->maximum );
+    const double vmin = qwtMinF( d_data->minimum, d_data->maximum );
+    const double vmax = qwtMaxF( d_data->minimum, d_data->maximum );
 
     value = qBound( vmin, value, vmax );
 
@@ -240,7 +240,7 @@ double QwtCounter::value() const
  */
 void QwtCounter::setRange( double min, double max )
 {
-    max = qMax( min, max );
+    max = qwtMaxF( min, max );
 
     if ( d_data->maximum == max && d_data->minimum == min )
         return;
@@ -318,7 +318,7 @@ double QwtCounter::maximum() const
 */
 void QwtCounter::setSingleStep( double stepSize )
 {
-    d_data->singleStep = qMax( stepSize, 0.0 );
+    d_data->singleStep = qwtMaxF( stepSize, 0.0 );
 }
 
 /*!
@@ -636,7 +636,7 @@ void QwtCounter::incrementValue( int numSteps )
 
 
 #if 1
-    stepSize = qMax( stepSize, 1.0e-10 * ( max - min ) );
+    stepSize = qwtMaxF( stepSize, 1.0e-10 * ( max - min ) );
 #endif
 
     double value = d_data->value + numSteps * stepSize;

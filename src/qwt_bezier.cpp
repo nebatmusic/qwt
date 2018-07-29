@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include "qwt_bezier.h"
+#include "qwt_math.h"
 
 #include <qpolygon.h>
 #include <qstack.h>
@@ -37,8 +38,8 @@ namespace
 
         static inline double minFlatness( double tolerance )
         {
-            // we can make simplify the tolerance criterion check in
-            // the subdivison loop cheaper, by precalculating some
+            // we can simplify the tolerance criterion check in
+            // the subdivison loop, by precalculating some
             // flatness value.
 
             return 16 * ( tolerance * tolerance );
@@ -59,7 +60,7 @@ namespace
             const double vx2 = vx * vx;
             const double vy2 = vy * vy;
 
-            return qMax( ux2, vx2 ) + qMax( uy2, vy2 );
+            return qwtMaxF( ux2, vx2 ) + qwtMaxF( uy2, vy2 );
         }
 
         inline BezierData subdivided()
@@ -113,7 +114,7 @@ namespace
  */
 
 QwtBezier::QwtBezier( double tolerance ):
-    m_tolerance( qMax( tolerance, 0.0 ) ),
+    m_tolerance( qwtMaxF( tolerance, 0.0 ) ),
     m_flatness( BezierData::minFlatness( m_tolerance ) )
 {
 }
@@ -139,7 +140,7 @@ QwtBezier::~QwtBezier()
  */
 void QwtBezier::setTolerance( double tolerance )
 {
-    m_tolerance = qMax( tolerance, 0.0 );
+    m_tolerance = qwtMaxF( tolerance, 0.0 );
     m_flatness = BezierData::minFlatness( m_tolerance );
 }
 

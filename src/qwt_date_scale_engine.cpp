@@ -1001,8 +1001,8 @@ QwtScaleDiv QwtDateScaleEngine::divideScale( double x1, double x2,
     if ( maxMajorSteps < 1 )
         maxMajorSteps = 1;
 
-    const double min = qMin( x1, x2 );
-    const double max = qMax( x1, x2 );
+    const double min = qwtMinF( x1, x2 );
+    const double max = qwtMaxF( x1, x2 );
 
     const QDateTime from = toDateTime( min );
     const QDateTime to = toDateTime( max );

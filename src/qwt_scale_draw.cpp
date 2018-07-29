@@ -24,8 +24,7 @@
 
 static inline double qwtEffectivePenWidth( const QwtAbstractScaleDraw* scaleDraw )
 {
-    const double pw = scaleDraw->penWidthF();
-    return qMax( pw, 1.0 );
+    return qwtMaxF( scaleDraw->penWidthF(), 1.0 );
 }
 
 class QwtScaleDraw::PrivateData
@@ -311,7 +310,7 @@ double QwtScaleDraw::extent( const QFont &font ) const
         d += qwtEffectivePenWidth( this );
     }
 
-    d = qMax( d, minimumExtent() );
+    d = qwtMaxF( d, minimumExtent() );
     return d;
 }
 
@@ -628,7 +627,7 @@ void QwtScaleDraw::setLength( double length )
     if ( length < 0 && length > -10 )
         length = -10;
 #else
-    length = qMax( length, 10.0 );
+    length = qwtMaxF( length, 10.0 );
 #endif
 
     d_data->len = length;

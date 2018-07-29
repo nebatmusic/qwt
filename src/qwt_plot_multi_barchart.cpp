@@ -13,6 +13,7 @@
 #include "qwt_text.h"
 #include "qwt_graphic.h"
 #include "qwt_legend_data.h"
+#include "qwt_math.h"
 
 #include <qmap.h>
 
@@ -339,14 +340,14 @@ QRectF QwtPlotMultiBarChart::boundingRect() const
             }
             else
             {
-                xMin = qMin( xMin, sample.value );
-                xMax = qMax( xMax, sample.value );
+                xMin = qwtMinF( xMin, sample.value );
+                xMax = qwtMaxF( xMax, sample.value );
             }
 
             const double y = baseLine + sample.added();
 
-            yMin = qMin( yMin, y );
-            yMax = qMax( yMax, y );
+            yMin = qwtMinF( yMin, y );
+            yMax = qwtMaxF( yMax, y );
         }
         rect.setRect( xMin, yMin, xMax - xMin, yMax - yMin );
     }

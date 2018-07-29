@@ -10,6 +10,7 @@
 #include "qwt_text.h"
 #include "qwt_painter.h"
 #include "qwt_text_engine.h"
+#include "qwt_math.h"
 
 #include <qmap.h>
 #include <qfont.h>
@@ -380,7 +381,7 @@ QColor QwtText::usedColor( const QColor &defaultColor ) const
 */
 void QwtText::setBorderRadius( double radius )
 {
-    d_data->borderRadius = qMax( 0.0, radius );
+    d_data->borderRadius = qwtMaxF( 0.0, radius );
 }
 
 /*!

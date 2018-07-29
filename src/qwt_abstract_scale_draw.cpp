@@ -11,6 +11,7 @@
 #include "qwt_text.h"
 #include "qwt_painter.h"
 #include "qwt_scale_map.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpalette.h>
@@ -392,7 +393,7 @@ double QwtAbstractScaleDraw::maxTickLength() const
 {
     double length = 0.0;
     for ( int i = 0; i < QwtScaleDiv::NTickTypes; i++ )
-        length = qMax( length, d_data->tickLength[i] );
+        length = qwtMaxF( length, d_data->tickLength[i] );
 
     return length;
 }

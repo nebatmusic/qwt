@@ -12,6 +12,7 @@
 #include "qwt_math.h"
 #include "qwt_painter.h"
 #include "qwt_scale_map.h"
+#include "qwt_math.h"
 
 #include <qpainter.h>
 #include <qpalette.h>
@@ -597,7 +598,7 @@ void QwtKnob::drawMarker( QPainter *painter,
     if ( radius < 1.0 )
         radius = 1.0;
 
-    int markerSize = d_data->markerSize;
+    double markerSize = d_data->markerSize;
     if ( markerSize <= 0 )
         markerSize = qRound( 0.4 * radius );
 
@@ -606,8 +607,7 @@ void QwtKnob::drawMarker( QPainter *painter,
         case Notch:
         case Nub:
         {
-            const double dotWidth = 
-                qMin( double( markerSize ), radius);
+            const double dotWidth = qwtMinF( markerSize, radius );
 
             const double dotCenterDist = radius - 0.5 * dotWidth;
             if ( dotCenterDist > 0.0 )
@@ -638,8 +638,7 @@ void QwtKnob::drawMarker( QPainter *painter,
         }
         case Dot:
         {
-            const double dotWidth = 
-                qMin( double( markerSize ), radius);
+            const double dotWidth = qwtMinF( markerSize, radius);
 
             const double dotCenterDist = radius - 0.5 * dotWidth;
             if ( dotCenterDist > 0.0 )
@@ -659,7 +658,7 @@ void QwtKnob::drawMarker( QPainter *painter,
         }
         case Tick:
         {
-            const double rb = qMax( radius - markerSize, 1.0 );
+            const double rb = qwtMaxF( radius - markerSize, 1.0 );
             const double re = radius;
 
             const QLineF line( xm - sinA * rb, ym - cosA * rb,
@@ -674,7 +673,7 @@ void QwtKnob::drawMarker( QPainter *painter,
         }
         case Triangle:
         {
-            const double rb = qMax( radius - markerSize, 1.0 );
+            const double rb = qwtMaxF( radius - markerSize, 1.0 );
             const double re = radius;
 
             painter->translate( rect.center() );

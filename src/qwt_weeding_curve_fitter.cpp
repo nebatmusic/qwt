@@ -75,7 +75,7 @@ QwtWeedingCurveFitter::~QwtWeedingCurveFitter()
 */
 void QwtWeedingCurveFitter::setTolerance( double tolerance )
 {
-    d_data->tolerance = qMax( tolerance, 0.0 );
+    d_data->tolerance = qwtMaxF( tolerance, 0.0 );
 }
 
 /*!

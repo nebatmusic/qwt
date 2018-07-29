@@ -595,8 +595,8 @@ void QwtDial::setScaleArc( double minArc, double maxArc )
     if ( maxArc != 360.0 && maxArc != -360.0 )
         maxArc = std::fmod( maxArc, 360.0 );
 
-    double minScaleArc = qMin( minArc, maxArc );
-    double maxScaleArc = qMax( minArc, maxArc );
+    double minScaleArc = qwtMinF( minArc, maxArc );
+    double maxScaleArc = qwtMaxF( minArc, maxArc );
 
     if ( maxScaleArc - minScaleArc > 360.0 )
         maxScaleArc = minScaleArc + 360.0;
