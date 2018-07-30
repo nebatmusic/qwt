@@ -339,7 +339,7 @@ void QwtPainter::drawPath( QPainter *painter, const QPainterPath &path )
 }
 
 //! Wrapper for QPainter::drawRect()
-void QwtPainter::drawRect( QPainter *painter, double x, double y, double w, double h )
+void QwtPainter::drawRect( QPainter *painter, qreal x, qreal y, qreal w, qreal h )
 {
     drawRect( painter, QRectF( x, y, w, h ) );
 }
@@ -430,8 +430,8 @@ void QwtPainter::drawEllipse( QPainter *painter, const QRectF &rect )
 }
 
 //! Wrapper for QPainter::drawText()
-void QwtPainter::drawText( QPainter *painter, double x, double y,
-        const QString &text )
+void QwtPainter::drawText( QPainter *painter,
+    qreal x, qreal y, const QString &text )
 {
     drawText( painter, QPointF( x, y ), text );
 }
@@ -455,7 +455,7 @@ void QwtPainter::drawText( QPainter *painter, const QPointF &pos,
 
 //! Wrapper for QPainter::drawText()
 void QwtPainter::drawText( QPainter *painter,
-    double x, double y, double w, double h,
+    qreal x, qreal y, qreal w, qreal h,
     int flags, const QString &text )
 {
     drawText( painter, QRectF( x, y, w, h ), flags, text );
@@ -499,8 +499,8 @@ void QwtPainter::drawSimpleRichText( QPainter *painter, const QRectF &rect,
             pd->logicalDpiY() != res.height() )
         {
             QTransform transform;
-            transform.scale( res.width() / double( pd->logicalDpiX() ),
-                res.height() / double( pd->logicalDpiY() ));
+            transform.scale( res.width() / qreal( pd->logicalDpiX() ),
+                res.height() / qreal( pd->logicalDpiY() ));
 
             painter->setWorldTransform( transform, true );
             unscaledRect = transform.inverted().mapRect(rect);
@@ -512,8 +512,8 @@ void QwtPainter::drawSimpleRichText( QPainter *painter, const QRectF &rect,
 
     QAbstractTextDocumentLayout* layout = txt->documentLayout();
 
-    const double height = layout->documentSize().height();
-    double y = unscaledRect.y();
+    const qreal height = layout->documentSize().height();
+    qreal y = unscaledRect.y();
     if ( flags & Qt::AlignBottom )
         y += ( unscaledRect.height() - height );
     else if ( flags & Qt::AlignVCenter )
@@ -854,7 +854,7 @@ void QwtPainter::drawRoundFrame( QPainter *painter,
     else if ( (frameStyle & QFrame::Raised) == QFrame::Raised )
         style = Raised;
 
-    const double lw2 = 0.5 * lineWidth;
+    const qreal lw2 = 0.5 * lineWidth;
     QRectF r = rect.adjusted( lw2, lw2, -lw2, -lw2 );
 
     QBrush brush;
@@ -1073,14 +1073,14 @@ void QwtPainter::drawFrame( QPainter *painter, const QRectF &rect,
 */
 
 void QwtPainter::drawRoundedFrame( QPainter *painter,
-    const QRectF &rect, double xRadius, double yRadius,
+    const QRectF &rect, qreal xRadius, qreal yRadius,
     const QPalette &palette, int lineWidth, int frameStyle )
 {
     painter->save();
     painter->setRenderHint( QPainter::Antialiasing, true );
     painter->setBrush( Qt::NoBrush );
 
-    double lw2 = lineWidth * 0.5;
+    qreal lw2 = lineWidth * 0.5;
     QRectF innerRect = rect.adjusted( lw2, lw2, -lw2, -lw2 );
 
     QPainterPath path;
