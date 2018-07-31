@@ -62,7 +62,7 @@ public:
     void setZoomOutKey( int key, Qt::KeyboardModifiers = Qt::NoModifier );
     void getZoomOutKey( int &key, Qt::KeyboardModifiers & ) const;
 
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 protected:
     /*!

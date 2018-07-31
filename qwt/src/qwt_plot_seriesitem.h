@@ -33,9 +33,9 @@ public:
     void setOrientation( Qt::Orientation );
     Qt::Orientation orientation() const;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF & ) const;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
     /*!
       Draw a subset of the samples
@@ -52,13 +52,13 @@ public:
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const = 0;
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
     virtual void updateScaleDiv( 
-        const QwtScaleDiv &, const QwtScaleDiv & );
+        const QwtScaleDiv &, const QwtScaleDiv & ) QWT_OVERRIDE;
 
 protected:
-    virtual void dataChanged();
+    virtual void dataChanged() QWT_OVERRIDE;
 
 private:
     class PrivateData;

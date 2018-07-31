@@ -99,18 +99,18 @@ public:
     static void drawFocusRect( QPainter *, const QWidget * );
     static void drawFocusRect( QPainter *, const QWidget *, const QRect & );
 
-    static void drawColorBar( QPainter *painter,
+    static void drawColorBar( QPainter *,
         const QwtColorMap &, const QwtInterval &,
         const QwtScaleMap &, Qt::Orientation, const QRectF & );
 
-    static bool isAligning( const QPainter *painter );
+    static bool isAligning( const QPainter *);
     static bool isX11GraphicsSystem();
 
     static void fillPixmap( const QWidget *, 
         QPixmap &, const QPoint &offset = QPoint() );
 
-    static void drawBackgound( QPainter *painter,
-        const QRectF &rect, const QWidget *widget );
+    static void drawBackgound( QPainter *,
+        const QRectF &, const QWidget * );
 
     static QPixmap backingStore( QWidget *, const QSize & );
     static qreal devicePixelRatio( const QPaintDevice * );

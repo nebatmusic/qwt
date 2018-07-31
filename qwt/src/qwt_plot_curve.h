@@ -240,7 +240,7 @@ public:
 
     virtual ~QwtPlotCurve();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void setPaintAttribute( PaintAttribute, bool on = true );
     bool testPaintAttribute( PaintAttribute ) const;
@@ -303,35 +303,35 @@ public:
 
     virtual void drawSeries( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasRect, int from, int to ) const;
+        const QRectF &canvasRect, int from, int to ) const QWT_OVERRIDE;
 
-    virtual QwtGraphic legendIcon( int index, const QSizeF & ) const;
+    virtual QwtGraphic legendIcon( int index, const QSizeF & ) const QWT_OVERRIDE;
 
 protected:
 
     void init();
 
-    virtual void drawCurve( QPainter *p, int style,
+    virtual void drawCurve( QPainter *, int style,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    virtual void drawSymbols( QPainter *p, const QwtSymbol &,
+    virtual void drawSymbols( QPainter *, const QwtSymbol &,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    virtual void drawLines( QPainter *p,
+    virtual void drawLines( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    virtual void drawSticks( QPainter *p,
+    virtual void drawSticks( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    virtual void drawDots( QPainter *p,
+    virtual void drawDots( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    virtual void drawSteps( QPainter *p,
+    virtual void drawSteps( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 

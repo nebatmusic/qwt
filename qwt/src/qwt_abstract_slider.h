@@ -119,11 +119,11 @@ Q_SIGNALS:
     void sliderMoved( double value );
 
 protected:
-    virtual void mousePressEvent( QMouseEvent * );
-    virtual void mouseReleaseEvent( QMouseEvent * );
-    virtual void mouseMoveEvent( QMouseEvent * );
-    virtual void keyPressEvent( QKeyEvent * );
-    virtual void wheelEvent( QWheelEvent * );
+    virtual void mousePressEvent( QMouseEvent * ) QWT_OVERRIDE;
+    virtual void mouseReleaseEvent( QMouseEvent * ) QWT_OVERRIDE;
+    virtual void mouseMoveEvent( QMouseEvent * ) QWT_OVERRIDE;
+    virtual void keyPressEvent( QKeyEvent * ) QWT_OVERRIDE;
+    virtual void wheelEvent( QWheelEvent * ) QWT_OVERRIDE;
 
     /*!
       \brief Determine what to do when the user presses a mouse button.
@@ -148,7 +148,7 @@ protected:
 
     void incrementValue( int numSteps );
 
-    virtual void scaleChange();
+    virtual void scaleChange() QWT_OVERRIDE;
 
 protected:
     virtual void sliderChange();

@@ -42,7 +42,7 @@ public Q_SLOTS:
 protected:
     explicit QwtSamplingThread( QObject *parent = NULL );
 
-    virtual void run();
+    virtual void run() QWT_OVERRIDE;
 
     /*!
        Collect a sample

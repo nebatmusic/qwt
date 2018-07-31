@@ -88,7 +88,7 @@ public:
     void drawSeries( QwtPlotSeriesItem *, int from, int to );
     void reset();
 
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 private:
     class PrivateData;

@@ -21,44 +21,48 @@ public:
     QwtNullPaintDevice::Mode mode;
 };
 
-class QwtNullPaintDevice::PaintEngine: public QPaintEngine
+class QwtNullPaintDevice::PaintEngine QWT_FINAL: public QPaintEngine
 {
 public:
     PaintEngine();
 
-    virtual bool begin( QPaintDevice * );
-    virtual bool end();
+    virtual bool begin( QPaintDevice * ) QWT_OVERRIDE;
+    virtual bool end() QWT_OVERRIDE;
 
-    virtual Type type () const;
-    virtual void updateState(const QPaintEngineState &);
+    virtual Type type () const QWT_OVERRIDE;
+    virtual void updateState(const QPaintEngineState &) QWT_OVERRIDE;
 
-    virtual void drawRects(const QRect *, int );
-    virtual void drawRects(const QRectF *, int );
+    virtual void drawRects(const QRect *, int ) QWT_OVERRIDE;
+    virtual void drawRects(const QRectF *, int ) QWT_OVERRIDE;
 
-    virtual void drawLines(const QLine *, int );
-    virtual void drawLines(const QLineF *, int );
+    virtual void drawLines(const QLine *, int ) QWT_OVERRIDE;
+    virtual void drawLines(const QLineF *, int ) QWT_OVERRIDE;
 
-    virtual void drawEllipse(const QRectF &);
-    virtual void drawEllipse(const QRect &);
+    virtual void drawEllipse(const QRectF &) QWT_OVERRIDE;
+    virtual void drawEllipse(const QRect &) QWT_OVERRIDE;
 
-    virtual void drawPath(const QPainterPath &);
+    virtual void drawPath(const QPainterPath &) QWT_OVERRIDE;
 
-    virtual void drawPoints(const QPointF *, int );
-    virtual void drawPoints(const QPoint *, int );
+    virtual void drawPoints(const QPointF *, int ) QWT_OVERRIDE;
+    virtual void drawPoints(const QPoint *, int ) QWT_OVERRIDE;
 
-    virtual void drawPolygon(const QPointF *, int , PolygonDrawMode );
-    virtual void drawPolygon(const QPoint *, int , PolygonDrawMode );
+    virtual void drawPolygon(
+        const QPointF *, int , PolygonDrawMode ) QWT_OVERRIDE;
+
+    virtual void drawPolygon(
+        const QPoint *, int , PolygonDrawMode ) QWT_OVERRIDE;
 
     virtual void drawPixmap(const QRectF &, 
-        const QPixmap &, const QRectF &);
+        const QPixmap &, const QRectF &) QWT_OVERRIDE;
 
-    virtual void drawTextItem(const QPointF &, const QTextItem &);
+    virtual void drawTextItem(
+        const QPointF &, const QTextItem &) QWT_OVERRIDE;
 
     virtual void drawTiledPixmap(const QRectF &, 
-        const QPixmap &, const QPointF &s);
+        const QPixmap &, const QPointF &s) QWT_OVERRIDE;
 
-    virtual void drawImage(const QRectF &, 
-        const QImage &, const QRectF &, Qt::ImageConversionFlags );
+    virtual void drawImage(const QRectF &, const QImage &,
+        const QRectF &, Qt::ImageConversionFlags ) QWT_OVERRIDE;
 
 private:
     QwtNullPaintDevice *nullDevice();

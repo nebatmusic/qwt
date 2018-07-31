@@ -216,7 +216,7 @@ public:
     bool isEnabled() const;
     bool isActive() const;
 
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
     QWidget *parentWidget();
     const QWidget *parentWidget() const;

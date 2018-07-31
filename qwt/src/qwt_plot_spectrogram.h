@@ -71,8 +71,8 @@ public:
     void setMaxRGBTableSize( int numColors );
     int maxRGBTableSize() const;
     
-    virtual QwtInterval interval(Qt::Axis) const;
-    virtual QRectF pixelHint( const QRectF & ) const;
+    virtual QwtInterval interval(Qt::Axis) const QWT_OVERRIDE;
+    virtual QRectF pixelHint( const QRectF & ) const QWT_OVERRIDE;
 
     void setDefaultContourPen( const QColor &, 
         qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
@@ -87,16 +87,16 @@ public:
     void setContourLevels( const QList<double> & );
     QList<double> contourLevels() const;
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &rect ) const QWT_OVERRIDE;
 
 protected:
     virtual QImage renderImage(
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &area, const QSize &imageSize ) const;
+        const QRectF &area, const QSize &imageSize ) const QWT_OVERRIDE;
 
     virtual QSize contourRasterSize(
         const QRectF &, const QRect & ) const;

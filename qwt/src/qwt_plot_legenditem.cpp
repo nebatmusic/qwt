@@ -21,7 +21,7 @@
 
 namespace
 {
-    class QwtLegendLayoutItem: public QLayoutItem
+    class QwtLegendLayoutItem QWT_FINAL: public QLayoutItem
     {
     public:
         QwtLegendLayoutItem( const QwtPlotLegendItem *, const QwtPlotItem * );
@@ -32,16 +32,16 @@ namespace
         void setData( const QwtLegendData & );
         const QwtLegendData &data() const;
 
-        virtual Qt::Orientations expandingDirections() const;
-        virtual QRect geometry() const;
-        virtual bool hasHeightForWidth() const;
-        virtual int heightForWidth( int w ) const;
-        virtual bool isEmpty() const;
-        virtual QSize maximumSize() const;
-        virtual int minimumHeightForWidth( int w ) const;
-        virtual QSize minimumSize() const;
-        virtual void setGeometry( const QRect & r );
-        virtual QSize sizeHint() const;
+        virtual Qt::Orientations expandingDirections() const QWT_OVERRIDE;
+        virtual QRect geometry() const QWT_OVERRIDE;
+        virtual bool hasHeightForWidth() const QWT_OVERRIDE;
+        virtual int heightForWidth( int w ) const QWT_OVERRIDE;
+        virtual bool isEmpty() const QWT_OVERRIDE;
+        virtual QSize maximumSize() const QWT_OVERRIDE;
+        virtual int minimumHeightForWidth( int w ) const QWT_OVERRIDE;
+        virtual QSize minimumSize() const QWT_OVERRIDE;
+        virtual void setGeometry( const QRect & ) QWT_OVERRIDE;
+        virtual QSize sizeHint() const QWT_OVERRIDE;
 
     private:
 

@@ -57,13 +57,14 @@ public:
     void setMaxWeeks( int );
     int maxWeeks() const;
 
-    virtual void autoScale( int maxNumSteps,
-        double &x1, double &x2, double &stepSize ) const;
+    virtual void autoScale(
+        int maxNumSteps, double &x1, double &x2,
+        double &stepSize ) const QWT_OVERRIDE;
 
     virtual QwtScaleDiv divideScale( 
         double x1, double x2,
         int maxMajorSteps, int maxMinorSteps,
-        double stepSize = 0.0 ) const;
+        double stepSize = 0.0 ) const QWT_OVERRIDE;
 
     virtual QwtDate::IntervalType intervalType( 
         const QDateTime &, const QDateTime &, int maxSteps ) const;

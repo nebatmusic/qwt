@@ -36,7 +36,7 @@ public:
     explicit QwtPlotGrid();
     virtual ~QwtPlotGrid();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void enableX( bool tf );
     bool xEnabled() const;
@@ -56,10 +56,14 @@ public:
     void setYDiv( const QwtScaleDiv &sy );
     const QwtScaleDiv &yScaleDiv() const;
 
-    void setPen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
+    void setPen( const QColor &,
+        qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
+
     void setPen( const QPen & );
 
-    void setMajorPen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
+    void setMajorPen( const QColor &,
+        qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
+
     void setMajorPen( const QPen & );
     const QPen& majorPen() const;
 
@@ -67,15 +71,15 @@ public:
     void setMinorPen( const QPen &p );
     const QPen& minorPen() const;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF & canvasRect) const QWT_OVERRIDE;
 
     virtual void updateScaleDiv( 
-        const QwtScaleDiv &xMap, const QwtScaleDiv &yMap );
+        const QwtScaleDiv &xMap, const QwtScaleDiv &yMap ) QWT_OVERRIDE;
 
 private:
-    void drawLines( QPainter *painter, const QRectF &,
+    void drawLines( QPainter *, const QRectF &,
         Qt::Orientation orientation, const QwtScaleMap &,
         const QList<double> & ) const;
 

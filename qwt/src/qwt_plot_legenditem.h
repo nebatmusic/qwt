@@ -63,7 +63,7 @@ public:
     explicit QwtPlotLegendItem();
     virtual ~QwtPlotLegendItem();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void setAlignmentInCanvas( Qt::Alignment );
     Qt::Alignment alignmentInCanvas() const;
@@ -104,14 +104,14 @@ public:
     void setTextPen( const QPen & );
     QPen textPen() const;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
     void clearLegend();
 
     virtual void updateLegend( const QwtPlotItem *,
-        const QList<QwtLegendData> & );
+        const QList<QwtLegendData> & ) QWT_OVERRIDE;
 
     virtual QRect geometry( const QRectF &canvasRect ) const;
 
@@ -122,7 +122,7 @@ public:
     QList< QRect > legendGeometries( const QwtPlotItem * ) const;
 
 protected:
-    virtual void drawLegendData( QPainter *painter, 
+    virtual void drawLegendData( QPainter *, 
         const QwtPlotItem *, const QwtLegendData &, const QRectF & ) const;
 
     virtual void drawBackground( QPainter *, const QRectF &rect ) const;

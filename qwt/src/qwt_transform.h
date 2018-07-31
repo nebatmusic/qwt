@@ -83,10 +83,10 @@ public:
     QwtNullTransform();
     virtual ~QwtNullTransform();
 
-    virtual double transform( double value ) const;
-    virtual double invTransform( double value ) const;
+    virtual double transform( double value ) const QWT_OVERRIDE;
+    virtual double invTransform( double value ) const QWT_OVERRIDE;
 
-    virtual QwtTransform *copy() const;
+    virtual QwtTransform *copy() const QWT_OVERRIDE;
 };
 /*!
    \brief Logarithmic transformation
@@ -103,12 +103,12 @@ public:
     QwtLogTransform();
     virtual ~QwtLogTransform();
     
-    virtual double transform( double value ) const;
-    virtual double invTransform( double value ) const;
+    virtual double transform( double value ) const QWT_OVERRIDE;
+    virtual double invTransform( double value ) const QWT_OVERRIDE;
 
-    virtual double bounded( double value ) const;
+    virtual double bounded( double value ) const QWT_OVERRIDE;
 
-    virtual QwtTransform *copy() const;
+    virtual QwtTransform *copy() const QWT_OVERRIDE;
 
     static const double LogMin;
     static const double LogMax;
@@ -128,10 +128,10 @@ public:
     explicit QwtPowerTransform( double exponent );
     virtual ~QwtPowerTransform();
 
-    virtual double transform( double value ) const;
-    virtual double invTransform( double value ) const;
+    virtual double transform( double value ) const QWT_OVERRIDE;
+    virtual double invTransform( double value ) const QWT_OVERRIDE;
 
-    virtual QwtTransform *copy() const;
+    virtual QwtTransform *copy() const QWT_OVERRIDE;
 
 private:
     const double d_exponent;

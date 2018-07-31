@@ -77,8 +77,8 @@ public Q_SLOTS:
     void setTime( const QTime & );
 
 protected:
-    virtual void drawNeedle( QPainter *, const QPointF &,
-        double radius, double direction, QPalette::ColorGroup ) const;
+    virtual void drawNeedle( QPainter *, const QPointF &, double radius,
+        double direction, QPalette::ColorGroup ) const QWT_OVERRIDE;
 
     virtual void drawHand( QPainter *, Hand, const QPointF &,
         double radius, double direction, QPalette::ColorGroup ) const;

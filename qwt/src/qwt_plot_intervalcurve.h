@@ -81,7 +81,7 @@ public:
 
     virtual ~QwtPlotIntervalCurve();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void setPaintAttribute( PaintAttribute, bool on = true );
     bool testPaintAttribute( PaintAttribute ) const;
@@ -89,7 +89,9 @@ public:
     void setSamples( const QVector<QwtIntervalSample> & );
     void setSamples( QwtSeriesData<QwtIntervalSample> * );
 
-    void setPen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
+    void setPen( const QColor &,
+        qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
+
     void setPen( const QPen & );
     const QPen &pen() const;
 
@@ -102,13 +104,14 @@ public:
     void setSymbol( const QwtIntervalSymbol * );
     const QwtIntervalSymbol *symbol() const;
 
-    virtual void drawSeries( QPainter *p,
+    virtual void drawSeries( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasRect, int from, int to ) const;
+        const QRectF &canvasRect, int from, int to ) const QWT_OVERRIDE;
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
-    virtual QwtGraphic legendIcon( int index, const QSizeF & ) const;
+    virtual QwtGraphic legendIcon(
+        int index, const QSizeF & ) const QWT_OVERRIDE;
 
 protected:
 

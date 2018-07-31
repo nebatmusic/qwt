@@ -44,7 +44,7 @@ public:
     const QwtPlot *plot() const;
 
 protected:
-    virtual void rescale( double factor );
+    virtual void rescale( double factor ) QWT_OVERRIDE;
 
 private:
     class PrivateData;

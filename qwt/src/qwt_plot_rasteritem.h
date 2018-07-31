@@ -100,12 +100,12 @@ public:
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &rect ) const QWT_OVERRIDE;
 
     virtual QRectF pixelHint( const QRectF & ) const;
 
     virtual QwtInterval interval(Qt::Axis) const;
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
 protected:
     /*!

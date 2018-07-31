@@ -105,7 +105,7 @@ public:
 
     virtual ~QwtPlotTradingCurve();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void setPaintAttribute( PaintAttribute, bool on = true );
     bool testPaintAttribute( PaintAttribute ) const;
@@ -133,13 +133,13 @@ public:
     void setMaxSymbolWidth( double );
     double maxSymbolWidth() const;
 
-    virtual void drawSeries( QPainter *painter,
+    virtual void drawSeries( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasRect, int from, int to ) const;
+        const QRectF &canvasRect, int from, int to ) const QWT_OVERRIDE;
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
-    virtual QwtGraphic legendIcon( int index, const QSizeF & ) const;
+    virtual QwtGraphic legendIcon( int index, const QSizeF & ) const QWT_OVERRIDE;
 
 protected:
 
@@ -153,7 +153,7 @@ protected:
         SymbolStyle, const QwtOHLCSample &,
         Qt::Orientation, bool inverted, double width ) const;
 
-    void drawBar( QPainter *painter, const QwtOHLCSample &, 
+    void drawBar( QPainter *, const QwtOHLCSample &, 
         Qt::Orientation, bool inverted, double width ) const;
 
     void drawCandleStick( QPainter *, const QwtOHLCSample &, 

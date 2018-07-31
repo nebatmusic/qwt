@@ -33,7 +33,7 @@ public:
     virtual void setPalette( const QPalette & );
     const QPalette &palette() const;
 
-    virtual void draw( QPainter *painter, const QPointF &center,
+    virtual void draw( QPainter *, const QPointF &center,
         double length, double direction, 
         QPalette::ColorGroup = QPalette::Active ) const;
 
@@ -99,7 +99,7 @@ public:
 
 protected:
     virtual void drawNeedle( QPainter *, double length,
-        QPalette::ColorGroup ) const;
+        QPalette::ColorGroup ) const QWT_OVERRIDE;
 
 private:
     Style d_style;
@@ -142,7 +142,7 @@ public:
 
 protected:
     virtual void drawNeedle( QPainter *, 
-        double length, QPalette::ColorGroup ) const;
+        double length, QPalette::ColorGroup ) const QWT_OVERRIDE;
 
 private:
     Style d_style;
@@ -179,7 +179,7 @@ public:
 
 protected:
     virtual void drawNeedle( QPainter *, 
-        double length, QPalette::ColorGroup ) const;
+        double length, QPalette::ColorGroup ) const QWT_OVERRIDE;
 
 private:
     Style d_style;

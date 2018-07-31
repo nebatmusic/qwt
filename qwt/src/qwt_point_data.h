@@ -25,8 +25,8 @@ public:
     QwtPointArrayData( const QVector<T> &x, const QVector<T> &y );
     QwtPointArrayData( const T *x, const T *y, size_t size );
 
-    virtual size_t size() const;
-    virtual QPointF sample( size_t i ) const;
+    virtual size_t size() const QWT_OVERRIDE;
+    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
 
     const QVector<T> &xData() const;
     const QVector<T> &yData() const;
@@ -45,8 +45,8 @@ class QwtCPointerData: public QwtPointSeriesData
 public:
     QwtCPointerData( const T *x, const T *y, size_t size );
 
-    virtual size_t size() const;
-    virtual QPointF sample( size_t i ) const;
+    virtual size_t size() const QWT_OVERRIDE;
+    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
 
     const T *xData() const;
     const T *yData() const;
@@ -70,8 +70,8 @@ public:
     QwtValuePointData( const QVector<T> &y );
     QwtValuePointData( const T *y, size_t size );
 
-    virtual size_t size() const;
-    virtual QPointF sample( size_t i ) const;
+    virtual size_t size() const QWT_OVERRIDE;
+    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
 
     const QVector<T> &yData() const;
 
@@ -91,8 +91,8 @@ class QwtCPointerValueData: public QwtPointSeriesData
 public:
     QwtCPointerValueData( const T *y, size_t size );
 
-    virtual size_t size() const;
-    virtual QPointF sample( size_t i ) const;
+    virtual size_t size() const QWT_OVERRIDE;
+    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
 
     const T *yData() const;
 
@@ -161,13 +161,13 @@ public:
         const QwtInterval & = QwtInterval() );
 
     void setSize( size_t size );
-    virtual size_t size() const;
+    virtual size_t size() const QWT_OVERRIDE;
 
     void setInterval( const QwtInterval& );
     QwtInterval interval() const;
 
-    virtual QRectF boundingRect() const;
-    virtual QPointF sample( size_t i ) const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
+    virtual QPointF sample( size_t index ) const QWT_OVERRIDE;
 
     /*!
        Calculate a y value for a x value
@@ -178,7 +178,7 @@ public:
     virtual double y( double x ) const = 0;
     virtual double x( uint index ) const;
 
-    virtual void setRectOfInterest( const QRectF & );
+    virtual void setRectOfInterest( const QRectF & ) QWT_OVERRIDE;
     QRectF rectOfInterest() const;
 
 private:

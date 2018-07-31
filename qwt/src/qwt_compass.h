@@ -40,7 +40,7 @@ public:
     void setLabelMap( const QMap<double, QString> &map );
     QMap<double, QString> labelMap() const;
 
-    virtual QwtText label( double value ) const;
+    virtual QwtText label( double value ) const QWT_OVERRIDE;
 
 private:
     class PrivateData;
@@ -75,9 +75,9 @@ protected:
         double radius, double north, QPalette::ColorGroup ) const;
 
     virtual void drawScaleContents( QPainter *,
-        const QPointF &center, double radius ) const;
+        const QPointF &center, double radius ) const QWT_OVERRIDE;
 
-    virtual void keyPressEvent( QKeyEvent * );
+    virtual void keyPressEvent( QKeyEvent * ) QWT_OVERRIDE;
 
 private:
     class PrivateData;

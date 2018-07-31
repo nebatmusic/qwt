@@ -79,8 +79,8 @@ public:
 
     virtual void getCanvasMarginHint( 
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasRect,
-        double &left, double &top, double &right, double &bottom) const;
+        const QRectF &canvasRect, double &left, double &top,
+        double &right, double &bottom) const QWT_OVERRIDE;
 
 
 protected:

@@ -154,7 +154,7 @@ public:
     const QVector<T> samples() const;
 
     //! \return Number of samples
-    virtual size_t size() const;
+    virtual size_t size() const QWT_OVERRIDE;
 
     /*!
       \return Sample at a specific position
@@ -162,7 +162,7 @@ public:
       \param index Index
       \return Sample at position index
     */
-    virtual T sample( size_t index ) const;
+    virtual T sample( size_t index ) const QWT_OVERRIDE;
 
 protected:
     //! Vector of samples
@@ -212,7 +212,7 @@ public:
     QwtPointSeriesData(
         const QVector<QPointF> & = QVector<QPointF>() );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 };
 
 //! Interface for iterating over an array of 3D points
@@ -221,7 +221,8 @@ class QWT_EXPORT QwtPoint3DSeriesData: public QwtArraySeriesData<QwtPoint3D>
 public:
     QwtPoint3DSeriesData(
         const QVector<QwtPoint3D> & = QVector<QwtPoint3D>() );
-    virtual QRectF boundingRect() const;
+
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 };
 
 //! Interface for iterating over an array of intervals
@@ -231,7 +232,7 @@ public:
     QwtIntervalSeriesData(
         const QVector<QwtIntervalSample> & = QVector<QwtIntervalSample>() );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 };
 
 //! Interface for iterating over an array of samples
@@ -241,7 +242,7 @@ public:
     QwtSetSeriesData(
         const QVector<QwtSetSample> & = QVector<QwtSetSample>() );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 };
 
 class QWT_EXPORT QwtVectorFieldData: public QwtArraySeriesData<QwtVectorSample>
@@ -250,7 +251,7 @@ public:
     QwtVectorFieldData(
         const QVector<QwtVectorSample> & = QVector<QwtVectorSample>() );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
     virtual double maxMagnitude() const;
 
 protected:
@@ -266,7 +267,7 @@ public:
     QwtTradingChartData(
         const QVector<QwtOHLCSample> & = QVector<QwtOHLCSample>() );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 };
 
 QWT_EXPORT QRectF qwtBoundingRect(

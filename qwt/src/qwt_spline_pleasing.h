@@ -26,10 +26,10 @@ public:
     QwtSplinePleasing();
     virtual ~QwtSplinePleasing();
 
-    virtual uint locality() const;
+    virtual uint locality() const QWT_OVERRIDE;
 
-    virtual QPainterPath painterPath( const QPolygonF & ) const;
-    virtual QVector<QLineF> bezierControlLines( const QPolygonF &points ) const;
+    virtual QPainterPath painterPath( const QPolygonF & ) const QWT_OVERRIDE;
+    virtual QVector<QLineF> bezierControlLines( const QPolygonF & ) const QWT_OVERRIDE;
 };
 
 #endif

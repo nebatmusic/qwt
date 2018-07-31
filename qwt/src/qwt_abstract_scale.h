@@ -85,7 +85,7 @@ public:
     const QwtScaleMap &scaleMap() const;
 
 protected:
-    virtual void changeEvent( QEvent * );
+    virtual void changeEvent( QEvent * ) QWT_OVERRIDE;
 
     void rescale( double lowerBound, 
         double upperBound, double stepSize );

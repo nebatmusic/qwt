@@ -67,8 +67,9 @@ public:
     void setShrinkFactor( double factor );
     double shrinkFactor() const;
 
-    virtual void draw( QPainter *, const QPointF &center, double radius,
-        double north, QPalette::ColorGroup = QPalette::Active ) const;
+    virtual void draw( QPainter *,
+        const QPointF &center, double radius, double north,
+        QPalette::ColorGroup = QPalette::Active ) const QWT_OVERRIDE;
 
     static void drawRose( QPainter *, const QPalette &,
         const QPointF &center, double radius, double origin, double width,

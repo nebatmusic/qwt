@@ -63,26 +63,26 @@ static inline QRegion qwtMaskRegion( const QLine &l, int penWidth )
 
 namespace
 {
-    class QwtPickerRubberband: public QwtWidgetOverlay
+    class QwtPickerRubberband QWT_FINAL : public QwtWidgetOverlay
     {
     public:
         QwtPickerRubberband( QwtPicker *, QWidget * );
 
     protected:
-        virtual void drawOverlay( QPainter * ) const;
-        virtual QRegion maskHint() const;
+        virtual void drawOverlay( QPainter * ) const QWT_OVERRIDE;
+        virtual QRegion maskHint() const QWT_OVERRIDE;
 
         QwtPicker *d_picker;
     };
 
-    class QwtPickerTracker: public QwtWidgetOverlay
+    class QwtPickerTracker QWT_FINAL : public QwtWidgetOverlay
     {                                  
     public:
         QwtPickerTracker( QwtPicker *, QWidget * );
         
     protected:
-        virtual void drawOverlay( QPainter * ) const;
-        virtual QRegion maskHint() const;
+        virtual void drawOverlay( QPainter * ) const QWT_OVERRIDE;
+        virtual QRegion maskHint() const QWT_OVERRIDE;
         
         QwtPicker *d_picker;
     };  

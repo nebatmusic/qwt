@@ -145,8 +145,8 @@ public:
 
     double value() const;
 
-    virtual QSize sizeHint() const;
-    virtual QSize minimumSizeHint() const;
+    virtual QSize sizeHint() const QWT_OVERRIDE;
+    virtual QSize minimumSizeHint() const QWT_OVERRIDE;
 
     void setScaleDraw( QwtScaleDraw * );
     const QwtScaleDraw *scaleDraw() const;
@@ -156,11 +156,11 @@ public Q_SLOTS:
 
 protected:
     virtual void drawLiquid( QPainter *, const QRect & ) const;
-    virtual void scaleChange();
+    virtual void scaleChange() QWT_OVERRIDE;
 
-    virtual void paintEvent( QPaintEvent * );
-    virtual void resizeEvent( QResizeEvent * );
-    virtual void changeEvent( QEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
+    virtual void resizeEvent( QResizeEvent * ) QWT_OVERRIDE;
+    virtual void changeEvent( QEvent * ) QWT_OVERRIDE;
 
     QwtScaleDraw *scaleDraw();
 

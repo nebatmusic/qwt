@@ -91,15 +91,16 @@ public:
     void setSamples( const QVector<QwtVectorSample> & );
     void setSamples( QwtVectorFieldData * );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
     virtual void drawSeries( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasRect, int from, int to ) const;
+        const QRectF &canvasRect, int from, int to ) const QWT_OVERRIDE;
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
-    virtual QwtGraphic legendIcon( int index, const QSizeF & ) const;
+    virtual QwtGraphic legendIcon(
+        int index, const QSizeF & ) const QWT_OVERRIDE;
 
     void setMagnitudeScaleFactor( double factor );
     double magnitudeScaleFactor() const;

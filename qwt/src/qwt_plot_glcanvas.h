@@ -58,23 +58,23 @@ public:
     explicit QwtPlotGLCanvas( const QGLFormat &, QwtPlot * = NULL );
     virtual ~QwtPlotGLCanvas();
 
-    Q_INVOKABLE virtual void invalidateBackingStore();
+    Q_INVOKABLE virtual void invalidateBackingStore() QWT_OVERRIDE;
     Q_INVOKABLE QPainterPath borderPath( const QRect & ) const;
 
-    virtual bool event( QEvent * );
+    virtual bool event( QEvent * ) QWT_OVERRIDE;
 
 public Q_SLOTS:
     void replot();
 
 protected:
-    virtual void paintEvent( QPaintEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
 
-    virtual void initializeGL();
-    virtual void paintGL();
-    virtual void resizeGL( int width, int height );
+    virtual void initializeGL() QWT_OVERRIDE;
+    virtual void paintGL() QWT_OVERRIDE;
+    virtual void resizeGL( int width, int height ) QWT_OVERRIDE;
 
 private:
-	virtual void clearBackingStore();
+	virtual void clearBackingStore() QWT_OVERRIDE;
 
     class PrivateData;
     PrivateData *d_data;

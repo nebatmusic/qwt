@@ -90,64 +90,64 @@
  */
 
 //! \return Minimum of a and b.
-QWT_DECL_CONSTEXPR inline float qwtMinF( float a, float b )
+QWT_CONSTEXPR inline float qwtMinF( float a, float b )
 {
     return ( a < b ) ? a : b;
 }
 
 //! \return Minimum of a and b.
-QWT_DECL_CONSTEXPR inline double qwtMinF( double a, double b )
+QWT_CONSTEXPR inline double qwtMinF( double a, double b )
 {
     return ( a < b ) ? a : b;
 }
 
 //! \return Minimum of a and b.
-QWT_DECL_CONSTEXPR inline qreal qwtMinF( float a, double b )
+QWT_CONSTEXPR inline qreal qwtMinF( float a, double b )
 {
     return ( a < b ) ? a : b;
 }
 
 //! \return Minimum of a and b.
-QWT_DECL_CONSTEXPR inline qreal qwtMinF( double a, float b )
+QWT_CONSTEXPR inline qreal qwtMinF( double a, float b )
 {
     return ( a < b ) ? a : b;
 }
 
 //! \return Maximum of a and b.
-QWT_DECL_CONSTEXPR inline float qwtMaxF( float a, float b )
+QWT_CONSTEXPR inline float qwtMaxF( float a, float b )
 {
     return ( a < b ) ? b : a;
 }   
 
 //! \return Maximum of a and b.
-QWT_DECL_CONSTEXPR inline double qwtMaxF( double a, double b )
+QWT_CONSTEXPR inline double qwtMaxF( double a, double b )
 {
     return ( a < b ) ? b : a;
 }
 
 //! \return Maximum of a and b.
-QWT_DECL_CONSTEXPR inline qreal qwtMaxF( float a, double b )
+QWT_CONSTEXPR inline qreal qwtMaxF( float a, double b )
 {
     return ( a < b ) ? b : a;
 }
 
 //! \return Maximum of a and b.
-QWT_DECL_CONSTEXPR inline qreal qwtMaxF( double a, float b )
+QWT_CONSTEXPR inline qreal qwtMaxF( double a, float b )
 {
     return ( a < b ) ? b : a;
 }
 
-QWT_DECL_CONSTEXPR inline float qwtBoundF( double min, float value, double max)
+QWT_CONSTEXPR inline float qwtBoundF( double min, float value, double max)
 {
     return qwtMaxF( min, qwtMinF( max, value ) );
 }
 
-QWT_DECL_CONSTEXPR inline double qwtBoundF( float min, double value, float max)
+QWT_CONSTEXPR inline double qwtBoundF( float min, double value, float max)
 {
     return qwtMaxF( min, qwtMinF( max, value ) );
 }
 
-QWT_DECL_CONSTEXPR inline double qwtBoundF( double min, double value, double max)
+QWT_CONSTEXPR inline double qwtBoundF( double min, double value, double max)
 {
     return qwtMaxF( min, qwtMinF( max, value ) );
 }

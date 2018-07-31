@@ -120,15 +120,14 @@ public:
     void setRenderMode( RenderMode );
     RenderMode renderMode() const;
 
-
-    virtual bool eventFilter( QObject *, QEvent *);
+    virtual bool eventFilter( QObject *, QEvent *) QWT_OVERRIDE;
 
 public Q_SLOTS:
     void updateOverlay();
 
 protected:
-    virtual void paintEvent( QPaintEvent* event );
-    virtual void resizeEvent( QResizeEvent* event );
+    virtual void paintEvent( QPaintEvent* ) QWT_OVERRIDE;
+    virtual void resizeEvent( QResizeEvent* ) QWT_OVERRIDE;
 
     virtual QRegion maskHint() const;
 

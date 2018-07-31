@@ -97,7 +97,7 @@ public:
     void setIncSteps( QwtCounter::Button btn, int nSteps );
     int incSteps( QwtCounter::Button btn ) const;
 
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const QWT_OVERRIDE;
 
     double singleStep() const;
     void setSingleStep( double s );
@@ -139,9 +139,9 @@ Q_SIGNALS:
     void valueChanged ( double value );
 
 protected:
-    virtual bool event( QEvent * );
-    virtual void wheelEvent( QWheelEvent * );
-    virtual void keyPressEvent( QKeyEvent * );
+    virtual bool event( QEvent * ) QWT_OVERRIDE;
+    virtual void wheelEvent( QWheelEvent * ) QWT_OVERRIDE;
+    virtual void keyPressEvent( QKeyEvent * ) QWT_OVERRIDE;
 
 private Q_SLOTS:
     void btnReleased();

@@ -52,7 +52,7 @@ public:
     ResampleMode resampleMode() const;
 
     void setInterval( Qt::Axis, const QwtInterval & );
-    QwtInterval interval( Qt::Axis axis) const;
+    virtual QwtInterval interval( Qt::Axis axis) const QWT_OVERRIDE;
 
     void setValueMatrix( const QVector<double> &values, int numColumns );
     const QVector<double> valueMatrix() const;
@@ -62,9 +62,9 @@ public:
     int numColumns() const;
     int numRows() const;
 
-    virtual QRectF pixelHint( const QRectF & ) const;
+    virtual QRectF pixelHint( const QRectF & ) const QWT_OVERRIDE;
 
-    virtual double value( double x, double y ) const;
+    virtual double value( double x, double y ) const QWT_OVERRIDE;
 
 private:
     void update();

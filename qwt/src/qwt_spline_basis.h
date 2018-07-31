@@ -27,8 +27,8 @@ public:
     QwtSplineBasis();
     virtual ~QwtSplineBasis();
 
-    virtual QPainterPath painterPath( const QPolygonF & ) const;
-    virtual uint locality() const;
+    virtual QPainterPath painterPath( const QPolygonF & ) const QWT_OVERRIDE;
+    virtual uint locality() const QWT_OVERRIDE;
 };
 
 #endif

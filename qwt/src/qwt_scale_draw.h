@@ -61,7 +61,7 @@ public:
     int minLabelDist( const QFont & ) const;
 
     int minLength( const QFont & ) const;
-    virtual double extent( const QFont & ) const;
+    virtual double extent( const QFont & ) const QWT_OVERRIDE;
 
     void move( double x, double y );
     void move( const QPointF & );
@@ -94,9 +94,11 @@ public:
 protected:
     QTransform labelTransformation( const QPointF &, const QSizeF & ) const;
 
-    virtual void drawTick( QPainter *, double val, double len ) const;
-    virtual void drawBackbone( QPainter * ) const;
-    virtual void drawLabel( QPainter *, double val ) const;
+    virtual void drawTick( QPainter *,
+        double val, double len ) const QWT_OVERRIDE;
+
+    virtual void drawBackbone( QPainter * ) const QWT_OVERRIDE;
+    virtual void drawLabel( QPainter *, double val ) const QWT_OVERRIDE;
 
 private:
     void updateMap();
