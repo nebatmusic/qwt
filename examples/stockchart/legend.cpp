@@ -77,8 +77,8 @@ QStandardItem *LegendTreeView::rootItem( int rtti )
     return NULL;
 }
 
-QList<QStandardItem *> LegendTreeView::itemList( 
-    const QwtPlotItem *plotItem ) 
+QList<QStandardItem *> LegendTreeView::itemList(
+    const QwtPlotItem *plotItem )
 {
     QList<QStandardItem *> itemList;
 
@@ -88,9 +88,9 @@ QList<QStandardItem *> LegendTreeView::itemList(
         for ( int i = 0; i < rootItem->rowCount(); i++ )
         {
             QStandardItem *item = rootItem->child( i );
-        
+
             const QVariant key = item->data();
-        
+
             if ( key.canConvert<qlonglong>() )
             {
                 const qlonglong ptr = key.value<qlonglong>();
@@ -164,14 +164,14 @@ QSize LegendTreeView::sizeHint() const
         int wRow = 0;
         for ( int i = 0; i < rootItem->rowCount(); i++ )
         {
-            const QSize hint = delegate->sizeHint( styleOption, 
+            const QSize hint = delegate->sizeHint( styleOption,
                 rootItem->child( i )->index() );
 
             wRow = qMax( wRow, hint.width() );
             h += hint.height();
         }
 
-        const QSize rootHint = delegate->sizeHint( 
+        const QSize rootHint = delegate->sizeHint(
             styleOption, rootItem->index() );
 
         wRow = qMax( wRow + indentation(), rootHint.width() );
@@ -346,8 +346,8 @@ void Legend::handleClick( const QModelIndex &index )
     if ( item->isCheckable() )
     {
         const qlonglong ptr = item->data().value<qlonglong>();
-    
-        Q_EMIT checked( (QwtPlotItem *)ptr, 
+
+        Q_EMIT checked( (QwtPlotItem *)ptr,
             item->checkState() == Qt::Checked, 0 );
     }
 }

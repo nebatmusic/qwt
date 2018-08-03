@@ -244,7 +244,7 @@ void Plot::showEvent( QShowEvent * )
 
 bool Plot::eventFilter( QObject *object, QEvent *event )
 {
-    if ( object == canvas() && 
+    if ( object == canvas() &&
         event->type() == QEvent::PaletteChange )
     {
         d_curve->setPen( canvas()->palette().color( QPalette::WindowText ) );

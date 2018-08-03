@@ -57,14 +57,14 @@ public:
 
                 QPainter painter( &pm );
                 painter.setRenderHint( QPainter::Antialiasing, true );
-                
-                painter.setPen( pen ); 
+
+                painter.setPen( pen );
                 painter.setBrush( brush );
 
                 painter.translate( m, m );
                 painter.translate( -br.left(), br.top() );
                 painter.drawPath( path );
-                
+
                 setPixmap( pm );
                 setSize( pm.size() );
                 if ( isPinPointEnabled() )
@@ -76,15 +76,15 @@ public:
             {
                 QwtGraphic graphic;
                 graphic.setRenderHint( QwtGraphic::RenderPensUnscaled );
-        
+
                 QPainter painter( &graphic );
                 painter.setRenderHint( QPainter::Antialiasing, true );
-                painter.setPen( pen ); 
+                painter.setPen( pen );
                 painter.setBrush( brush );
-        
+
                 painter.drawPath( path );
                 painter.end();
-        
+
                 setGraphic( graphic );
                 break;
             }
@@ -126,7 +126,7 @@ private:
         const double h = size.height();
         const double y0 = 0.6 * h;
 
-        QPainterPath path; 
+        QPainterPath path;
         path.moveTo( -0.2 * w, h );
         path.lineTo( 0.2 * w, h );
         path.moveTo( 0, h );
@@ -135,7 +135,7 @@ private:
         path.lineTo( 0, 0 );
         path.lineTo( 0.5 * w, y0 );
         path.lineTo( 0, y0 );
-        
+
         QTransform transform;
         transform.rotate( -30.0 );
         path = transform.map( path );
