@@ -31,7 +31,7 @@ public Q_SLOTS:
 protected:
     virtual void keyPressEvent( QKeyEvent * ) QWT_OVERRIDE;
 
-    virtual void drawScale( QPainter *, 
+    virtual void drawScale( QPainter *,
         const QPointF &center, double radius ) const QWT_OVERRIDE;
 
     virtual void drawScaleContents( QPainter *painter,

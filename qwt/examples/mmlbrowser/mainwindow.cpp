@@ -97,7 +97,7 @@ MainWindow::MainWindow()
 
 void MainWindow::load()
 {
-    const QString dirName = QFileDialog::getExistingDirectory( NULL, QString(), 
+    const QString dirName = QFileDialog::getExistingDirectory( NULL, QString(),
         QString( "." ), QFileDialog::ShowDirsOnly );
 
     if ( !dirName.isEmpty() )

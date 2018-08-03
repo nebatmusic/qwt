@@ -27,7 +27,7 @@ public:
     {
         Plot *plot = new Plot( parametric, this );
         setCentralWidget( plot );
-    
+
         QToolBar *toolBar = new QToolBar( this );
 
 #ifndef QT_NO_PRINTER
@@ -36,13 +36,13 @@ public:
         QObject::connect( btnPrint, SIGNAL( clicked() ),
             plot, SLOT( printPlot() ) );
 #endif
-    
+
         ToolButton *btnOverlay = new ToolButton( "Overlay", toolBar );
         btnOverlay->setCheckable( true );
         toolBar->addWidget( btnOverlay );
         QObject::connect( btnOverlay, SIGNAL( toggled( bool ) ),
             plot, SLOT( setOverlaying( bool ) ) );
-    
+
         if ( parametric )
         {
             QComboBox *parameterBox = new QComboBox( toolBar );
@@ -76,7 +76,7 @@ public:
         toolBar->addWidget( boundaryBox );
         connect( boundaryBox, SIGNAL( activated( const QString & ) ),
             plot, SLOT( setBoundaryCondition( const QString & ) ) );
-    
+
         addToolBar( toolBar );
     }
 };

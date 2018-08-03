@@ -45,7 +45,7 @@ public:
         {
             lbl = d_labels[ index ];
         }
-            
+
         return lbl;
     }
 
@@ -88,7 +88,7 @@ public:
             c = d_colors[ index ];
 
         symbol->setPalette( c );
-    
+
         return symbol;
     }
 
@@ -109,7 +109,7 @@ private:
 BarChart::BarChart( QWidget *parent ):
     QwtPlot( parent )
 {
-    const struct 
+    const struct
     {
         const char *distro;
         const int hits;
@@ -152,7 +152,7 @@ BarChart::BarChart( QWidget *parent ):
         d_distros += pageHits[ i ].distro;
         samples += pageHits[ i ].hits;
 
-        d_barChartItem->addDistro( 
+        d_barChartItem->addDistro(
             pageHits[ i ].distro, pageHits[ i ].color );
     }
 
@@ -201,9 +201,9 @@ void BarChart::exportChart()
 }
 
 void BarChart::doScreenShot()
-{       
+{
     exportPNG( 800, 600 );
-}   
+}
 
 void BarChart::exportPNG( int width, int height )
 {
@@ -213,19 +213,19 @@ void BarChart::exportPNG( int width, int height )
 
     const double mmToInch = 1.0 / 25.4;
     const int dotsPerMeter = qRound( resolution * mmToInch * 1000.0 );
-    
+
     QImage image( width, height, QImage::Format_ARGB32 );
     image.setDotsPerMeterX( dotsPerMeter );
     image.setDotsPerMeterY( dotsPerMeter );
-        
+
     image.fill( Qt::transparent );
-        
+
     QPainter painter( &image );
     render( &painter, QRectF( 0, 0, width, height ) );
     painter.end();
-    
+
     image.save( fileBase + ".png" );
-}   
+}
 
 void BarChart::render( QPainter* painter, const QRectF & targetRect )
 {

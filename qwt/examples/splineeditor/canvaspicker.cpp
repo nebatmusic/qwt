@@ -156,7 +156,7 @@ void CanvasPicker::move( const QPoint &pos )
 
         numPoints = static_cast<int>( curve->dataSize() );
         for ( int j = 0; j < numPoints; j++ )
-        {   
+        {
             const QPointF sample = curve->sample( j );
 
             xData[j] = sample.x();

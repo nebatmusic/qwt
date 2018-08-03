@@ -23,7 +23,7 @@ public Q_SLOTS:
     void setBoundaryCondition( const QString & );
     void setClosed( bool );
 
-#ifndef QT_NO_PRINTER 
+#ifndef QT_NO_PRINTER
     void printPlot();
 #endif
 

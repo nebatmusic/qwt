@@ -158,7 +158,7 @@ QWidget *Panel::createCurveTab( QWidget *parent )
     d_curveWeeding->addItem( "None" );
     d_curveWeeding->addItem( "Normal" );
     d_curveWeeding->addItem( "Aggressive" );
-    
+
     d_curveWidth = new SpinBox( 0, 10, 1, page );
 
     d_curvePen = new QComboBox( page );

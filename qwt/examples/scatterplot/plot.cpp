@@ -88,7 +88,7 @@ void Plot::setSymbol( QwtSymbol *symbol )
 
 void Plot::setSamples( const QVector<QPointF> &samples )
 {
-    d_curve->setPaintAttribute( 
+    d_curve->setPaintAttribute(
         QwtPlotCurve::ImageBuffer, samples.size() > 1000 );
 
     d_curve->setSamples( samples );

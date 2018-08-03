@@ -11,7 +11,7 @@ class TransformPlot: public QwtPlot
 
 public:
     TransformPlot( QWidget *parent = NULL );
-    void insertTransformation( const QString &, 
+    void insertTransformation( const QString &,
         const QColor &, QwtTransform * );
 
     void setLegendChecked( QwtPlotItem * );

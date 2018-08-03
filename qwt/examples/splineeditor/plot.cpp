@@ -57,34 +57,34 @@ public:
         d_spline(NULL)
     {
         switch( mode )
-        {   
+        {
             case PleasingSpline:
-            {   
+            {
                 d_spline = new QwtSplinePleasing();
                 break;
             }
             case PChipSpline:
-            {   
+            {
                 d_spline = new QwtSplineLocal( QwtSplineLocal::PChip );
                 break;
             }
             case AkimaSpline:
-            {   
+            {
                 d_spline = new QwtSplineLocal( QwtSplineLocal::Akima );
                 break;
             }
             case CubicSpline:
-            {   
+            {
                 d_spline = new QwtSplineCubic();
                 break;
             }
             case CardinalSpline:
-            {   
+            {
                 d_spline = new QwtSplineLocal( QwtSplineLocal::Cardinal );
                 break;
             }
             case ParabolicBlendingSpline:
-            {   
+            {
                 d_spline = new QwtSplineLocal( QwtSplineLocal::ParabolicBlending );
                 break;
             }
@@ -108,7 +108,7 @@ public:
         if ( d_spline == NULL )
             return;
 
-        d_spline->setBoundaryType( 
+        d_spline->setBoundaryType(
             on ? QwtSpline::ClosedPolygon : QwtSpline::ConditionalBoundaries );
     }
 
@@ -209,7 +209,7 @@ public:
     Curve( const QString &title, const QColor &color ):
         QwtPlotCurve( title )
     {
-        setPaintAttribute( QwtPlotCurve::ClipPolygons, false ); 
+        setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
         setCurveAttribute( QwtPlotCurve::Fitted, true );
         setRenderHint( QwtPlotItem::RenderAntialiased );
 
@@ -254,12 +254,12 @@ Plot::Plot( bool parametric, QWidget *parent ):
     QwtScaleDraw *sd = axisScaleDraw( QwtPlot::yLeft );
     sd->setMinimumExtent( sd->extent( axisWidget( QwtPlot::yLeft )->font() ) );
 
-    // curves 
+    // curves
     d_curve = new Curve( "Lines", QColor() );
     d_curve->setStyle( QwtPlotCurve::NoCurve );
     d_curve->setSymbol( new Symbol() );
     d_curve->setItemAttribute( QwtPlotItem::Legend, false );
-    d_curve->setZ( 1000 ); 
+    d_curve->setZ( 1000 );
 
     QPolygonF points;
 
@@ -311,7 +311,7 @@ Plot::Plot( bool parametric, QWidget *parent ):
     d_curve->setSamples( points );
     d_curve->attach( this );
 
-    // 
+    //
 
     Curve *curve;
 
@@ -421,7 +421,7 @@ bool Plot::eventFilter( QObject *object, QEvent *e )
             const int margin = 2;
 
             const QRect cr = canvas()->contentsRect();
-            d_wheel->move( cr.right() - margin - d_wheel->width(), 
+            d_wheel->move( cr.right() - margin - d_wheel->width(),
                 cr.center().y() - ( d_wheel->height() ) / 2 );
         }
     }
@@ -501,8 +501,8 @@ void Plot::setBoundaryCondition( const QString &condition )
         SplineFitter *fitter = dynamic_cast<SplineFitter*>( curve->curveFitter() );
         if ( fitter )
             fitter->setBoundaryCondition( condition );
-    }       
-    
+    }
+
     replot();
 }
 

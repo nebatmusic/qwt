@@ -60,7 +60,7 @@ TransformPlot::TransformPlot( QWidget *parent ):
         this, SLOT( legendChecked( const QVariant &, bool ) ) );
 }
 
-void TransformPlot::insertTransformation( 
+void TransformPlot::insertTransformation(
     const QString &title, const QColor &color, QwtTransform *transform )
 {
     QwtPlotCurve *curve = new QwtPlotCurve( title );
@@ -95,7 +95,7 @@ void TransformPlot::setLegendChecked( QwtPlotItem *plotItem )
         {
             QwtLegend *lgd = qobject_cast<QwtLegend *>( legend() );
 
-            QwtLegendLabel *label = qobject_cast< QwtLegendLabel *>( 
+            QwtLegendLabel *label = qobject_cast< QwtLegendLabel *>(
                 lgd->legendWidget( itemToInfo( item ) ) );
             if ( label )
             {

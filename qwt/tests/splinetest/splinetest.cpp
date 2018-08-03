@@ -9,7 +9,7 @@
 
 #define DEBUG_ERRORS 1
 
-static inline bool fuzzyCompare( double a, double b ) 
+static inline bool fuzzyCompare( double a, double b )
 {
 #if QT_VERSION < 0x040600
     const int eps = 0.000000000001;
@@ -19,10 +19,10 @@ static inline bool fuzzyCompare( double a, double b )
 #endif
 }
 
-static QwtSplinePolynomial polynomialAt( int index, 
-    const QPolygonF &points, const QVector<double> &m ) 
+static QwtSplinePolynomial polynomialAt( int index,
+    const QPolygonF &points, const QVector<double> &m )
 {
-    return QwtSplinePolynomial::fromSlopes( 
+    return QwtSplinePolynomial::fromSlopes(
         points[index], m[index], points[index+1], m[index+1] );
 }
 
@@ -68,13 +68,13 @@ public:
     {
         const QwtSpline::BoundaryCondition c =
             static_cast<QwtSpline::BoundaryCondition>( condition );
-                
+
         setBoundaryCondition( QwtSpline::AtBeginning, c );
         setBoundaryValue( QwtSpline::AtEnd, valueBegin );
-            
+
         setBoundaryCondition( QwtSpline::AtEnd, c );
         setBoundaryValue( QwtSpline::AtEnd, valueEnd );
-    }       
+    }
 
     QString name() const
     {
@@ -97,7 +97,7 @@ public:
 
     void testSplineC1( const LocalSpline *spline, const QPolygonF &points ) const;
     void testSplineC2( const CubicSpline *spline, const QPolygonF &points ) const;
-    
+
 private:
     bool verifyBoundary( const QwtSpline *, QwtSpline::BoundaryPosition,
         const QPolygonF &points, const QVector<double> &m ) const;
@@ -128,7 +128,7 @@ void SplineTester::testSplineC1( const LocalSpline *spline, const QPolygonF &poi
 #if DEBUG_ERRORS > 0
         if ( !okStart )
             qDebug() << "  invalid start condition";
-    
+
         if ( !okEnd )
             qDebug() << "  invalid end condition";
 #endif
@@ -160,10 +160,10 @@ void SplineTester::testSplineC2( const CubicSpline *spline, const QPolygonF &poi
 #if DEBUG_ERRORS > 0
         if ( !okStart )
             qDebug() << "  invalid start condition";
-    
+
         if ( numErrorsM > 0 )
             qDebug() << "  invalid node conditions ( slope )" << numErrorsM;
-        
+
         if ( numErrorsCV > 0 )
             qDebug() << "  invalid node conditions ( curvature )" << numErrorsCV;
 
@@ -187,16 +187,16 @@ bool SplineTester::verifyBoundary( const QwtSpline *spline, QwtSpline::BoundaryP
 
     if ( spline->boundaryType() != QwtSpline::ConditionalBoundaries )
     {
-        // periodic or closed 
+        // periodic or closed
 
         const double dx = points[n-1].x() - points[n-2].x();
 
-        ok = fuzzyCompare( polynomEnd.slopeAt( dx ), 
+        ok = fuzzyCompare( polynomEnd.slopeAt( dx ),
             polynomBegin.slopeAt( 0.0 ) );
 
         if ( ok && isC2 )
         {
-            ok = fuzzyCompare( polynomEnd.curvatureAt( dx ), 
+            ok = fuzzyCompare( polynomEnd.curvatureAt( dx ),
                 polynomBegin.curvatureAt( 0.0 ) );
         }
 
@@ -224,7 +224,7 @@ bool SplineTester::verifyBoundary( const QwtSpline *spline, QwtSpline::BoundaryP
                 const double dx = points[n-1].x() - points[n-2].x();
                 cv = polynomEnd.curvatureAt( dx );
             }
-            
+
             ok = fuzzyCompare( cv, spline->boundaryValue( pos ) );
 
             break;
@@ -320,8 +320,8 @@ int SplineTester::verifyNodesCV( const QPolygonF &points, const QVector<double> 
         if ( !fuzzyCompare( v, 3 * ( s2 - s1 ) ) )
         {
 #if DEBUG_ERRORS > 1
-            qDebug() << "invalid node condition (cv)" << i 
-                << cv[i-1] << cv[i] << cv[i+1] 
+            qDebug() << "invalid node condition (cv)" << i
+                << cv[i-1] << cv[i] << cv[i+1]
                 << v - 3 * ( s2 - s1 );
 #endif
 
@@ -342,7 +342,7 @@ int SplineTester::verifyNodesM( const QPolygonF &points, const QVector<double> &
     int numErrors = 0;
 
     double dx1 = points[1].x() - points[0].x();
-    QwtSplinePolynomial polynomial1 = QwtSplinePolynomial::fromSlopes( 
+    QwtSplinePolynomial polynomial1 = QwtSplinePolynomial::fromSlopes(
         dx1, points[1].y() - points[0].y(), m[0], m[1] );
 
     for ( int i = 1; i < n - 1; i++ )
@@ -350,7 +350,7 @@ int SplineTester::verifyNodesM( const QPolygonF &points, const QVector<double> &
         const double dx2 = points[i+1].x() - points[i].x();
         const double dy2 = points[i+1].y() - points[i].y();
 
-        const QwtSplinePolynomial polynomial2 = 
+        const QwtSplinePolynomial polynomial2 =
             QwtSplinePolynomial::fromSlopes( dx2, dy2, m[i], m[i+1] );
 
         const double cv1 = polynomial1.curvatureAt( dx1 );
@@ -358,7 +358,7 @@ int SplineTester::verifyNodesM( const QPolygonF &points, const QVector<double> &
         if ( !fuzzyCompare( cv1, cv2 ) )
         {
 #if DEBUG_ERRORS > 1
-            qDebug() << "invalid node condition (m)" << i << 
+            qDebug() << "invalid node condition (m)" << i <<
                 cv1 << cv1 << cv2 - cv1;
 #endif
 
@@ -390,7 +390,7 @@ static void testSplines( SplineTester::Type splineType, const QPolygonF &points 
         { "Cubic Runout", QwtSplineC2::CubicRunout, 0.0, 0.0 },
         { "Not A Knot", QwtSplineC2::NotAKnot, 0.0, 0.0 }
     };
-    
+
     for ( uint i = 0; i < sizeof( conditions ) / sizeof( conditions[0] ); i++ )
     {
         const Condition &c = conditions[i];
@@ -418,7 +418,7 @@ static void testSplines( SplineTester::Type splineType, const QPolygonF &points 
             }
             else
             {
-                if ( c.condition == QwtSplineC2::NotAKnot 
+                if ( c.condition == QwtSplineC2::NotAKnot
                     || c.condition == QwtSplineC2::CubicRunout )
                 {
                     // requires C2 continuity
@@ -573,7 +573,7 @@ static void testDuplicates()
     testPaths( "First point also at End", spline, points, points2 );
 
     QPolygonF points3 = points;
-    points3.prepend( points.first() ); 
+    points3.prepend( points.first() );
     testPaths( "First point twice", spline, points, points3 );
 
     QPolygonF points4 = points;

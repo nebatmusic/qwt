@@ -22,11 +22,11 @@ public:
         const QRectF &canvasRect ) const QWT_OVERRIDE
     {
         const int margin = 5;
-        const QRectF textRect = 
+        const QRectF textRect =
             canvasRect.adjusted( margin, margin, -margin, -margin );
 
         painter->setPen( Qt::white );
-        painter->drawText( textRect, 
+        painter->drawText( textRect,
             Qt::AlignBottom | Qt::AlignRight, m_text );
     }
 

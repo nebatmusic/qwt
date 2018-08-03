@@ -13,7 +13,7 @@
 #include <qline.h>
 #include <qdebug.h>
 
-static void testSpline( const char *name, QwtSplineInterpolating *spline, 
+static void testSpline( const char *name, QwtSplineInterpolating *spline,
 	int type, const QPolygonF &points )
 {
 	spline->setParametrization( type );
@@ -44,7 +44,7 @@ static void testSplines( int paramType, const QPolygonF &points )
 	QwtSplineLocal splinePC( QwtSplineLocal::PChip );
 	testSpline( "PChip", &splinePC, paramType, points );
 #endif
-  
+
 #if 1
 	QwtSplineLocal splineAkima( QwtSplineLocal::Akima );
 	testSpline( "Akima", &splineAkima, paramType, points );
@@ -56,7 +56,7 @@ static void testSplines( int paramType, const QPolygonF &points )
 #endif
 
 #if 1
-	QwtSplineCubic splineC2; 
+	QwtSplineCubic splineC2;
 	testSpline( "Cubic", &splineC2, paramType, points );
 #endif
 }
