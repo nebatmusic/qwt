@@ -11,7 +11,7 @@ public:
 
 protected:
     virtual void drawNeedle( QPainter *,
-        double length, QPalette::ColorGroup ) const;
+        double length, QPalette::ColorGroup ) const QWT_OVERRIDE;
 };
 
 class AttitudeIndicator: public QwtDial
@@ -29,13 +29,13 @@ public Q_SLOTS:
     void setAngle( double angle ) { setValue( angle ); }
 
 protected:
-    virtual void keyPressEvent( QKeyEvent * );
+    virtual void keyPressEvent( QKeyEvent * ) QWT_OVERRIDE;
 
     virtual void drawScale( QPainter *, 
-        const QPointF &center, double radius ) const;
+        const QPointF &center, double radius ) const QWT_OVERRIDE;
 
     virtual void drawScaleContents( QPainter *painter,
-        const QPointF &center, double radius ) const;
+        const QPointF &center, double radius ) const QWT_OVERRIDE;
 
 private:
     double d_gradient;

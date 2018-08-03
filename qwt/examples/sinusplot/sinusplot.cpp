@@ -28,7 +28,7 @@ public:
     {
     }
 
-    virtual double y( double x ) const
+    virtual double y( double x ) const QWT_OVERRIDE
     {
         return d_y( x );
     }
@@ -73,7 +73,7 @@ public:
     Plot( QWidget *parent = NULL );
 
 protected:
-    virtual void resizeEvent( QResizeEvent * );
+    virtual void resizeEvent( QResizeEvent * ) QWT_OVERRIDE;
 
 private:
     void populate();

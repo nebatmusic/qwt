@@ -175,12 +175,12 @@ public:
         d_spline->setParametrization( type );
     }
 
-    virtual QPolygonF fitCurve( const QPolygonF &points ) const
+    virtual QPolygonF fitCurve( const QPolygonF &points ) const QWT_OVERRIDE
     {
         return d_spline->polygon( points, 0.5 );
     }
 
-    virtual QPainterPath fitCurvePath( const QPolygonF &points ) const
+    virtual QPainterPath fitCurvePath( const QPolygonF &points ) const QWT_OVERRIDE
     {
         return d_spline->painterPath( points );
     }

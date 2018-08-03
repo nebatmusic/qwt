@@ -17,7 +17,7 @@ public:
         parent->installEventFilter( this );
     }
 
-    virtual bool eventFilter( QObject *object, QEvent *event )
+    virtual bool eventFilter( QObject *object, QEvent *event ) QWT_OVERRIDE
     {
         if ( event->type() == QEvent::Wheel )
         {

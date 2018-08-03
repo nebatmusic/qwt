@@ -12,7 +12,8 @@ class Plot: public QwtPlot
     Q_OBJECT
 public:
     Plot( bool parametric, QWidget *parent = NULL );
-    virtual bool eventFilter( QObject *, QEvent * );
+
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 public Q_SLOTS:
     void updateMarker( int axis, double base );

@@ -25,7 +25,7 @@ public:
         return d_transform;
     }
 
-    virtual double y( double x ) const
+    virtual double y( double x ) const QWT_OVERRIDE
     {
         const double min = 10.0;
         const double max = 1000.0;

@@ -1,6 +1,7 @@
 #ifndef TREE_VIEW_H
 #define TREE_VIEW_H
 
+#include <qwt_global.h>
 #include <qtreeview.h>
 
 class TreeView: public QTreeView
@@ -17,7 +18,8 @@ public Q_SLOTS:
     void setRootPath( const QString& );
 
 protected:
-    virtual void currentChanged( const QModelIndex &, const QModelIndex & );
+    virtual void currentChanged(
+        const QModelIndex &, const QModelIndex & ) QWT_OVERRIDE;
 };
 
 #endif

@@ -27,7 +27,7 @@ public:
     }
 
 protected:
-    virtual QwtText trackerTextF( const QPointF &pos ) const
+    virtual QwtText trackerTextF( const QPointF &pos ) const QWT_OVERRIDE
     {
         const QDateTime dt = QwtDate::toDateTime( pos.x() );
 

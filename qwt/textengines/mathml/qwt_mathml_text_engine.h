@@ -36,18 +36,18 @@ public:
     virtual ~QwtMathMLTextEngine();
 
     virtual double heightForWidth( const QFont &font, int flags,
-        const QString &text, double width ) const;
+        const QString &text, double width ) const QWT_OVERRIDE;
 
     virtual QSizeF textSize( const QFont &font, int flags,
-                             const QString &text ) const;
+        const QString &text ) const QWT_OVERRIDE;
 
     virtual void draw( QPainter *painter, const QRectF &rect,
-        int flags, const QString &text ) const;
+        int flags, const QString &text ) const QWT_OVERRIDE;
 
-    virtual bool mightRender( const QString & ) const;
+    virtual bool mightRender( const QString & ) const QWT_OVERRIDE;
 
     virtual void textMargins( const QFont &, const QString &,
-        double &left, double &right, double &top, double &bottom ) const;
+        double &left, double &right, double &top, double &bottom ) const QWT_OVERRIDE;
 };
 
 #endif

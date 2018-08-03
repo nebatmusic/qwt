@@ -10,7 +10,7 @@ public:
         setNameFilterDisables( false );
     }
 
-    virtual int columnCount( const QModelIndex &parent ) const
+    virtual int columnCount( const QModelIndex &parent ) const QWT_OVERRIDE
     {
         return ( parent.column() > 0 ) ? 0 : 1;
     }

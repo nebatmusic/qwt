@@ -267,17 +267,19 @@ public:
     QString text() const;
 };
 
-class QwtMmlMphantomNode : public QwtMmlNode
+class QwtMmlMphantomNode QWT_FINAL : public QwtMmlNode
 {
 public:
     QwtMmlMphantomNode( QwtMmlDocument *document,
                      const QwtMmlAttributeMap &attribute_map )
         : QwtMmlNode( MphantomNode, document, attribute_map ) {}
 
-    virtual void paint( QPainter *, qreal, qreal ) {}
+    virtual void paint( QPainter *, qreal, qreal ) QWT_OVERRIDE
+    {
+    }
 };
 
-class QwtMmlUnknownNode : public QwtMmlNode
+class QwtMmlUnknownNode QWT_FINAL : public QwtMmlNode
 {
 public:
     QwtMmlUnknownNode( QwtMmlDocument *document,
@@ -285,7 +287,7 @@ public:
         : QwtMmlNode( UnknownNode, document, attribute_map ) {}
 };
 
-class QwtMmlMfencedNode : public QwtMmlNode
+class QwtMmlMfencedNode QWT_FINAL : public QwtMmlNode
 {
 public:
     QwtMmlMfencedNode( QwtMmlDocument *document,
@@ -293,14 +295,14 @@ public:
         : QwtMmlNode( MfencedNode, document, attribute_map ) {}
 };
 
-class QwtMmlMalignMarkNode : public QwtMmlNode
+class QwtMmlMalignMarkNode QWT_FINAL : public QwtMmlNode
 {
 public:
     QwtMmlMalignMarkNode( QwtMmlDocument *document )
         : QwtMmlNode( MalignMarkNode, document, QwtMmlAttributeMap() ) {}
 };
 
-class QwtMmlMfracNode : public QwtMmlNode
+class QwtMmlMfracNode QWT_FINAL : public QwtMmlNode
 {
 public:
     QwtMmlMfracNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
@@ -310,15 +312,16 @@ public:
     QwtMmlNode *denominator() const;
 
 protected:
-    virtual void layoutSymbol();
-    virtual void paintSymbol( QPainter *painter, qreal x_scaling, qreal y_scaling ) const;
-    virtual QRectF symbolRect() const;
+    virtual void layoutSymbol() QWT_OVERRIDE;
+    virtual void paintSymbol( QPainter *,
+        qreal x_scaling, qreal y_scaling ) const QWT_OVERRIDE;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
 
 private:
     qreal lineThickness() const;
 };
 
-class QwtMmlMrowNode : public QwtMmlNode
+class QwtMmlMrowNode QWT_FINAL : public QwtMmlNode
 {
 public:
     QwtMmlMrowNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
@@ -334,12 +337,13 @@ public:
     QwtMmlNode *base() const;
     QwtMmlNode *index() const;
 
-    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const QWT_OVERRIDE;
 
 protected:
-    virtual void layoutSymbol();
-    virtual void paintSymbol( QPainter *painter, qreal x_scaling, qreal y_scaling ) const;
-    virtual QRectF symbolRect() const;
+    virtual void layoutSymbol() QWT_OVERRIDE;
+    virtual void paintSymbol( QPainter *painter,
+        qreal x_scaling, qreal y_scaling ) const QWT_OVERRIDE;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
 
 private:
     QRectF baseRect() const;
@@ -348,14 +352,14 @@ private:
     qreal radicalLineWidth() const;
 };
 
-class QwtMmlMrootNode : public QwtMmlRootBaseNode
+class QwtMmlMrootNode QWT_FINAL : public QwtMmlRootBaseNode
 {
 public:
     QwtMmlMrootNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
         : QwtMmlRootBaseNode( MrootNode, document, attribute_map ) {}
 };
 
-class QwtMmlMsqrtNode : public QwtMmlRootBaseNode
+class QwtMmlMsqrtNode QWT_FINAL : public QwtMmlRootBaseNode
 {
 public:
     QwtMmlMsqrtNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
@@ -369,19 +373,35 @@ class QwtMmlTextNode : public QwtMmlNode
 public:
     QwtMmlTextNode( const QString &text, QwtMmlDocument *document );
 
-    virtual QString toStr() const;
+    virtual QString toStr() const QWT_OVERRIDE;
     QString text() const { return m_text; }
 
     // TextNodes are not xml elements, so they can't have attributes of
     // their own. Everything is taken from the parent.
-    virtual QFont font() const { return parent()->font(); }
-    virtual int scriptlevel( const QwtMmlNode* = 0 ) const { return parent()->scriptlevel( this ); }
-    virtual QColor color() const { return parent()->color(); }
-    virtual QColor background() const { return parent()->background(); }
+    virtual QFont font() const QWT_OVERRIDE
+    {
+        return parent()->font();
+    }
+
+    virtual int scriptlevel( const QwtMmlNode* = 0 ) const QWT_OVERRIDE
+    {
+        return parent()->scriptlevel( this );
+    }
+
+    virtual QColor color() const QWT_OVERRIDE
+    {
+        return parent()->color();
+    }
+
+    virtual QColor background() const QWT_OVERRIDE
+    {
+        return parent()->background();
+    }
 
 protected:
-    virtual void paintSymbol( QPainter *painter, qreal x_scaling, qreal y_scaling ) const;
-    virtual QRectF symbolRect() const;
+    virtual void paintSymbol( QPainter *painter,
+        qreal x_scaling, qreal y_scaling ) const QWT_OVERRIDE;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
 
     QString m_text;
 
@@ -412,7 +432,7 @@ public:
     QwtMmlNode *base() const;
     QwtMmlNode *sscript() const;
 
-    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const QWT_OVERRIDE;
 };
 
 class QwtMmlMsupNode : public QwtMmlSubsupBaseNode
@@ -422,7 +442,7 @@ public:
         : QwtMmlSubsupBaseNode( MsupNode, document, attribute_map ) {}
 
 protected:
-    virtual void layoutSymbol();
+    virtual void layoutSymbol() QWT_OVERRIDE;
 };
 
 class QwtMmlMsubNode : public QwtMmlSubsupBaseNode
@@ -432,7 +452,7 @@ public:
         : QwtMmlSubsupBaseNode( MsubNode, document, attribute_map ) {}
 
 protected:
-    virtual void layoutSymbol();
+    virtual void layoutSymbol() QWT_OVERRIDE;
 };
 
 class QwtMmlMsubsupNode : public QwtMmlNode
@@ -445,10 +465,10 @@ public:
     QwtMmlNode *superscript() const;
     QwtMmlNode *subscript() const;
 
-    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const QWT_OVERRIDE;
 
 protected:
-    virtual void layoutSymbol();
+    virtual void layoutSymbol() QWT_OVERRIDE;
 };
 
 class QwtMmlMoNode : public QwtMmlTokenNode
@@ -457,15 +477,15 @@ public:
     QwtMmlMoNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map );
 
     QString dictionaryAttribute( const QString &name ) const;
-    virtual void stretch();
+    virtual void stretch() QWT_OVERRIDE;
     virtual qreal lspace() const;
     virtual qreal rspace() const;
 
-    virtual QString toStr() const;
+    virtual QString toStr() const QWT_OVERRIDE;
 
 protected:
-    virtual void layoutSymbol();
-    virtual QRectF symbolRect() const;
+    virtual void layoutSymbol() QWT_OVERRIDE;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
 
     virtual FormType form() const;
 
@@ -503,9 +523,10 @@ public:
     FrameType rowlines( int idx ) const;
 
 protected:
-    virtual void layoutSymbol();
-    virtual QRectF symbolRect() const;
-    virtual void paintSymbol( QPainter *painter, qreal x_scaling, qreal y_scaling ) const;
+    virtual void layoutSymbol() QWT_OVERRIDE;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
+    virtual void paintSymbol( QPainter *painter,
+        qreal x_scaling, qreal y_scaling ) const QWT_OVERRIDE;
 
 private:
     struct CellSizeData
@@ -539,7 +560,7 @@ public:
         m_scriptlevel_adjust = 0;
     }
 
-    virtual void setMyRect( const QRectF &rect );
+    virtual void setMyRect( const QRectF &rect ) QWT_OVERRIDE;
 
     ColAlign columnalign();
     RowAlign rowalign();
@@ -547,7 +568,7 @@ public:
     int colNum() const;
     int rowNum() const;
 
-    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *child = 0 ) const QWT_OVERRIDE;
 
 private:
     int m_scriptlevel_adjust; // added or subtracted to scriptlevel to
@@ -559,10 +580,10 @@ class QwtMmlMoverNode : public QwtMmlNode
 public:
     QwtMmlMoverNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
         : QwtMmlNode( MoverNode, document, attribute_map ) {}
-    virtual int scriptlevel( const QwtMmlNode *node = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *node = 0 ) const QWT_OVERRIDE;
 
 protected:
-    virtual void layoutSymbol();
+    virtual void layoutSymbol() QWT_OVERRIDE;
 };
 
 class QwtMmlMunderNode : public QwtMmlNode
@@ -570,10 +591,10 @@ class QwtMmlMunderNode : public QwtMmlNode
 public:
     QwtMmlMunderNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
         : QwtMmlNode( MunderNode, document, attribute_map ) {}
-    virtual int scriptlevel( const QwtMmlNode *node = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *node = 0 ) const QWT_OVERRIDE;
 
 protected:
-    virtual void layoutSymbol();
+    virtual void layoutSymbol() QWT_OVERRIDE;
 };
 
 class QwtMmlMunderoverNode : public QwtMmlNode
@@ -581,10 +602,10 @@ class QwtMmlMunderoverNode : public QwtMmlNode
 public:
     QwtMmlMunderoverNode( QwtMmlDocument *document, const QwtMmlAttributeMap &attribute_map )
         : QwtMmlNode( MunderoverNode, document, attribute_map ) {}
-    virtual int scriptlevel( const QwtMmlNode *node = 0 ) const;
+    virtual int scriptlevel( const QwtMmlNode *node = 0 ) const QWT_OVERRIDE;
 
 protected:
-    virtual void layoutSymbol();
+    virtual void layoutSymbol() QWT_OVERRIDE;
 };
 
 class QwtMmlMerrorNode : public QwtMmlNode
@@ -613,8 +634,8 @@ public:
     qreal depth() const;
 
 protected:
-    virtual void layoutSymbol();
-    virtual QRectF symbolRect() const;
+    virtual void layoutSymbol() QWT_OVERRIDE;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
 
     qreal interpretSpacing( QString value, qreal base_value, bool *ok ) const;
 };
@@ -632,7 +653,7 @@ public:
     virtual qreal lspace() const;
 
 protected:
-    virtual QRectF symbolRect() const;
+    virtual QRectF symbolRect() const QWT_OVERRIDE;
 };
 
 class QwtMmlMspaceNode : public QwtMmlSpacingNode

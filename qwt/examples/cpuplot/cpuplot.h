@@ -29,7 +29,7 @@ public:
     }
 
 protected:
-    void timerEvent( QTimerEvent *e );
+    void timerEvent( QTimerEvent * ) QWT_OVERRIDE;
 
 private Q_SLOTS:
     void legendChecked( const QVariant &, bool on );

@@ -27,7 +27,7 @@ public:
     }
 
     virtual void updateScaleDiv( const QwtScaleDiv &xScaleDiv,
-        const QwtScaleDiv &yScaleDiv )
+        const QwtScaleDiv &yScaleDiv ) QWT_OVERRIDE
     {
         QwtScaleDiv scaleDiv( xScaleDiv.lowerBound(), 
             xScaleDiv.upperBound() );
@@ -56,7 +56,7 @@ public:
         setSpacing( 15 );
     }
 
-    virtual QwtText label( double value ) const
+    virtual QwtText label( double value ) const QWT_OVERRIDE
     {
         return QDate::longMonthName( int( value / 30 ) + 1 );
     }

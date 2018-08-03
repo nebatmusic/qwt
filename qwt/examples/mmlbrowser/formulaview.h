@@ -1,6 +1,7 @@
 #ifndef FORMULA_VIEW_H
 #define FORMULA_VIEW_H
 
+#include <qwt_global.h>
 #include <qwidget.h>
 
 class QPainter;
@@ -24,7 +25,7 @@ public Q_SLOTS:
     void setColors( const bool &colors );
 
 protected:
-    virtual void paintEvent( QPaintEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
 
 private:
     void renderFormula( QPainter * ) const;

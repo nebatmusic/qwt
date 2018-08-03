@@ -38,7 +38,7 @@ public:
         setCanvas( canvas );
     }
 
-    virtual QSize sizeHint() const
+    virtual QSize sizeHint() const QWT_OVERRIDE
     {
         return minimumSizeHint();
     }

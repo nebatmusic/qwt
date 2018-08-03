@@ -18,17 +18,17 @@ public:
     virtual ~Plot();
 
     void start();
-    virtual void replot();
+    virtual void replot() QWT_OVERRIDE;
 
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 public Q_SLOTS:
     void setIntervalLength( double );
 
 protected:
-    virtual void showEvent( QShowEvent * );
-    virtual void resizeEvent( QResizeEvent * );
-    virtual void timerEvent( QTimerEvent * );
+    virtual void showEvent( QShowEvent * ) QWT_OVERRIDE;
+    virtual void resizeEvent( QResizeEvent * ) QWT_OVERRIDE;
+    virtual void timerEvent( QTimerEvent * ) QWT_OVERRIDE;
 
 private:
     void updateCurve();

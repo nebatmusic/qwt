@@ -19,7 +19,7 @@ public:
 
     virtual void draw( QPainter *painter,
         const QwtScaleMap &, const QwtScaleMap &,
-        const QRectF &canvasRect ) const
+        const QRectF &canvasRect ) const QWT_OVERRIDE
     {
         const int margin = 5;
         const QRectF textRect = 
@@ -78,14 +78,14 @@ public:
         }
     }
 
-    virtual QRectF boundingRect() const
+    virtual QRectF boundingRect() const QWT_OVERRIDE
     {
         return d_rect;
     }
 
     virtual void draw( QPainter *painter,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF & ) const
+        const QRectF & ) const QWT_OVERRIDE
     {
         if ( d_rect.isValid() )
         {

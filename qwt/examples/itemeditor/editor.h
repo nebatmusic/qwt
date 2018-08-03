@@ -1,6 +1,7 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
+#include <qwt_global.h>
 #include <qobject.h>
 #include <qpointer.h>
 #include <qpoint.h>
@@ -38,7 +39,7 @@ public:
     void drawOverlay( QPainter * ) const;
     QRegion maskHint() const;
 
-    virtual bool eventFilter( QObject *, QEvent *);
+    virtual bool eventFilter( QObject *, QEvent *) QWT_OVERRIDE;
 
     void setMode( Mode mode );
     Mode mode() const;

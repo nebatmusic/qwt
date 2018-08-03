@@ -19,7 +19,7 @@ public Q_SLOTS:
     void applySettings( const Settings & );
 
 public:
-    virtual void replot();
+    virtual void replot() QWT_OVERRIDE;
 
 private:
     void insertCurve();

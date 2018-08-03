@@ -38,7 +38,7 @@ public:
             QSizePolicy::MinimumExpanding );
     }
 
-    virtual QSize sizeHint() const
+    virtual QSize sizeHint() const QWT_OVERRIDE
     {
         QSize sz1 = d_knob->sizeHint();
         QSize sz2 = d_label->sizeHint();
@@ -63,7 +63,7 @@ public:
     }
 
 protected:
-    virtual void resizeEvent( QResizeEvent *e )
+    virtual void resizeEvent( QResizeEvent *e ) QWT_OVERRIDE
     {
         const QSize sz = e->size();
 

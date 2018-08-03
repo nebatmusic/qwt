@@ -52,12 +52,12 @@ public:
     }
 
 protected:
-    virtual void drawOverlay( QPainter *painter ) const
+    virtual void drawOverlay( QPainter *painter ) const QWT_OVERRIDE
     {
         d_editor->drawOverlay( painter );
     }
 
-    virtual QRegion maskHint() const
+    virtual QRegion maskHint() const QWT_OVERRIDE
     {
         return d_editor->maskHint();
     }

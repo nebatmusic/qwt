@@ -19,7 +19,7 @@ public:
     explicit GridItem();
     virtual ~GridItem();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void setGridAttribute( GridAttribute, bool on = true );
     bool testGridAttribute( GridAttribute ) const;
@@ -44,10 +44,10 @@ public:
 
     virtual void draw( QPainter *p,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &rect ) const QWT_OVERRIDE;
 
     virtual void updateScaleDiv(
-        const QwtScaleDiv &xMap, const QwtScaleDiv &yMap );
+        const QwtScaleDiv &xMap, const QwtScaleDiv &yMap ) QWT_OVERRIDE;
 
 protected:
     virtual QBrush brush( int row, int column, const QRectF & ) const;

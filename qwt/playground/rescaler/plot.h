@@ -12,7 +12,7 @@ class Plot: public QwtPlot
 
 public:
     Plot( QWidget *parent, const QwtInterval & );
-    virtual void updateLayout();
+    virtual void updateLayout() QWT_OVERRIDE;
 
     void setRectOfInterest( const QRectF & );
 

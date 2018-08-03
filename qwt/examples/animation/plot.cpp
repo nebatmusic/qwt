@@ -49,7 +49,7 @@ public:
         setTransformation( transform );
     }
 
-    virtual QPolygonF points( double phase ) const
+    virtual QPolygonF points( double phase ) const QWT_OVERRIDE
     {
         QPolygonF points;
 
@@ -77,7 +77,7 @@ public:
     }
 
 private:
-    virtual QPolygonF points( double phase ) const
+    virtual QPolygonF points( double phase ) const QWT_OVERRIDE
     {
         QPolygonF points;
 
@@ -111,7 +111,7 @@ public:
     }   
 
 private:
-    virtual QPolygonF points( double phase ) const
+    virtual QPolygonF points( double phase ) const QWT_OVERRIDE
     {
         QPolygonF points;
 
@@ -145,7 +145,7 @@ public:
     }   
 
 private:
-    virtual QPolygonF points( double phase ) const
+    virtual QPolygonF points( double phase ) const QWT_OVERRIDE
     {
         const double speed = 0.05;
 

@@ -36,7 +36,7 @@ public:
         setLabelAlignment( Qt::AlignLeft | Qt::AlignVCenter );
     }
 
-    virtual QwtText label( double value ) const
+    virtual QwtText label( double value ) const QWT_OVERRIDE
     {
         QwtText lbl;
 
@@ -75,7 +75,7 @@ public:
     }
 
     virtual QwtColumnSymbol *specialSymbol(
-        int index, const QPointF& ) const
+        int index, const QPointF& ) const QWT_OVERRIDE
     {
         // we want to have individual colors for each bar
 
@@ -92,7 +92,7 @@ public:
         return symbol;
     }
 
-    virtual QwtText barTitle( int sampleIndex ) const
+    virtual QwtText barTitle( int sampleIndex ) const QWT_OVERRIDE
     {
         QwtText title;
         if ( sampleIndex >= 0 && sampleIndex < d_distros.size() )

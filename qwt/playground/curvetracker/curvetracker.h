@@ -12,8 +12,8 @@ public:
     CurveTracker( QWidget * );
 
 protected:
-    virtual QwtText trackerTextF( const QPointF & ) const;
-    virtual QRect trackerRect( const QFont & ) const;
+    virtual QwtText trackerTextF( const QPointF & ) const QWT_OVERRIDE;
+    virtual QRect trackerRect( const QFont & ) const QWT_OVERRIDE;
 
 private:
     QString curveInfoAt( const QwtPlotCurve *, const QPointF & ) const;
