@@ -31,7 +31,7 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
 
 #ifdef QWT_USE_WINDOW_HANDLE
     pixelRatio = canvas->windowHandle()->devicePixelRatio();
-#else   
+#else
     pixelRatio = canvas->devicePixelRatio();
 #endif
 
@@ -39,7 +39,7 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
 
     QPainterPath borderPath;
 
-    ( void )QMetaObject::invokeMethod( 
+    ( void )QMetaObject::invokeMethod(
         const_cast< QWidget *>( canvas ), "borderPath", Qt::DirectConnection,
         Q_RETURN_ARG( QPainterPath, borderPath ), Q_ARG( QRect, r ) );
 
@@ -90,12 +90,12 @@ static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
         const QVariant borderRadius = canvas->property( "borderRadius" );
         const QVariant frameWidth = canvas->property( "frameWidth" );
 
-        if ( borderRadius.type() == QVariant::Double 
+        if ( borderRadius.type() == QVariant::Double
             && frameWidth.type() == QVariant::Int )
         {
             const double br = borderRadius.toDouble();
             const int fw = frameWidth.toInt();
-  
+
             if ( br > 0.0 && fw > 0 )
             {
                 painter.setPen( QPen( Qt::color1, fw ) );
@@ -283,7 +283,7 @@ QBitmap QwtPlotPanner::contentsMask() const
    \return Pixmap with the content of the canvas
  */
 QPixmap QwtPlotPanner::grab() const
-{   
+{
     const QWidget *cv = canvas();
     if ( cv && cv->inherits( "QGLWidget" ) )
     {
@@ -299,5 +299,5 @@ QPixmap QwtPlotPanner::grab() const
     }
 
     return QwtPanner::grab();
-}   
+}
 
