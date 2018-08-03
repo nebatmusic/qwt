@@ -23,12 +23,12 @@ WheelBox::WheelBox( Qt::Orientation orientation,
 
     setNum( d_wheel->value() );
 
-    connect( d_wheel, SIGNAL( valueChanged( double ) ), 
+    connect( d_wheel, SIGNAL( valueChanged( double ) ),
         this, SLOT( setNum( double ) ) );
 }
 
-QWidget *WheelBox::createBox( 
-    Qt::Orientation orientation, int type ) 
+QWidget *WheelBox::createBox(
+    Qt::Orientation orientation, int type )
 {
     d_wheel = new QwtWheel();
     d_wheel->setValue( 80 );
@@ -53,7 +53,7 @@ QWidget *WheelBox::createBox(
     {
         case 0:
         {
-            QwtLinearColorMap *colorMap = new QwtLinearColorMap(); 
+            QwtLinearColorMap *colorMap = new QwtLinearColorMap();
             colorMap->setColorInterval( Qt::blue, Qt::red );
             d_thermo->setColorMap( colorMap );
 
@@ -70,7 +70,7 @@ QWidget *WheelBox::createBox(
                 Qt::GlobalColor( idx + 10 ) );
             for ( int i = 1; i < 10; i++ )
             {
-                colorMap->addColorStop( i / 10.0, 
+                colorMap->addColorStop( i / 10.0,
                     Qt::GlobalColor( idx + i ) );
             }
 
@@ -117,7 +117,7 @@ QWidget *WheelBox::createBox(
             d_wheel->setRange( -100, 300 );
             d_wheel->setInverted( true );
 
-            QwtLinearColorMap *colorMap = new QwtLinearColorMap(); 
+            QwtLinearColorMap *colorMap = new QwtLinearColorMap();
             colorMap->setColorInterval( Qt::darkCyan, Qt::yellow );
             d_thermo->setColorMap( colorMap );
 
@@ -163,7 +163,7 @@ QWidget *WheelBox::createBox(
     d_thermo->setScale( min, max );
     d_thermo->setValue( d_wheel->value() );
 
-    connect( d_wheel, SIGNAL( valueChanged( double ) ), 
+    connect( d_wheel, SIGNAL( valueChanged( double ) ),
         d_thermo, SLOT( setValue( double ) ) );
 
     QWidget *box = new QWidget();

@@ -264,7 +264,7 @@ void Plot::showContour( bool on )
 void Plot::showSpectrogram( bool on )
 {
     d_spectrogram->setDisplayMode( QwtPlotSpectrogram::ImageMode, on );
-    d_spectrogram->setDefaultContourPen( 
+    d_spectrogram->setDefaultContourPen(
         on ? QPen( Qt::black, 0 ) : QPen( Qt::NoPen ) );
 
     replot();
