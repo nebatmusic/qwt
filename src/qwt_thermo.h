@@ -29,7 +29,7 @@ class QwtColorMap;
   \image html sysinfo.png
 
   The fill colors might be calculated from an optional color map
-  If no color map has been assigned QwtThermo uses the 
+  If no color map has been assigned QwtThermo uses the
   following colors/brushes from the widget palette:
 
   - QPalette::Base
@@ -52,7 +52,7 @@ class QWT_EXPORT QwtThermo: public QwtAbstractScale
 
     Q_PROPERTY( Qt::Orientation orientation
         READ orientation WRITE setOrientation )
-    Q_PROPERTY( ScalePosition scalePosition 
+    Q_PROPERTY( ScalePosition scalePosition
         READ scalePosition WRITE setScalePosition )
     Q_PROPERTY( OriginMode originMode READ originMode WRITE setOriginMode )
 

@@ -61,7 +61,7 @@ public:
            ( unknown values ) in this area and the result of
            value() does not need to be checked for NaN values.
 
-           Enabling this flag will have an positive effect on 
+           Enabling this flag will have an positive effect on
            the performance of rendering a QwtPlotSpectrogram.
 
            The default setting is false.

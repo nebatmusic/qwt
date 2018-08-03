@@ -14,13 +14,13 @@
 
 #if (__GNUC__ * 100 + __GNUC_MINOR__) >= 408
 
-/* 
+/*
   "-ftree-partial-pre" ( introduced with gcc 4.8 ) does miracles in
-  QwtColorMap::colorIndex(). When being used very often - like in 
+  QwtColorMap::colorIndex(). When being used very often - like in
   QwtPlotSpectrogram::renderTile() - time goes down by ~50%.
 
-  clang 3.3 is out of the box ( -O2 ) fast for QwtColorMap::colorIndex(), 
-  but also ~33% faster when rendering the image through QwtLinearColorMap::rgb() 
+  clang 3.3 is out of the box ( -O2 ) fast for QwtColorMap::colorIndex(),
+  but also ~33% faster when rendering the image through QwtLinearColorMap::rgb()
 */
 
 #define QWT_GCC_OPTIMIZE 1
@@ -36,7 +36,7 @@ static inline QRgb qwtHsvToRgb( int h, int s, int v, int a )
     const double vs = v * s / 255.0;
     const int p = v - qRound( vs );
 
-    switch( h / 60 ) 
+    switch( h / 60 )
     {
         case 0:
         {
@@ -107,8 +107,8 @@ private:
             b = qBlue( rgb );
             a = qAlpha( rgb );
 
-            /* 
-                when mapping a value to rgb we will have to calcualate: 
+            /*
+                when mapping a value to rgb we will have to calcualate:
                    - const int v = int( ( s1.v0 + ratio * s1.vStep ) + 0.5 );
 
                 Thus adding 0.5 ( for rounding ) can be done in advance
@@ -639,7 +639,7 @@ void QwtAlphaColorMap::setAlphaInterval( int alpha1, int alpha2 )
     d_data->rgbMax = d_data->rgb | ( alpha2 << 24 );
 }
 
-/*! 
+/*!
   \return First alpha coordinate
   \sa setAlphaInterval()
  */
@@ -648,7 +648,7 @@ int QwtAlphaColorMap::alpha1() const
     return d_data->alpha1;
 }
 
-/*! 
+/*!
   \return Second alpha coordinate
   \sa setAlphaInterval()
  */
@@ -859,7 +859,7 @@ void QwtHueColorMap::setAlpha( int alpha )
     }
 }
 
-/*! 
+/*!
   \return First hue coordinate
   \sa setHueInterval()
  */
@@ -868,7 +868,7 @@ int QwtHueColorMap::hue1() const
     return d_data->hue1;
 }
 
-/*! 
+/*!
   \return Second hue coordinate
   \sa setHueInterval()
  */
@@ -877,16 +877,16 @@ int QwtHueColorMap::hue2() const
     return d_data->hue2;
 }
 
-/*! 
+/*!
   \return Saturation coordinate
   \sa setSaturation()
- */ 
+ */
 int QwtHueColorMap::saturation() const
 {
     return d_data->saturation;
 }
 
-/*! 
+/*!
   \return Value coordinate
   \sa setValue()
  */
@@ -895,10 +895,10 @@ int QwtHueColorMap::value() const
     return d_data->value;
 }
 
-/*! 
+/*!
   \return Alpha coordinate
   \sa setAlpha()
- */ 
+ */
 int QwtHueColorMap::alpha() const
 {
     return d_data->alpha;
@@ -925,7 +925,7 @@ QRgb QwtHueColorMap::rgb( const QwtInterval &interval, double value ) const
         return d_data->rgbMax;
 
     const double ratio = ( value - interval.minValue() ) / width;
-    
+
     int hue = d_data->hue1 + qRound( ratio * ( d_data->hue2 - d_data->hue1 ) );
     if ( hue >= 360 )
     {
@@ -1009,7 +1009,7 @@ public:
    \brief Constructor
 
    The value interval is initialized by 0 to 255,
-   saturation by 255 to 255. Hue to 0 and alpha to 255. 
+   saturation by 255 to 255. Hue to 0 and alpha to 255.
 
    So the default setting interpolates the value coordinate only.
 
@@ -1032,7 +1032,7 @@ QwtSaturationValueColorMap::~QwtSaturationValueColorMap()
    Hue coordinates ouside 0 to 359 will be interpreted as hue % 360..
 
    \param hue Hue coordinate
-        
+
    \sa hue()
 */
 void QwtSaturationValueColorMap::setHue( int hue )
@@ -1049,7 +1049,7 @@ void QwtSaturationValueColorMap::setHue( int hue )
 /*!
    \brief Set the interval for the saturation coordinate
 
-   When saturation1 == saturation2 the map interpolates between 
+   When saturation1 == saturation2 the map interpolates between
    the value coordinates only
 
    saturation1/saturation2 need to be in the range 0 to 255.
@@ -1059,7 +1059,7 @@ void QwtSaturationValueColorMap::setHue( int hue )
 
    \sa saturation1(), saturation2(), setValueInterval()
 */
-void QwtSaturationValueColorMap::setSaturationInterval( 
+void QwtSaturationValueColorMap::setSaturationInterval(
     int saturation1, int saturation2 )
 {
     saturation1 = qBound( 0, saturation1, 255 );
@@ -1095,7 +1095,7 @@ void QwtSaturationValueColorMap::setValueInterval( int value1, int value2 )
     {
         d_data->value1 = value1;
         d_data->value2 = value2;
-    
+
         d_data->updateTable();
     }
 }
@@ -1107,9 +1107,9 @@ void QwtSaturationValueColorMap::setValueInterval( int value1, int value2 )
    where 255 means opaque and 0 means transparent.
 
    \param alpha Alpha coordinate
-        
+
    \sa alpha()
-*/  
+*/
 void QwtSaturationValueColorMap::setAlpha( int alpha )
 {
     alpha = qBound( 0, alpha, 255 );
@@ -1121,7 +1121,7 @@ void QwtSaturationValueColorMap::setAlpha( int alpha )
     }
 }
 
-/*! 
+/*!
   \return Hue coordinate
   \sa setHue()
  */
@@ -1130,7 +1130,7 @@ int QwtSaturationValueColorMap::hue() const
     return d_data->hue;
 }
 
-/*! 
+/*!
   \return First saturation coordinate
   \sa setSaturationInterval()
  */
@@ -1139,7 +1139,7 @@ int QwtSaturationValueColorMap::saturation1() const
     return d_data->sat1;
 }
 
-/*! 
+/*!
   \return Second saturation coordinate
   \sa setSaturationInterval()
  */
@@ -1148,7 +1148,7 @@ int QwtSaturationValueColorMap::saturation2() const
     return d_data->sat2;
 }
 
-/*! 
+/*!
   \return First value coordinate
   \sa setValueInterval()
  */
@@ -1157,19 +1157,19 @@ int QwtSaturationValueColorMap::value1() const
     return d_data->value1;
 }
 
-/*! 
+/*!
   \return Second value coordinate
   \sa setValueInterval()
- */ 
+ */
 int QwtSaturationValueColorMap::value2() const
 {
     return d_data->value2;
 }
 
-/*! 
+/*!
   \return Alpha coordinate
   \sa setAlpha()
- */ 
+ */
 int QwtSaturationValueColorMap::alpha() const
 {
     return d_data->alpha;
@@ -1183,7 +1183,7 @@ int QwtSaturationValueColorMap::alpha() const
 
   \return RGB value for value
 */
-QRgb QwtSaturationValueColorMap::rgb( 
+QRgb QwtSaturationValueColorMap::rgb(
     const QwtInterval &interval, double value ) const
 {
     const double width = interval.width();

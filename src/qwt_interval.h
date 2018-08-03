@@ -23,7 +23,7 @@ class QWT_EXPORT QwtInterval
 {
 public:
     /*!
-      Flag indicating if a border is included or excluded 
+      Flag indicating if a border is included or excluded
       \sa setBorderFlags(), borderFlags()
     */
     enum BorderFlag
@@ -246,7 +246,7 @@ inline long double QwtInterval::widthL() const
 
 /*!
    \brief Intersection of two intervals
- 
+
    \param other Interval to intersect with
    \return Intersection of this and other
 
@@ -272,7 +272,7 @@ inline QwtInterval QwtInterval::operator|(
     return unite( other );
 }
 
-/*! 
+/*!
    \brief Compare two intervals
 
    \param other Interval to compare with
@@ -284,7 +284,7 @@ inline bool QwtInterval::operator==( const QwtInterval &other ) const
            ( d_maxValue == other.d_maxValue ) &&
            ( d_borderFlags == other.d_borderFlags );
 }
-/*! 
+/*!
    \brief Compare two intervals
 
    \param other Interval to compare with

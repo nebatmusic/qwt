@@ -35,7 +35,7 @@ template <typename T> class QVector;
   \sa QwtPlotBarChart, QwtPlotMultiBarChart
 */
 
-class QWT_EXPORT QwtPlotHistogram: 
+class QWT_EXPORT QwtPlotHistogram:
     public QwtPlotSeriesItem, public QwtSeriesStore<QwtIntervalSample>
 {
 public:
@@ -57,7 +57,7 @@ public:
 
         /*!
            Draw a column for each interval. When a symbol() has been set
-           the symbol is used otherwise the column is displayed as 
+           the symbol is used otherwise the column is displayed as
            plain rectangle using pen() and brush().
          */
         Columns,

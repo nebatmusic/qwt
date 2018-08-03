@@ -178,14 +178,14 @@ private:
             const Point &p2 = points.last();
 
             if ( edge.isInside( p1 ) )
-            {   
+            {
                 if ( !edge.isInside( p2 ) )
                     clippedPoints += edge.intersection( p1, p2 );
-                
+
                 clippedPoints += p1;
             }
             else if ( edge.isInside( p2 ) )
-            {   
+            {
                 clippedPoints += edge.intersection( p1, p2 );
             }
         }

@@ -34,7 +34,7 @@ public:
 
     void setTolerance( double tolerance );
     double tolerance() const;
-        
+
     QPolygonF toPolygon( const QPointF &p1, const QPointF &cp1,
         const QPointF &cp2, const QPointF &p2 ) const;
 

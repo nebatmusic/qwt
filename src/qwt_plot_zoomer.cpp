@@ -16,7 +16,7 @@
 
 #include <qstack.h>
 
-static QwtInterval qwtExpandedZoomInterval( double v1, double v2, 
+static QwtInterval qwtExpandedZoomInterval( double v1, double v2,
     double minRange, const QwtTransform* transform )
 {
     double min = v1;

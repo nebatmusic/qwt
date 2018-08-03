@@ -59,7 +59,7 @@ const QwtSpline *QwtSplineCurveFitter::spline() const
   \return Spline
   \sa setSpline()
 */
-QwtSpline *QwtSplineCurveFitter::spline() 
+QwtSpline *QwtSplineCurveFitter::spline()
 {
     return d_spline;
 }

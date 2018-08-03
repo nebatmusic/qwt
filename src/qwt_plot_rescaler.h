@@ -119,7 +119,7 @@ protected:
     virtual void canvasResizeEvent( QResizeEvent * );
 
     virtual void rescale( const QSize &oldSize, const QSize &newSize ) const;
-    virtual QwtInterval expandScale( 
+    virtual QwtInterval expandScale(
         int axis, const QSize &oldSize, const QSize &newSize ) const;
 
     virtual QwtInterval syncScale(

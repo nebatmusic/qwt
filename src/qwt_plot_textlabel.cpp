@@ -17,7 +17,7 @@
 #include <qpixmap.h>
 
 static QRect qwtItemRect( int renderFlags,
-    const QRectF &rect, const QSizeF &itemSize ) 
+    const QRectF &rect, const QSizeF &itemSize )
 {
     int x;
     if ( renderFlags & Qt::AlignLeft )
@@ -34,7 +34,7 @@ static QRect qwtItemRect( int renderFlags,
     }
 
     int y;
-    if ( renderFlags & Qt::AlignTop ) 
+    if ( renderFlags & Qt::AlignTop )
     {
         y = rect.top();
     }
@@ -51,7 +51,7 @@ static QRect qwtItemRect( int renderFlags,
 }
 
 class QwtPlotTextLabel::PrivateData
-{   
+{
 public:
     PrivateData():
         margin( 5 )
@@ -62,7 +62,7 @@ public:
     int margin;
 
     QPixmap pixmap;
-};  
+};
 
 /*!
    \brief Constructor
@@ -103,7 +103,7 @@ int QwtPlotTextLabel::rtti() const
 }
 
 /*!
-  Set the text 
+  Set the text
 
   The label will be aligned to the plot canvas according to
   the alignment flags of text.
@@ -212,12 +212,12 @@ void QwtPlotTextLabel::draw( QPainter *painter,
         if ( d_data->text.borderPen().style() != Qt::NoPen )
             pw = qMax( d_data->text.borderPen().width(), 1 );
 
-        QRect pixmapRect; 
+        QRect pixmapRect;
         pixmapRect.setLeft( qwtFloor( rect.left() ) - pw );
         pixmapRect.setTop( qwtFloor( rect.top() ) - pw );
         pixmapRect.setRight( qwtCeil( rect.right() ) + pw );
         pixmapRect.setBottom( qwtCeil( rect.bottom() ) + pw );
-        
+
 #if QT_VERSION >= 0x050000
         const qreal pixelRatio = QwtPainter::devicePixelRatio( painter->device() );
         const QSize scaledSize = pixmapRect.size() * pixelRatio;
@@ -225,16 +225,16 @@ void QwtPlotTextLabel::draw( QPainter *painter,
         const QSize scaledSize = pixmapRect.size();
 #endif
 
-        if ( d_data->pixmap.isNull() || 
+        if ( d_data->pixmap.isNull() ||
             ( scaledSize != d_data->pixmap.size() )  )
         {
             d_data->pixmap = QPixmap( scaledSize );
-#if QT_VERSION >= 0x050000 
+#if QT_VERSION >= 0x050000
             d_data->pixmap.setDevicePixelRatio( pixelRatio );
 #endif
             d_data->pixmap.fill( Qt::transparent );
 
-            const QRect r( pw, pw, 
+            const QRect r( pw, pw,
                 pixmapRect.width() - 2 * pw, pixmapRect.height() - 2 * pw );
 
             QPainter pmPainter( &d_data->pixmap );
@@ -260,7 +260,7 @@ void QwtPlotTextLabel::draw( QPainter *painter,
 
    \sa setMargin(), QwtText::renderFlags(), QwtText::textSize()
  */
-QRectF QwtPlotTextLabel::textRect( 
+QRectF QwtPlotTextLabel::textRect(
     const QRectF &rect, const QSizeF &textSize ) const
 {
     return qwtItemRect( d_data->text.renderFlags(), rect, textSize );

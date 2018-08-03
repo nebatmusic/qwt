@@ -28,17 +28,17 @@
 #endif
 
 static inline bool qwtIsNaN( double d )
-{   
+{
     // qt_is_nan is private header and qIsNaN is not inlined
     // so we need these code here too
-    
+
     const uchar *ch = (const uchar *)&d;
     if ( QSysInfo::ByteOrder == QSysInfo::BigEndian )
-    {   
+    {
         return (ch[0] & 0x7f) == 0x7f && ch[1] > 0xf0;
-    } 
+    }
     else
-    {   
+    {
         return (ch[7] & 0x7f) == 0x7f && ch[6] > 0xf0;
     }
 }
@@ -215,22 +215,22 @@ int QwtPlotSpectrogram::maxRGBTableSize() const
     return d_data->maxRGBColorTableSize;
 }
 
-/*! 
+/*!
   Build and assign the default pen for the contour lines
-    
+
   In Qt5 the default pen width is 1.0 ( 0.0 in Qt4 ) what makes it
   non cosmetic ( see QPen::isCosmetic() ). This method has been introduced
   to hide this incompatibility.
-    
+
   \param color Pen color
   \param width Pen width
   \param style Pen style
-    
+
   \sa pen(), brush()
- */ 
-void QwtPlotSpectrogram::setDefaultContourPen( 
+ */
+void QwtPlotSpectrogram::setDefaultContourPen(
     const QColor &color, qreal width, Qt::PenStyle style )
-{   
+{
     setDefaultContourPen( QPen( color, width, style ) );
 }
 
@@ -416,7 +416,7 @@ QwtInterval QwtPlotSpectrogram::interval(Qt::Axis axis) const
    \brief Pixel hint
 
    The geometry of a pixel is used to calculated the resolution and
-   alignment of the rendered image. 
+   alignment of the rendered image.
 
    The default implementation returns data()->pixelHint( rect );
 
@@ -425,7 +425,7 @@ QwtInterval QwtPlotSpectrogram::interval(Qt::Axis axis) const
 
    \return Bounding rectangle of a pixel
 
-   \sa QwtPlotRasterItem::pixelHint(), QwtRasterData::pixelHint(), 
+   \sa QwtPlotRasterItem::pixelHint(), QwtRasterData::pixelHint(),
        render(), renderImage()
 */
 QRectF QwtPlotSpectrogram::pixelHint( const QRectF &area ) const
@@ -456,7 +456,7 @@ QImage QwtPlotSpectrogram::renderImage(
     const QwtScaleMap &xMap, const QwtScaleMap &yMap,
     const QRectF &area, const QSize &imageSize ) const
 {
-    if ( imageSize.isEmpty() || d_data->data == NULL 
+    if ( imageSize.isEmpty() || d_data->data == NULL
         || d_data->colorMap == NULL )
     {
         return QImage();
@@ -513,7 +513,7 @@ QImage QwtPlotSpectrogram::renderImage(
     for ( int i = 0; i < futures.size(); i++ )
         futures[i].waitForFinished();
 
-#else 
+#else
     const QRect tile( 0, 0, image.width(), image.height() );
     renderTile( xMap, yMap, tile, &image );
 #endif
@@ -630,7 +630,7 @@ void QwtPlotSpectrogram::renderTile(
 
    \sa drawContourLines(), QwtRasterData::contourLines()
 */
-QSize QwtPlotSpectrogram::contourRasterSize( 
+QSize QwtPlotSpectrogram::contourRasterSize(
     const QRectF &area, const QRect &rect ) const
 {
     QSize raster = rect.size() / 2;

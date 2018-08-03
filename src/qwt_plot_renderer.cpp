@@ -293,8 +293,8 @@ void QwtPlotRenderer::renderDocument( QwtPlot *plot,
         pdfWriter.setPageSizeMM( sizeMM );
         pdfWriter.setTitle( title );
         pdfWriter.setPageMargins( QMarginsF() );
-        pdfWriter.setResolution( resolution ); 
-        
+        pdfWriter.setResolution( resolution );
+
         QPainter painter( &pdfWriter );
         render( plot, &painter, documentRect );
 #else

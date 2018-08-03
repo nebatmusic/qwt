@@ -27,22 +27,22 @@ template <typename T> class QVector;
 class QWT_EXPORT QwtClipper
 {
 public:
-    static void clipPolygon( const QRect &,  
+    static void clipPolygon( const QRect &,
         QPolygon &, bool closePolygon = false );
-    
-    static void clipPolygon( const QRectF &, 
+
+    static void clipPolygon( const QRectF &,
         QPolygon &, bool closePolygon = false );
-    
-    static void clipPolygonF( const QRectF &, 
+
+    static void clipPolygonF( const QRectF &,
         QPolygonF &, bool closePolygon = false );
 
-    static QPolygon clippedPolygon( const QRect &, 
+    static QPolygon clippedPolygon( const QRect &,
         const QPolygon &, bool closePolygon = false );
 
-    static QPolygon clippedPolygon( const QRectF &, 
+    static QPolygon clippedPolygon( const QRectF &,
         const QPolygon &, bool closePolygon = false );
 
-    static QPolygonF clippedPolygonF( const QRectF &, 
+    static QPolygonF clippedPolygonF( const QRectF &,
         const QPolygonF &, bool closePolygon = false );
 
     static QVector<QwtInterval> clipCircle(

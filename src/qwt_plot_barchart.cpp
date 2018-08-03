@@ -24,7 +24,7 @@ public:
         legendMode( QwtPlotBarChart::LegendChartTitle )
     {
     }
- 
+
     ~PrivateData()
     {
         delete symbol;
@@ -125,7 +125,7 @@ void QwtPlotBarChart::setSamples( QwtSeriesData<QPointF> *data )
   \brief Assign a symbol
 
   The bar chart will take the ownership of the symbol, hence the previously
-  set symbol will be delete by setting a new one. If \p symbol is 
+  set symbol will be delete by setting a new one. If \p symbol is
   \c NULL no symbol will be drawn.
 
   \param symbol Symbol
@@ -259,7 +259,7 @@ void QwtPlotBarChart::drawSeries( QPainter *painter,
 
   \return Geometry of the column
 */
-QwtColumnRect QwtPlotBarChart::columnRect( 
+QwtColumnRect QwtPlotBarChart::columnRect(
     const QwtScaleMap &xMap, const QwtScaleMap &yMap,
     const QRectF &canvasRect, const QwtInterval &boundingInterval,
     const QPointF &sample ) const
@@ -331,7 +331,7 @@ void QwtPlotBarChart::drawSample( QPainter *painter,
 }
 
 /*!
-  Draw a bar 
+  Draw a bar
 
   \param painter Painter
   \param sampleIndex Index of the sample represented by the bar
@@ -339,10 +339,10 @@ void QwtPlotBarChart::drawSample( QPainter *painter,
   \param rect Bounding rectangle of the bar
  */
 void QwtPlotBarChart::drawBar( QPainter *painter,
-    int sampleIndex, const QPointF &sample, 
+    int sampleIndex, const QPointF &sample,
     const QwtColumnRect &rect ) const
 {
-    const QwtColumnSymbol *specialSym = 
+    const QwtColumnSymbol *specialSym =
         specialSymbol( sampleIndex, sample );
 
     const QwtColumnSymbol *sym = specialSym;
@@ -366,7 +366,7 @@ void QwtPlotBarChart::drawBar( QPainter *painter,
 }
 
 /*!
-  Needs to be overloaded to return a 
+  Needs to be overloaded to return a
   non default symbol for a specific sample
 
   \param sampleIndex Index of the sample represented by the bar
@@ -374,7 +374,7 @@ void QwtPlotBarChart::drawBar( QPainter *painter,
 
   \return NULL, indicating to use the default symbol
  */
-QwtColumnSymbol *QwtPlotBarChart::specialSymbol( 
+QwtColumnSymbol *QwtPlotBarChart::specialSymbol(
     int sampleIndex, const QPointF &sample ) const
 {
     Q_UNUSED( sampleIndex );
@@ -459,13 +459,13 @@ QList<QwtLegendData> QwtPlotBarChart::legendData() const
    the bar corresponding to index - otherwise the bar
    displays the default symbol.
 
-   \param index Index of the legend entry 
+   \param index Index of the legend entry
    \param size Icon size
 
-   \sa setLegendMode(), drawBar(), 
+   \sa setLegendMode(), drawBar(),
        QwtPlotItem::setLegendIconSize(), QwtPlotItem::legendData()
  */
-QwtGraphic QwtPlotBarChart::legendIcon( 
+QwtGraphic QwtPlotBarChart::legendIcon(
     int index, const QSizeF &size ) const
 {
     QwtColumnRect column;
@@ -483,7 +483,7 @@ QwtGraphic QwtPlotBarChart::legendIcon(
     int barIndex = -1;
     if ( d_data->legendMode == QwtPlotBarChart::LegendBarTitles )
         barIndex = index;
-        
+
     drawBar( &painter, barIndex, QPointF(), column );
 
     return icon;
