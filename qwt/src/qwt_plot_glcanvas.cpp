@@ -46,7 +46,7 @@ public:
     QGLFramebufferObject* fbo;
 };
 
-/*! 
+/*!
   \brief Constructor
 
   \param plot Parent plot widget
@@ -185,7 +185,7 @@ void QwtPlotGLCanvas::paintGL()
         }
 
         /*
-            Why do we have this strange translation - but, anyway 
+            Why do we have this strange translation - but, anyway
             QwtPlotGLCanvas in combination with scaling factor
             is not very likely to happen as using QwtPlotOpenGLCanvas
             usually makes more sense then.

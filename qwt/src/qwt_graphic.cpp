@@ -38,7 +38,7 @@ static bool qwtHasScalablePen( const QPainter *painter )
     return scalablePen;
 }
 
-static QRectF qwtStrokedPathRect( 
+static QRectF qwtStrokedPathRect(
     const QPainter *painter, const QPainterPath &path )
 {
     QPainterPathStroker stroker;
@@ -64,8 +64,8 @@ static QRectF qwtStrokedPathRect(
     return rect;
 }
 
-static inline void qwtExecCommand( 
-    QPainter *painter, const QwtPainterCommand &cmd, 
+static inline void qwtExecCommand(
+    QPainter *painter, const QwtPainterCommand &cmd,
     QwtGraphic::RenderHints renderHints,
     const QTransform &transform,
     const QTransform *initialTransform )
@@ -122,7 +122,7 @@ static inline void qwtExecCommand(
         case QwtPainterCommand::Image:
         {
             const QwtPainterCommand::ImageData *data = cmd.imageData();
-            painter->drawImage( data->rect, data->image, 
+            painter->drawImage( data->rect, data->image,
                 data->subRect, data->flags );
             break;
         }
@@ -130,44 +130,44 @@ static inline void qwtExecCommand(
         {
             const QwtPainterCommand::StateData *data = cmd.stateData();
 
-            if ( data->flags & QPaintEngine::DirtyPen ) 
+            if ( data->flags & QPaintEngine::DirtyPen )
                 painter->setPen( data->pen );
 
-            if ( data->flags & QPaintEngine::DirtyBrush ) 
+            if ( data->flags & QPaintEngine::DirtyBrush )
                 painter->setBrush( data->brush );
 
-            if ( data->flags & QPaintEngine::DirtyBrushOrigin ) 
+            if ( data->flags & QPaintEngine::DirtyBrushOrigin )
                 painter->setBrushOrigin( data->brushOrigin );
 
-            if ( data->flags & QPaintEngine::DirtyFont ) 
+            if ( data->flags & QPaintEngine::DirtyFont )
                 painter->setFont( data->font );
 
-            if ( data->flags & QPaintEngine::DirtyBackground ) 
+            if ( data->flags & QPaintEngine::DirtyBackground )
             {
                 painter->setBackgroundMode( data->backgroundMode );
                 painter->setBackground( data->backgroundBrush );
             }
 
-            if ( data->flags & QPaintEngine::DirtyTransform ) 
+            if ( data->flags & QPaintEngine::DirtyTransform )
             {
                 painter->setTransform( data->transform * transform );
             }
 
-            if ( data->flags & QPaintEngine::DirtyClipEnabled ) 
+            if ( data->flags & QPaintEngine::DirtyClipEnabled )
                 painter->setClipping( data->isClipEnabled );
 
-            if ( data->flags & QPaintEngine::DirtyClipRegion) 
+            if ( data->flags & QPaintEngine::DirtyClipRegion)
             {
-                painter->setClipRegion( data->clipRegion, 
+                painter->setClipRegion( data->clipRegion,
                     data->clipOperation );
             }
 
-            if ( data->flags & QPaintEngine::DirtyClipPath ) 
+            if ( data->flags & QPaintEngine::DirtyClipPath )
             {
                 painter->setClipPath( data->clipPath, data->clipOperation );
             }
 
-            if ( data->flags & QPaintEngine::DirtyHints) 
+            if ( data->flags & QPaintEngine::DirtyHints)
             {
                 const QPainter::RenderHints hints = data->renderHints;
 
@@ -187,10 +187,10 @@ static inline void qwtExecCommand(
                     hints.testFlag( QPainter::NonCosmeticDefaultPen ) );
             }
 
-            if ( data->flags & QPaintEngine::DirtyCompositionMode) 
+            if ( data->flags & QPaintEngine::DirtyCompositionMode)
                 painter->setCompositionMode( data->compositionMode );
 
-            if ( data->flags & QPaintEngine::DirtyOpacity) 
+            if ( data->flags & QPaintEngine::DirtyOpacity)
                 painter->setOpacity( data->opacity );
 
             break;
@@ -210,7 +210,7 @@ public:
         // QVector needs a default constructor
     }
 
-    PathInfo( const QRectF &pointRect, 
+    PathInfo( const QRectF &pointRect,
             const QRectF &boundingRect, bool scalablePen ):
         d_pointRect( pointRect ),
         d_boundingRect( boundingRect ),
@@ -247,7 +247,7 @@ public:
         return rect;
     }
 
-    inline double scaleFactorX( const QRectF& pathRect, 
+    inline double scaleFactorX( const QRectF& pathRect,
         const QRectF &targetRect, bool scalePens ) const
     {
         if ( pathRect.width() <= 0.0 )
@@ -258,7 +258,7 @@ public:
         const double l = qAbs( pathRect.left() - p0.x() );
         const double r = qAbs( pathRect.right() - p0.x() );
 
-        const double w = 2.0 * qwtMinF( l, r ) 
+        const double w = 2.0 * qwtMinF( l, r )
             * targetRect.width() / pathRect.width();
 
         double sx;
@@ -268,7 +268,7 @@ public:
         }
         else
         {
-            const double pw = qwtMaxF( 
+            const double pw = qwtMaxF(
                 qAbs( d_boundingRect.left() - d_pointRect.left() ),
                 qAbs( d_boundingRect.right() - d_pointRect.right() ) );
 
@@ -278,7 +278,7 @@ public:
         return sx;
     }
 
-    inline double scaleFactorY( const QRectF& pathRect, 
+    inline double scaleFactorY( const QRectF& pathRect,
         const QRectF &targetRect, bool scalePens ) const
     {
         if ( pathRect.height() <= 0.0 )
@@ -289,7 +289,7 @@ public:
         const double t = qAbs( pathRect.top() - p0.y() );
         const double b = qAbs( pathRect.bottom() - p0.y() );
 
-        const double h = 2.0 * qwtMinF( t, b ) 
+        const double h = 2.0 * qwtMinF( t, b )
             * targetRect.height() / pathRect.height();
 
         double sy;
@@ -352,7 +352,7 @@ QwtGraphic::QwtGraphic():
 /*!
   \brief Copy constructor
 
-  \param other Source 
+  \param other Source
   \sa operator=()
  */
 QwtGraphic::QwtGraphic( const QwtGraphic &other ):
@@ -371,7 +371,7 @@ QwtGraphic::~QwtGraphic()
 /*!
   \brief Assignment operator
 
-  \param other Source 
+  \param other Source
   \return A reference of this object
  */
 QwtGraphic& QwtGraphic::operator=(const QwtGraphic &other)
@@ -383,10 +383,10 @@ QwtGraphic& QwtGraphic::operator=(const QwtGraphic &other)
 }
 
 /*!
-  \brief Clear all stored commands 
+  \brief Clear all stored commands
   \sa isNull()
  */
-void QwtGraphic::reset() 
+void QwtGraphic::reset()
 {
     d_data->commands.clear();
     d_data->pathInfos.clear();
@@ -460,7 +460,7 @@ QRectF QwtGraphic::boundingRect() const
 }
 
 /*!
-  The control point rectangle is the bounding rectangle 
+  The control point rectangle is the bounding rectangle
   of all control points of the paths and the target
   rectangles of the images/pixmaps.
 
@@ -478,10 +478,10 @@ QRectF QwtGraphic::controlPointRect() const
 /*!
   \brief Calculate the target rectangle for scaling the graphic
 
-  \param sx Horizontal scaling factor 
-  \param sy Vertical scaling factor 
+  \param sx Horizontal scaling factor
+  \param sy Vertical scaling factor
 
-  \note In case of paths that are painted with a cosmetic pen 
+  \note In case of paths that are painted with a cosmetic pen
         ( see QPen::isCosmetic() ) the target rectangle is different to
         multiplying the bounding rectangle.
 
@@ -500,7 +500,7 @@ QRectF QwtGraphic::scaledBoundingRect( double sx, double sy ) const
 
     for ( int i = 0; i < d_data->pathInfos.size(); i++ )
     {
-        rect |= d_data->pathInfos[i].scaledBoundingRect( sx, sy, 
+        rect |= d_data->pathInfos[i].scaledBoundingRect( sx, sy,
             !d_data->renderHints.testFlag( RenderPensUnscaled ) );
     }
 
@@ -519,11 +519,11 @@ QSize QwtGraphic::sizeMetrics() const
 
   The default size is used in all methods rendering the graphic,
   where no size is explicitly specified. Assigning an empty size
-  means, that the default size will be calculated from the bounding 
+  means, that the default size will be calculated from the bounding
   rectangle.
 
   The default setting is an empty size.
-    
+
   \param size Default size
 
   \sa defaultSize(), boundingRect()
@@ -544,7 +544,7 @@ void QwtGraphic::setDefaultSize( const QSizeF &size )
   of the bounding rectangle.
 
   The default size is used in all methods rendering the graphic,
-  where no size is explicitly specified. 
+  where no size is explicitly specified.
 
   \return Default size
   \sa setDefaultSize(), boundingRect()
@@ -575,7 +575,7 @@ void QwtGraphic::render( QPainter *painter ) const
 
     for ( int i = 0; i < numCommands; i++ )
     {
-        qwtExecCommand( painter, commands[i], 
+        qwtExecCommand( painter, commands[i],
             d_data->renderHints, transform, d_data->initialTransform );
     }
 
@@ -592,7 +592,7 @@ void QwtGraphic::render( QPainter *painter ) const
   \param size Size for the scaled graphic
   \param aspectRatioMode Mode how to scale - See Qt::AspectRatioMode
  */
-void QwtGraphic::render( QPainter *painter, const QSizeF &size, 
+void QwtGraphic::render( QPainter *painter, const QSizeF &size,
     Qt::AspectRatioMode aspectRatioMode ) const
 {
     const QRectF r( 0.0, 0.0, size.width(), size.height() );
@@ -608,13 +608,13 @@ void QwtGraphic::render( QPainter *painter, const QSizeF &size,
   \param rect Rectangle for the scaled graphic
   \param aspectRatioMode Mode how to scale - See Qt::AspectRatioMode
  */
-void QwtGraphic::render( QPainter *painter, const QRectF &rect, 
+void QwtGraphic::render( QPainter *painter, const QRectF &rect,
     Qt::AspectRatioMode aspectRatioMode ) const
 {
     if ( isEmpty() || rect.isEmpty() )
         return;
 
-    double sx = 1.0; 
+    double sx = 1.0;
     double sy = 1.0;
 
     if ( d_data->pointRect.width() > 0.0 )
@@ -623,20 +623,20 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
     if ( d_data->pointRect.height() > 0.0 )
         sy = rect.height() / d_data->pointRect.height();
 
-    const bool scalePens = 
+    const bool scalePens =
         !d_data->renderHints.testFlag( RenderPensUnscaled );
 
     for ( int i = 0; i < d_data->pathInfos.size(); i++ )
     {
         const PathInfo info = d_data->pathInfos[i];
 
-        const double ssx = info.scaleFactorX( 
+        const double ssx = info.scaleFactorX(
             d_data->pointRect, rect, scalePens );
 
         if ( ssx > 0.0 )
             sx = qwtMinF( sx, ssx );
 
-        const double ssy = info.scaleFactorY( 
+        const double ssy = info.scaleFactorY(
             d_data->pointRect, rect, scalePens );
 
         if ( ssy > 0.0 )
@@ -666,7 +666,7 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
     if ( !scalePens && transform.isScaling() )
     {
         // we don't want to scale pens according to sx/sy,
-        // but we want to apply the scaling from the 
+        // but we want to apply the scaling from the
         // painter transformation later
 
         d_data->initialTransform = new QTransform();
@@ -690,10 +690,10 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
 
   \param painter Qt painter
   \param pos Reference point, where to render
-  \param alignment Flags how to align the target rectangle 
+  \param alignment Flags how to align the target rectangle
                    to pos.
  */
-void QwtGraphic::render( QPainter *painter, 
+void QwtGraphic::render( QPainter *painter,
     const QPointF &pos, Qt::Alignment alignment ) const
 {
     QRectF r( pos, defaultSize() );
@@ -729,16 +729,16 @@ void QwtGraphic::render( QPainter *painter,
 
 /*!
   \brief Convert the graphic to a QPixmap
-    
+
   All pixels of the pixmap get initialized by Qt::transparent
   before the graphic is scaled and rendered on it.
-    
+
   The size of the pixmap is the default size ( ceiled to integers )
   of the graphic.
 
   \return The graphic as pixmap in default size
   \sa defaultSize(), toImage(), render()
- */ 
+ */
 QPixmap QwtGraphic::toPixmap() const
 {
     if ( isNull() )
@@ -819,7 +819,7 @@ QImage QwtGraphic::toImage( const QSize &size,
 
 /*!
   \brief Convert the graphic to a QImage
-    
+
   All pixels of the image get initialized by 0 ( transparent )
   before the graphic is scaled and rendered on it.
 
@@ -827,7 +827,7 @@ QImage QwtGraphic::toImage( const QSize &size,
 
   The size of the image is the default size ( ceiled to integers )
   of the graphic.
-    
+
   \return The graphic as image in default size
   \sa defaultSize(), toPixmap(), render()
  */
@@ -874,7 +874,7 @@ void QwtGraphic::drawPath( const QPainterPath &path )
         QRectF pointRect = scaledPath.boundingRect();
         QRectF boundingRect = pointRect;
 
-        if ( painter->pen().style() != Qt::NoPen 
+        if ( painter->pen().style() != Qt::NoPen
             && painter->pen().brush().style() != Qt::NoBrush )
         {
             boundingRect = qwtStrokedPathRect( painter, path );
@@ -883,7 +883,7 @@ void QwtGraphic::drawPath( const QPainterPath &path )
         updateControlPointRect( pointRect );
         updateBoundingRect( boundingRect );
 
-        d_data->pathInfos += PathInfo( pointRect, 
+        d_data->pathInfos += PathInfo( pointRect,
             boundingRect, qwtHasScalablePen( painter ) );
     }
 }
@@ -897,7 +897,7 @@ void QwtGraphic::drawPath( const QPainterPath &path )
 
   \sa QPaintEngine::drawPixmap()
 */
-void QwtGraphic::drawPixmap( const QRectF &rect, 
+void QwtGraphic::drawPixmap( const QRectF &rect,
     const QPixmap &pixmap, const QRectF &subRect )
 {
     const QPainter *painter = paintEngine()->painter();
@@ -997,8 +997,8 @@ void QwtGraphic::setCommands( QVector< QwtPainterCommand > &commands )
     if ( numCommands <= 0 )
         return;
 
-    // to calculate a proper bounding rectangle we don't simply copy 
-    // the commands. 
+    // to calculate a proper bounding rectangle we don't simply copy
+    // the commands.
 
     const QwtPainterCommand *cmds = commands.constData();
 

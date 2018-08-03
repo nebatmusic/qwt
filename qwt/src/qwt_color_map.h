@@ -147,7 +147,7 @@ public:
     explicit QwtAlphaColorMap( const QColor & = QColor( Qt::gray ) );
     virtual ~QwtAlphaColorMap();
 
-    void setAlphaInterval( int alpha1, int alpha2 ); 
+    void setAlphaInterval( int alpha1, int alpha2 );
 
     int alpha1() const;
     int alpha2() const;
@@ -171,7 +171,7 @@ private:
 
   The values for value and saturation are in the range of 0 to 255 and doesn't
   depend on the data value to be mapped.
-  
+
   \sa QwtSaturationValueColorMap
 */
 class QWT_EXPORT QwtHueColorMap: public QwtColorMap
@@ -183,7 +183,7 @@ public:
     void setHueInterval( int hue1, int hue2 ); // direction ?
     void setSaturation( int saturation );
     void setValue( int value );
-    void setAlpha( int alpha ); 
+    void setAlpha( int alpha );
 
     int hue1() const;
     int hue2() const;
@@ -205,7 +205,7 @@ private:
 
   Value and saturation are in the range of 0 to 255 while hue is inthe range
   of 0 to 259.
-  
+
   \sa QwtHueColorMap
 */
 class QWT_EXPORT QwtSaturationValueColorMap: public QwtColorMap
@@ -215,9 +215,9 @@ public:
     virtual ~QwtSaturationValueColorMap();
 
     void setHue( int hue );
-    void setSaturationInterval( int sat1, int sat2 ); 
+    void setSaturationInterval( int sat1, int sat2 );
     void setValueInterval( int value1, int value2 );
-    void setAlpha( int alpha ); 
+    void setAlpha( int alpha );
 
     int hue() const;
     int saturation1() const;

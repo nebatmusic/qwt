@@ -75,7 +75,7 @@ private:
    \brief Null transformation
 
    QwtNullTransform returns the values unmodified.
-   
+
  */
 class QWT_EXPORT QwtNullTransform: public QwtTransform
 {
@@ -94,15 +94,15 @@ public:
    QwtLogTransform modifies the values using log() and exp().
 
    \note In the calculations of QwtScaleMap the base of the log function
-         has no effect on the mapping. So QwtLogTransform can be used 
+         has no effect on the mapping. So QwtLogTransform can be used
          for log2(), log10() or any other logarithmic scale.
  */
 class QWT_EXPORT QwtLogTransform: public QwtTransform
-{   
+{
 public:
     QwtLogTransform();
     virtual ~QwtLogTransform();
-    
+
     virtual double transform( double value ) const QWT_OVERRIDE;
     virtual double invTransform( double value ) const QWT_OVERRIDE;
 
@@ -117,7 +117,7 @@ public:
 /*!
    \brief A transformation using pow()
 
-   QwtPowerTransform preserves the sign of a value. 
+   QwtPowerTransform preserves the sign of a value.
    F.e. a transformation with a factor of 2
    transforms a value of -3 to -9 and v.v. Thus QwtPowerTransform
    can be used for scales including negative values.

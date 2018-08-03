@@ -44,7 +44,7 @@ public:
           of fitCurve() extracts a polygon from the path.
 
           \sa QwtSplineCurveFitter
-         */ 
+         */
         Path
     };
 

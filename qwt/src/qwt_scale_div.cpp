@@ -69,7 +69,7 @@ QwtScaleDiv::QwtScaleDiv( double lowerBound, double upperBound,
   \note lowerBound might be greater than upperBound for inverted scales
 */
 QwtScaleDiv::QwtScaleDiv( double lowerBound, double upperBound,
-        const QList<double> &minorTicks, 
+        const QList<double> &minorTicks,
         const QList<double> &mediumTicks,
         const QList<double> &majorTicks ):
     d_lowerBound( lowerBound ),
@@ -131,7 +131,7 @@ void QwtScaleDiv::setLowerBound( double lowerBound  )
 double QwtScaleDiv::lowerBound() const
 {
     return d_lowerBound;
-}   
+}
 
 /*!
   Set the second boundary
@@ -142,7 +142,7 @@ double QwtScaleDiv::lowerBound() const
 void QwtScaleDiv::setUpperBound( double upperBound  )
 {
     d_upperBound = upperBound;
-} 
+}
 
 /*!
   \return upper bound
@@ -217,7 +217,7 @@ bool QwtScaleDiv::contains( double value ) const
     return value >= min && value <= max;
 }
 
-/*! 
+/*!
    Invert the scale division
    \sa inverted()
  */
@@ -237,7 +237,7 @@ void QwtScaleDiv::invert()
     }
 }
 
-/*! 
+/*!
   \return A scale division with inverted boundaries and ticks
   \sa invert()
  */
@@ -249,7 +249,7 @@ QwtScaleDiv QwtScaleDiv::inverted() const
     return other;
 }
 
-/*! 
+/*!
    Return a scale division with an interval [lowerBound, upperBound]
    where all ticks outside this interval are removed
 
@@ -260,7 +260,7 @@ QwtScaleDiv QwtScaleDiv::inverted() const
 
    \note lowerBound might be greater than upperBound for inverted scales
 */
-QwtScaleDiv QwtScaleDiv::bounded( 
+QwtScaleDiv QwtScaleDiv::bounded(
     double lowerBound, double upperBound ) const
 {
     const double min = qMin( lowerBound, upperBound );

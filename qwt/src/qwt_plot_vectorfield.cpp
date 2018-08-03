@@ -129,7 +129,7 @@ namespace
             d_x1 = d_x0 + d_numColumns * d_dx;
             d_y1 = d_y0 + d_numRows * d_dy;
 
-            d_entries = ( Entry* )::calloc( d_numRows * d_numColumns, sizeof( Entry ) ); 
+            d_entries = ( Entry* )::calloc( d_numRows * d_numColumns, sizeof( Entry ) );
             if ( d_entries == NULL )
             {
                 qWarning() << "QwtPlotVectorField: raster for filtering too fine - running out of memory";
@@ -409,25 +409,25 @@ void QwtPlotVectorField::setSamples( const QVector<QwtVectorSample> &samples )
 
 /*!
   Assign a series of samples
-    
+
   setSamples() is just a wrapper for setData() without any additional
   value - beside that it is easier to find for the developer.
-    
+
   \param data Data
   \warning The item takes ownership of the data object, deleting
-           it when its not used anymore. 
+           it when its not used anymore.
 */
 void QwtPlotVectorField::setSamples( QwtVectorFieldData *data )
 {
     setData( data );
-}  
+}
 
 QRectF QwtPlotVectorField::boundingRect() const
 {
 #if 0
     /*
         The bounding rectangle of the samples comes from the origins
-        only, but as we know the scaling factor for the magnitude 
+        only, but as we know the scaling factor for the magnitude
         ( qwtVector2Magnitude ) here, we could try to include it ?
      */
 #endif
@@ -560,7 +560,7 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
             const double vx = entry.vx / entry.count;
             const double vy = entry.vy / entry.count;
 
-            drawSymbol( painter, xi, yi, 
+            drawSymbol( painter, xi, yi,
                 isInvertingX ? -vx : vx, isInvertingY ? -vy : vy );
         }
     }
@@ -630,7 +630,7 @@ void QwtPlotVectorField::drawSymbol( QPainter *painter,
     {
         /*
             When starting with no transformation ( f.e on screen )
-            the matrix can be found without having to use 
+            the matrix can be found without having to use
             trigonometric functions
          */
 

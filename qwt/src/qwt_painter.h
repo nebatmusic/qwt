@@ -45,7 +45,7 @@ public:
     static void drawText( QPainter *, const QPointF &, const QString & );
     static void drawText( QPainter *, qreal x, qreal y, qreal w, qreal h,
         int flags, const QString & );
-    static void drawText( QPainter *, const QRectF &, 
+    static void drawText( QPainter *, const QRectF &,
         int flags, const QString & );
 
 #ifndef QT_NO_RICHTEXT
@@ -88,13 +88,13 @@ public:
     static void drawRoundFrame( QPainter *,
         const QRectF &, const QPalette &, int lineWidth, int frameStyle );
 
-    static void drawRoundedFrame( QPainter *, 
+    static void drawRoundedFrame( QPainter *,
         const QRectF &, qreal xRadius, qreal yRadius,
         const QPalette &, int lineWidth, int frameStyle );
 
     static void drawFrame( QPainter *, const QRectF &rect,
         const QPalette &palette, QPalette::ColorRole foregroundRole,
-        int lineWidth, int midLineWidth, int frameStyle ); 
+        int lineWidth, int midLineWidth, int frameStyle );
 
     static void drawFocusRect( QPainter *, const QWidget * );
     static void drawFocusRect( QPainter *, const QWidget *, const QRect & );
@@ -106,7 +106,7 @@ public:
     static bool isAligning( const QPainter *);
     static bool isX11GraphicsSystem();
 
-    static void fillPixmap( const QWidget *, 
+    static void fillPixmap( const QWidget *,
         QPixmap &, const QPoint &offset = QPoint() );
 
     static void drawBackgound( QPainter *,
@@ -184,12 +184,12 @@ inline bool QwtPainter::roundingAlignment( const QPainter *painter )
     return d_roundingAlignment && isAligning(painter);
 }
 
-/*! 
+/*!
   \return pen.widthF() expanded to at least 1.0
   \param pen Pen
 */
-inline qreal QwtPainter::effectivePenWidth( const QPen &pen ) 
-{   
+inline qreal QwtPainter::effectivePenWidth( const QPen &pen )
+{
     const qreal width = pen.widthF();
     return ( width < 1.0 ) ? 1.0 : width;
 }

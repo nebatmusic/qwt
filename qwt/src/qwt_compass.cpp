@@ -20,7 +20,7 @@ public:
     QMap<double, QString> labelMap;
 };
 
-/*! 
+/*!
   \brief Constructor
 
   Initializes a label map for multiples of 45 degrees
@@ -55,7 +55,7 @@ QwtCompassScaleDraw::QwtCompassScaleDraw()
 #endif
 }
 
-/*! 
+/*!
   \brief Constructor
 
   \param map Value to label map

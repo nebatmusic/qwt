@@ -28,8 +28,8 @@ public:
         penIsCosmetic( false ),
         minExtent( 0.0 )
     {
-        components = QwtAbstractScaleDraw::Backbone 
-            | QwtAbstractScaleDraw::Ticks 
+        components = QwtAbstractScaleDraw::Backbone
+            | QwtAbstractScaleDraw::Ticks
             | QwtAbstractScaleDraw::Labels;
 
         tickLength[QwtScaleDiv::MinorTick] = 4.0;
@@ -161,7 +161,7 @@ qreal QwtAbstractScaleDraw::penWidthF() const
     return d_data->penWidthF;
 }
 
-/*! 
+/*!
   \brief Specify whether the scale pen is cosmetic
   \param on When true the scale pen will be cosmetic
 

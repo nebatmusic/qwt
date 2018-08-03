@@ -13,7 +13,7 @@
 #include <qpolygon.h>
 #include <qstack.h>
 
-namespace 
+namespace
 {
     class BezierData
     {
@@ -133,7 +133,7 @@ QwtBezier::~QwtBezier()
 
   When interpolating a Betier curve to render it as a sequence of lines
   to some sort of raster ( f.e to screen ) a value of 0.5 of the pixel size
-  is a good value for the tolerance. 
+  is a good value for the tolerance.
 
   \param tolerance Termination criterion for the subdivision
   \sa tolerance()
@@ -172,7 +172,7 @@ QPolygonF QwtBezier::toPolygon( const QPointF &p1,
   \brief Interpolate a Bézier curve by a polygon
 
   appendToPolygon() is tailored for cummulating points from a sequence
-  of bezier curves like being created by a spline interpolation. 
+  of bezier curves like being created by a spline interpolation.
 
   \param p1 Start point
   \param cp1 First control point
@@ -182,7 +182,7 @@ QPolygonF QwtBezier::toPolygon( const QPointF &p1,
 
   \note If the last point of the incoming polygon matches p1 it won't be
         inserted a second time.
- */     
+ */
 void QwtBezier::appendToPolygon( const QPointF &p1, const QPointF &cp1,
     const QPointF &cp2, const QPointF &p2, QPolygonF &polygon ) const
 {

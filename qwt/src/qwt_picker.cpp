@@ -49,12 +49,12 @@ static inline QRegion qwtMaskRegion( const QLine &l, int penWidth )
 
     if ( l.x1() == l.x2() )
     {
-        region += QRect( l.x1() - pw2, l.y1(), 
+        region += QRect( l.x1() - pw2, l.y1(),
             pw, l.y2() ).normalized();
     }
     else if ( l.y1() == l.y2() )
     {
-        region += QRect( l.x1(), l.y1() - pw2, 
+        region += QRect( l.x1(), l.y1() - pw2,
             l.x2(), pw ).normalized();
     }
 
@@ -76,16 +76,16 @@ namespace
     };
 
     class QwtPickerTracker QWT_FINAL : public QwtWidgetOverlay
-    {                                  
+    {
     public:
         QwtPickerTracker( QwtPicker *, QWidget * );
-        
+
     protected:
         virtual void drawOverlay( QPainter * ) const QWT_OVERRIDE;
         virtual QRegion maskHint() const QWT_OVERRIDE;
-        
+
         QwtPicker *d_picker;
-    };  
+    };
 }
 
 class QwtPicker::PrivateData
@@ -103,7 +103,7 @@ public:
         openGL( false )
     {
     }
-        
+
     bool enabled;
 
     QwtPickerMachine *stateMachine;
@@ -567,21 +567,21 @@ QRegion QwtPicker::rubberBandMask() const
             {
                 case VLineRubberBand:
                 {
-                    mask += qwtMaskRegion( QLine( pos.x(), pRect.top(), 
+                    mask += qwtMaskRegion( QLine( pos.x(), pRect.top(),
                         pos.x(), pRect.bottom() ), pw );
                     break;
                 }
                 case HLineRubberBand:
                 {
-                    mask += qwtMaskRegion( QLine( pRect.left(), pos.y(), 
+                    mask += qwtMaskRegion( QLine( pRect.left(), pos.y(),
                         pRect.right(), pos.y() ), pw );
                     break;
                 }
                 case CrossRubberBand:
                 {
-                    mask += qwtMaskRegion( QLine( pos.x(), pRect.top(), 
+                    mask += qwtMaskRegion( QLine( pos.x(), pRect.top(),
                         pos.x(), pRect.bottom() ), pw );
-                    mask += qwtMaskRegion( QLine( pRect.left(), pos.y(), 
+                    mask += qwtMaskRegion( QLine( pRect.left(), pos.y(),
                         pRect.right(), pos.y() ), pw );
                     break;
                 }
@@ -1192,7 +1192,7 @@ void QwtPicker::transition( const QEvent *event )
         case QEvent::MouseButtonRelease:
         case QEvent::MouseMove:
         {
-            const QMouseEvent *me = 
+            const QMouseEvent *me =
                 static_cast< const QMouseEvent * >( event );
             pos = me->pos();
             break;
@@ -1472,7 +1472,7 @@ void QwtPicker::setMouseTracking( bool enable )
 /*!
   Find the area of the observed widget, where selection might happen.
 
-  \return parentWidget()->contentsRect() 
+  \return parentWidget()->contentsRect()
 */
 QPainterPath QwtPicker::pickArea() const
 {
@@ -1504,7 +1504,7 @@ void QwtPicker::updateDisplay()
         if ( trackerMode() == AlwaysOn ||
             ( trackerMode() == ActiveOnly && isActive() ) )
         {
-            if ( trackerPen() != Qt::NoPen 
+            if ( trackerPen() != Qt::NoPen
                 && !trackerRect( QFont() ).isEmpty() )
             {
                 showTracker = true;

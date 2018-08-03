@@ -143,10 +143,10 @@ protected:
 
     void invalidateCache();
 
-    virtual void drawScale( QPainter *, 
+    virtual void drawScale( QPainter *,
         const QPointF &center, double radius ) const;
 
-    virtual void drawScaleContents( QPainter *, 
+    virtual void drawScaleContents( QPainter *,
         const QPointF &center, double radius ) const;
 
     virtual void drawNeedle( QPainter *, const QPointF &,

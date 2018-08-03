@@ -19,7 +19,7 @@ template <typename T> class QVector;
   \brief A class representing a matrix of values as raster data
 
   QwtMatrixRasterData implements an interface for a matrix of
-  equidistant values, that can be used by a QwtPlotRasterItem. 
+  equidistant values, that can be used by a QwtPlotRasterItem.
   It implements a couple of resampling algorithms, to provide
   values for positions, that or not on the value matrix.
 */
@@ -39,7 +39,7 @@ public:
         NearestNeighbour,
 
         /*!
-          Interpolate the value from the distances and values of the 
+          Interpolate the value from the distances and values of the
           4 surrounding values in the matrix,
          */
         BilinearInterpolation

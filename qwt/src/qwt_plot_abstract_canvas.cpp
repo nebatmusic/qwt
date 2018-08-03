@@ -79,7 +79,7 @@ namespace
 
             for ( int i = 0; i < path.elementCount(); i++ )
             {
-                QPainterPath::Element el = path.elementAt(i); 
+                QPainterPath::Element el = path.elementAt(i);
                 switch( el.type )
                 {
                     case QPainterPath::MoveToElement:
@@ -104,7 +104,7 @@ namespace
                         if ( clipRects.size() > 0 )
                         {
                             QRectF r = clipRects.last();
-                            r.setCoords( 
+                            r.setCoords(
                                 qwtMinF( r.left(), el.x ),
                                 qwtMinF( r.top(), el.y ),
                                 qwtMaxF( r.right(), el.x ),
@@ -179,7 +179,7 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
     painter->save();
 
     QPainterPath borderClip;
-    
+
     ( void )QMetaObject::invokeMethod(
         canvas, "borderPath", Qt::DirectConnection,
         Q_RETURN_ARG( QPainterPath, borderClip ), Q_ARG( QRect, canvas->rect() ) );
@@ -187,7 +187,7 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
     if ( !borderClip.isEmpty() )
         painter->setClipPath( borderClip, Qt::IntersectClip );
 
-    const QBrush &brush = 
+    const QBrush &brush =
         canvas->palette().brush( canvas->backgroundRole() );
 
     if ( brush.style() == Qt::TexturePattern )
@@ -203,8 +203,8 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
         if ( brush.gradient()->coordinateMode() == QGradient::ObjectBoundingMode )
         {
             rects += canvas->rect();
-        } 
-        else 
+        }
+        else
         {
             rects = painter->clipRegion().rects();
         }
@@ -214,7 +214,7 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
 
         if ( painter->paintEngine()->type() == QPaintEngine::X11 )
         {
-            // Qt 4.7.1: gradients on X11 are broken ( subrects + 
+            // Qt 4.7.1: gradients on X11 are broken ( subrects +
             // QGradient::StretchToDeviceMode ) and horrible slow.
             // As workaround we have to use the raster paintengine.
             // Even if the QImage -> QPixmap translation is slow
@@ -240,7 +240,7 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
                     break;
                 }
             }
-            
+
             QImage image( canvas->size(), format );
 
             QPainter p( &image );
@@ -386,7 +386,7 @@ static inline void qwtRevertPath( QPainterPath &path )
     }
 }
 
-static QPainterPath qwtCombinePathList( const QRectF &rect, 
+static QPainterPath qwtCombinePathList( const QRectF &rect,
     const QList<QPainterPath> &pathList )
 {
     if ( pathList.isEmpty() )
@@ -404,7 +404,7 @@ static QPainterPath qwtCombinePathList( const QRectF &rect,
         {
             if ( br.center().y() < rect.center().y() )
             {
-                if ( qAbs( br.top() - rect.top() ) < 
+                if ( qAbs( br.top() - rect.top() ) <
                     qAbs( br.left() - rect.left() ) )
                 {
                     index = 1;
@@ -416,7 +416,7 @@ static QPainterPath qwtCombinePathList( const QRectF &rect,
             }
             else
             {
-                if ( qAbs( br.bottom() - rect.bottom() ) < 
+                if ( qAbs( br.bottom() - rect.bottom() ) <
                     qAbs( br.left() - rect.left() ) )
                 {
                     index = 6;
@@ -434,7 +434,7 @@ static QPainterPath qwtCombinePathList( const QRectF &rect,
         {
             if ( br.center().y() < rect.center().y() )
             {
-                if ( qAbs( br.top() - rect.top() ) < 
+                if ( qAbs( br.top() - rect.top() ) <
                     qAbs( br.right() - rect.right() ) )
                 {
                     index = 2;
@@ -446,7 +446,7 @@ static QPainterPath qwtCombinePathList( const QRectF &rect,
             }
             else
             {
-                if ( qAbs( br.bottom() - rect.bottom() ) < 
+                if ( qAbs( br.bottom() - rect.bottom() ) <
                     qAbs( br.right() - rect.right() ) )
                 {
                     index = 5;
@@ -458,7 +458,7 @@ static QPainterPath qwtCombinePathList( const QRectF &rect,
             }
             if ( subPath.currentPosition().y() < br.center().y() )
                 qwtRevertPath( subPath );
-        }   
+        }
         ordered[index] = subPath;
     }
 
@@ -499,7 +499,7 @@ static QPainterPath qwtCombinePathList( const QRectF &rect,
 #endif
 }
 
-static QPainterPath qwtBorderPath( const QWidget *canvas, const QRect &rect ) 
+static QPainterPath qwtBorderPath( const QWidget *canvas, const QRect &rect )
 {
     if ( canvas->testAttribute(Qt::WA_StyledBackground ) )
     {
@@ -520,7 +520,7 @@ static QPainterPath qwtBorderPath( const QWidget *canvas, const QRect &rect )
         if ( !recorder.border.rectList.isEmpty() )
             return qwtCombinePathList( rect, recorder.border.pathList );
     }
-    else 
+    else
     {
         const double borderRadius = canvas->property( "borderRadius" ).toDouble();
 
@@ -556,13 +556,13 @@ public:
         bool hasBorder;
         QPainterPath borderPath;
         QVector<QRectF> cornerRects;
-        
+
         struct StyleSheetBackground
         {
             QBrush brush;
             QPointF origin;
         } background;
-        
+
     } styleSheet;
 
     QWidget *canvasWidget;
@@ -788,7 +788,7 @@ void QwtPlotAbstractCanvas::drawStyled( QPainter *painter, bool hackStyledBackgr
     if ( hackStyledBackground )
     {
         // Antialiasing rounded borders is done by
-        // inserting pixels with colors between the 
+        // inserting pixels with colors between the
         // border color and the color on the canvas,
         // When the border is painted before the plot items
         // these colors are interpolated for the canvas
@@ -806,13 +806,13 @@ void QwtPlotAbstractCanvas::drawStyled( QPainter *painter, bool hackStyledBackgr
             hackStyledBackground = false;
         }
     }
-    
+
     QWidget *w = canvasWidget();
 
     if ( hackStyledBackground )
     {
         painter->save();
-        
+
         // paint background without border
         painter->setPen( Qt::NoPen );
         painter->setBrush( d_data->styleSheet.background.brush );
@@ -828,16 +828,16 @@ void QwtPlotAbstractCanvas::drawStyled( QPainter *painter, bool hackStyledBackgr
         QStyleOptionFrame opt;
         opt.initFrom( w );
         w->style()->drawPrimitive( QStyle::PE_Frame, &opt, painter, w);
-    }   
+    }
     else
     {
         QStyleOption opt;
         opt.initFrom( w );
         w->style()->drawPrimitive( QStyle::PE_Widget, &opt, painter, w );
-    
+
         drawCanvas( painter );
-    }   
-}   
+    }
+}
 
 void QwtPlotAbstractCanvas::drawCanvas( QPainter *painter )
 {
@@ -961,10 +961,10 @@ QwtPlotAbstractGLCanvas::~QwtPlotAbstractGLCanvas()
   \sa testPaintAttribute()
 */
 void QwtPlotAbstractGLCanvas::setPaintAttribute( PaintAttribute attribute, bool on )
-{   
+{
     if ( bool( d_data->paintAttributes & attribute ) == on )
         return;
-    
+
     if ( on )
 	{
         d_data->paintAttributes |= attribute;
@@ -984,18 +984,18 @@ void QwtPlotAbstractGLCanvas::setPaintAttribute( PaintAttribute attribute, bool 
   \param attribute Paint attribute
   \return true, when attribute is enabled
   \sa setPaintAttribute()
-*/  
+*/
 bool QwtPlotAbstractGLCanvas::testPaintAttribute( PaintAttribute attribute ) const
-{   
+{
     return d_data->paintAttributes & attribute;
 }
 
 /*!
   Set the frame style
 
-  \param style The bitwise OR between a shape and a shadow. 
-  
-  \sa frameStyle(), QFrame::setFrameStyle(), 
+  \param style The bitwise OR between a shape and a shadow.
+
+  \sa frameStyle(), QFrame::setFrameStyle(),
       setFrameShadow(), setFrameShape()
  */
 void QwtPlotAbstractGLCanvas::setFrameStyle( int style )
@@ -1108,7 +1108,7 @@ void QwtPlotAbstractGLCanvas::setMidLineWidth( int width )
 /*!
   \return Midline width of the frame
   \sa setMidLineWidth(), lineWidth()
- */ 
+ */
 int QwtPlotAbstractGLCanvas::midLineWidth() const
 {
     return d_data->midLineWidth;
@@ -1129,7 +1129,7 @@ int QwtPlotAbstractGLCanvas::frameWidth() const
 void QwtPlotAbstractGLCanvas::replot()
 {
     invalidateBackingStore();
-    
+
     QWidget *w = canvasWidget();
     if ( testPaintAttribute( QwtPlotAbstractGLCanvas::ImmediatePaint ) )
         w->repaint( w->contentsRect() );

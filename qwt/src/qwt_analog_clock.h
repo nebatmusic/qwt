@@ -21,7 +21,7 @@ class QwtDialNeedle;
   \image html analogclock.png
 
   \par Example
-  \code 
+  \code
   #include <qwt_analog_clock.h>
 
   QwtAnalogClock *clock = new QwtAnalogClock(...);

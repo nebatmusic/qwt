@@ -77,7 +77,7 @@ public:
     QPixmap *backingStore;
 };
 
-/*! 
+/*!
   \brief Constructor
 
   \param plot Parent plot widget
@@ -132,7 +132,7 @@ void QwtPlotCanvas::setPaintAttribute( PaintAttribute attribute, bool on )
 #if QT_VERSION >= 0x050000
                     *d_data->backingStore = grab( rect() );
 #else
-                    *d_data->backingStore = 
+                    *d_data->backingStore =
                         QPixmap::grabWidget( this, rect() );
 #endif
                 }
@@ -191,19 +191,19 @@ void QwtPlotCanvas::invalidateBackingStore()
 */
 bool QwtPlotCanvas::event( QEvent *event )
 {
-    if ( event->type() == QEvent::PolishRequest ) 
+    if ( event->type() == QEvent::PolishRequest )
     {
         if ( testPaintAttribute( QwtPlotCanvas::Opaque ) )
         {
-            // Setting a style sheet changes the 
+            // Setting a style sheet changes the
             // Qt::WA_OpaquePaintEvent attribute, but we insist
             // on painting the background.
-            
+
             setAttribute( Qt::WA_OpaquePaintEvent, true );
         }
     }
 
-    if ( event->type() == QEvent::PolishRequest || 
+    if ( event->type() == QEvent::PolishRequest ||
         event->type() == QEvent::StyleChange )
     {
         updateStyleSheetInfo();
@@ -315,7 +315,7 @@ void QwtPlotCanvas::paintEvent( QPaintEvent *event )
 
             drawCanvas( &painter );
 
-            if ( frameWidth() > 0 ) 
+            if ( frameWidth() > 0 )
                 drawBorder( &painter );
         }
     }
@@ -385,7 +385,7 @@ QPainterPath QwtPlotCanvas::borderPath( const QRect &rect ) const
 
 #define FIX_GL_TRANSLATION 0
 
-QImage QwtPlotCanvas::toImageFBO( const QSize &size ) 
+QImage QwtPlotCanvas::toImageFBO( const QSize &size )
 {
     const int numSamples = 4;
 
@@ -440,10 +440,10 @@ QImage QwtPlotCanvas::toImageFBO( const QSize &size )
         drawStyled( &painter, testPaintAttribute( HackStyledBackground ) );
     else
         drawUnstyled( &painter );
-    
+
     if ( frameWidth() > 0 )
         drawBorder( &painter );
-    
+
     painter.end();
 
     QImage image = fbo.toImage();

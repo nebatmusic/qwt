@@ -21,7 +21,7 @@ class QPainterPath;
 
 /*!
   \brief Canvas of a QwtPlot.
-  
+
    Canvas is the widget where all plot items are displayed
 
   \sa QwtPlot::setCanvas(), QwtPlotGLCanvas
@@ -44,8 +44,8 @@ public:
     enum PaintAttribute
     {
         /*!
-          \brief Paint double buffered reusing the content 
-                 of the pixmap buffer when possible. 
+          \brief Paint double buffered reusing the content
+                 of the pixmap buffer when possible.
 
           Using a backing store might improve the performance
           significantly, when working with widget overlays ( like rubber bands ).
@@ -61,15 +61,15 @@ public:
                  of the plot canvas
 
           When using styled backgrounds Qt assumes, that the
-          canvas doesn't fill its area completely 
+          canvas doesn't fill its area completely
           ( f.e because of rounded borders ) and fills the area
           below the canvas. When this is done with gradients it might
           result in a serious performance bottleneck - depending on the size.
 
           When the Opaque attribute is enabled the canvas tries to
-          identify the gaps with some heuristics and to fill those only. 
+          identify the gaps with some heuristics and to fill those only.
 
-          \warning Will not work for semitransparent backgrounds 
+          \warning Will not work for semitransparent backgrounds
          */
         Opaque       = 2,
 
@@ -105,17 +105,17 @@ public:
           OpenGL buffer, that will be translated to a QImage afterwards.
           Then this image will be painted to the canvas.
 
-          This mode might be useful for "heavy" plots to achieve 
-          hardware acceleration on platforms, where the raster paint engine 
+          This mode might be useful for "heavy" plots to achieve
+          hardware acceleration on platforms, where the raster paint engine
           ( = software renderer ) would be used otherwise.
           But the penalty for copying out the buffer to the image makes this mode
           less optimal when looking for high refresh rates of a "lightweight" plot.
 
-          On a hardware accelerated graphics system ( f.e. Qt4/X11 "native" ) 
-          using this mode does not make much sense. Unfortunately those systems have 
+          On a hardware accelerated graphics system ( f.e. Qt4/X11 "native" )
+          using this mode does not make much sense. Unfortunately those systems have
           been removed from Qt5.
 
-          \note The OpenGLBuffer mode has no effect, when "QwtOpenGL" has been disabled in 
+          \note The OpenGLBuffer mode has no effect, when "QwtOpenGL" has been disabled in
                 qwtconfig.pri.
 
           \sa QwtPlotOpenGLCanvas, QwtPlotGLCanvas

@@ -70,11 +70,11 @@ public:
 
     void setMaxRGBTableSize( int numColors );
     int maxRGBTableSize() const;
-    
+
     virtual QwtInterval interval(Qt::Axis) const QWT_OVERRIDE;
     virtual QRectF pixelHint( const QRectF & ) const QWT_OVERRIDE;
 
-    void setDefaultContourPen( const QColor &, 
+    void setDefaultContourPen( const QColor &,
         qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
     void setDefaultContourPen( const QPen & );
     QPen defaultContourPen() const;

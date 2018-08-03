@@ -19,7 +19,7 @@ class QPainterPath;
 class QPolygonF;
 
 /*!
-  \brief A plot item, which displays any graphical shape, 
+  \brief A plot item, which displays any graphical shape,
          that can be defined by a QPainterPath
 
   A QPainterPath is a shape composed from intersecting and uniting
@@ -64,7 +64,7 @@ public:
         //! Display a scaled down version of the shape
         LegendShape,
 
-        //! Display a filled rectangle 
+        //! Display a filled rectangle
         LegendColor
     };
 

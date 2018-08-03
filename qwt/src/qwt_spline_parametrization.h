@@ -19,7 +19,7 @@
   \brief Curve parametrization used for a spline interpolation
 
   Parametrization is the process of finding a parameter value for
-  each curve point - usually related to some physical quantity 
+  each curve point - usually related to some physical quantity
   ( distance, time ... ).
 
   Often accumulating the curve length is the intended way of parametrization,
@@ -29,7 +29,7 @@
   The values are calculated by cummulating increments, that are provided
   by QwtSplineParametrization. As the curve parameters need to be
   montonically increasing, each increment need to be positive.
-  
+
   - t[0] = 0;
   - t[i] = t[i-1] + valueIncrement( point[i-1], p[i] );
 
@@ -37,7 +37,7 @@
   parametrizations and offers an interface to inject custom implementations.
 
   \note The most relevant types of parametrization are trying to provide an
-        approximation of the curve length. 
+        approximation of the curve length.
 
   \sa QwtSpline::setParametrization()
  */
@@ -63,10 +63,10 @@ public:
           Uniform parametrization: t[i] = i;
 
           A very fast parametrization, with good results, when the geometry
-          of the control points is somehow "equidistant". F.e. when 
+          of the control points is somehow "equidistant". F.e. when
           recording the position of a body, that is moving with constant
           speed every n seconds.
-          
+
           \sa valueIncrementUniform()
          */
         ParameterUniform,
@@ -111,7 +111,7 @@ public:
     int type() const;
 
     virtual double valueIncrement( const QPointF &, const QPointF & ) const;
-    
+
     static double valueIncrementX( const QPointF &, const QPointF & );
     static double valueIncrementY( const QPointF &, const QPointF & );
     static double valueIncrementUniform( const QPointF &, const QPointF & );
@@ -131,8 +131,8 @@ private:
 
   \return point2.x() - point1.x();
  */
-inline double QwtSplineParametrization::valueIncrementX( 
-    const QPointF &point1, const QPointF &point2 ) 
+inline double QwtSplineParametrization::valueIncrementX(
+    const QPointF &point1, const QPointF &point2 )
 {
     return point2.x() - point1.x();
 }
@@ -176,8 +176,8 @@ inline double QwtSplineParametrization::valueIncrementUniform(
 
   \return qSqrt( dx * dx + dy * dy );
  */
-inline double QwtSplineParametrization::valueIncrementChordal( 
-    const QPointF &point1, const QPointF &point2 ) 
+inline double QwtSplineParametrization::valueIncrementChordal(
+    const QPointF &point1, const QPointF &point2 )
 {
     const double dx = point2.x() - point1.x();
     const double dy = point2.y() - point1.y();

@@ -14,7 +14,7 @@
 #include "qwt_spline.h"
 
 /*!
-  \brief A cubic spline 
+  \brief A cubic spline
 
   A cubic spline is a spline with C2 continuity at all control points.
   It is a non local spline, what means that all polynomials are changing

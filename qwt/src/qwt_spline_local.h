@@ -36,7 +36,7 @@ public:
         /*!
           A cardinal spline
 
-          The cardinal spline interpolation is a very cheap calculation with 
+          The cardinal spline interpolation is a very cheap calculation with
           a locality of 1.
          */
         Cardinal,
@@ -45,10 +45,10 @@ public:
           Parabolic blending is a cheap calculation with a locality of 1. Sometimes
           it is also called Cubic Bessel interpolation.
          */
-        ParabolicBlending, 
+        ParabolicBlending,
 
         /*!
-          The algorithm of H.Akima is a calculation with a locality of 2. 
+          The algorithm of H.Akima is a calculation with a locality of 2.
          */
         Akima,
 
@@ -59,7 +59,7 @@ public:
           It preserves the shape of the data and respects monotonicity. It has a
           locality of 1.
          */
-        PChip 
+        PChip
     };
 
     QwtSplineLocal( Type type );

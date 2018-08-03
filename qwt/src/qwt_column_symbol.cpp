@@ -295,7 +295,7 @@ void QwtColumnSymbol::drawBox( QPainter *painter,
 
 //! \return A normalized QRect built from the intervals
 QRectF QwtColumnRect::toRect() const
-{   
+{
     QRectF r( hInterval.minValue(), vInterval.minValue(),
         hInterval.maxValue() - hInterval.minValue(),
         vInterval.maxValue() - vInterval.minValue() );
@@ -313,7 +313,7 @@ QRectF QwtColumnRect::toRect() const
 
     if ( vInterval.borderFlags() & QwtInterval::ExcludeMaximum )
         r.adjust( 0, 0, 0, -1 );
-    
+
     return r;
-}       
+}
 

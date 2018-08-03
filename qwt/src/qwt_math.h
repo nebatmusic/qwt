@@ -117,7 +117,7 @@ QWT_CONSTEXPR inline qreal qwtMinF( double a, float b )
 QWT_CONSTEXPR inline float qwtMaxF( float a, float b )
 {
     return ( a < b ) ? b : a;
-}   
+}
 
 //! \return Maximum of a and b.
 QWT_CONSTEXPR inline double qwtMaxF( double a, double b )
@@ -231,7 +231,7 @@ inline double qwtFastAtan2( double y, double x )
 }
 
 /* !
-   \brief Calculate a value of a cubic polynom 
+   \brief Calculate a value of a cubic polynom
 
    \param x Value
    \param a Cubic coefficient
@@ -241,7 +241,7 @@ inline double qwtFastAtan2( double y, double x )
 
    \return Value of the polyonom for x
 */
-inline double qwtCubicPolynom( double x, 
+inline double qwtCubicPolynom( double x,
     double a, double b, double c, double d )
 {
     return ( ( ( a * x ) + b ) * x + c ) * x + d;

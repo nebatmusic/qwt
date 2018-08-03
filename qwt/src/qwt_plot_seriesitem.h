@@ -54,7 +54,7 @@ public:
 
     virtual QRectF boundingRect() const QWT_OVERRIDE;
 
-    virtual void updateScaleDiv( 
+    virtual void updateScaleDiv(
         const QwtScaleDiv &, const QwtScaleDiv & ) QWT_OVERRIDE;
 
 protected:

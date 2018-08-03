@@ -91,8 +91,8 @@ public:
     enum PaintAttribute
     {
         /*!
-          \brief Paint double buffered reusing the content 
-                 of the pixmap buffer when possible. 
+          \brief Paint double buffered reusing the content
+                 of the pixmap buffer when possible.
 
           Using a backing store might improve the performance
           significantly, when working with widget overlays ( like rubber bands ).

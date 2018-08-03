@@ -22,7 +22,7 @@ class QwtText;
 
   In opposite to QwtPlotMarker the position of the label is unrelated to
   plot coordinates.
-    
+
   As drawing a text is an expensive operation the label is cached
   in a pixmap to speed up replots.
 
@@ -43,7 +43,7 @@ class QwtText;
 \endverbatim
 
   \sa QwtPlotMarker
-*/  
+*/
 
 class QWT_EXPORT QwtPlotTextLabel: public QwtPlotItem
 {

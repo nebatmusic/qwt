@@ -75,7 +75,7 @@ public:
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF & canvasRect) const QWT_OVERRIDE;
 
-    virtual void updateScaleDiv( 
+    virtual void updateScaleDiv(
         const QwtScaleDiv &xMap, const QwtScaleDiv &yMap ) QWT_OVERRIDE;
 
 private:

@@ -123,7 +123,7 @@ Qt::Orientation QwtScaleDraw::orientation() const
   \param start Start border distance
   \param end End border distance
 */
-void QwtScaleDraw::getBorderDistHint( 
+void QwtScaleDraw::getBorderDistHint(
     const QFont &font, int &start, int &end ) const
 {
     start = 0;
@@ -240,7 +240,7 @@ int QwtScaleDraw::minLabelDist( const QFont &font ) const
             maxDist = dist;
     }
 
-    double angle = qwtRadians( labelRotation() ); 
+    double angle = qwtRadians( labelRotation() );
     if ( vertical )
         angle += M_PI / 2;
 
@@ -352,7 +352,7 @@ int QwtScaleDraw::minLength( const QFont &font ) const
 /*!
    Find the position, where to paint a label
 
-   The position has a distance that depends on the length of the ticks 
+   The position has a distance that depends on the length of the ticks
    in direction of the alignment().
 
    \param value Value

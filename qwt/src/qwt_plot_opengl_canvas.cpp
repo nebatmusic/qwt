@@ -39,7 +39,7 @@ public:
 };
 
 
-/*! 
+/*!
   \brief Constructor
 
   \param plot Parent plot widget
@@ -150,7 +150,7 @@ void QwtPlotOpenGLCanvas::initializeGL()
 
 void QwtPlotOpenGLCanvas::paintGL()
 {
-    const bool hasFocusIndicator = 
+    const bool hasFocusIndicator =
         hasFocus() && focusIndicator() == CanvasFocusIndicator;
 
     QPainter painter;
@@ -168,7 +168,7 @@ void QwtPlotOpenGLCanvas::paintGL()
            QOpenGLWidget has its own internal FBO, that is used to restore
            its content without having to repaint. This works fine when f.e
            a rubberband is moving on top, but there are still situations,
-           where we can repaint without an potentially expensive replot: 
+           where we can repaint without an potentially expensive replot:
 
                - when having the focus the top level window gets activated/deactivated
                - ???
@@ -203,7 +203,7 @@ void QwtPlotOpenGLCanvas::paintGL()
             fboPainter.scale( pixelRatio, pixelRatio );
             draw( &fboPainter);
             fboPainter.end();
-        
+
             d_data->fboDirty = false;
         }
 

@@ -19,7 +19,7 @@ class QwtPlot;
 
 /*!
   \brief An alternative canvas for a QwtPlot derived from QGLWidget
-  
+
   QwtPlotGLCanvas implements the very basics to act as canvas
   inside of a QwtPlot widget. It might be extended to a full
   featured alternative to QwtPlotCanvas in a future version of Qwt.
@@ -31,14 +31,14 @@ class QwtPlot;
   \sa QwtPlot::setCanvas(), QwtPlotCanvas, QwtPlotCanvas::OpenGLBuffer
 
   \note With Qt4 you might want to use the QPaintEngine::OpenGL paint engine
-        ( see QGL::setPreferredPaintEngine() ). On a Linux test system 
+        ( see QGL::setPreferredPaintEngine() ). On a Linux test system
         QPaintEngine::OpenGL2 shows very basic problems like translated
         geometries.
 
   \note Another way for getting hardware accelerated graphics is using
         an OpenGL offscreen buffer ( QwtPlotCanvas::OpenGLBuffer ) with QwtPlotCanvas.
         Performance is worse, than rendering straight to a QGLWidget, but is usually
-        better integrated into a desktop application. 
+        better integrated into a desktop application.
 */
 class QWT_EXPORT QwtPlotGLCanvas: public QGLWidget, public QwtPlotAbstractGLCanvas
 {
