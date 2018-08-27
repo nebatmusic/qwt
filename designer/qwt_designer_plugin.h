@@ -10,7 +10,7 @@
 #ifndef QWT_DESIGNER_PLUGIN_H
 #define QWT_DESIGNER_PLUGIN_H
 
-#include <qglobal.h>
+#include <qwt_global.h>
 
 #if QT_VERSION >= 0x050600
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
@@ -32,17 +32,17 @@ namespace QwtDesignerPlugin
     public:
         CustomWidgetInterface( QObject *parent );
 
-        virtual bool isContainer() const;
-        virtual bool isInitialized() const;
-        virtual QIcon icon() const;
-        virtual QString codeTemplate() const;
-        virtual QString domXml() const;
-        virtual QString group() const;
-        virtual QString includeFile() const;
-        virtual QString name() const;
-        virtual QString toolTip() const;
-        virtual QString whatsThis() const;
-        virtual void initialize( QDesignerFormEditorInterface * );
+        virtual bool isContainer() const QWT_OVERRIDE;
+        virtual bool isInitialized() const QWT_OVERRIDE;
+        virtual QIcon icon() const QWT_OVERRIDE;
+        virtual QString codeTemplate() const QWT_OVERRIDE;
+        virtual QString domXml() const QWT_OVERRIDE;
+        virtual QString group() const QWT_OVERRIDE;
+        virtual QString includeFile() const QWT_OVERRIDE;
+        virtual QString name() const QWT_OVERRIDE;
+        virtual QString toolTip() const QWT_OVERRIDE;
+        virtual QString whatsThis() const QWT_OVERRIDE;
+        virtual void initialize( QDesignerFormEditorInterface * ) QWT_OVERRIDE;
 
     protected:
         QString d_name;
@@ -71,7 +71,7 @@ namespace QwtDesignerPlugin
     public:
         CustomWidgetCollectionInterface( QObject *parent = NULL );
 
-        virtual QList<QDesignerCustomWidgetInterface*> customWidgets() const;
+        virtual QList<QDesignerCustomWidgetInterface*> customWidgets() const QWT_OVERRIDE;
 
     private:
         QList<QDesignerCustomWidgetInterface*> d_plugins;
@@ -85,7 +85,7 @@ namespace QwtDesignerPlugin
 
     public:
         PlotInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 
     class PlotCanvasInterface: public CustomWidgetInterface
@@ -95,7 +95,7 @@ namespace QwtDesignerPlugin
 
     public:
         PlotCanvasInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -107,7 +107,7 @@ namespace QwtDesignerPlugin
 
     public:
         AnalogClockInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -119,7 +119,7 @@ namespace QwtDesignerPlugin
 
     public:
         CompassInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -131,7 +131,7 @@ namespace QwtDesignerPlugin
 
     public:
         CounterInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -143,7 +143,7 @@ namespace QwtDesignerPlugin
 
     public:
         DialInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -155,7 +155,7 @@ namespace QwtDesignerPlugin
 
     public:
         KnobInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -167,7 +167,7 @@ namespace QwtDesignerPlugin
 
     public:
         ScaleWidgetInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -179,7 +179,7 @@ namespace QwtDesignerPlugin
 
     public:
         SliderInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -190,7 +190,7 @@ namespace QwtDesignerPlugin
 
     public:
         TextLabelInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 
 #ifndef NO_QWT_WIDGETS
@@ -201,7 +201,7 @@ namespace QwtDesignerPlugin
 
     public:
         ThermoInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -213,7 +213,7 @@ namespace QwtDesignerPlugin
 
     public:
         WheelInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent );
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
     };
 #endif
 
@@ -226,7 +226,7 @@ namespace QwtDesignerPlugin
 
     protected:
         QObject *createExtension( QObject *object,
-            const QString &iid, QObject *parent ) const;
+            const QString &iid, QObject *parent ) const QWT_OVERRIDE;
     };
 
     class TaskMenuExtension: public QObject,
@@ -238,8 +238,8 @@ namespace QwtDesignerPlugin
     public:
         TaskMenuExtension( QWidget *widget, QObject *parent );
 
-        QAction *preferredEditAction() const;
-        QList<QAction *> taskActions() const;
+        QAction *preferredEditAction() const QWT_OVERRIDE;
+        QList<QAction *> taskActions() const QWT_OVERRIDE;
 
     private Q_SLOTS:
         void editProperties();

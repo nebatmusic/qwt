@@ -1,3 +1,4 @@
+#include <qwt_global.h>
 #include <qwidget.h>
 
 class ColorBar: public QWidget
@@ -21,8 +22,8 @@ Q_SIGNALS:
     void selected( const QColor & );
 
 protected:
-    virtual void mousePressEvent( QMouseEvent * );
-    virtual void paintEvent( QPaintEvent * );
+    virtual void mousePressEvent( QMouseEvent * ) QWT_OVERRIDE;
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
 
     void drawColorBar( QPainter *, const QRect & ) const;
 

@@ -110,7 +110,7 @@ public:
 
     Q_INVOKABLE QPainterPath borderPath( const QRect & ) const;
 
-    virtual bool event( QEvent * );
+    virtual bool event( QEvent * ) QWT_OVERRIDE;
 
 public Q_SLOTS:
     void replot();

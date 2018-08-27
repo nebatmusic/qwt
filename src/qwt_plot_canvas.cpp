@@ -12,6 +12,7 @@
 #include "qwt_null_paintdevice.h"
 #include "qwt_math.h"
 #include "qwt_plot.h"
+
 #include <qpainter.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
@@ -20,15 +21,15 @@
 
 namespace
 {
-    class QwtStyleSheetRecorder: public QwtNullPaintDevice
+    class QwtStyleSheetRecorder QWT_FINAL : public QwtNullPaintDevice
     {
     public:
-        QwtStyleSheetRecorder( const QSize &size ):
+        explicit QwtStyleSheetRecorder( const QSize &size ):
             d_size( size )
         {
         }
 
-        virtual void updateState( const QPaintEngineState &state )
+        virtual void updateState( const QPaintEngineState &state ) QWT_OVERRIDE
         {
             if ( state.state() & QPaintEngine::DirtyPen )
             {
@@ -44,19 +45,19 @@ namespace
             }
         }
 
-        virtual void drawRects(const QRectF *rects, int count )
+        virtual void drawRects(const QRectF *rects, int count ) QWT_OVERRIDE
         {
             for ( int i = 0; i < count; i++ )
                 border.rectList += rects[i];
         }
 
-        virtual void drawRects(const QRect *rects, int count )
+        virtual void drawRects(const QRect *rects, int count ) QWT_OVERRIDE
         {
-            // to silence -Woverloaded-virtual
-            QwtNullPaintDevice::drawRects( rects, count );
+            for ( int i = 0; i < count; i++ )
+                border.rectList += rects[i];
         }
 
-        virtual void drawPath( const QPainterPath &path )
+        virtual void drawPath( const QPainterPath &path ) QWT_OVERRIDE
         {
             const QRectF rect( QPointF( 0.0, 0.0 ), d_size );
             if ( path.controlPointRect().contains( rect.center() ) )
@@ -120,7 +121,7 @@ namespace
         }
 
     protected:
-        virtual QSize sizeMetrics() const
+        virtual QSize sizeMetrics() const QWT_OVERRIDE
         {
             return d_size;
         }

@@ -46,7 +46,7 @@ public:
     }
 
 protected:
-    virtual void paintEvent( QPaintEvent *event )
+    virtual void paintEvent( QPaintEvent *event ) QWT_OVERRIDE
     {
         QPainter painter( this );
         painter.setClipRegion( event->region() );

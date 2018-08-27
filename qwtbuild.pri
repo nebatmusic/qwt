@@ -20,6 +20,12 @@ CONFIG           -= depend_includepath
 # CONFIG += sanitize
 # CONFIG += pedantic
 
+# CONFIG += c++11
+
+c++11 {
+    CONFIG           += strict_c++
+}
+
 sanitize {
 
     CONFIG += sanitizer
@@ -62,6 +68,7 @@ linux {
     pedantic {
 
         DEFINES += QT_STRICT_ITERATORS
+        # DEFINES += __STRICT_ANSI__
 
         # Qt headers do not stand pedantic checks, so it's better
         # to exclude them by declaring them as system includes
@@ -84,6 +91,10 @@ linux {
 
                 CONFIG -= sanitize_undefined
             }
+        }
+
+        c++11 {
+            QMAKE_CXXFLAGS *= -Wsuggest-override
         }
 
         pedantic {

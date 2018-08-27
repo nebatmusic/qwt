@@ -11,7 +11,7 @@ class Plot: public QwtPlot
     Q_OBJECT
 public:
     Plot( QWidget *parent = NULL );
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 public Q_SLOTS:
     void setCanvasColor( const QColor & );
