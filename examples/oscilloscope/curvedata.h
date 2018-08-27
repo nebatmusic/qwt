@@ -11,10 +11,10 @@ public:
     const SignalData &values() const;
     SignalData &values();
 
-    virtual QPointF sample( size_t i ) const;
-    virtual size_t size() const;
+    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
+    virtual size_t size() const QWT_OVERRIDE;
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 };
 
 #endif

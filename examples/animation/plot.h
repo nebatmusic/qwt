@@ -12,7 +12,7 @@ public:
     Plot( QWidget * = NULL);
 
 protected:
-    virtual void timerEvent( QTimerEvent * );
+    virtual void timerEvent( QTimerEvent * ) QWT_OVERRIDE;
 
 private:
     void updateCurves();

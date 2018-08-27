@@ -100,7 +100,7 @@ public:
       \return Number of samples of the series
       \sa setData(), QwtSeriesData<T>::size()
     */
-    virtual size_t dataSize() const;
+    virtual size_t dataSize() const QWT_OVERRIDE;
 
     /*!
       \return Bounding rectangle of the series
@@ -108,7 +108,7 @@ public:
 
       \sa QwtSeriesData<T>::boundingRect()
     */
-    virtual QRectF dataRect() const;
+    virtual QRectF dataRect() const QWT_OVERRIDE;
 
     /*!
       Set a the "rect of interest" for the series
@@ -116,7 +116,7 @@ public:
       \param rect Rectangle of interest
       \sa QwtSeriesData<T>::setRectOfInterest()
     */
-    virtual void setRectOfInterest( const QRectF &rect );
+    virtual void setRectOfInterest( const QRectF &rect ) QWT_OVERRIDE;
 
     /*!
       Replace a series without deleting the previous one

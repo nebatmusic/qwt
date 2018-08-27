@@ -13,10 +13,11 @@ class CpuPieMarker: public QwtPlotItem
 public:
     CpuPieMarker();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     virtual void draw( QPainter *,
-        const QwtScaleMap &, const QwtScaleMap &, const QRectF & ) const;
+        const QwtScaleMap &, const QwtScaleMap &,
+        const QRectF & ) const QWT_OVERRIDE;
 };
 
 #endif

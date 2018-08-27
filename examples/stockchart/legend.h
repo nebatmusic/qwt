@@ -17,18 +17,18 @@ public:
     virtual ~Legend();
 
     virtual void renderLegend( QPainter *,
-        const QRectF &, bool fillBackground ) const;
+        const QRectF &, bool fillBackground ) const QWT_OVERRIDE;
 
-    virtual bool isEmpty() const;
+    virtual bool isEmpty() const QWT_OVERRIDE;
 
-    virtual int scrollExtent( Qt::Orientation ) const;
+    virtual int scrollExtent( Qt::Orientation ) const QWT_OVERRIDE;
 
 Q_SIGNALS:
     void checked( QwtPlotItem *plotItem, bool on, int index );
 
 public Q_SLOTS:
     virtual void updateLegend( const QVariant &,
-        const QList<QwtLegendData> & );
+        const QList<QwtLegendData> & ) QWT_OVERRIDE;
 
 private Q_SLOTS:
     void handleClick( const QModelIndex & );

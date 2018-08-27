@@ -1,6 +1,7 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
+#include <qwt_global.h>
 #include <qwidget.h>
 
 class QSvgRenderer;
@@ -21,7 +22,7 @@ public:
     void setSvg( const QByteArray & );
 
 protected:
-    virtual void paintEvent( QPaintEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
 
 private:
     void render( QPainter *, const QRect & ) const;

@@ -116,7 +116,7 @@ public Q_SLOTS:
     void replot();
 
 protected:
-    virtual void paintEvent( QPaintEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
 
     virtual void drawBackground( QPainter * );
     virtual void drawBorder( QPainter * );

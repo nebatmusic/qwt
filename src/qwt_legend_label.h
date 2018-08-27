@@ -35,12 +35,12 @@ public:
     void setSpacing( int spacing );
     int spacing() const;
 
-    virtual void setText( const QwtText & );
+    virtual void setText( const QwtText & ) QWT_OVERRIDE;
 
     void setIcon( const QPixmap & );
     QPixmap icon() const;
 
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const QWT_OVERRIDE;
 
     bool isChecked() const;
 
@@ -64,11 +64,11 @@ protected:
     void setDown( bool );
     bool isDown() const;
 
-    virtual void paintEvent( QPaintEvent * );
-    virtual void mousePressEvent( QMouseEvent * );
-    virtual void mouseReleaseEvent( QMouseEvent * );
-    virtual void keyPressEvent( QKeyEvent * );
-    virtual void keyReleaseEvent( QKeyEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
+    virtual void mousePressEvent( QMouseEvent * ) QWT_OVERRIDE;
+    virtual void mouseReleaseEvent( QMouseEvent * ) QWT_OVERRIDE;
+    virtual void keyPressEvent( QKeyEvent * ) QWT_OVERRIDE;
+    virtual void keyReleaseEvent( QKeyEvent * ) QWT_OVERRIDE;
 
 private:
     class PrivateData;

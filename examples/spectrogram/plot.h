@@ -39,7 +39,7 @@ public Q_SLOTS:
 
 private:
     virtual void drawItems( QPainter *, const QRectF &,
-        const QwtScaleMap maps[axisCnt] ) const;
+        const QwtScaleMap maps[axisCnt] ) const QWT_OVERRIDE;
 
     QwtPlotSpectrogram *d_spectrogram;
 

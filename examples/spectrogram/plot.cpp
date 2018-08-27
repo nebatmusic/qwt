@@ -29,7 +29,7 @@ public:
         setTrackerMode( AlwaysOn );
     }
 
-    virtual QwtText trackerTextF( const QPointF &pos ) const
+    virtual QwtText trackerTextF( const QPointF &pos ) const QWT_OVERRIDE
     {
         QColor bg( Qt::white );
         bg.setAlpha( 200 );
@@ -55,7 +55,7 @@ public:
         d_intervals[ Qt::ZAxis ] = QwtInterval( 0.0, 10.0 );
     }
 
-    virtual QwtInterval interval( Qt::Axis axis ) const
+    virtual QwtInterval interval( Qt::Axis axis ) const QWT_OVERRIDE
     {
         if ( axis >= 0 && axis <= 2 )
             return d_intervals[ axis ];
@@ -63,7 +63,7 @@ public:
         return QwtInterval();
     }
 
-    virtual double value( double x, double y ) const
+    virtual double value( double x, double y ) const QWT_OVERRIDE
     {
         const double c = 0.842;
         //const double c = 0.33;
@@ -175,7 +175,7 @@ public:
 protected:
     virtual QImage renderImage(
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &area, const QSize &imageSize ) const
+        const QRectF &area, const QSize &imageSize ) const QWT_OVERRIDE
     {
 #if QT_VERSION < 0x040700
         QTime t;

@@ -14,7 +14,7 @@ public:
     {
     }
 
-    virtual QRectF boundingRect() const
+    virtual QRectF boundingRect() const QWT_OVERRIDE
     {
         if ( d_boundingRect.width() < 0.0 )
             d_boundingRect = qwtBoundingRect( *this );

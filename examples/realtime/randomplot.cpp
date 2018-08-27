@@ -25,7 +25,7 @@ public:
 #endif
     }
 
-    virtual QwtText trackerTextF( const QPointF &pos ) const
+    virtual QwtText trackerTextF( const QPointF &pos ) const QWT_OVERRIDE
     {
         QColor bg( Qt::white );
 
@@ -34,7 +34,7 @@ public:
         return text;
     }
 
-    virtual void rescale()
+    virtual void rescale() QWT_OVERRIDE
     {
         QwtScaleWidget *scaleWidget = plot()->axisWidget( yAxis() );
         QwtScaleDraw *sd = scaleWidget->scaleDraw();

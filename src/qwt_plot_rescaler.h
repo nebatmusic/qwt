@@ -111,7 +111,7 @@ public:
     QwtPlot *plot();
     const QwtPlot *plot() const;
 
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
     void rescale() const;
 

@@ -20,7 +20,7 @@ public:
         setRubberBand( QwtPlotPicker::PolygonRubberBand );
     }
 
-    virtual QwtText trackerTextF( const QPointF &pos ) const
+    virtual QwtText trackerTextF( const QPointF &pos ) const QWT_OVERRIDE
     {
         QwtText text;
 

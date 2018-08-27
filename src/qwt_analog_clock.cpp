@@ -18,7 +18,7 @@
 
 namespace
 {
-    class QwtAnalogClockScaleDraw: public QwtRoundScaleDraw
+    class QwtAnalogClockScaleDraw QWT_FINAL : public QwtRoundScaleDraw
     {
     public:
         QwtAnalogClockScaleDraw()
@@ -34,7 +34,7 @@ namespace
             setPenWidthF( 1.0 );
         }
 
-        virtual QwtText label( double value ) const
+        virtual QwtText label( double value ) const QWT_OVERRIDE
         {
             if ( qFuzzyCompare( value + 1.0, 1.0 ) )
                 value = 60.0 * 60.0 * 12.0;

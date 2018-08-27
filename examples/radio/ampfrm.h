@@ -1,6 +1,7 @@
 #ifndef AMP_FRAME_H
 #define AMP_FRAME_H
 
+#include <qwt_global.h>
 #include <qframe.h>
 
 class Knob;
@@ -16,7 +17,7 @@ public Q_SLOTS:
     void setMaster( double v );
 
 protected:
-    void timerEvent( QTimerEvent * );
+    virtual void timerEvent( QTimerEvent * ) QWT_OVERRIDE;
 
 private:
     Knob *d_knbVolume;

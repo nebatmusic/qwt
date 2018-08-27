@@ -13,10 +13,10 @@ public:
     void setReferenceTime( double );
     double referenceTime() const;
 
-    virtual size_t size() const;
-    virtual QPointF sample( size_t i ) const;
+    virtual size_t size() const QWT_OVERRIDE;
+    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
     void setFunction( double( *y )( double ) );
 

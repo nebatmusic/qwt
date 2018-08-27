@@ -23,6 +23,7 @@ MainWindow::MainWindow():
     for ( int row = 0; row < numRows(); row++ )
     {
         const double v = std::pow( 10.0, row );
+
         setAxisScale( QwtPlot::yLeft, row, -v, v );
         setAxisScale( QwtPlot::yRight, row, -v, v );
     }
@@ -30,6 +31,7 @@ MainWindow::MainWindow():
     for ( int col = 0; col < numColumns(); col++ )
     {
         const double v = std::pow( 10.0, col );
+
         setAxisScale( QwtPlot::xBottom, col, -v, v );
         setAxisScale( QwtPlot::xTop, col, -v, v );
     }

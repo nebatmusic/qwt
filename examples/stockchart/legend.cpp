@@ -42,8 +42,8 @@ public:
 
     QList<QStandardItem *> itemList( const QwtPlotItem * );
 
-    virtual QSize sizeHint() const;
-    virtual QSize minimumSizeHint() const;
+    virtual QSize sizeHint() const QWT_OVERRIDE;
+    virtual QSize minimumSizeHint() const QWT_OVERRIDE;
 };
 
 LegendTreeView::LegendTreeView( Legend *legend ):

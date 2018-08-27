@@ -1,6 +1,7 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+#include <qwt_global.h>
 #include <qmainwindow.h>
 
 class Plot;
@@ -14,7 +15,7 @@ class MainWindow: public QMainWindow
 
 public:
     MainWindow( QWidget *parent = NULL );
-    virtual bool eventFilter( QObject *, QEvent * );
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 private Q_SLOTS:
     void applySettings( const Settings & );

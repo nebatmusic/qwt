@@ -13,7 +13,7 @@ class RandomPlot: public IncrementalPlot
 public:
     RandomPlot( QWidget *parent );
 
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const QWT_OVERRIDE;
 
 Q_SIGNALS:
     void running( bool );

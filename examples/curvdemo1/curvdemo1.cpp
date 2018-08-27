@@ -35,7 +35,7 @@ public:
     MainWin();
 
 protected:
-    virtual void paintEvent( QPaintEvent * );
+    virtual void paintEvent( QPaintEvent * ) QWT_OVERRIDE;
     void drawContents( QPainter *p );
 
 private:

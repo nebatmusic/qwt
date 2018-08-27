@@ -35,13 +35,13 @@ public:
     bool loadFile( const QRectF&, const QString &fileName );
     bool loadData( const QRectF&, const QByteArray & );
 
-    virtual QRectF boundingRect() const;
+    virtual QRectF boundingRect() const QWT_OVERRIDE;
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasRect ) const;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
 protected:
     const QSvgRenderer &renderer() const;

@@ -140,7 +140,7 @@ public:
     LegendView *view;
 };
 
-class QwtLegend::PrivateData::LegendView: public QScrollArea
+class QwtLegend::PrivateData::LegendView QWT_FINAL: public QScrollArea
 {
 public:
     explicit LegendView( QWidget *parent ):
@@ -160,7 +160,7 @@ public:
         viewport()->setAutoFillBackground( false );
     }
 
-    virtual bool event( QEvent *event )
+    virtual bool event( QEvent *event ) QWT_OVERRIDE
     {
         if ( event->type() == QEvent::PolishRequest )
         {
@@ -188,7 +188,7 @@ public:
         return QScrollArea::event( event );
     }
 
-    virtual bool viewportEvent( QEvent *event )
+    virtual bool viewportEvent( QEvent *event ) QWT_OVERRIDE
     {
         bool ok = QScrollArea::viewportEvent( event );
 

@@ -1,6 +1,7 @@
 #ifndef KNOB_H
 #define KNOB_H
 
+#include <qwt_global.h>
 #include <qwidget.h>
 
 class QwtKnob;
@@ -16,7 +17,7 @@ public:
     Knob( const QString &title,
         double min, double max, QWidget *parent = NULL );
 
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const QWT_OVERRIDE;
 
     void setValue( double value );
     double value() const;
@@ -28,7 +29,7 @@ Q_SIGNALS:
     double valueChanged( double );
 
 protected:
-    virtual void resizeEvent( QResizeEvent * );
+    virtual void resizeEvent( QResizeEvent * ) QWT_OVERRIDE;
 
 private:
     QwtKnob *d_knob;

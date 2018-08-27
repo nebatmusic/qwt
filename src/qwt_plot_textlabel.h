@@ -51,7 +51,7 @@ public:
     QwtPlotTextLabel();
     virtual ~QwtPlotTextLabel();
 
-    virtual int rtti() const;
+    virtual int rtti() const QWT_OVERRIDE;
 
     void setText( const QwtText & );
     QwtText text() const;
@@ -64,7 +64,7 @@ public:
 protected:
     virtual void draw( QPainter *,
         const QwtScaleMap &, const QwtScaleMap &,
-        const QRectF &) const;
+        const QRectF &) const QWT_OVERRIDE;
 
     void invalidateCache();
 

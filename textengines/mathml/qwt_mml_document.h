@@ -28,8 +28,9 @@ public:
     void clear();
 
     bool setContent( QString text, QString *errorMsg = 0,
-                     int *errorLine = 0, int *errorColumn = 0 );
-    void paint( QPainter *p, const QPoint &pos ) const;
+        int *errorLine = 0, int *errorColumn = 0 );
+
+    void paint( QPainter *, const QPoint &pos ) const;
     QSize size() const;
 
     QString fontName( MmlFont type ) const;

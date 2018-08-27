@@ -12,7 +12,8 @@
 class Legend: public QwtLegend
 {
 protected:
-    virtual QWidget *createWidget( const QwtLegendData &legendData ) const
+    virtual QWidget *createWidget(
+        const QwtLegendData &legendData ) const QWT_OVERRIDE
     {
         QWidget *w = QwtLegend::createWidget( legendData );
         if ( w )

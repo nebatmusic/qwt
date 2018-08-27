@@ -18,7 +18,7 @@ public Q_SLOTS:
     void setFrequency( double );
 
 protected:
-    virtual void sample( double elapsed );
+    virtual void sample( double elapsed ) QWT_OVERRIDE;
 
 private:
     virtual double value( double timeStamp ) const;
