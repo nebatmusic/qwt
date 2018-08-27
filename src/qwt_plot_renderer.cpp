@@ -746,12 +746,12 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
 
   \param plot Plot widget
   \param painter Painter
-  \param map Maps mapping between plot and paint device coordinates
+  \param maps Maps mapping between plot and paint device coordinates
   \param canvasRect Canvas rectangle
 */
 void QwtPlotRenderer::renderCanvas( const QwtPlot *plot,
     QPainter *painter, const QRectF &canvasRect,
-    const QwtScaleMap *map ) const
+    const QwtScaleMap *maps ) const
 {
     const QWidget *canvas = plot->canvas();
 
@@ -777,7 +777,7 @@ void QwtPlotRenderer::renderCanvas( const QwtPlot *plot,
         painter->save();
 
         painter->setClipRect( canvasRect );
-        plot->drawItems( painter, canvasRect, map );
+        plot->drawItems( painter, canvasRect, maps );
 
         painter->restore();
     }
@@ -801,7 +801,7 @@ void QwtPlotRenderer::renderCanvas( const QwtPlot *plot,
         else
             painter->setClipPath( clipPath );
 
-        plot->drawItems( painter, canvasRect, map );
+        plot->drawItems( painter, canvasRect, maps );
 
         painter->restore();
     }
@@ -839,7 +839,7 @@ void QwtPlotRenderer::renderCanvas( const QwtPlot *plot,
             QwtPainter::drawBackgound( painter, innerRect, canvas );
         }
 
-        plot->drawItems( painter, innerRect, map );
+        plot->drawItems( painter, innerRect, maps );
 
         painter->restore();
 
