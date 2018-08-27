@@ -78,10 +78,10 @@ public:
     void setBorderWidth( int );
     int borderWidth() const;
 
-    void setInverted( bool tf );
+    void setInverted( bool );
     bool isInverted() const;
 
-    void setWrapping( bool tf );
+    void setWrapping( bool );
     bool wrapping() const;
 
     void setSingleStep( double );
@@ -93,18 +93,18 @@ public:
     void setStepAlignment( bool on );
     bool stepAlignment() const;
 
-    void setRange( double vmin, double vmax );
+    void setRange( double min, double max );
 
-    void setMinimum( double min );
+    void setMinimum( double );
     double minimum() const;
 
-    void setMaximum( double max );
+    void setMaximum( double );
     double maximum() const;
 
     void setUpdateInterval( int );
     int updateInterval() const;
 
-    void setTracking( bool enable );
+    void setTracking( bool );
     bool isTracking() const;
 
     double mass() const;

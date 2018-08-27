@@ -455,16 +455,16 @@ QwtScaleEngine::Attributes QwtScaleEngine::attributes() const
 
 /*!
   \brief Specify a reference point
-  \param r new reference value
+  \param reference New reference value
 
   The reference point is needed if options IncludeReference or
   Symmetric are active. Its default value is 0.0.
 
   \sa Attribute
 */
-void QwtScaleEngine::setReference( double r )
+void QwtScaleEngine::setReference( double reference )
 {
-    d_data->referenceValue = r;
+    d_data->referenceValue = reference;
 }
 
 /*!

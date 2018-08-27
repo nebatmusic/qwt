@@ -91,7 +91,7 @@ public:
     void setSamples( const QVector<QwtIntervalSample> & );
     void setSamples( QwtSeriesData<QwtIntervalSample> * );
 
-    void setBaseline( double reference );
+    void setBaseline( double );
     double baseline() const;
 
     void setStyle( HistogramStyle style );
@@ -100,7 +100,7 @@ public:
     void setSymbol( const QwtColumnSymbol * );
     const QwtColumnSymbol *symbol() const;
 
-    virtual void drawSeries( QPainter *p,
+    virtual void drawSeries( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 

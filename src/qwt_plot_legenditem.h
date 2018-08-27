@@ -104,9 +104,9 @@ public:
     void setTextPen( const QPen & );
     QPen textPen() const;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &canvasRect ) const;
 
     void clearLegend();
 
@@ -116,7 +116,7 @@ public:
     virtual QRect geometry( const QRectF &canvasRect ) const;
 
     virtual QSize minimumSize( const QwtLegendData & ) const;
-    virtual int heightForWidth( const QwtLegendData &, int w ) const;
+    virtual int heightForWidth( const QwtLegendData &, int width ) const;
 
     QList< const QwtPlotItem * > plotItems() const;
     QList< QRect > legendGeometries( const QwtPlotItem * ) const;

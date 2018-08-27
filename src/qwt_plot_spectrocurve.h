@@ -57,7 +57,7 @@ public:
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 
-    void setPenWidth(double width);
+    void setPenWidth( double );
     double penWidth() const;
 
 protected:

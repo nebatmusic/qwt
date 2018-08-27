@@ -176,7 +176,7 @@ public:
 
     void setSize( const QSize & );
     void setSize( int width, int height = -1 );
-    const QSize& size() const;
+    const QSize &size() const;
 
     void setPinPoint( const QPointF &pos, bool enable = true );
     QPointF pinPoint() const;
@@ -186,12 +186,12 @@ public:
 
     virtual void setColor( const QColor & );
 
-    void setBrush( const QBrush& b );
-    const QBrush& brush() const;
+    void setBrush( const QBrush & );
+    const QBrush &brush() const;
 
     void setPen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
     void setPen( const QPen & );
-    const QPen& pen() const;
+    const QPen &pen() const;
 
     void setStyle( Style );
     Style style() const;

@@ -192,8 +192,8 @@ public:
     void setMousePattern( MousePatternCode, Qt::MouseButton button,
         Qt::KeyboardModifiers = Qt::NoModifier );
 
-    void setKeyPattern( KeyPatternCode, int keyCode,
-        Qt::KeyboardModifiers modifierCodes = Qt::NoModifier );
+    void setKeyPattern( KeyPatternCode, int key,
+        Qt::KeyboardModifiers modifiers = Qt::NoModifier );
 
     void setMousePattern( const QVector<MousePattern> & );
     void setKeyPattern( const QVector<KeyPattern> & );

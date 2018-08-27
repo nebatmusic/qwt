@@ -77,7 +77,7 @@ public:
 
     virtual QPaintEngine *paintEngine() const;
 
-    virtual int metric( PaintDeviceMetric metric ) const;
+    virtual int metric( PaintDeviceMetric ) const;
 
     virtual void drawRects(const QRect *, int );
     virtual void drawRects(const QRectF *, int );
@@ -105,12 +105,12 @@ public:
     virtual void drawTextItem(const QPointF &, const QTextItem &);
 
     virtual void drawTiledPixmap(const QRectF &,
-        const QPixmap &, const QPointF &s);
+        const QPixmap &, const QPointF & );
 
     virtual void drawImage(const QRectF &,
         const QImage &, const QRectF &, Qt::ImageConversionFlags );
 
-    virtual void updateState( const QPaintEngineState &state );
+    virtual void updateState( const QPaintEngineState & );
 
 protected:
     //! \return Size needed to implement metric()

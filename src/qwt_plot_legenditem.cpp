@@ -35,12 +35,12 @@ namespace
         virtual Qt::Orientations expandingDirections() const;
         virtual QRect geometry() const;
         virtual bool hasHeightForWidth() const;
-        virtual int heightForWidth( int w ) const;
+        virtual int heightForWidth( int ) const;
         virtual bool isEmpty() const;
         virtual QSize maximumSize() const;
-        virtual int minimumHeightForWidth( int w ) const;
+        virtual int minimumHeightForWidth( int ) const;
         virtual QSize minimumSize() const;
-        virtual void setGeometry( const QRect & r );
+        virtual void setGeometry( const QRect & );
         virtual QSize sizeHint() const;
 
     private:

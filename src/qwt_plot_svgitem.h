@@ -37,9 +37,9 @@ public:
 
     virtual QRectF boundingRect() const;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &canvasRect ) const;
 
     virtual int rtti() const;
 
@@ -47,10 +47,10 @@ protected:
     const QSvgRenderer &renderer() const;
     QSvgRenderer &renderer();
 
-    void render( QPainter *painter,
+    void render( QPainter *,
         const QRectF &viewBox, const QRectF &rect ) const;
 
-    QRectF viewBox( const QRectF &area ) const;
+    QRectF viewBox( const QRectF &rect ) const;
 
 private:
     void init();

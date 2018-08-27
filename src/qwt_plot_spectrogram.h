@@ -89,9 +89,9 @@ public:
 
     virtual int rtti() const;
 
-    virtual void draw( QPainter *p,
+    virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &canvasRect ) const;
 
 protected:
     virtual QImage renderImage(
@@ -104,12 +104,12 @@ protected:
     virtual QwtRasterData::ContourLines renderContourLines(
         const QRectF &rect, const QSize &raster ) const;
 
-    virtual void drawContourLines( QPainter *p,
+    virtual void drawContourLines( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QwtRasterData::ContourLines& lines ) const;
+        const QwtRasterData::ContourLines& ) const;
 
     void renderTile( const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRect &imageRect, QImage *image ) const;
+        const QRect &tile, QImage * ) const;
 
 private:
     class PrivateData;

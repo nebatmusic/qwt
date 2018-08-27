@@ -194,15 +194,15 @@ void QwtAnalogClock::setTime( const QTime &time )
   \param painter Painter
   \param center Center of the clock
   \param radius Maximum length for the hands
-  \param dir Dummy, not used.
+  \param direction Dummy, not used.
   \param colorGroup ColorGroup
 
   \sa drawHand()
 */
 void QwtAnalogClock::drawNeedle( QPainter *painter, const QPointF &center,
-    double radius, double dir, QPalette::ColorGroup colorGroup ) const
+    double radius, double direction, QPalette::ColorGroup colorGroup ) const
 {
-    Q_UNUSED( dir );
+    Q_UNUSED( direction );
 
     if ( isValid() )
     {

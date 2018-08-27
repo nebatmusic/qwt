@@ -251,7 +251,7 @@ void QwtWidgetOverlay::updateMask()
 */
 void QwtWidgetOverlay::paintEvent( QPaintEvent* event )
 {
-    const QRegion clipRegion = event->region();
+    const QRegion &clipRegion = event->region();
 
     QPainter painter( this );
 

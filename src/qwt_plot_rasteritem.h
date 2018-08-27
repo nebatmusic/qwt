@@ -100,7 +100,7 @@ public:
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const;
+        const QRectF &canvasRect ) const;
 
     virtual QRectF pixelHint( const QRectF & ) const;
 

@@ -112,7 +112,7 @@ public:
     void setSpacing( int );
     int spacing() const;
 
-    void setBorderWidth( int w );
+    void setBorderWidth( int );
     int borderWidth() const;
 
     void setOriginMode( OriginMode );
@@ -121,23 +121,23 @@ public:
     void setOrigin( double );
     double origin() const;
 
-    void setFillBrush( const QBrush &b );
+    void setFillBrush( const QBrush & );
     QBrush fillBrush() const;
 
-    void setAlarmBrush( const QBrush &b );
+    void setAlarmBrush( const QBrush & );
     QBrush alarmBrush() const;
 
-    void setAlarmLevel( double v );
+    void setAlarmLevel( double );
     double alarmLevel() const;
 
-    void setAlarmEnabled( bool tf );
+    void setAlarmEnabled( bool );
     bool alarmEnabled() const;
 
     void setColorMap( QwtColorMap * );
     QwtColorMap *colorMap();
     const QwtColorMap *colorMap() const;
 
-    void setPipeWidth( int w );
+    void setPipeWidth( int );
     int pipeWidth() const;
 
     void setRangeFlags( QwtInterval::BorderFlags );
@@ -152,7 +152,7 @@ public:
     const QwtScaleDraw *scaleDraw() const;
 
 public Q_SLOTS:
-    virtual void setValue( double val );
+    virtual void setValue( double );
 
 protected:
     virtual void drawLiquid( QPainter *, const QRect & ) const;
