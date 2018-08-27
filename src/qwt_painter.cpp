@@ -180,7 +180,7 @@ bool QwtPainter::isAligning( QPainter *painter )
             default:;
         }
 
-        const QTransform tr = painter->transform();
+        const QTransform &tr = painter->transform();
         if ( tr.isRotating() || tr.isScaling() )
         {
             // we might have to check translations too
