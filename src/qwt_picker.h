@@ -307,8 +307,8 @@ protected:
     virtual void widgetEnterEvent( QEvent * );
     virtual void widgetLeaveEvent( QEvent * );
 
-    virtual void stretchSelection( const QSize &oldSize,
-                                   const QSize &newSize );
+    virtual void stretchSelection(
+        const QSize &oldSize, const QSize &newSize );
 
     virtual void updateDisplay();
 

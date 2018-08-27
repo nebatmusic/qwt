@@ -63,7 +63,7 @@ public:
     static void fillRect( QPainter *, const QRectF &, const QBrush & );
 
     static void drawEllipse( QPainter *, const QRectF & );
-    static void drawPie( QPainter *, const QRectF & r, int a, int alen );
+    static void drawPie( QPainter *, const QRectF &, int a, int alen );
 
     static void drawLine( QPainter *, double x1, double y1, double x2, double y2 );
     static void drawLine( QPainter *, const QPointF &p1, const QPointF &p2 );
@@ -99,7 +99,7 @@ public:
 
     static void drawFrame( QPainter *, const QRectF &rect,
         const QPalette &palette, QPalette::ColorRole foregroundRole,
-        int lineWidth, int midLineWidth, int frameStyle );
+        int frameWidth, int midLineWidth, int frameStyle );
 
     static void drawFocusRect( QPainter *, const QWidget * );
     static void drawFocusRect( QPainter *, const QWidget *, const QRect & );

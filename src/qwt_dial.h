@@ -103,12 +103,12 @@ public:
     void setMode( Mode );
     Mode mode() const;
 
-    void setScaleArc( double min, double max );
+    void setScaleArc( double minArc, double maxArc );
 
-    void setMinScaleArc( double min );
+    void setMinScaleArc( double );
     double minScaleArc() const;
 
-    void setMaxScaleArc( double min );
+    void setMaxScaleArc( double );
     double maxScaleArc() const;
 
     virtual void setOrigin( double );
@@ -136,7 +136,7 @@ protected:
     virtual void paintEvent( QPaintEvent * );
     virtual void changeEvent( QEvent * );
 
-    virtual void drawFrame( QPainter *p );
+    virtual void drawFrame( QPainter * );
     virtual void drawContents( QPainter * ) const;
     virtual void drawFocusIndicator( QPainter * ) const;
 

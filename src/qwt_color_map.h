@@ -106,7 +106,7 @@ public:
     };
 
     QwtLinearColorMap( QwtColorMap::Format = QwtColorMap::RGB );
-    QwtLinearColorMap( const QColor &from, const QColor &to,
+    QwtLinearColorMap( const QColor &color1, const QColor &color2,
         QwtColorMap::Format = QwtColorMap::RGB );
 
     virtual ~QwtLinearColorMap();

@@ -598,10 +598,10 @@ void QwtPlotRenderer::render( QwtPlot *plot,
 
   \param plot Plot widget
   \param painter Painter
-  \param rect Bounding rectangle
+  \param titleRect Bounding rectangle for the title
 */
 void QwtPlotRenderer::renderTitle( const QwtPlot *plot,
-    QPainter *painter, const QRectF &rect ) const
+    QPainter *painter, const QRectF &titleRect ) const
 {
     painter->setFont( qwtResolvedFont( plot->titleLabel() ) );
 
@@ -609,7 +609,7 @@ void QwtPlotRenderer::renderTitle( const QwtPlot *plot,
             QPalette::Active, QPalette::Text );
 
     painter->setPen( color );
-    plot->titleLabel()->text().draw( painter, rect );
+    plot->titleLabel()->text().draw( painter, titleRect );
 }
 
 /*!
@@ -617,10 +617,10 @@ void QwtPlotRenderer::renderTitle( const QwtPlot *plot,
 
   \param plot Plot widget
   \param painter Painter
-  \param rect Bounding rectangle
+  \param footerRect Bounding rectangle for the footer
 */
 void QwtPlotRenderer::renderFooter( const QwtPlot *plot,
-    QPainter *painter, const QRectF &rect ) const
+    QPainter *painter, const QRectF &footerRect ) const
 {
     painter->setFont( qwtResolvedFont( plot->footerLabel() ) );
 
@@ -628,7 +628,7 @@ void QwtPlotRenderer::renderFooter( const QwtPlot *plot,
             QPalette::Active, QPalette::Text );
 
     painter->setPen( color );
-    plot->footerLabel()->text().draw( painter, rect );
+    plot->footerLabel()->text().draw( painter, footerRect );
 }
 
 /*!
@@ -636,15 +636,15 @@ void QwtPlotRenderer::renderFooter( const QwtPlot *plot,
 
   \param plot Plot widget
   \param painter Painter
-  \param rect Bounding rectangle
+  \param legendRect Bounding rectangle for the legend
 */
 void QwtPlotRenderer::renderLegend( const QwtPlot *plot,
-    QPainter *painter, const QRectF &rect ) const
+    QPainter *painter, const QRectF &legendRect ) const
 {
     if ( plot->legend() )
     {
         bool fillBackground = !( d_data->discardFlags & DiscardBackground );
-        plot->legend()->renderLegend( painter, rect, fillBackground );
+        plot->legend()->renderLegend( painter, legendRect, fillBackground );
     }
 }
 
@@ -658,12 +658,12 @@ void QwtPlotRenderer::renderLegend( const QwtPlot *plot,
   \param startDist Start border distance
   \param endDist End border distance
   \param baseDist Base distance
-  \param rect Bounding rectangle
+  \param scaleRect Bounding rectangle for the scale
 */
 void QwtPlotRenderer::renderScale( const QwtPlot *plot,
     QPainter *painter,
     int axisId, int startDist, int endDist, int baseDist,
-    const QRectF &rect ) const
+    const QRectF &scaleRect ) const
 {
     if ( !plot->axisEnabled( axisId ) )
         return;
@@ -672,7 +672,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
     if ( scaleWidget->isColorBarEnabled()
         && scaleWidget->colorBarWidth() > 0 )
     {
-        scaleWidget->drawColorBar( painter, scaleWidget->colorBarRect( rect ) );
+        scaleWidget->drawColorBar( painter, scaleWidget->colorBarRect( scaleRect ) );
         baseDist += scaleWidget->colorBarWidth() + scaleWidget->spacing();
     }
 
@@ -685,33 +685,33 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
     {
         case QwtPlot::yLeft:
         {
-            x = rect.right() - 1.0 - baseDist;
-            y = rect.y() + startDist;
-            w = rect.height() - startDist - endDist;
+            x = scaleRect.right() - 1.0 - baseDist;
+            y = scaleRect.y() + startDist;
+            w = scaleRect.height() - startDist - endDist;
             align = QwtScaleDraw::LeftScale;
             break;
         }
         case QwtPlot::yRight:
         {
-            x = rect.left() + baseDist;
-            y = rect.y() + startDist;
-            w = rect.height() - startDist - endDist;
+            x = scaleRect.left() + baseDist;
+            y = scaleRect.y() + startDist;
+            w = scaleRect.height() - startDist - endDist;
             align = QwtScaleDraw::RightScale;
             break;
         }
         case QwtPlot::xTop:
         {
-            x = rect.left() + startDist;
-            y = rect.bottom() - 1.0 - baseDist;
-            w = rect.width() - startDist - endDist;
+            x = scaleRect.left() + startDist;
+            y = scaleRect.bottom() - 1.0 - baseDist;
+            w = scaleRect.width() - startDist - endDist;
             align = QwtScaleDraw::TopScale;
             break;
         }
         case QwtPlot::xBottom:
         {
-            x = rect.left() + startDist;
-            y = rect.top() + baseDist;
-            w = rect.width() - startDist - endDist;
+            x = scaleRect.left() + startDist;
+            y = scaleRect.top() + baseDist;
+            w = scaleRect.width() - startDist - endDist;
             align = QwtScaleDraw::BottomScale;
             break;
         }
@@ -719,7 +719,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
             return;
     }
 
-    scaleWidget->drawTitle( painter, align, rect );
+    scaleWidget->drawTitle( painter, align, scaleRect );
 
     painter->setFont( qwtResolvedFont( scaleWidget ) );
 

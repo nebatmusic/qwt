@@ -51,7 +51,7 @@ public:
     virtual bool eventFilter( QObject *, QEvent * );
 
     virtual QSize sizeHint() const;
-    virtual int heightForWidth( int w ) const;
+    virtual int heightForWidth( int width ) const;
 
     QScrollBar *horizontalScrollBar() const;
     QScrollBar *verticalScrollBar() const;
@@ -105,7 +105,7 @@ protected Q_SLOTS:
 
 protected:
     virtual QWidget *createWidget( const QwtLegendData & ) const;
-    virtual void updateWidget( QWidget *widget, const QwtLegendData &data );
+    virtual void updateWidget( QWidget *widget, const QwtLegendData & );
 
 private:
     void updateTabOrder();

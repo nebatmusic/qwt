@@ -102,7 +102,7 @@ public:
     void setSymbol( const QwtIntervalSymbol * );
     const QwtIntervalSymbol *symbol() const;
 
-    virtual void drawSeries( QPainter *p,
+    virtual void drawSeries( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &canvasRect, int from, int to ) const;
 

@@ -61,7 +61,7 @@ public:
     virtual ~QwtPlotLayout();
 
     void setCanvasMargin( int margin, int axis = -1 );
-    int canvasMargin( int axis ) const;
+    int canvasMargin( int axisId ) const;
 
     void setAlignCanvasToScales( bool );
 
@@ -81,7 +81,7 @@ public:
     virtual QSize minimumSizeHint( const QwtPlot * ) const;
 
     virtual void activate( const QwtPlot *,
-        const QRectF &rect, Options options = 0x00 );
+        const QRectF &plotRect, Options options = 0x00 );
 
     virtual void invalidate();
 
