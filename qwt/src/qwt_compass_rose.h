@@ -55,13 +55,13 @@ public:
     QwtSimpleCompassRose( int numThorns = 8, int numThornLevels = -1 );
     virtual ~QwtSimpleCompassRose();
 
-    void setWidth( double w );
+    void setWidth( double );
     double width() const;
 
-    void setNumThorns( int count );
+    void setNumThorns( int );
     int numThorns() const;
 
-    void setNumThornLevels( int count );
+    void setNumThornLevels( int );
     int numThornLevels() const;
 
     void setShrinkFactor( double factor );
@@ -72,7 +72,7 @@ public:
         QPalette::ColorGroup = QPalette::Active ) const QWT_OVERRIDE;
 
     static void drawRose( QPainter *, const QPalette &,
-        const QPointF &center, double radius, double origin, double width,
+        const QPointF &center, double radius, double north, double width,
         int numThorns, int numThornLevels, double shrinkFactor );
 
 private:

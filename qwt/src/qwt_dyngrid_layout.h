@@ -28,14 +28,14 @@ class QWT_EXPORT QwtDynGridLayout : public QLayout
 {
     Q_OBJECT
 public:
-    explicit QwtDynGridLayout( QWidget *, int margin = 0, int space = -1 );
-    explicit QwtDynGridLayout( int space = -1 );
+    explicit QwtDynGridLayout( QWidget *, int margin = 0, int spacing = -1 );
+    explicit QwtDynGridLayout( int spacing = -1 );
 
     virtual ~QwtDynGridLayout();
 
     virtual void invalidate() QWT_OVERRIDE;
 
-    void setMaxColumns( uint maxCols );
+    void setMaxColumns( uint maxColumns );
     uint maxColumns() const;
 
     uint numRows () const;
@@ -49,11 +49,11 @@ public:
 
     void setExpandingDirections( Qt::Orientations );
     virtual Qt::Orientations expandingDirections() const QWT_OVERRIDE;
-    QList<QRect> layoutItems( const QRect &, uint numCols ) const;
+    QList<QRect> layoutItems( const QRect &, uint numColumns ) const;
 
     virtual int maxItemWidth() const;
 
-    virtual void setGeometry( const QRect &rect ) QWT_OVERRIDE;
+    virtual void setGeometry( const QRect & ) QWT_OVERRIDE;
 
     virtual bool hasHeightForWidth() const QWT_OVERRIDE;
     virtual int heightForWidth( int ) const QWT_OVERRIDE;
@@ -67,15 +67,15 @@ public:
 
 protected:
 
-    void layoutGrid( uint numCols,
+    void layoutGrid( uint numColumns,
         QVector<int>& rowHeight, QVector<int>& colWidth ) const;
 
-    void stretchGrid( const QRect &rect, uint numCols,
+    void stretchGrid( const QRect &rect, uint numColumns,
         QVector<int>& rowHeight, QVector<int>& colWidth ) const;
 
 private:
     void init();
-    int maxRowWidth( int numCols ) const;
+    int maxRowWidth( int numColumns ) const;
 
     class PrivateData;
     PrivateData *d_data;

@@ -35,10 +35,10 @@ namespace
         virtual Qt::Orientations expandingDirections() const QWT_OVERRIDE;
         virtual QRect geometry() const QWT_OVERRIDE;
         virtual bool hasHeightForWidth() const QWT_OVERRIDE;
-        virtual int heightForWidth( int w ) const QWT_OVERRIDE;
+        virtual int heightForWidth( int ) const QWT_OVERRIDE;
         virtual bool isEmpty() const QWT_OVERRIDE;
         virtual QSize maximumSize() const QWT_OVERRIDE;
-        virtual int minimumHeightForWidth( int w ) const QWT_OVERRIDE;
+        virtual int minimumHeightForWidth( int ) const QWT_OVERRIDE;
         virtual QSize minimumSize() const QWT_OVERRIDE;
         virtual void setGeometry( const QRect & ) QWT_OVERRIDE;
         virtual QSize sizeHint() const QWT_OVERRIDE;

@@ -53,7 +53,7 @@ public:
 
     QwtInterval normalized() const;
     QwtInterval inverted() const;
-    QwtInterval limited( double minValue, double maxValue ) const;
+    QwtInterval limited( double lowerBound, double upperBound ) const;
 
     bool operator==( const QwtInterval & ) const;
     bool operator!=( const QwtInterval & ) const;

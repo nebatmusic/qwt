@@ -71,7 +71,7 @@ public:
     void setMaxRGBTableSize( int numColors );
     int maxRGBTableSize() const;
 
-    virtual QwtInterval interval(Qt::Axis) const QWT_OVERRIDE;
+    virtual QwtInterval interval( Qt::Axis ) const QWT_OVERRIDE;
     virtual QRectF pixelHint( const QRectF & ) const QWT_OVERRIDE;
 
     void setDefaultContourPen( const QColor &,
@@ -91,7 +91,7 @@ public:
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const QWT_OVERRIDE;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
 protected:
     virtual QImage renderImage(
@@ -104,12 +104,12 @@ protected:
     virtual QwtRasterData::ContourLines renderContourLines(
         const QRectF &rect, const QSize &raster ) const;
 
-    virtual void drawContourLines( QPainter *p,
+    virtual void drawContourLines( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QwtRasterData::ContourLines& lines ) const;
+        const QwtRasterData::ContourLines& ) const;
 
     void renderTile( const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRect &imageRect, QImage *image ) const;
+        const QRect &tile, QImage * ) const;
 
 private:
     class PrivateData;

@@ -26,7 +26,7 @@ public:
     QwtPointArrayData( const T *x, const T *y, size_t size );
 
     virtual size_t size() const QWT_OVERRIDE;
-    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
+    virtual QPointF sample( size_t index ) const QWT_OVERRIDE;
 
     const QVector<T> &xData() const;
     const QVector<T> &yData() const;
@@ -46,7 +46,7 @@ public:
     QwtCPointerData( const T *x, const T *y, size_t size );
 
     virtual size_t size() const QWT_OVERRIDE;
-    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
+    virtual QPointF sample( size_t index ) const QWT_OVERRIDE;
 
     const T *xData() const;
     const T *yData() const;
@@ -71,7 +71,7 @@ public:
     QwtValuePointData( const T *y, size_t size );
 
     virtual size_t size() const QWT_OVERRIDE;
-    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
+    virtual QPointF sample( size_t index ) const QWT_OVERRIDE;
 
     const QVector<T> &yData() const;
 
@@ -92,7 +92,7 @@ public:
     QwtCPointerValueData( const T *y, size_t size );
 
     virtual size_t size() const QWT_OVERRIDE;
-    virtual QPointF sample( size_t i ) const QWT_OVERRIDE;
+    virtual QPointF sample( size_t index ) const QWT_OVERRIDE;
 
     const T *yData() const;
 

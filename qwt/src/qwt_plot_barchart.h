@@ -76,7 +76,7 @@ public:
 
     void setSamples( const QVector<QPointF> & );
     void setSamples( const QVector<double> & );
-    void setSamples( QwtSeriesData<QPointF> *series );
+    void setSamples( QwtSeriesData<QPointF> * );
 
     void setSymbol( QwtColumnSymbol * );
     const QwtColumnSymbol *symbol() const;
@@ -102,7 +102,7 @@ protected:
         int index, const QPointF& sample ) const;
 
     virtual void drawBar( QPainter *,
-        int sampleIndex, const QPointF& point,
+        int sampleIndex, const QPointF& sample,
         const QwtColumnRect & ) const;
 
     QwtColumnRect columnRect(

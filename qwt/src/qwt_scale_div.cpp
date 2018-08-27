@@ -291,25 +291,25 @@ QwtScaleDiv QwtScaleDiv::bounded(
 /*!
     Assign ticks
 
-   \param type MinorTick, MediumTick or MajorTick
+   \param tickType MinorTick, MediumTick or MajorTick
    \param ticks Values of the tick positions
 */
-void QwtScaleDiv::setTicks( int type, const QList<double> &ticks )
+void QwtScaleDiv::setTicks( int tickType, const QList<double> &ticks )
 {
-    if ( type >= 0 && type < NTickTypes )
-        d_ticks[type] = ticks;
+    if ( tickType >= 0 && tickType < NTickTypes )
+        d_ticks[tickType] = ticks;
 }
 
 /*!
    Return a list of ticks
 
-   \param type MinorTick, MediumTick or MajorTick
+   \param tickType MinorTick, MediumTick or MajorTick
    \return Tick list
 */
-QList<double> QwtScaleDiv::ticks( int type ) const
+QList<double> QwtScaleDiv::ticks( int tickType ) const
 {
-    if ( type >= 0 && type < NTickTypes )
-        return d_ticks[type];
+    if ( tickType >= 0 && tickType < NTickTypes )
+        return d_ticks[tickType];
 
     return QList<double>();
 }

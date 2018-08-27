@@ -91,24 +91,24 @@ public:
     bool isReadOnly() const;
     void setReadOnly( bool );
 
-    void setNumButtons( int n );
+    void setNumButtons( int );
     int numButtons() const;
 
-    void setIncSteps( QwtCounter::Button btn, int nSteps );
-    int incSteps( QwtCounter::Button btn ) const;
+    void setIncSteps( QwtCounter::Button, int numSteps );
+    int incSteps( QwtCounter::Button ) const;
 
     virtual QSize sizeHint() const QWT_OVERRIDE;
 
     double singleStep() const;
-    void setSingleStep( double s );
+    void setSingleStep( double stepSize );
 
     void setRange( double min, double max );
 
     double minimum() const;
-    void setMinimum( double min );
+    void setMinimum( double );
 
     double maximum() const;
-    void setMaximum( double max );
+    void setMaximum( double );
 
     void setStepButton1( int nSteps );
     int stepButton1() const;

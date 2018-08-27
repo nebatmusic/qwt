@@ -75,14 +75,14 @@ public:
     void setPosition( double pos );
     double position() const;
 
-    void setBorderDistance( int numPixels );
+    void setBorderDistance( int );
     int borderDistance() const;
 
     void setAlignment( QwtScaleDraw::Alignment );
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const QWT_OVERRIDE;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
     virtual void updateScaleDiv(
         const QwtScaleDiv &, const QwtScaleDiv & ) QWT_OVERRIDE;

@@ -65,7 +65,7 @@ public:
     void setLayoutFlag( LayoutFlag, bool on );
     bool testLayoutFlag( LayoutFlag ) const;
 
-    void setBorderDist( int start, int end );
+    void setBorderDist( int dist1, int dist2 );
     int startBorderDist() const;
     int endBorderDist() const;
 
@@ -77,10 +77,10 @@ public:
     void setMargin( int );
     int margin() const;
 
-    void setSpacing( int td );
+    void setSpacing( int );
     int spacing() const;
 
-    void setScaleDiv( const QwtScaleDiv &sd );
+    void setScaleDiv( const QwtScaleDiv & );
     void setTransformation( QwtTransform * );
 
     void setScaleDraw( QwtScaleDraw * );
@@ -121,10 +121,10 @@ protected:
     virtual void resizeEvent( QResizeEvent * ) QWT_OVERRIDE;
     virtual void changeEvent( QEvent * ) QWT_OVERRIDE;
 
-    void draw( QPainter *p ) const;
+    void draw( QPainter * ) const;
 
     void scaleChange();
-    void layoutScale( bool update = true );
+    void layoutScale( bool update_geometry = true );
 
 private:
     void initScale( QwtScaleDraw::Alignment );

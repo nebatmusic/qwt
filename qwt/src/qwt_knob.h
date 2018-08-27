@@ -137,7 +137,7 @@ public:
     void setKnobStyle( KnobStyle );
     KnobStyle knobStyle() const;
 
-    void setBorderWidth( int bw );
+    void setBorderWidth( int );
     int borderWidth() const;
 
     void setMarkerStyle( MarkerStyle );
@@ -165,7 +165,7 @@ protected:
     virtual void drawFocusIndicator( QPainter * ) const;
 
     virtual void drawMarker( QPainter *,
-        const QRectF &, double arc ) const;
+        const QRectF &, double angle ) const;
 
     virtual double scrolledTo( const QPoint & ) const QWT_OVERRIDE;
     virtual bool isScrollPosition( const QPoint & ) const QWT_OVERRIDE;

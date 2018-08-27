@@ -84,21 +84,21 @@ public:
     int maxLabelHeight( const QFont & ) const;
     int maxLabelWidth( const QFont & ) const;
 
-    QPointF labelPosition( double val ) const;
+    QPointF labelPosition( double value ) const;
 
-    QRectF labelRect( const QFont &, double val ) const;
-    QSizeF labelSize( const QFont &, double val ) const;
+    QRectF labelRect( const QFont &, double value ) const;
+    QSizeF labelSize( const QFont &, double value ) const;
 
-    QRect boundingLabelRect( const QFont &, double val ) const;
+    QRect boundingLabelRect( const QFont &, double value ) const;
 
 protected:
     QTransform labelTransformation( const QPointF &, const QSizeF & ) const;
 
     virtual void drawTick( QPainter *,
-        double val, double len ) const QWT_OVERRIDE;
+        double value, double len ) const QWT_OVERRIDE;
 
     virtual void drawBackbone( QPainter * ) const QWT_OVERRIDE;
-    virtual void drawLabel( QPainter *, double val ) const QWT_OVERRIDE;
+    virtual void drawLabel( QPainter *, double value ) const QWT_OVERRIDE;
 
 private:
     void updateMap();

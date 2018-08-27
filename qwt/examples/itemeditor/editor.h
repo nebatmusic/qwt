@@ -2,6 +2,7 @@
 #define EDITOR_H
 
 #include <qwt_global.h>
+
 #include <qobject.h>
 #include <qpointer.h>
 #include <qpoint.h>

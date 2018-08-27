@@ -99,7 +99,7 @@ public:
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const QWT_OVERRIDE;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
     virtual QwtGraphic legendIcon(
         int index, const QSizeF & ) const QWT_OVERRIDE;

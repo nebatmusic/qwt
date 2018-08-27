@@ -80,7 +80,7 @@ public:
     bool invertedControls() const;
 
 public Q_SLOTS:
-    void setValue( double val );
+    void setValue( double value );
 
 Q_SIGNALS:
 
@@ -146,7 +146,7 @@ protected:
     */
     virtual double scrolledTo( const QPoint &pos ) const = 0;
 
-    void incrementValue( int numSteps );
+    void incrementValue( int stepCount );
 
     virtual void scaleChange() QWT_OVERRIDE;
 

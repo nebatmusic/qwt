@@ -38,22 +38,22 @@ public:
 
     virtual int rtti() const QWT_OVERRIDE;
 
-    void enableX( bool tf );
+    void enableX( bool );
     bool xEnabled() const;
 
-    void enableY( bool tf );
+    void enableY( bool );
     bool yEnabled() const;
 
-    void enableXMin( bool tf );
+    void enableXMin( bool );
     bool xMinEnabled() const;
 
-    void enableYMin( bool tf );
+    void enableYMin( bool );
     bool yMinEnabled() const;
 
-    void setXDiv( const QwtScaleDiv &sx );
+    void setXDiv( const QwtScaleDiv & );
     const QwtScaleDiv &xScaleDiv() const;
 
-    void setYDiv( const QwtScaleDiv &sy );
+    void setYDiv( const QwtScaleDiv & );
     const QwtScaleDiv &yScaleDiv() const;
 
     void setPen( const QColor &,
@@ -68,19 +68,19 @@ public:
     const QPen& majorPen() const;
 
     void setMinorPen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
-    void setMinorPen( const QPen &p );
+    void setMinorPen( const QPen & );
     const QPen& minorPen() const;
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF & canvasRect) const QWT_OVERRIDE;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
     virtual void updateScaleDiv(
-        const QwtScaleDiv &xMap, const QwtScaleDiv &yMap ) QWT_OVERRIDE;
+        const QwtScaleDiv &xScaleDiv, const QwtScaleDiv &yScaleDiv ) QWT_OVERRIDE;
 
 private:
     void drawLines( QPainter *, const QRectF &,
-        Qt::Orientation orientation, const QwtScaleMap &,
+        Qt::Orientation, const QwtScaleMap &,
         const QList<double> & ) const;
 
     class PrivateData;

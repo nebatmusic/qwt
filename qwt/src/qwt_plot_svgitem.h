@@ -39,7 +39,7 @@ public:
 
     virtual void draw( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &rect ) const QWT_OVERRIDE;
+        const QRectF &canvasRect ) const QWT_OVERRIDE;
 
     virtual int rtti() const QWT_OVERRIDE;
 
@@ -50,7 +50,7 @@ protected:
     void render( QPainter *,
         const QRectF &viewBox, const QRectF &rect ) const;
 
-    QRectF viewBox( const QRectF &area ) const;
+    QRectF viewBox( const QRectF &rect ) const;
 
 private:
     void init();

@@ -78,8 +78,8 @@ public:
     void setStyle( ChartStyle style );
     ChartStyle style() const;
 
-    void setSymbol( int barIndex, QwtColumnSymbol * );
-    const QwtColumnSymbol *symbol( int barIndex ) const;
+    void setSymbol( int valueIndex, QwtColumnSymbol * );
+    const QwtColumnSymbol *symbol( int valueIndex ) const;
 
     void resetSymbolMap();
 
@@ -95,7 +95,7 @@ public:
         int index, const QSizeF & ) const QWT_OVERRIDE;
 
 protected:
-    QwtColumnSymbol *symbol( int barIndex );
+    QwtColumnSymbol *symbol( int valueIndex );
 
     virtual QwtColumnSymbol *specialSymbol(
         int sampleIndex, int valueIndex ) const;
@@ -106,7 +106,7 @@ protected:
         int index, const QwtSetSample& ) const;
 
     virtual void drawBar( QPainter *, int sampleIndex,
-        int barIndex, const QwtColumnRect & ) const;
+        int valueIndex, const QwtColumnRect & ) const;
 
     void drawStackedBars( QPainter *,
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,

@@ -149,7 +149,7 @@ public:
     // Title
 
     void setTitle( const QString & );
-    void setTitle( const QwtText &t );
+    void setTitle( const QwtText & );
     QwtText title() const;
 
     QwtTextLabel *titleLabel();
@@ -158,7 +158,7 @@ public:
     // Footer
 
     void setFooter( const QString & );
-    void setFooter( const QwtText &t );
+    void setFooter( const QwtText & );
     QwtText footer() const;
 
     QwtTextLabel *footerLabel();
@@ -191,10 +191,10 @@ public:
     void enableAxis( int axisId, bool tf = true );
     bool axisEnabled( int axisId ) const;
 
-    void setAxisFont( int axisId, const QFont &f );
+    void setAxisFont( int axisId, const QFont & );
     QFont axisFont( int axisId ) const;
 
-    void setAxisScale( int axisId, double min, double max, double step = 0 );
+    void setAxisScale( int axisId, double min, double max, double stepSize = 0 );
     void setAxisScaleDiv( int axisId, const QwtScaleDiv & );
     void setAxisScaleDraw( int axisId, QwtScaleDraw * );
 
@@ -286,11 +286,11 @@ public Q_SLOTS:
 protected:
     static bool axisValid( int axisId );
 
-    virtual void resizeEvent( QResizeEvent *e ) QWT_OVERRIDE;
+    virtual void resizeEvent( QResizeEvent * ) QWT_OVERRIDE;
 
 private Q_SLOTS:
     void updateLegendItems( const QVariant &itemInfo,
-        const QList<QwtLegendData> &data );
+        const QList<QwtLegendData> &legendData );
 
 private:
     friend class QwtPlotItem;

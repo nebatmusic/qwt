@@ -104,11 +104,11 @@ public:
     uint zoomRectIndex() const;
 
 public Q_SLOTS:
-    void moveBy( double x, double y );
+    void moveBy( double dx, double dy );
     virtual void moveTo( const QPointF & );
 
     virtual void zoom( const QRectF & );
-    virtual void zoom( int up );
+    virtual void zoom( int offset );
 
 Q_SIGNALS:
     /*!

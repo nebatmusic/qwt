@@ -85,7 +85,7 @@ public:
 
 protected:
     double sampleWidth( const QwtScaleMap &map,
-        double canvasSize, double dataSize,
+        double canvasSize, double boundingSize,
         double value ) const;
 
 private:

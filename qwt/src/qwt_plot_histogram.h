@@ -93,7 +93,7 @@ public:
     void setSamples( const QVector<QwtIntervalSample> & );
     void setSamples( QwtSeriesData<QwtIntervalSample> * );
 
-    void setBaseline( double reference );
+    void setBaseline( double );
     double baseline() const;
 
     void setStyle( HistogramStyle style );

@@ -52,7 +52,7 @@ public:
     ResampleMode resampleMode() const;
 
     void setInterval( Qt::Axis, const QwtInterval & );
-    virtual QwtInterval interval( Qt::Axis axis) const QWT_OVERRIDE;
+    virtual QwtInterval interval( Qt::Axis axis) const QWT_OVERRIDE QWT_FINAL;
 
     void setValueMatrix( const QVector<double> &values, int numColumns );
     const QVector<double> valueMatrix() const;

@@ -277,7 +277,7 @@ public:
 
     virtual void getCanvasMarginHint(
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
-        const QRectF &canvasSize,
+        const QRectF &canvasRect,
         double &left, double &top, double &right, double &bottom) const;
 
     virtual void updateScaleDiv(

@@ -47,10 +47,10 @@ public:
     virtual void drawPoints(const QPoint *, int ) QWT_OVERRIDE;
 
     virtual void drawPolygon(
-        const QPointF *, int , PolygonDrawMode ) QWT_OVERRIDE;
+        const QPointF *, int, PolygonDrawMode ) QWT_OVERRIDE;
 
     virtual void drawPolygon(
-        const QPoint *, int , PolygonDrawMode ) QWT_OVERRIDE;
+        const QPoint *, int, PolygonDrawMode ) QWT_OVERRIDE;
 
     virtual void drawPixmap(const QRectF &,
         const QPixmap &, const QRectF &) QWT_OVERRIDE;

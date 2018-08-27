@@ -66,7 +66,7 @@ public:
     void setWidth( int );
     int width() const;
 
-    void setBrush( const QBrush& b );
+    void setBrush( const QBrush & );
     const QBrush& brush() const;
 
     void setPen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );

@@ -114,10 +114,7 @@ void QwtTextEngineDict::setTextEngine( QwtText::TextFormat format,
     EngineMap::const_iterator it = d_map.constFind( format );
     if ( it != d_map.constEnd() )
     {
-        const QwtTextEngine *e = this->engine( it );
-        if ( e )
-            delete e;
-
+        delete this->engine( it );
         d_map.remove( format );
     }
 

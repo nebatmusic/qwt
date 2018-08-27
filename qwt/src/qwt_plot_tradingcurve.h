@@ -124,7 +124,7 @@ public:
     void setSymbolBrush( Direction, const QBrush & );
     QBrush symbolBrush( Direction ) const;
 
-    void setSymbolExtent( double width );
+    void setSymbolExtent( double );
     double symbolExtent() const;
 
     void setMinSymbolWidth( double );
@@ -151,7 +151,7 @@ protected:
 
     virtual void drawUserSymbol( QPainter *,
         SymbolStyle, const QwtOHLCSample &,
-        Qt::Orientation, bool inverted, double width ) const;
+        Qt::Orientation, bool inverted, double symbolWidth ) const;
 
     void drawBar( QPainter *, const QwtOHLCSample &,
         Qt::Orientation, bool inverted, double width ) const;

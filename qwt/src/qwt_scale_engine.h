@@ -25,9 +25,9 @@ public:
     static double ceilEps( double value, double intervalSize );
     static double floorEps( double value, double intervalSize );
 
-    static double divideEps( double interval, double steps );
+    static double divideEps( double intervalSize, double numSteps );
 
-    static double divideInterval( double interval,
+    static double divideInterval( double intervalSize,
         int numSteps, uint base );
 };
 
@@ -90,7 +90,7 @@ public:
     void setAttributes( Attributes );
     Attributes attributes() const;
 
-    void setReference( double reference );
+    void setReference( double );
     double reference() const;
 
     void setMargins( double lower, double upper );
@@ -128,12 +128,12 @@ public:
     QwtTransform *transformation() const;
 
 protected:
-    bool contains( const QwtInterval &, double val ) const;
+    bool contains( const QwtInterval &, double value ) const;
     QList<double> strip( const QList<double>&, const QwtInterval & ) const;
 
-    double divideInterval( double interval, int numSteps ) const;
+    double divideInterval( double intervalSize, int numSteps ) const;
 
-    QwtInterval buildInterval( double v ) const;
+    QwtInterval buildInterval( double value ) const;
 
 private:
     Q_DISABLE_COPY(QwtScaleEngine)
@@ -155,13 +155,11 @@ public:
     explicit QwtLinearScaleEngine( uint base = 10 );
     virtual ~QwtLinearScaleEngine();
 
-    virtual void autoScale(
-        int maxSteps, double &x1, double &x2,
-        double &stepSize ) const QWT_OVERRIDE;
+    virtual void autoScale( int maxNumSteps,
+        double &x1, double &x2, double &stepSize ) const QWT_OVERRIDE;
 
-    virtual QwtScaleDiv divideScale(
-        double x1, double x2,
-        int numMajorSteps, int numMinorSteps,
+    virtual QwtScaleDiv divideScale( double x1, double x2,
+        int maxMajorSteps, int maxMinorSteps,
         double stepSize = 0.0 ) const QWT_OVERRIDE;
 
 
@@ -169,7 +167,7 @@ protected:
     QwtInterval align( const QwtInterval&, double stepSize ) const;
 
     void buildTicks(
-        const QwtInterval &, double stepSize, int maxMinSteps,
+        const QwtInterval &, double stepSize, int maxMinorSteps,
         QList<double> ticks[QwtScaleDiv::NTickTypes] ) const;
 
     QList<double> buildMajorTicks(
@@ -197,20 +195,18 @@ public:
     explicit QwtLogScaleEngine( uint base = 10 );
     virtual ~QwtLogScaleEngine();
 
-    virtual void autoScale(
-        int maxSteps, double &x1, double &x2,
-        double &stepSize ) const QWT_OVERRIDE;
+    virtual void autoScale( int maxNumSteps,
+        double &x1, double &x2, double &stepSize ) const QWT_OVERRIDE;
 
-    virtual QwtScaleDiv divideScale(
-        double x1, double x2,
-        int numMajorSteps, int numMinorSteps,
+    virtual QwtScaleDiv divideScale( double x1, double x2,
+        int maxMajorSteps, int maxMinorSteps,
         double stepSize = 0.0 ) const QWT_OVERRIDE;
 
 protected:
     QwtInterval align( const QwtInterval&, double stepSize ) const;
 
     void buildTicks(
-        const QwtInterval &, double stepSize, int maxMinSteps,
+        const QwtInterval &, double stepSize, int maxMinorSteps,
         QList<double> ticks[QwtScaleDiv::NTickTypes] ) const;
 
     QList<double> buildMajorTicks(

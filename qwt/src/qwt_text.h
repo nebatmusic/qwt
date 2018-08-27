@@ -162,7 +162,7 @@ public:
 
     QFont usedFont( const QFont & ) const;
 
-    void setRenderFlags( int flags );
+    void setRenderFlags( int );
     int renderFlags() const;
 
     void setColor( const QColor & );

@@ -47,13 +47,13 @@ public:
 
 protected:
     virtual void drawTick( QPainter *,
-        double val, double len ) const QWT_OVERRIDE;
+        double value, double len ) const QWT_OVERRIDE;
 
     virtual void drawBackbone(
         QPainter * ) const QWT_OVERRIDE;
 
     virtual void drawLabel(
-        QPainter *, double val ) const QWT_OVERRIDE;
+        QPainter *, double value ) const QWT_OVERRIDE;
 
 private:
     class PrivateData;

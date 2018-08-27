@@ -82,11 +82,11 @@ public:
     void setValue( double, double );
     void setValue( const QPointF & );
 
-    void setLineStyle( LineStyle st );
+    void setLineStyle( LineStyle );
     LineStyle lineStyle() const;
 
     void setLinePen( const QColor &, qreal width = 0.0, Qt::PenStyle = Qt::SolidLine );
-    void setLinePen( const QPen &p );
+    void setLinePen( const QPen & );
     const QPen &linePen() const;
 
     void setSymbol( const QwtSymbol * );
