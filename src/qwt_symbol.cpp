@@ -1357,8 +1357,6 @@ void QwtSymbol::drawSymbols( QPainter *painter,
     {
         const QRect br = boundingRect();
 
-        const QRect rect( 0, 0, br.width(), br.height() );
-
         if ( d_data->cache.pixmap.isNull() )
         {
             d_data->cache.pixmap = QwtPainter::backingStore( NULL, br.size() );
