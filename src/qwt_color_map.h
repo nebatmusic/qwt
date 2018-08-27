@@ -184,7 +184,9 @@ inline QColor QwtColorMap::color(
     else
     {
         const unsigned int index = colorIndex( interval, value );
-        return colorTable( interval )[index]; // slow
+
+        const QVector<QRgb> rgbTable = colorTable( interval );
+        return rgbTable[index]; // slow
     }
 }
 
