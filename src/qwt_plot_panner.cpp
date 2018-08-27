@@ -27,12 +27,14 @@
 
 static QBitmap qwtBorderMask( const QWidget *canvas, const QSize &size )
 {
+#if QT_VERSION >= 0x050000
     qreal pixelRatio = 1.0;
 
 #ifdef QWT_USE_WINDOW_HANDLE
     pixelRatio = canvas->windowHandle()->devicePixelRatio();
 #else
     pixelRatio = canvas->devicePixelRatio();
+#endif
 #endif
 
     const QRect r( 0, 0, size.width(), size.height() );
