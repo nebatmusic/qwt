@@ -23,7 +23,7 @@ static QImage::Format qwtMaskImageFormat()
 }
 
 static QRegion qwtAlphaMask(
-    const QImage& image, const QVector<QRect> rects )
+    const QImage& image, const QVector<QRect> &rects )
 {
     const int w = image.width();
     const int h = image.height();
@@ -248,7 +248,7 @@ void QwtWidgetOverlay::updateMask()
 */
 void QwtWidgetOverlay::paintEvent( QPaintEvent* event )
 {
-    const QRegion clipRegion = event->region();
+    const QRegion &clipRegion = event->region();
 
     QPainter painter( this );
 
