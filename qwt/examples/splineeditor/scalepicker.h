@@ -2,6 +2,7 @@
 #define SCALE_PICKER_H
 
 #include <qwt_global.h>
+
 #include <qobject.h>
 #include <qrect.h>
 
