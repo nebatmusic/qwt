@@ -4,13 +4,46 @@ Qwt 6.1.4
 
 1) All widgets ( including plot canvas )
 
-Missing initialization of the background color hint, when
-drawing a styled focus rectangle
+    - missing initialization of the background color hint, when
+      drawing a styled focus rectangle
+    - devicePixelRatio handling adjusted, QT_SCALE_FACTOR supported
 
-2) QwtPlotDirectPainter::CopyBackingStore
+2) Maintenance
 
-Bad offset ( subtracting the canvas frame ), when flushing the updated
-backing store fixed
+    - deprecated QString::null replaced by QString()
+    - making clang-tidy/clazy and friends happier
+    - compiler warnings with newer Qt versions fixed
+
+3) PyQt-Qwt
+
+    - specific defines added
+
+4) QwtPointMapper
+
+    - being multithreaded when possible
+
+5) Bug fixes
+
+    - font resolving when using widget fonts for rendering
+      to a different paint device.
+
+    - QwtPlotDirectPainter::CopyBackingStore: bad offset ( subtracting
+      the canvas frame ), when flushing the updated backing store fixed
+
+    - QwtAbstractSlider::stepAlignment fixed, when the value is
+      exactly the upperBound, but no tick position
+
+    - Missing right/bottom pixel added for QwtColumnSymbol::NoFrame
+
+    - QwtWeedingCurveFitter::fitCurve fixed when being called with no points
+
+    - missing updates added for QwtLegend::setMaxColumns, QwtScaleWidget::setLayoutFlag
+
+    - QwtPlotCurve::drawSteps: polygon clipping fixed by adding
+      an extra pixel to the clip rectangle
+
+    - QwtPlotItem::ScaleInterest enabled for all constructors of
+      QwtPlotSeriesItem
 
 =========
 Qwt 6.1.3
