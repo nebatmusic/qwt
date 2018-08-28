@@ -130,8 +130,8 @@ QwtPlotPanner::QwtPlotPanner( QWidget *canvas ):
 {
     d_data = new PrivateData();
 
-    connect( this, SIGNAL( panned( int, int ) ),
-        SLOT( moveCanvas( int, int ) ) );
+    connect( this, SIGNAL(panned(int,int)),
+        SLOT(moveCanvas(int,int)) );
 }
 
 //! Destructor
