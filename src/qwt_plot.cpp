@@ -28,18 +28,16 @@ static inline void qwtEnableLegendItems( QwtPlot *plot, bool on )
     if ( on )
     {
         QObject::connect(
-            plot, SIGNAL( legendDataChanged(
-                const QVariant &, const QList<QwtLegendData> & ) ),
-            plot, SLOT( updateLegendItems(
-                const QVariant &, const QList<QwtLegendData> & ) ) );
+            plot, SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>)),
+            plot, SLOT(updateLegendItems(QVariant,QList<QwtLegendData>))
+        );
     }
     else
     {
         QObject::disconnect(
-            plot, SIGNAL( legendDataChanged(
-                const QVariant &, const QList<QwtLegendData> & ) ),
-            plot, SLOT( updateLegendItems(
-                const QVariant &, const QList<QwtLegendData> & ) ) );
+            plot, SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>) ),
+            plot, SLOT( updateLegendItems(QVariant,QList<QwtLegendData>))
+        );
     }
 }
 
@@ -951,12 +949,9 @@ void QwtPlot::insertLegend( QwtAbstractLegend *legend,
 
         if ( d_data->legend )
         {
-            connect( this,
-                SIGNAL( legendDataChanged(
-                    const QVariant &, const QList<QwtLegendData> & ) ),
-                d_data->legend,
-                SLOT( updateLegend(
-                    const QVariant &, const QList<QwtLegendData> & ) )
+            connect(
+                this, SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>)),
+                d_data->legend, SLOT(updateLegend(QVariant,QList<QwtLegendData>) )
             );
 
             if ( d_data->legend->parent() != this )

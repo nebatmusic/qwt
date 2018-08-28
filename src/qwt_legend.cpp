@@ -469,8 +469,8 @@ QWidget *QwtLegend::createWidget( const QwtLegendData &legendData ) const
     QwtLegendLabel *label = new QwtLegendLabel();
     label->setItemMode( defaultItemMode() );
 
-    connect( label, SIGNAL( clicked() ), SLOT( itemClicked() ) );
-    connect( label, SIGNAL( checked( bool ) ), SLOT( itemChecked( bool ) ) );
+    connect( label, SIGNAL(clicked()), SLOT(itemClicked()) );
+    connect( label, SIGNAL(checked(bool)), SLOT(itemChecked(bool)) );
 
     return label;
 }
