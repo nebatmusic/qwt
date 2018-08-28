@@ -82,8 +82,8 @@ void QwtCounter::initCounter()
         btn->setFocusPolicy( Qt::NoFocus );
         layout->addWidget( btn );
 
-        connect( btn, SIGNAL( released() ), SLOT( btnReleased() ) );
-        connect( btn, SIGNAL( clicked() ), SLOT( btnClicked() ) );
+        connect( btn, SIGNAL(released()), SLOT(btnReleased()) );
+        connect( btn, SIGNAL(clicked()), SLOT(btnClicked()) );
 
         d_data->buttonDown[i] = btn;
     }
@@ -93,8 +93,7 @@ void QwtCounter::initCounter()
     d_data->valueEdit->setValidator( new QDoubleValidator( d_data->valueEdit ) );
     layout->addWidget( d_data->valueEdit );
 
-    connect( d_data->valueEdit, SIGNAL( editingFinished() ),
-         SLOT( textChanged() ) );
+    connect( d_data->valueEdit, SIGNAL(editingFinished()), SLOT(textChanged()) );
 
     layout->setStretchFactor( d_data->valueEdit, 10 );
 
@@ -105,8 +104,8 @@ void QwtCounter::initCounter()
         btn->setFocusPolicy( Qt::NoFocus );
         layout->addWidget( btn );
 
-        connect( btn, SIGNAL( released() ), SLOT( btnReleased() ) );
-        connect( btn, SIGNAL( clicked() ), SLOT( btnClicked() ) );
+        connect( btn, SIGNAL(released()), SLOT(btnReleased()) );
+        connect( btn, SIGNAL(clicked()), SLOT(btnClicked()) );
 
         d_data->buttonUp[i] = btn;
     }

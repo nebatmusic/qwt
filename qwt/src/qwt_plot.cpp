@@ -26,22 +26,13 @@
 
 static inline void qwtEnableLegendItems( QwtPlot *plot, bool on )
 {
+    const char sig[] = SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>));
+    const char slot[] = SLOT(updateLegendItems(QVariant,QList<QwtLegendData>));
+
     if ( on )
-    {
-        QObject::connect(
-            plot, SIGNAL( legendDataChanged(
-                const QVariant &, const QList<QwtLegendData> & ) ),
-            plot, SLOT( updateLegendItems(
-                const QVariant &, const QList<QwtLegendData> & ) ) );
-    }
+        QObject::connect( plot, sig, plot, slot );
     else
-    {
-        QObject::disconnect(
-            plot, SIGNAL( legendDataChanged(
-                const QVariant &, const QList<QwtLegendData> & ) ),
-            plot, SLOT( updateLegendItems(
-                const QVariant &, const QList<QwtLegendData> & ) ) );
-    }
+        QObject::disconnect( plot, sig, plot, slot );
 }
 
 static void qwtSetTabOrder(
@@ -937,12 +928,9 @@ void QwtPlot::insertLegend( QwtAbstractLegend *legend,
 
         if ( d_data->legend )
         {
-            connect( this,
-                SIGNAL( legendDataChanged(
-                    const QVariant &, const QList<QwtLegendData> & ) ),
-                d_data->legend,
-                SLOT( updateLegend(
-                    const QVariant &, const QList<QwtLegendData> & ) )
+            connect(
+                this, SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>)),
+                d_data->legend, SLOT(updateLegend(QVariant,QList<QwtLegendData>) )
             );
 
             if ( d_data->legend->parent() != this )
