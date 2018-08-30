@@ -26,8 +26,9 @@
 
 static inline void qwtEnableLegendItems( QwtPlot *plot, bool on )
 {
-    const char sig[] = SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>));
-    const char slot[] = SLOT(updateLegendItems(QVariant,QList<QwtLegendData>));
+    // gcc 7.3.0 seems to have problems with const char sig[]
+    const char* sig = SIGNAL(legendDataChanged(QVariant,QList<QwtLegendData>));
+    const char* slot = SLOT(updateLegendItems(QVariant,QList<QwtLegendData>));
 
     if ( on )
         QObject::connect( plot, sig, plot, slot );
