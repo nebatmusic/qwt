@@ -81,7 +81,7 @@ namespace QwtScaleRendererReal
             }
             case QwtScaleDraw::RightScale:
             {
-                const qreal x = pos.x() + pw2;
+                const qreal x = pos.x() - 1.0 + pw2;
                 QwtPainter::drawLine( painter, x, pos.y(), x, pos.y() + length );
 
                 break;
@@ -95,7 +95,7 @@ namespace QwtScaleRendererReal
             }
             case QwtScaleDraw::BottomScale:
             {
-                const qreal y = pos.y() + pw2;
+                const qreal y = pos.y() - 1.0 + pw2;
                 QwtPainter::drawLine( painter, pos.x(), y, pos.x() + length, y );
 
                 break;
@@ -126,21 +126,21 @@ namespace QwtScaleRendererReal
             }
             case QwtScaleDraw::RightScale:
             {
-                const qreal x = pos.x();
+                const qreal x = pos.x() - 1;
                 QwtPainter::drawLine( painter, x, tickPos, x + length, tickPos );
-                break;
-            }
-            case QwtScaleDraw::BottomScale:
-            {
-                const qreal y = pos.y();
-                QwtPainter::drawLine( painter, tickPos, y, tickPos, y + length );
-
                 break;
             }
             case QwtScaleDraw::TopScale:
             {
                 const qreal y = pos.y() + 1;
                 QwtPainter::drawLine( painter, tickPos, y, tickPos, y - length );
+
+                break;
+            }
+            case QwtScaleDraw::BottomScale:
+            {
+                const qreal y = pos.y() - 1;
+                QwtPainter::drawLine( painter, tickPos, y, tickPos, y + length );
 
                 break;
             }
