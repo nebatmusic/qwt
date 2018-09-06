@@ -227,7 +227,12 @@ static inline void qwtUnscaleFont( QPainter *painter )
 */
 bool QwtPainter::isX11GraphicsSystem()
 {
-#if QT_VERSION < 0x050000
+    /*
+        The X11 paint engine has been removed with Qt 5.0, but
+        reintroduced with Qt 5.10. It can be enabled with
+        "export QT_XCB_NATIVE_PAINTING=1".
+     */
+
     static int onX11 = -1;
     if ( onX11 < 0 )
     {
@@ -238,11 +243,6 @@ bool QwtPainter::isX11GraphicsSystem()
     }
 
     return onX11 == 1;
-#else
-    // the X11 paint engine has been removed with Qt5 - so sad, as it was
-    // the best available graphic system around: no bugs + hardware accelerated.
-    return false;
-#endif
 }
 
 /*!
