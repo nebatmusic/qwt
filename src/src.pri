@@ -39,8 +39,8 @@ HEADERS += \
     qwt_scale_draw.h \
     qwt_scale_engine.h \
     qwt_scale_map.h \
-    qwt_spline_basis.h \
     qwt_spline.h \
+    qwt_spline_basis.h \
     qwt_spline_parametrization.h \
     qwt_spline_local.h \
     qwt_spline_cubic.h \
@@ -84,8 +84,8 @@ SOURCES += \
     qwt_scale_draw.cpp \
     qwt_scale_map.cpp \
     qwt_scale_engine.cpp \
-    qwt_spline_basis.cpp \
     qwt_spline.cpp \
+    qwt_spline_basis.cpp \
     qwt_spline_parametrization.cpp \
     qwt_spline_local.cpp \
     qwt_spline_cubic.cpp \
@@ -198,6 +198,15 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_point_data.cpp \
         qwt_scale_widget.cpp
 
+    contains(QWT_CONFIG, QwtOpenGL) {
+
+        HEADERS += \
+            qwt_plot_glcanvas.h
+
+        SOURCES += \
+            qwt_plot_glcanvas.cpp
+    }
+
     contains(QWT_CONFIG, QwtSvg) {
 
         HEADERS += \
@@ -222,7 +231,7 @@ contains(QWT_CONFIG, QwtSvg) {
             QT += svg
         }
         else {
-            warning(QwtSvg is enabled in qwtconfig.pri, but Qt has not been built with svg support)
+            warning("QwtSvg is enabled in qwtconfig.pri, but Qt has not been built with svg support")
         }
     }
     else {
@@ -237,9 +246,6 @@ else {
 contains(QWT_CONFIG, QwtOpenGL) {
 
     QT += opengl
-
-    HEADERS += qwt_plot_glcanvas.h
-    SOURCES += qwt_plot_glcanvas.cpp
 }
 else {
 
