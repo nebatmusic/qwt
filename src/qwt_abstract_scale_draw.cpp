@@ -196,7 +196,7 @@ void QwtAbstractScaleDraw::draw( QPainter *painter,
 
     if ( QwtPainter::isX11GraphicsSystem() )
     {
-        // With Qt4/X11 a width of 0 results in a faster render path
+        // With X11 a width of 0 results in a faster render path
 
         if ( penWidthF <= 1.0 )
         {
