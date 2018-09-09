@@ -211,12 +211,8 @@ contains(QWT_CONFIG, QwtPlot) {
             qwt_plot_glcanvas.cpp
 
         greaterThan(QT_MAJOR_VERSION, 4) {
-
-            greaterThan(QT_MINOR_VERSION, 3) {
-
-                HEADERS += qwt_plot_opengl_canvas.h
-                SOURCES += qwt_plot_opengl_canvas.cpp
-            }
+            HEADERS += qwt_plot_opengl_canvas.h
+            SOURCES += qwt_plot_opengl_canvas.cpp
         }
 
     }
@@ -245,7 +241,7 @@ contains(QWT_CONFIG, QwtSvg) {
             QT += svg
         }
         else {
-            warning(QwtSvg is enabled in qwtconfig.pri, but Qt has not been built with svg support)
+            warning("QwtSvg is enabled in qwtconfig.pri, but Qt has not been built with svg support")
         }
     }
     else {
