@@ -509,11 +509,6 @@ void QwtPlotRenderer::render( QwtPlot *plot,
 
             if ( !plot->axisEnabled( axisId ) )
             {
-                int left = 0;
-                int right = 0;
-                int top = 0;
-                int bottom = 0;
-
                 // When we have a scale the frame is painted on
                 // the position of the backbone - otherwise we
                 // need to introduce a margin around the canvas
@@ -535,7 +530,6 @@ void QwtPlotRenderer::render( QwtPlot *plot,
                     default:
                         break;
                 }
-                layoutRect.adjust( left, top, right, bottom );
             }
         }
     }
@@ -549,7 +543,6 @@ void QwtPlotRenderer::render( QwtPlot *plot,
     {
         layoutOptions |= QwtPlotLayout::IgnoreFrames;
     }
-
 
     if ( d_data->discardFlags & DiscardLegend )
         layoutOptions |= QwtPlotLayout::IgnoreLegend;
