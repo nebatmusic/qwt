@@ -571,7 +571,19 @@ const QPen &QwtPlotMarker::linePen() const
 
 QRectF QwtPlotMarker::boundingRect() const
 {
-    return QRectF( d_data->xValue, d_data->yValue, 0.0, 0.0 );
+    // width/height of -1 does not affect the autoscale calculation
+
+    switch (d_data->style)
+    {
+        case QwtPlotMarker::HLine:
+            return QRectF( d_data->xValue, d_data->yValue, -1.0, 0.0 );
+
+        case QwtPlotMarker::VLine:
+            return QRectF( d_data->xValue, d_data->yValue, 0.0, -1.0 );
+
+        default :
+            return QRectF( d_data->xValue, d_data->yValue, 0.0, 0.0 );
+    }
 }
 
 /*!
