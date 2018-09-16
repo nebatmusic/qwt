@@ -74,9 +74,6 @@ public:
     void setPenWidthF( qreal width );
     qreal penWidthF() const;
 
-    void setPenCosmetic( bool );
-    bool isPenCosmetic() const;
-
     virtual void draw( QPainter *, const QPalette & ) const;
 
     virtual QwtText label( double ) const;

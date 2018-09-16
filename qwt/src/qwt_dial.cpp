@@ -487,11 +487,8 @@ void QwtDial::drawScale( QPainter *painter,
     const QColor textColor = pal.color( QPalette::Text );
     pal.setColor( QPalette::WindowText, textColor ); // ticks, backbone
 
-    QPen pen( textColor, sd->penWidthF() );
-    pen.setCosmetic( sd->isPenCosmetic() );
-
     painter->setFont( font() );
-    painter->setPen( pen );
+    painter->setPen( QPen( textColor, sd->penWidthF() ) );
 
     painter->setBrush( Qt::red );
     sd->draw( painter, pal );

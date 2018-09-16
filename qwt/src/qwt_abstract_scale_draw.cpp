@@ -25,7 +25,6 @@ public:
     PrivateData():
         spacing( 4.0 ),
         penWidthF( 0.0 ),
-        penIsCosmetic( false ),
         minExtent( 0.0 )
     {
         components = QwtAbstractScaleDraw::Backbone
@@ -45,7 +44,6 @@ public:
     double spacing;
     double tickLength[QwtScaleDiv::NTickTypes];
     qreal penWidthF;
-    bool penIsCosmetic;
 
     double minExtent;
 
@@ -162,26 +160,6 @@ qreal QwtAbstractScaleDraw::penWidthF() const
 }
 
 /*!
-  \brief Specify whether the scale pen is cosmetic
-  \param on When true the scale pen will be cosmetic
-
-  \sa isPenCosmetic()
-*/
-void QwtAbstractScaleDraw::setPenCosmetic( bool on )
-{
-    d_data->penIsCosmetic = on;
-}
-
-/*!
-    \return True, when the scale pen is cosmetic
-    \sa setPenWidth(), setPenCosmetic
-*/
-bool QwtAbstractScaleDraw::isPenCosmetic() const
-{
-    return d_data->penIsCosmetic;
-}
-
-/*!
   \brief Draw the scale
 
   \param painter    The painter
@@ -192,24 +170,10 @@ bool QwtAbstractScaleDraw::isPenCosmetic() const
 void QwtAbstractScaleDraw::draw( QPainter *painter,
     const QPalette& palette ) const
 {
-    qreal penWidthF = d_data->penWidthF;
-
-    if ( QwtPainter::isX11GraphicsSystem() )
-    {
-        // With X11 a width of 0 results in a faster render path
-
-        if ( penWidthF <= 1.0 )
-        {
-            if ( d_data->penIsCosmetic || !painter->transform().isScaling() )
-                penWidthF = 0.0;
-        }
-    }
-
     painter->save();
 
     QPen pen = painter->pen();
-    pen.setWidthF( penWidthF );
-    pen.setCosmetic( d_data->penIsCosmetic );
+    pen.setWidthF( d_data->penWidthF );
 
     painter->setPen( pen );
 
