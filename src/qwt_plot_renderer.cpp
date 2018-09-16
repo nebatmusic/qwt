@@ -544,7 +544,6 @@ void QwtPlotRenderer::render( QwtPlot *plot,
         layoutOptions |= QwtPlotLayout::IgnoreFrames;
     }
 
-
     if ( d_data->discardFlags & DiscardLegend )
         layoutOptions |= QwtPlotLayout::IgnoreLegend;
 
