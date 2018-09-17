@@ -15,6 +15,7 @@
 #include "qwt_text.h"
 
 #include <qpainter.h>
+#include <qpaintengine.h>
 #include <qmath.h>
 
 #if QT_VERSION < 0x040601
@@ -22,9 +23,6 @@
 #define qFastCos(x) std::cos(x)
 #endif
 
-#if QT_VERSION >= 0x040800
-#include <qpaintengine.h>
-#endif
 
 static inline double qwtEffectivePenWidth( const QwtAbstractScaleDraw* scaleDraw )
 {
@@ -33,11 +31,13 @@ static inline double qwtEffectivePenWidth( const QwtAbstractScaleDraw* scaleDraw
 
 namespace QwtScaleRendererReal
 {
-    inline qreal penWidth(const QPainter *painter, const QwtScaleDraw* scaleDraw )
+    inline qreal penWidth( const QPainter *painter, const QwtScaleDraw* scaleDraw )
     {
         qreal width = scaleDraw->penWidthF();
+#if 1
         if ( width <= 0.0 )
             width = 1.0;
+#endif
 
         if ( painter->pen().isCosmetic() )
         {
@@ -115,31 +115,39 @@ namespace QwtScaleRendererReal
 
         const qreal length = tickLength + pw;
 
+        /*
+            Those correction offsets have been found by try and error.
+            They need to be understood and replaced by a calculation,
+            that makes sense. TODO ...
+         */
+        const qreal off1 = 1.0;
+        const qreal off2 = ( scaleDraw->penWidthF() <= 0.0 ) ? 0.5 : 0.0;
+
         switch ( scaleDraw->alignment() )
         {
             case QwtScaleDraw::LeftScale:
             {
-                const qreal x = pos.x() + 1;
+                const qreal x = pos.x() + off1 - off2;
                 QwtPainter::drawLine( painter, x, tickPos, x - length, tickPos );
 
                 break;
             }
             case QwtScaleDraw::RightScale:
             {
-                const qreal x = pos.x() - 1;
+                const qreal x = pos.x() - off1 + off2;
                 QwtPainter::drawLine( painter, x, tickPos, x + length, tickPos );
                 break;
             }
             case QwtScaleDraw::TopScale:
             {
-                const qreal y = pos.y() + 1;
+                const qreal y = pos.y() + off1 - 2 * off2;
                 QwtPainter::drawLine( painter, tickPos, y, tickPos, y - length );
 
                 break;
             }
             case QwtScaleDraw::BottomScale:
             {
-                const qreal y = pos.y() - 1;
+                const qreal y = pos.y() - off1 + off2;
                 QwtPainter::drawLine( painter, tickPos, y, tickPos, y + length );
 
                 break;
@@ -210,7 +218,6 @@ namespace QwtScaleRendererInt
 
         qreal off = 0.0;
 
-#if QT_VERSION < 0x050000
         if ( painter->paintEngine()->type() == QPaintEngine::X11 )
         {
             if ( pw == 1 )
@@ -219,7 +226,6 @@ namespace QwtScaleRendererInt
                 off = 1.0;
             }
         }
-#endif
 
         switch ( scaleDraw->alignment() )
         {

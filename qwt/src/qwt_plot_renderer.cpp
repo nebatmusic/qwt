@@ -71,6 +71,25 @@
 #include <qpdfwriter.h>
 #endif
 
+static qreal qwtScalePenWidth( const QwtPlot* plot )
+{
+    qreal pw = 0.0;
+
+    for ( int axisId = 0; axisId < QwtPlot::axisCnt; axisId++ )
+    {
+        if ( plot->axisEnabled( axisId ) )
+            pw = qMax( pw, plot->axisScaleDraw( axisId )->penWidthF() );
+    }
+
+    return pw;
+}
+
+static QColor qwtScalePenColor( const QwtPlot* plot )
+{
+    const QPalette pal = plot->axisWidget( QwtPlot::yLeft )->palette();
+    return pal.color( QPalette::WindowText );
+}
+
 static QPainterPath qwtCanvasClip(
     const QWidget* canvas, const QRectF &canvasRect )
 {
@@ -513,19 +532,21 @@ void QwtPlotRenderer::render( QwtPlot *plot,
                 // the position of the backbone - otherwise we
                 // need to introduce a margin around the canvas
 
+                const qreal fw = qwtScalePenWidth( plot );
+
                 switch( axisId )
                 {
                     case QwtPlot::yLeft:
-                        layoutRect.adjust( 1, 0, 0, 0 );
+                        layoutRect.adjust( fw, 0, 0, 0 );
                         break;
                     case QwtPlot::yRight:
-                        layoutRect.adjust( 0, 0, -1, 0 );
+                        layoutRect.adjust( 0, 0, -fw, 0 );
                         break;
                     case QwtPlot::xTop:
-                        layoutRect.adjust( 0, 1, 0, 0 );
+                        layoutRect.adjust( 0, fw, 0, 0 );
                         break;
                     case QwtPlot::xBottom:
-                        layoutRect.adjust( 0, 0, 0, -1 );
+                        layoutRect.adjust( 0, 0, 0, -fw );
                         break;
                     default:
                         break;
@@ -715,11 +736,16 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
     QwtScaleDraw::Alignment align;
     double x, y, w;
 
+    qreal off = 0.0;
+    if ( d_data->layoutFlags & FrameWithScales )
+        off = qwtScalePenWidth( plot );
+
     switch ( axisId )
     {
         case QwtPlot::yLeft:
         {
-            x = scaleRect.right() - 1.0 - baseDist;
+            x = scaleRect.right() - 1.0 - baseDist - off;
+
             y = scaleRect.y() + startDist;
             w = scaleRect.height() - startDist - endDist;
             align = QwtScaleDraw::LeftScale;
@@ -727,7 +753,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
         }
         case QwtPlot::yRight:
         {
-            x = scaleRect.left() + baseDist;
+            x = scaleRect.left() + baseDist + off;
             y = scaleRect.y() + startDist;
             w = scaleRect.height() - startDist - endDist;
             align = QwtScaleDraw::RightScale;
@@ -736,7 +762,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
         case QwtPlot::xTop:
         {
             x = scaleRect.left() + startDist;
-            y = scaleRect.bottom() - 1.0 - baseDist;
+            y = scaleRect.bottom() - 1.0 - baseDist - off;
             w = scaleRect.width() - startDist - endDist;
             align = QwtScaleDraw::TopScale;
             break;
@@ -744,7 +770,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
         case QwtPlot::xBottom:
         {
             x = scaleRect.left() + startDist;
-            y = scaleRect.top() + baseDist;
+            y = scaleRect.top() + baseDist + off;
             w = scaleRect.width() - startDist - endDist;
             align = QwtScaleDraw::BottomScale;
             break;
@@ -761,6 +787,11 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
     const QPointF sdPos = sd->pos();
     const double sdLength = sd->length();
 
+    const bool hasBackbone = sd->hasComponent( QwtAbstractScaleDraw::Backbone );
+
+    if ( d_data->layoutFlags & FrameWithScales )
+        sd->enableComponent( QwtAbstractScaleDraw::Backbone, false );
+
     sd->move( x, y );
     sd->setLength( w );
 
@@ -771,6 +802,7 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
     // reset previous values
     sd->move( sdPos );
     sd->setLength( sdLength );
+    sd->enableComponent( QwtAbstractScaleDraw::Backbone, hasBackbone );
 
     painter->restore();
 }
@@ -795,8 +827,15 @@ void QwtPlotRenderer::renderCanvas( const QwtPlot *plot,
     {
         painter->save();
 
-        r.adjust( -1.0, -1.0, 1.0, 1.0 );
-        painter->setPen( QPen( Qt::black ) );
+        QPen pen;
+        pen.setColor( qwtScalePenColor( plot ) );
+        pen.setWidth( qwtScalePenWidth( plot ) );
+        pen.setJoinStyle( Qt::MiterJoin );
+
+        painter->setPen( pen );
+
+        const qreal pw2 = 0.5 * pen.widthF();
+        r.adjust( -pw2, -pw2, pw2, pw2 );
 
         if ( !( d_data->discardFlags & DiscardCanvasBackground ) )
         {
