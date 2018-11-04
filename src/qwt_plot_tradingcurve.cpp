@@ -365,7 +365,7 @@ double QwtPlotTradingCurve::maxSymbolWidth() const
 QRectF QwtPlotTradingCurve::boundingRect() const
 {
     QRectF rect = QwtPlotSeriesItem::boundingRect();
-    if ( rect.isValid() && orientation() == Qt::Vertical )
+    if ( orientation() == Qt::Vertical )
         rect.setRect( rect.y(), rect.x(), rect.height(), rect.width() );
 
     return rect;
