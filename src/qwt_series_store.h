@@ -21,7 +21,7 @@
   from the regular methods ( QwtPlotSeriesItem ) to make it possible
   to derive from QwtPlotSeriesItem without any hassle with templates.
 */
-class QWT_EXPORT QwtAbstractSeriesStore
+class QwtAbstractSeriesStore
 {
 public:
     //! Destructor
@@ -63,7 +63,7 @@ protected:
   that QwtPlotSeriesItem can be derived without any hassle with templates.
  */
 template <typename T>
-class QWT_EXPORT QwtSeriesStore: public virtual QwtAbstractSeriesStore
+class QwtSeriesStore: public virtual QwtAbstractSeriesStore
 {
 public:
     /*!
