@@ -761,29 +761,33 @@ void QwtPicker::drawTracker( QPainter *painter ) const
    The reason, why a selection() differs from the picked points
    depends on the application requirements. F.e. :
 
-   - A rectangular selection might need to have a specific aspect ratio only.\n
-   - A selection could accept non intersecting polygons only.\n
-   - ...\n
+     - A rectangular selection might need to have a specific aspect ratio only.
+     - A selection could accept non intersecting polygons only.
+     - ...
 
    The example below is for a rectangular selection, where the first
    point is the center of the selected rectangle.
+
   \par Example
-  \verbatim QPolygon MyPicker::adjustedPoints(const QPolygon &points) const
-{
-    QPolygon adjusted;
-    if ( points.size() == 2 )
+  \code
+    QPolygon MyPicker::adjustedPoints( const QPolygon &points ) const
     {
-        const int width = qAbs(points[1].x() - points[0].x());
-        const int height = qAbs(points[1].y() - points[0].y());
+        QPolygon adjusted;
+        if ( points.size() == 2 )
+        {
+            const int width = qAbs( points[1].x() - points[0].x() );
+            const int height = qAbs( points[1].y() - points[0].y() );
 
-        QRect rect(0, 0, 2 * width, 2 * height);
-        rect.moveCenter(points[0]);
+            QRect rect( 0, 0, 2 * width, 2 * height );
+            rect.moveCenter( points[0] );
 
-        adjusted += rect.topLeft();
-        adjusted += rect.bottomRight();
+            adjusted += rect.topLeft();
+            adjusted += rect.bottomRight();
+        }
+        return adjusted;
     }
-    return adjusted;
-}\endverbatim\n
+  \endcode
+  \endpar
 
   \param points Selected points
   \return Selected points unmodified
@@ -842,7 +846,7 @@ QRect QwtPicker::trackerRect( const QFont &font ) const
         && rubberBand() != NoRubberBand )
     {
         const QPoint last =
-            d_data->pickedPoints[ d_data->pickedPoints.count() - 2];
+            d_data->pickedPoints[ d_data->pickedPoints.count() - 2 ];
 
         alignment |= ( pos.x() >= last.x() ) ? Qt::AlignRight : Qt::AlignLeft;
         alignment |= ( pos.y() > last.y() ) ? Qt::AlignBottom : Qt::AlignTop;
