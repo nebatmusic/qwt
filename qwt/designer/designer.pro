@@ -31,16 +31,14 @@ contains(QWT_CONFIG, QwtDesigner ) {
     
     greaterThan(QT_MAJOR_VERSION, 4) {
 
-        !qtHaveModule(designer) {
-            QWT_CONFIG -= QwtDesigner
-            warning("QwtDesigner is enabled in qwtconfig.pri, but Qt has not been built with designer support")
-        }
+        !qtHaveModule(designer) QWT_CONFIG -= QwtDesigner
     } else {
 
-        !exists( $(QTDIR)/include/QtDesigner ) {
-            QWT_CONFIG -= QwtDesigner
-            warning("QwtDesigner is enabled in qwtconfig.pri, but Qt has not been built with designer support")
-        }
+        !exists( $(QTDIR)/include/QtDesigner ) QWT_CONFIG -= QwtDesigner
+    }
+
+    !contains(QWT_CONFIG, QwtDesigner ) {
+        warning("QwtDesigner is enabled in qwtconfig.pri, but Qt has not been built with designer support")
     }
 }
 
