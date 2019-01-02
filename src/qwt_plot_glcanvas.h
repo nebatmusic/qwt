@@ -76,7 +76,7 @@ public:
         The following enum is made for the designer only. It is safe
         to use QFrame::Shadow instead.
 
-        \note QFrame::StyledPanel and QFrame::WinPanel are unsuported
+        \note QFrame::StyledPanel and QFrame::WinPanel are unsupported
               and will be displayed as QFrame::Panel.
      */
     enum Shape
