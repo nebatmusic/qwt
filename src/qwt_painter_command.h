@@ -150,7 +150,7 @@ inline const QPainterPath *QwtPainterCommand::path() const
 }
 
 //! \return Attributes how to paint a QPixmap
-inline const QwtPainterCommand::PixmapData*
+inline const QwtPainterCommand::PixmapData *
 QwtPainterCommand::pixmapData() const
 {
     return d_pixmapData;
