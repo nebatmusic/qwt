@@ -926,36 +926,38 @@ QwtSymbol::CachePolicy QwtSymbol::cachePolicy() const
   to fit into the size. Otherwise the symbol size depends on
   the bounding rectangle of the path.
 
-  The following code defines a symbol drawing an arrow:
+  \par Example
+    The following code defines a symbol drawing an arrow:
 
-  \verbatim
-#include <qwt_symbol.h>
+    \code
+      #include <qwt_symbol.h>
 
-QwtSymbol *symbol = new QwtSymbol();
+      QwtSymbol *symbol = new QwtSymbol();
 
-QPen pen( Qt::black, 2 );
-pen.setJoinStyle( Qt::MiterJoin );
+      QPen pen( Qt::black, 2 );
+      pen.setJoinStyle( Qt::MiterJoin );
 
-symbol->setPen( pen );
-symbol->setBrush( Qt::red );
+      symbol->setPen( pen );
+      symbol->setBrush( Qt::red );
 
-QPainterPath path;
-path.moveTo( 0, 8 );
-path.lineTo( 0, 5 );
-path.lineTo( -3, 5 );
-path.lineTo( 0, 0 );
-path.lineTo( 3, 5 );
-path.lineTo( 0, 5 );
+      QPainterPath path;
+      path.moveTo( 0, 8 );
+      path.lineTo( 0, 5 );
+      path.lineTo( -3, 5 );
+      path.lineTo( 0, 0 );
+      path.lineTo( 3, 5 );
+      path.lineTo( 0, 5 );
 
-QTransform transform;
-transform.rotate( -30.0 );
-path = transform.map( path );
+      QTransform transform;
+      transform.rotate( -30.0 );
+      path = transform.map( path );
 
-symbol->setPath( path );
-symbol->setPinPoint( QPointF( 0.0, 0.0 ) );
+      symbol->setPath( path );
+      symbol->setPinPoint( QPointF( 0.0, 0.0 ) );
 
-setSize( 10, 14 );
-\endverbatim
+      setSize( 10, 14 );
+    \endcode
+  \endpar
 
   \param path Painter path
 

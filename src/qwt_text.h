@@ -80,10 +80,13 @@ public:
         /*!
           Use a MathML (http://en.wikipedia.org/wiki/MathML) render engine
           to display the text. The Qwt MathML extension offers such an engine
-          based on the MathML renderer of the Qt solutions package.
+          based on the MathML renderer of the former Qt solutions package.
           To enable MathML support the following code needs to be added to the
           application:
-\verbatim QwtText::setTextEngine(QwtText::MathMLText, new QwtMathMLTextEngine()); \endverbatim
+
+          \code
+            QwtText::setTextEngine( QwtText::MathMLText, new QwtMathMLTextEngine() );
+          \endcode
          */
         MathMLText,
 

@@ -46,29 +46,30 @@ class QwtTextLabel;
   \image html plot.png
 
   \par Example
-  The following example shows (schematically) the most simple
-  way to use QwtPlot. By default, only the left and bottom axes are
-  visible and their scales are computed automatically.
-  \verbatim
-#include <qwt_plot.h>
-#include <qwt_plot_curve.h>
+    The following example shows (schematically) the most simple
+    way to use QwtPlot. By default, only the left and bottom axes are
+    visible and their scales are computed automatically.
+    \code
+      #include <qwt_plot.h>
+      #include <qwt_plot_curve.h>
 
-QwtPlot *myPlot = new QwtPlot("Two Curves", parent);
+      QwtPlot *myPlot = new QwtPlot( "Two Curves", parent );
 
-// add curves
-QwtPlotCurve *curve1 = new QwtPlotCurve("Curve 1");
-QwtPlotCurve *curve2 = new QwtPlotCurve("Curve 2");
+      // add curves
+      QwtPlotCurve *curve1 = new QwtPlotCurve( "Curve 1" );
+      QwtPlotCurve *curve2 = new QwtPlotCurve( "Curve 2" );
 
-// connect or copy the data to the curves
-curve1->setData(...);
-curve2->setData(...);
+      // connect or copy the data to the curves
+      curve1->setData( ... );
+      curve2->setData( ... );
 
-curve1->attach(myPlot);
-curve2->attach(myPlot);
+      curve1->attach( myPlot );
+      curve2->attach( myPlot );
 
-// finally, refresh the plot
-myPlot->replot();
-\endverbatim
+      // finally, refresh the plot
+      myPlot->replot();
+    \endcode
+  \endpar
 */
 
 class QWT_EXPORT QwtPlot: public QFrame, public QwtPlotDict
