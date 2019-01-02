@@ -7,8 +7,6 @@
  * modify it under the terms of the Qwt License, Version 1.0
  *****************************************************************************/
 
-// vim: expandtab
-
 #include <qstring.h>
 #include <qpainter.h>
 #include "qwt_mathml_text_engine.h"
