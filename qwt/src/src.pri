@@ -255,6 +255,19 @@ else {
 
 contains(QWT_CONFIG, QwtOpenGL) {
 
+   greaterThan(QT_MAJOR_VERSION, 4) {
+
+        qtHaveModule(opengl) {
+            QT += opengl
+        }
+        else {
+            warning("QwtOpenGL is enabled in qwtconfig.pri, but Qt has not been built with opengl support")
+        }
+    }
+    else {
+        QT += opengl
+    }
+
     QT += opengl
 }
 else {
