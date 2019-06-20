@@ -1,7 +1,7 @@
-//-----------------------------------------------------------------
-// This class shows how to extend QwtPlotItems. It displays a
-// pie chart of user/total/idle cpu usage in percent.
-//-----------------------------------------------------------------
+/*****************************************************************************
+ * Qwt Examples - Copyright (C) 2002 Uwe Rathmann
+ * This file may be used under the terms of the 3-clause BSD License
+ *****************************************************************************/
 
 #ifndef CPU_PIE_MARKER_H
 #define CPU_PIE_MARKER_H

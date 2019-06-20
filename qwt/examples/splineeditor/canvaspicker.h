@@ -1,3 +1,8 @@
+/*****************************************************************************
+ * Qwt Examples - Copyright (C) 2002 Uwe Rathmann
+ * This file may be used under the terms of the 3-clause BSD License
+ *****************************************************************************/
+
 #ifndef CANVAS_PICKER_H
 #define CANVAS_PICKER_H
 
