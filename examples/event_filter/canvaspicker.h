@@ -19,8 +19,8 @@ class CanvasPicker: public QObject
     Q_OBJECT
 public:
     CanvasPicker( QwtPlot *plot );
-    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
+    virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
     virtual bool event( QEvent * ) QWT_OVERRIDE;
 
 private:
