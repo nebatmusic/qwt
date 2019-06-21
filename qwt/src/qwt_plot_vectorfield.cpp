@@ -402,7 +402,7 @@ QwtPlotVectorField::MagnitudeModes QwtPlotVectorField::magnitudeModes() const
   Initialize data with an array of samples.
   \param samples Vector of points
 */
-void QwtPlotVectorField::setSamples( const QVector<QwtVectorSample> &samples )
+void QwtPlotVectorField::setSamples( const QVector<QwtVectorFieldSample> &samples )
 {
     setData( new QwtVectorFieldData( samples ) );
 }
@@ -514,7 +514,7 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
     const bool isInvertingX = xMap.isInverting();
     const bool isInvertingY = yMap.isInverting();
 
-    const QwtSeriesData<QwtVectorSample> *series = data();
+    const QwtSeriesData<QwtVectorFieldSample> *series = data();
 
     painter->setPen( d_data->pen );
     painter->setBrush( d_data->brush );
@@ -530,7 +530,7 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
 
         for ( int i = from; i <= to; i++ )
         {
-            const QwtVectorSample sample = series->sample( i );
+            const QwtVectorFieldSample sample = series->sample( i );
             if ( showNulls || !sample.isNull() )
             {
                 matrix.addSample( xMap.transform( sample.x ),
@@ -568,7 +568,7 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
     {
         for ( int i = from; i <= to; i++ )
         {
-            const QwtVectorSample sample = series->sample( i );
+            const QwtVectorFieldSample sample = series->sample( i );
 
             if ( !( showNulls || !sample.isNull() ) )
                 continue;

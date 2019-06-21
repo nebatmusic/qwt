@@ -57,7 +57,7 @@ static inline QRectF qwtBoundingRect( const QwtOHLCSample &sample )
     return QRectF( interval.minValue(), sample.time, interval.width(), 0.0 );
 }
 
-static inline QRectF qwtBoundingRect( const QwtVectorSample &sample )
+static inline QRectF qwtBoundingRect( const QwtVectorFieldSample &sample )
 {
     /*
         When displaying a sample as an arrow its length will be
@@ -240,9 +240,9 @@ QRectF qwtBoundingRect(
   \return Bounding rectangle
 */
 QRectF qwtBoundingRect(
-    const QwtSeriesData<QwtVectorSample> &series, int from, int to )
+    const QwtSeriesData<QwtVectorFieldSample> &series, int from, int to )
 {
-    return qwtBoundingRectT<QwtVectorSample>( series, from, to );
+    return qwtBoundingRectT<QwtVectorFieldSample>( series, from, to );
 }
 
 /*!
@@ -328,8 +328,8 @@ QRectF QwtIntervalSeriesData::boundingRect() const
    \param samples Samples
 */
 QwtVectorFieldData::QwtVectorFieldData(
-        const QVector<QwtVectorSample> &samples ):
-    QwtArraySeriesData<QwtVectorSample>( samples ),
+        const QVector<QwtVectorFieldSample> &samples ):
+    QwtArraySeriesData<QwtVectorFieldSample>( samples ),
     d_maxMagnitude( -1.0 )
 {
 }
@@ -358,7 +358,7 @@ double QwtVectorFieldData::maxMagnitude() const
 
         for ( uint i = 0; i < size(); i++ )
         {
-            const QwtVectorSample s = sample( i );
+            const QwtVectorFieldSample s = sample( i );
 
             const double l = s.vx * s.vx + s.vy * s.vy;
             if ( l > max )
