@@ -263,7 +263,7 @@ QVector<QwtInterval> QwtCircleClipper::clipCircle(
     }
     else
     {
-        QList<double> angles;
+        QVector<double> angles;
 #if QT_VERSION >= 0x040700
         angles.reserve( points.size() );
 #endif
