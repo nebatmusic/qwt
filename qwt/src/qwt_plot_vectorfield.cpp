@@ -8,7 +8,9 @@
  *****************************************************************************/
 
 #include "qwt_plot_vectorfield.h"
+#include "qwt_vectorfield_symbol.h"
 #include "qwt_scale_map.h"
+#include "qwt_color_map.h"
 #include "qwt_painter.h"
 #include "qwt_text.h"
 #include "qwt_graphic.h"
@@ -17,8 +19,6 @@
 #include <qpainter.h>
 #include <qpainterpath.h>
 #include <qdebug.h>
-
-#include <cstdlib>
 
 #define DEBUG_RENDER 0
 
@@ -40,48 +40,80 @@ static inline double qwtVector2Magnitude( double vx, double vy )
     return sqrt( vx * vx + vy * vy );
 }
 
+static QwtInterval qwtMagnitudeRange(
+    const QwtSeriesData<QwtVectorFieldSample> *series )
+{
+    if ( series->size() == 0 )
+        return QwtInterval( 0, 1 );
+
+    const QwtVectorFieldSample s0 = series->sample( 0 );
+
+    double min = s0.vx * s0.vx + s0.vy * s0.vy;
+    double max = min;
+
+    for ( uint i = 1; i < series->size(); i++ )
+    {
+        const QwtVectorFieldSample s = series->sample( i );
+        const double l = s.vx * s.vx + s.vy * s.vy;
+
+        if ( l < min )
+            min = l;
+
+        if ( l > max )
+            max = l;
+    }
+
+    min = std::sqrt( min );
+    max = std::sqrt( max );
+
+    if ( max == min )
+        max += 1.0;
+
+    return QwtInterval( min, max );
+}
+
+static inline QTransform qwtSymbolTransformation(
+    const QTransform& oldTransform, double x, double y,
+    double vx, double vy, double magnitude )
+{
+    QTransform transform = oldTransform;
+
+    if ( !transform.isIdentity() )
+    {
+        transform.translate( x, y );
+
+        const double radians = qwtVector2Radians( vx, vy );
+        transform.rotateRadians( radians );
+    }
+    else
+    {
+        /*
+            When starting with no transformation ( f.e on screen )
+            the matrix can be found without having to use
+            trigonometric functions
+         */
+
+        qreal sin, cos;
+        if ( magnitude == 0.0 )
+        {
+            // something
+            sin = 1.0;
+            cos = 0.0;
+        }
+        else
+        {
+            sin = vy / magnitude;
+            cos = vx / magnitude;
+        }
+
+        transform.setMatrix( cos, sin, 0.0, -sin, cos, 0.0, x, y, 1.0 );
+    }
+
+    return transform;
+}
+
 namespace
 {
-    class Arrow : public QPainterPath
-    {
-    public:
-        Arrow( double headWidth = 6.0, double tailWidth = 1.0 ):
-            m_headWidth( headWidth ),
-            m_tailWidth( tailWidth )
-        {
-            lineTo( -m_headWidth, m_headWidth );
-            lineTo( -m_headWidth, m_tailWidth );
-            lineTo( -m_headWidth - 1.0, m_tailWidth );
-            lineTo( -m_headWidth - 1.0, -m_tailWidth );
-            lineTo( -m_headWidth, -m_tailWidth );
-            lineTo( -m_headWidth, -m_headWidth );
-
-            closeSubpath();
-        }
-
-        inline double headWidth() const
-        {
-            return m_headWidth;
-        }
-
-        inline double tailWidth() const
-        {
-            return m_tailWidth;
-        }
-
-        void setTailLength( qreal length )
-        {
-            const qreal x = -( m_headWidth + length );
-
-            setElementPositionAt( 3, x, m_tailWidth );
-            setElementPositionAt( 4, x, -m_tailWidth );
-        }
-
-    private:
-        const double m_headWidth;
-        const double m_tailWidth;
-    };
-
     class FilterMatrix
     {
     public:
@@ -125,6 +157,24 @@ namespace
 
             d_numColumns = canvasRect.width() / d_dx + 1;
             d_numRows = canvasRect.height() / d_dy + 1;
+
+#if 1
+            /*
+                limit column and row count to a maximum of 1000000,
+                so that memory usage is not an issue
+             */
+            if ( d_numColumns > 1000 )
+            {
+                d_dx = canvasRect.width() / 1000;
+                d_numColumns = canvasRect.width() / d_dx + 1;
+            }
+
+            if ( d_numRows > 1000 )
+            {
+                d_dy = canvasRect.height() / 1000;
+                d_numRows = canvasRect.height() / d_dx + 1;
+            }
+#endif
 
             d_x1 = d_x0 + d_numColumns * d_dx;
             d_y1 = d_y0 + d_numRows * d_dy;
@@ -189,20 +239,37 @@ class QwtPlotVectorField::PrivateData
 {
 public:
     PrivateData():
-        pen( Qt::NoPen ),
+        pen( Qt::black ),
         brush( Qt::black ),
         indicatorOrigin( QwtPlotVectorField::OriginHead ),
         magnitudeScaleFactor( 1.0 ),
         rasterSize( 20, 20 ),
         magnitudeModes( MagnitudeAsLength )
     {
+        colorMap = NULL;
+        symbol = new QwtVectorFieldThinArrow();
+    }
+
+    ~PrivateData()
+    {
+        delete colorMap;
+        delete symbol;
     }
 
     QPen pen;
     QBrush brush;
 
     IndicatorOrigin indicatorOrigin;
-    Arrow arrow;
+    QwtVectorFieldSymbol * symbol;
+    QwtColorMap * colorMap;
+
+    /*
+        Stores the range of magnitudes to be used for the color map.
+        If invalid (min=max or negative values), the range is determined
+        from the data samples themselves.
+    */
+    QwtInterval magnitudeRange;
+    QwtInterval boundingMagnitudeRange;
 
     qreal magnitudeScaleFactor;
     QSizeF rasterSize;
@@ -393,6 +460,27 @@ void QwtPlotVectorField::setMagnitudeModes( MagnitudeModes modes )
     }
 }
 
+/*!
+    Sets a new arrow symbol (implementation of arrow drawing code).
+    Ownership is transferred to QwtPlotVectorField.
+ */
+void QwtPlotVectorField::setSymbol( QwtVectorFieldSymbol * symbol )
+{
+    if ( d_data->symbol == symbol )
+        return;
+
+    delete d_data->symbol;
+    d_data->symbol = symbol;
+
+    itemChanged();
+    legendChanged();
+}
+
+const QwtVectorFieldSymbol* QwtPlotVectorField::symbol() const
+{
+    return d_data->symbol;
+}
+
 QwtPlotVectorField::MagnitudeModes QwtPlotVectorField::magnitudeModes() const
 {
     return d_data->magnitudeModes;
@@ -420,6 +508,86 @@ void QwtPlotVectorField::setSamples( const QVector<QwtVectorFieldSample> &sample
 void QwtPlotVectorField::setSamples( QwtVectorFieldData *data )
 {
     setData( data );
+}
+
+/*!
+  Change the color map
+
+  Often it is useful to display the mapping between intensities and
+  colors as an additional plot axis, showing a color bar.
+
+  \param colorMap Color Map
+
+  \sa colorMap(), QwtScaleWidget::setColorBarEnabled(),
+      QwtScaleWidget::setColorMap()
+*/
+void QwtPlotVectorField::setColorMap( QwtColorMap *colorMap )
+{
+    if ( colorMap == NULL )
+        return;
+
+    if ( colorMap != d_data->colorMap )
+    {
+        delete d_data->colorMap;
+        d_data->colorMap = colorMap;
+    }
+
+    legendChanged();
+    itemChanged();
+}
+
+/*!
+   \return Color Map used for mapping the intensity values to colors
+   \sa setColorMap()
+*/
+const QwtColorMap *QwtPlotVectorField::colorMap() const
+{
+    return d_data->colorMap;
+}
+
+/*!
+   Sets the min/max magnitudes to be used for color map lookups.
+   If invalid (min=max=0 or negative values), the range is determined from
+   the current range of magnitudes in the vector samples.
+ */
+void QwtPlotVectorField::setMagnitudeRange( const QwtInterval & magnitudeRange )
+{
+    d_data->magnitudeRange = magnitudeRange;
+}
+
+/*!
+   Computes length of the arrow in screen coordinate units based on
+   its magnitude. Default implementation simply scales the vector
+   using the magnitudeScaleFactor property.
+   Re-implement this function to provide special handling for zero/non-zero
+   magnitude arrows, or impose minimum/maximum arrow length limits.
+   \return Length of arrow to be drawn in dependence of vector magnitude.
+   \sa setMagnitudeScaleFactor
+*/
+double QwtPlotVectorField::arrowLength( double magnitude ) const
+{
+#if 0
+    /*
+       Normalize magnitude with respect to value range.
+       Then, magnitudeScaleFactor is the number of pixels to draw (times the arrow tail width) for
+       a vector of length equal to magnitudeRange.maxValue().
+       The relative scaling ensures that change of data samples of very different magnitudes
+       will always lead to a reasonable display on screen.
+    */
+    const QwtVectorFieldData * vectorData = dynamic_cast<const QwtVectorFieldData *>(data());
+    if (d_data->magnitudeRange.maxValue() > 0)
+        magnitude /= d_data->magnitudeRange.maxValue();
+#endif
+    double l = magnitude * d_data->magnitudeScaleFactor;
+    if ( d_data->paintAttributes & LimitLength )
+    {
+        // TODO : make 30 a parameter? or leave this to user code and remove LimitLength altogether?
+        l = qMin(l, 50.0);
+        // ensure non-zero arrows are always at least 3 pixels long
+        if (l != 0)
+            l = qMax(l, 3.0);
+    }
+    return l;
 }
 
 QRectF QwtPlotVectorField::boundingRect() const
@@ -455,8 +623,8 @@ QwtGraphic QwtPlotVectorField::legendIcon(
     painter.setPen( d_data->pen );
     painter.setBrush( d_data->brush );
 
-    d_data->arrow.setTailLength( 2 * d_data->arrow.headWidth() );
-    painter.drawPath( d_data->arrow );
+    d_data->symbol->setLength( size.width() - 2 );
+    d_data->symbol->paint( &painter );
 
     return icon;
 }
@@ -509,29 +677,55 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
     const bool doAlign = QwtPainter::roundingAlignment( painter );
     const bool doClip = false;
 
-    const bool showNulls = d_data->paintAttributes & ShowNullVectors;
-
     const bool isInvertingX = xMap.isInverting();
     const bool isInvertingY = yMap.isInverting();
 
     const QwtSeriesData<QwtVectorFieldSample> *series = data();
 
-    painter->setPen( d_data->pen );
-    painter->setBrush( d_data->brush );
+    if ( d_data->magnitudeModes & MagnitudeAsColor )
+    {
+        // user input error, can't draw without color map
+        // TODO: Discuss! Without colormap, silently fall back to uniform colors?
+        if ( d_data->colorMap == NULL)
+            return;
+    }
+    else
+    {
+        painter->setPen( d_data->pen );
+        painter->setBrush( d_data->brush );
+    }
 
     if ( ( d_data->paintAttributes & FilterVectors ) && !d_data->rasterSize.isEmpty() )
     {
         const QRectF dataRect = QwtScaleMap::transform(
             xMap, yMap, boundingRect() );
 
+        // TODO: Discuss. How to handle raster size when switching from screen to print size!
+        //       DPI-aware adjustment of rastersize? Or make "rastersize in screen coordinate"
+        //       or "rastersize in plotcoordinetes" a user option?
+#if 1
+        // define filter matrix based on screen/print coordinates
         FilterMatrix matrix( dataRect, canvasRect, d_data->rasterSize );
-        if ( matrix.entries() == NULL )
-            return;
+#else
+        // define filter matrix based on real coordinates
+
+        // get scale factor from real coordinates to screen coordinates
+        double xScale = 1;
+        if (xMap.sDist() != 0)
+            xScale = xMap.pDist() / xMap.sDist();
+
+        double yScale = 1;
+        if (yMap.sDist() != 0)
+            yScale = yMap.pDist() / yMap.sDist();
+
+        QSizeF canvasRasterSize(xScale*d_data->rasterSize.width(), yScale*d_data->rasterSize.height());
+        FilterMatrix matrix( dataRect, canvasRect, canvasRasterSize );
+#endif
 
         for ( int i = from; i <= to; i++ )
         {
             const QwtVectorFieldSample sample = series->sample( i );
-            if ( showNulls || !sample.isNull() )
+            if ( !sample.isNull() )
             {
                 matrix.addSample( xMap.transform( sample.x ),
                     yMap.transform( sample.y ), sample.vx, sample.vy );
@@ -570,7 +764,8 @@ void QwtPlotVectorField::drawSymbols( QPainter *painter,
         {
             const QwtVectorFieldSample sample = series->sample( i );
 
-            if ( !( showNulls || !sample.isNull() ) )
+            // arrows with zero length are never drawn
+            if ( sample.isNull() )
                 continue;
 
             double xi = xMap.transform( sample.x );
@@ -600,70 +795,62 @@ void QwtPlotVectorField::drawSymbol( QPainter *painter,
 {
     const double magnitude = qwtVector2Magnitude( vx, vy );
 
-    Arrow &arrow = d_data->arrow;
+    const QTransform oldTransform = painter->transform();
 
-    double tailLength = 0.0;
+    QTransform transform = qwtSymbolTransformation( oldTransform,
+        x, y, vx, vy, magnitude );
+
+    QwtVectorFieldSymbol *symbol = d_data->symbol;
+
+    double length = 0.0;
 
     if ( d_data->magnitudeModes & MagnitudeAsLength )
     {
-        tailLength = magnitude * d_data->magnitudeScaleFactor * arrow.tailWidth();
-
-        if ( d_data->paintAttributes & LimitLength )
-        {
-            // TODO ...
-        }
+        length = arrowLength( magnitude );
     }
 
-    arrow.setTailLength( tailLength );
-
-    const QTransform oldTransform = painter->transform();
-
-    QTransform transform = oldTransform;
-    if ( !transform.isIdentity() )
-    {
-        transform.translate( x, y );
-
-        const double radians = qwtVector2Radians( vx, vy );
-        transform.rotateRadians( radians );
-    }
-    else
-    {
-        /*
-            When starting with no transformation ( f.e on screen )
-            the matrix can be found without having to use
-            trigonometric functions
-         */
-
-        qreal sin, cos;
-        if ( magnitude == 0.0 )
-        {
-            // something
-            sin = 1.0;
-            cos = 0.0;
-        }
-        else
-        {
-            sin = vy / magnitude;
-            cos = vx / magnitude;
-        }
-
-        transform.setMatrix( cos, sin, 0.0, -sin, cos, 0.0, x, y, 1.0 );
-    }
+    symbol->setLength( length );
 
     if( d_data->indicatorOrigin == OriginTail )
     {
-        const qreal dx = arrow.headWidth() + tailLength;
+        const qreal dx = symbol->length();
         transform.translate( dx, 0.0 );
     }
     else if ( d_data->indicatorOrigin == OriginCenter )
     {
-        const qreal dx = arrow.headWidth() + tailLength;
+        const qreal dx = symbol->length();
         transform.translate( 0.5 * dx, 0.0 );
     }
 
-    painter->setWorldTransform( transform, false );
-    painter->drawPath( arrow );
+    if ( d_data->magnitudeModes & MagnitudeAsColor )
+    {
+        // Determine color for arrow if colored by magnitude.
 
-    // restore previous matrix
+        QwtInterval range = d_data->magnitudeRange;
+
+        if ( !range.isValid() )
+        {
+            if ( !d_data->boundingMagnitudeRange.isValid() )
+                d_data->boundingMagnitudeRange = qwtMagnitudeRange( data() );
+
+            range = d_data->boundingMagnitudeRange;
+        }
+
+        const QColor c = d_data->colorMap->rgb( range, magnitude );
+
+#if 1
+        painter->setBrush( c );
+        painter->setPen( c );
+#endif
+    }
+
+    painter->setWorldTransform( transform, false );
+    symbol->paint( painter );
     painter->setWorldTransform( oldTransform, false );
+}
+
+void QwtPlotVectorField::dataChanged()
+{
+    d_data->boundingMagnitudeRange.invalidate();
+    QwtPlotSeriesItem::dataChanged();
 }

@@ -4,9 +4,12 @@
  *****************************************************************************/
 
 #include <qwt_plot.h>
+#include <qwt_samples.h>
 #include <qwt_plot_vectorfield.h>
+#include <qwt_vectorfield_symbol.h>
 #include <qwt_plot_grid.h>
 #include <qwt_legend.h>
+#include <qwt_color_map.h>
 
 #include <qapplication.h>
 #include <qpen.h>
@@ -20,11 +23,25 @@ public:
         setRenderHint( QwtPlotItem::RenderAntialiased, true );
         setLegendIconSize( QSize( 20, 10 ) );
 
+        setMagnitudeScaleFactor( 1.0 );
+
+#if 0
+        // test solid arrow
+        setSymbol( new QwtVectorFieldArrow() );
         setPen( Qt::NoPen );
         setBrush( Qt::black );
+        setMagnitudeScaleFactor( 2 );
+#endif
 
-        // a magnitude of 1.0 becomes 5 times the width of the tail
-        setMagnitudeScaleFactor( 1.0 );
+#if 1
+        // test color map
+        QwtLinearColorMap *cm = new QwtLinearColorMap();
+        cm->setColorInterval( Qt::yellow, Qt::blue );
+        cm->addColorStop( 0.5, Qt::red );
+        setColorMap( cm );
+        setMagnitudeMode( MagnitudeAsColor, true );
+#endif
+
 #if 1
         setIndicatorOrigin( QwtPlotVectorField::OriginHead );
 #else

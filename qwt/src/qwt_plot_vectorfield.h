@@ -13,6 +13,8 @@
 #include "qwt_global.h"
 #include "qwt_plot_seriesitem.h"
 
+class QwtVectorFieldSymbol;
+class QwtColorMap;
 class QPen;
 class QBrush;
 
@@ -34,21 +36,11 @@ public:
     enum PaintAttribute
     {
         FilterVectors        = 0x01,
-        ShowNullVectors      = 0x02,
-        LimitLength          = 0x04
+        LimitLength          = 0x02
     };
 
     //! Paint attributes
     typedef QFlags<PaintAttribute> PaintAttributes;
-
-#if 0
-    what to do with vectors with u = 0
-    what to do with vectors without u + v = 0
-    is it possible to have u < 0
-
-    introducing a symbol
-    maximum for MagnitudeAsLength
-#endif
 
     enum MagnitudeMode
     {
@@ -73,14 +65,14 @@ public:
     MagnitudeModes magnitudeModes() const;
     void setMagnitudeModes( MagnitudeModes );
 
-#if 1
-    // temporary: there will be a QwtVectorSymbol later TODO ...
+    void setSymbol( QwtVectorFieldSymbol * );
+    const QwtVectorFieldSymbol* symbol() const;
+
     void setPen( const QPen & );
     QPen pen() const;
 
     void setBrush( const QBrush & );
     QBrush brush() const;
-#endif
 
     void setRasterSize( const QSizeF& );
     QSizeF rasterSize() const;
@@ -90,6 +82,12 @@ public:
 
     void setSamples( const QVector<QwtVectorFieldSample> & );
     void setSamples( QwtVectorFieldData * );
+
+    void setColorMap( QwtColorMap * );
+    const QwtColorMap *colorMap() const;
+    void setMagnitudeRange( const QwtInterval & magnitudeRange);
+
+    virtual double arrowLength( double magnitude ) const;
 
     virtual QRectF boundingRect() const QWT_OVERRIDE;
 
@@ -112,6 +110,8 @@ protected:
 
     virtual void drawSymbol( QPainter *,
         double x, double y, double vx, double vy ) const;
+
+    virtual void dataChanged() QWT_OVERRIDE;
 
 private:
     void init();
