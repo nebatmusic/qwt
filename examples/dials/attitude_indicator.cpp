@@ -99,8 +99,8 @@ void AttitudeIndicator::drawScale( QPainter *painter,
     painter->restore();
 }
 
-void AttitudeIndicator::drawScaleContents( QPainter *painter,
-    const QPointF &, double ) const
+void AttitudeIndicator::drawScaleContents(
+    QPainter *painter, const QPointF &, double ) const
 {
     int dir = 360 - qRound( origin() - value() ); // counter clockwise
     int arc = 90 + qRound( gradient() * 90 );

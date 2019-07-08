@@ -9,6 +9,7 @@
 #include <qwt_painter.h>
 
 #include <qpainter.h>
+#include <algorithm>
 
 GridItem::GridItem():
     QwtPlotItem( "Grid" ),
@@ -147,7 +148,7 @@ void GridItem::draw( QPainter *painter,
             xValues += area.right();
         }
 
-        qSort( xValues );
+        std::sort( xValues.begin(), xValues.end() );
     }
 
     QList<double> yValues;
@@ -167,7 +168,7 @@ void GridItem::draw( QPainter *painter,
             yValues += area.bottom();
         }
 
-        qSort( yValues );
+        std::sort( yValues.begin(), yValues.end() );
     }
 
     painter->setPen( Qt::NoPen );

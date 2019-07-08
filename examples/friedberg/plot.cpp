@@ -19,7 +19,7 @@
 #include <qwt_scale_draw.h>
 #include <qwt_plot_renderer.h>
 
-#include <qdatetime.h>
+#include <qlocale.h>
 
 class Grid: public QwtPlotGrid
 {
@@ -63,7 +63,8 @@ public:
 
     virtual QwtText label( double value ) const QWT_OVERRIDE
     {
-        return QDate::longMonthName( int( value / 30 ) + 1 );
+        const int month = int( value / 30 ) + 1;
+        return QLocale::system().monthName( month, QLocale::LongFormat );
     }
 };
 

@@ -696,7 +696,7 @@ int QwtDate::weekNumber( const QDate &date, Week0Type type )
    - Qt::UTC
      0, dateTime has no offset
    - Qt::OffsetFromUTC
-     returns dateTime.utcOffset()
+     returns dateTime.offsetFromUtc()
    - Qt::LocalTime:
      number of seconds from the UTC
 
@@ -718,7 +718,11 @@ int QwtDate::utcOffset( const QDateTime &dateTime )
         }
         case Qt::OffsetFromUTC:
         {
+#if QT_VERSION >= 0x050200
+            seconds = dateTime.offsetFromUtc();
+#else
             seconds = dateTime.utcOffset();
+#endif
             break;
         }
         default:
