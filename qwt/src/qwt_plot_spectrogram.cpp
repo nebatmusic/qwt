@@ -27,6 +27,8 @@
 #include <qelapsedtimer.h>
 #endif
 
+#include <algorithm>
+
 static inline bool qwtIsNaN( double d )
 {
     // qt_is_nan is private header and qIsNaN is not inlined
@@ -340,7 +342,7 @@ bool QwtPlotSpectrogram::testConrecFlag(
 void QwtPlotSpectrogram::setContourLevels( const QList<double> &levels )
 {
     d_data->contourLevels = levels;
-    qSort( d_data->contourLevels );
+    std::sort( d_data->contourLevels.begin(), d_data->contourLevels.end() );
 
     legendChanged();
     itemChanged();

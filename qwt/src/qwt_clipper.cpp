@@ -15,6 +15,8 @@
 #include <qpolygon.h>
 #include <qrect.h>
 
+#include <algorithm>
+
 namespace QwtClip
 {
     // some templates used for inlining
@@ -249,6 +251,8 @@ QwtCircleClipper::QwtCircleClipper( const QRectF &r ):
 QVector<QwtInterval> QwtCircleClipper::clipCircle(
     const QPointF &pos, double radius ) const
 {
+    // using QVarLengthArray TODO ...
+
     QVector<QPointF> points;
     for ( int edge = 0; edge < NEdges; edge++ )
         points += cuttingPoints( static_cast<Edge>(edge), pos, radius );
@@ -271,7 +275,7 @@ QVector<QwtInterval> QwtCircleClipper::clipCircle(
         for ( int i = 0; i < points.size(); i++ )
             angles += toAngle( pos, points[i] );
 
-        qSort( angles );
+        std::sort( angles.begin(), angles.end() );
 
         const int in = d_rect.contains( qwtPolar2Pos( pos, radius,
             angles[0] + ( angles[1] - angles[0] ) / 2 ) );

@@ -147,7 +147,7 @@ QwtDial *DialBox::createDial( int type ) const
     dial->setNeedle( needle );
 
     //const QColor base( QColor( "DimGray" ) );
-    const QColor base( QColor( Qt::darkGray ).dark( 150 ) );
+    const QColor base( QColor( Qt::darkGray ).darker( 150 ) );
 
     QPalette palette;
     palette.setColor( QPalette::Base, base );
