@@ -942,7 +942,7 @@ QwtScaleMap QwtPlotRasterItem::imageMap(
         s2 = area.bottom();
     }
 
-    if ( pixelSize > 0.0 )
+    if ( pixelSize > 0.0 || p2 == 1.0 )
     {
         double off = 0.5 * pixelSize;
         if ( map.isInverting() )
