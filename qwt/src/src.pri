@@ -213,8 +213,12 @@ contains(QWT_CONFIG, QwtPlot) {
             qwt_plot_glcanvas.cpp
 
         greaterThan(QT_MAJOR_VERSION, 4) {
-            HEADERS += qwt_plot_opengl_canvas.h
-            SOURCES += qwt_plot_opengl_canvas.cpp
+
+            greaterThan(QT_MINOR_VERSION, 3) {
+
+                HEADERS += qwt_plot_opengl_canvas.h
+                SOURCES += qwt_plot_opengl_canvas.cpp
+            }
         }
 
     }
