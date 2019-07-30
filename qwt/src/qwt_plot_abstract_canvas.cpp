@@ -174,6 +174,19 @@ static void qwtUpdateContentsRect( int fw, QWidget *canvas )
     canvas->setContentsMargins( fw, fw, fw, fw );
 }
 
+static void qwtFillRegion( QPainter *painter, const QRegion& region )
+{
+#if QT_VERSION >= 0x050800
+    for ( QRegion::const_iterator it = region.cbegin();
+        it != region.cend(); ++it )
+    {
+        painter->drawRect( *it );
+    }
+#else
+    painter->drawRects( region.rects() );
+#endif
+}
+
 static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
 {
     painter->save();
@@ -198,20 +211,12 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
     }
     else if ( brush.gradient() )
     {
-        QVector<QRect> rects;
+        const bool fillClipRegion =
+            brush.gradient()->coordinateMode() != QGradient::ObjectBoundingMode;
 
-        if ( brush.gradient()->coordinateMode() == QGradient::ObjectBoundingMode )
-        {
-            rects += canvas->rect();
-        }
-        else
-        {
-            rects = painter->clipRegion().rects();
-        }
-
-#if 1
         bool useRaster = false;
 
+#if QT_VERSION < 0x050000
         if ( painter->paintEngine()->type() == QPaintEngine::X11 )
         {
             // Qt 4.7.1: gradients on X11 are broken ( subrects +
@@ -247,7 +252,10 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
             p.setPen( Qt::NoPen );
             p.setBrush( brush );
 
-            p.drawRects( rects );
+            if ( fillClipRegion )
+                qwtFillRegion( &p, painter->clipRegion() );
+            else
+                p.drawRect( canvas->rect() );
 
             p.end();
 
@@ -258,16 +266,17 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
             painter->setPen( Qt::NoPen );
             painter->setBrush( brush );
 
-            painter->drawRects( rects );
+            if ( fillClipRegion )
+                qwtFillRegion( painter, painter->clipRegion() );
+            else
+                painter->drawRect( canvas->rect() );
         }
     }
     else
     {
         painter->setPen( Qt::NoPen );
         painter->setBrush( brush );
-
-        painter->drawRects( painter->clipRegion().rects() );
-
+        qwtFillRegion( painter, painter->clipRegion() );
     }
 
     painter->restore();
