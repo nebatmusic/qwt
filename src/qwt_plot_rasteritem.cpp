@@ -158,7 +158,9 @@ static QImage qwtExpandImage(const QImage &image,
     }
     py0 += strippedRect.top() - paintRect.top();
 
-    QImage expanded(sz, image.format());
+    QImage expanded( sz, image.format() );
+    if ( image.format() == QImage::Format_Indexed8 )
+        expanded.setColorTable( image.colorTable() );
 
     switch( image.depth() )
     {
