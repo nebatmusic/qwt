@@ -201,9 +201,9 @@ static void qwtDrawBackground( QPainter *painter, QwtPlotCanvas *canvas )
             rects = painter->clipRegion().rects();
         }
 
-#if 1
         bool useRaster = false;
 
+#if QT_VERSION < 0x050000
         if ( painter->paintEngine()->type() == QPaintEngine::X11 )
         {
             // Qt 4.7.1: gradients on X11 are broken ( subrects +
