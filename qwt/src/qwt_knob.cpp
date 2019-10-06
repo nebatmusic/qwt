@@ -9,7 +9,6 @@
 
 #include "qwt_knob.h"
 #include "qwt_round_scale_draw.h"
-#include "qwt_math.h"
 #include "qwt_painter.h"
 #include "qwt_scale_map.h"
 #include "qwt_math.h"
