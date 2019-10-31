@@ -19,6 +19,7 @@
 #include <qpainter.h>
 #include <qpainterpath.h>
 #include <qdebug.h>
+#include <cstdlib>
 
 #define DEBUG_RENDER 0
 
