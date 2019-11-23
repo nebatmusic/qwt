@@ -101,14 +101,15 @@ static QString qwtExpandedFormat( const QString & format,
         if ( doReplaceYear )
         {
             const QDate dt( dateTime.date().year() + 1, 1, 1 );
+            const QString dtString = QLocale().toString( dt, s_yyyy );
 
             if ( fmt.contains( s_yyyy ) )
             {
-                fmt.replace( s_yyyy, dt.toString( s_yyyy ) );
+                fmt.replace( s_yyyy, dtString );
             }
             else
             {
-                fmt.replace( s_yy, dt.toString( s_yyyy ) );
+                fmt.replace( s_yy, dtString );
             }
         }
     }
@@ -766,5 +767,5 @@ QString QwtDate::toString( const QDateTime &dateTime,
         fmt = qwtExpandedFormat( fmt, dateTime, week0Type );
     }
 
-    return dateTime.toString( fmt );
+    return QLocale().toString( dateTime, fmt );
 }
