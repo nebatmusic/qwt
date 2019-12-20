@@ -18,6 +18,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qevent.h>
+#include <qmargins.h>
 #include <qapplication.h>
 #include <qmath.h>
 
@@ -31,10 +32,8 @@ static QSize qwtKnobSizeHint( const QwtKnob *knob, int min )
     const int extent = qwtCeil( knob->scaleDraw()->extent( knob->font() ) );
     const int d = 2 * ( extent + 4 ) + knobWidth;
 
-    int left, right, top, bottom;
-    knob->getContentsMargins( &left, &top, &right, &bottom );
-
-    return QSize( d + left + right, d + top + bottom );
+    const QMargins m = knob->contentsMargins();
+    return QSize( d + m.left() + m.right(), d + m.top() + m.bottom() );
 }
 
 static inline double qwtToScaleAngle( double angle )

@@ -15,6 +15,7 @@
 #include <qstandarditemmodel.h>
 #include <qitemdelegate.h>
 #include <qpainter.h>
+#include <qmargins.h>
 
 static void qwtRenderBackground( QPainter *painter,
     const QRectF &rect, const QWidget *widget )
@@ -191,11 +192,10 @@ QSize LegendTreeView::sizeHint() const
         h += rootHint.height();
     }
 
-    int left, right, top, bottom;
-    getContentsMargins( &left, &top, &right, &bottom );
+    const QMargins m = contentsMargins();
 
-    w += left + right;
-    h += top + bottom;
+    w += m.left() + m.right();
+    h += m.top() + m.bottom();
 
     return QSize( w, h );
 }

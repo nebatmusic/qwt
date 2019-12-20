@@ -26,6 +26,7 @@
 #include <qfileinfo.h>
 #include <qimagewriter.h>
 #include <qvariant.h>
+#include <qmargins.h>
 
 #ifndef QWT_NO_SVG
 #ifdef QT_SVG_LIB
@@ -501,9 +502,8 @@ void QwtPlotRenderer::render( QwtPlot *plot,
     {
         // subtract the contents margins
 
-        int left, top, right, bottom;
-        plot->getContentsMargins( &left, &top, &right, &bottom );
-        layoutRect.adjust( left, top, -right, -bottom );
+        const QMargins m = plot->contentsMargins();
+        layoutRect.adjust( m.left(), m.top(), -m.right(), -m.bottom() );
     }
 
     QwtPlotLayout *layout = plot->plotLayout();
