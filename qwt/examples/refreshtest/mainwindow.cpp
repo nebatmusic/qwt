@@ -11,7 +11,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qcoreevent.h>
-#include <qdatetime.h>
+#include <qelapsedtimer.h>
 
 MainWindow::MainWindow( QWidget *parent ):
     QMainWindow( parent )
@@ -42,7 +42,7 @@ bool MainWindow::eventFilter( QObject *object, QEvent *event )
     if ( object == d_plot->canvas() && event->type() == QEvent::Paint )
     {
         static int counter;
-        static QTime timeStamp;
+        static QElapsedTimer timeStamp;
 
         if ( !timeStamp.isValid() )
         {

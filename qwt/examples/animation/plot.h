@@ -11,7 +11,7 @@
 #define PLOT_H
 
 #include <qwt_plot.h>
-#include <qdatetime.h>
+#include <qelapsedtimer.h>
 
 class Curve;
 
@@ -29,7 +29,7 @@ private:
     enum { CurveCount = 4 };
     Curve *d_curves[CurveCount];
 
-    QTime d_time;
+    QElapsedTimer d_timer;
 };
 
 #endif
