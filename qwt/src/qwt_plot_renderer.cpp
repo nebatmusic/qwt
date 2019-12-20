@@ -308,7 +308,7 @@ void QwtPlotRenderer::renderDocument( QwtPlot *plot,
 
 #if QWT_PDF_WRITER
         QPdfWriter pdfWriter( fileName );
-        pdfWriter.setPageSizeMM( sizeMM );
+        pdfWriter.setPageSize( QPageSize( sizeMM, QPageSize::Millimeter ) );
         pdfWriter.setTitle( title );
         pdfWriter.setPageMargins( QMarginsF() );
         pdfWriter.setResolution( resolution );
