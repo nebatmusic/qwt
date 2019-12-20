@@ -225,12 +225,11 @@ void MainWindow::showInfo( QString text )
 
 void MainWindow::moved( const QPoint &pos )
 {
-    QString info;
-    info.sprintf( "Freq=%g, Ampl=%g, Phase=%g",
-        d_plot->invTransform( QwtPlot::xBottom, pos.x() ),
-        d_plot->invTransform( QwtPlot::yLeft, pos.y() ),
-        d_plot->invTransform( QwtPlot::yRight, pos.y() )
-    );
+    QString info( "Freq=%1, Ampl=%2, Phase=%3" );
+    info = info.arg( d_plot->invTransform( QwtPlot::xBottom, pos.x() ) );
+    info = info.arg( d_plot->invTransform( QwtPlot::yLeft, pos.y() ) );
+    info = info.arg( d_plot->invTransform( QwtPlot::yRight, pos.y() ) );
+
     showInfo( info );
 }
 

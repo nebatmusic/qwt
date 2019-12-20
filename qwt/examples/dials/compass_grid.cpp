@@ -140,12 +140,8 @@ QwtCompass *CompassGrid::createCompass( int pos )
             compass->setLineWidth( 0 );
 
             QMap<double, QString> map;
-            for ( double d = 0.0; d < 360.0; d += 60.0 )
-            {
-                QString label;
-                label.sprintf( "%.0f", d );
-                map.insert( d, label );
-            }
+            for ( int d = 0; d < 360; d += 60 )
+                map.insert( d, QString::number( d ) );
 
             QwtCompassScaleDraw *scaleDraw =
                 new QwtCompassScaleDraw( map );

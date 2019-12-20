@@ -117,9 +117,10 @@ void Plot::showData( const double *frequency, const double *amplitude,
 
 void Plot::showPeak( double freq, double amplitude )
 {
-    QString label;
-    label.sprintf( "Peak: %.3g dB", amplitude );
-
+    QString label( "Peak: " );
+    label += QString::number( amplitude, 'g', 3 );
+    label += " dB";
+        
     QwtText text( label );
     text.setFont( QFont( "Helvetica", 10, QFont::Bold ) );
     text.setColor( QColor( 200, 150, 0 ) );
@@ -130,8 +131,8 @@ void Plot::showPeak( double freq, double amplitude )
 
 void Plot::show3dB( double freq )
 {
-    QString label;
-    label.sprintf( "-3 dB at f = %.3g", freq );
+    QString label( "-3 dB at f = " );
+    label += QString::number( freq, 'g', 3 );
 
     QwtText text( label );
     text.setFont( QFont( "Helvetica", 10, QFont::Bold ) );
