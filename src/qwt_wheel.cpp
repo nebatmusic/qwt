@@ -17,7 +17,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qapplication.h>
-#include <qdatetime.h>
+#include <qelapsedtimer.h>
 #include <qmath.h>
 
 class QwtWheel::PrivateData
@@ -71,7 +71,7 @@ public:
 
     // for the flying wheel effect
     int timerId;
-    QTime time;
+    QElapsedTimer timer;
     double speed;
     double mouseValue;
     double flyingValue;
@@ -169,7 +169,7 @@ void QwtWheel::mousePressEvent( QMouseEvent *event )
 
     if ( d_data->isScrolling )
     {
-        d_data->time.start();
+        d_data->timer.start();
         d_data->speed = 0.0;
         d_data->mouseValue = valueAt( event->pos() );
         d_data->mouseOffset = d_data->mouseValue - d_data->value;
@@ -195,7 +195,7 @@ void QwtWheel::mouseMoveEvent( QMouseEvent *event )
 
     if ( d_data->mass > 0.0 )
     {
-        double ms = d_data->time.restart();
+        double ms = d_data->timer.restart();
 
         // the interval when mouse move events are posted are somehow
         // random. To avoid unrealistic speed values we limit ms
@@ -248,7 +248,7 @@ void QwtWheel::mouseReleaseEvent( QMouseEvent *event )
 
     if ( d_data->mass > 0.0 )
     {
-        const int ms = d_data->time.elapsed();
+        const qint64 ms = d_data->timer.elapsed();
         if ( ( std::fabs( d_data->speed ) > 0.0 ) && ( ms < 50 ) )
             startFlying = true;
     }
