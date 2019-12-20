@@ -3,11 +3,7 @@
 #include <qwt_spline_cubic.h>
 #include <qwt_spline_parametrization.h>
 
-#if QT_VERSION < 0x040700
-#include <qdatetime.h>
-#else
 #include <qelapsedtimer.h>
-#endif
 
 #include <qpolygon.h>
 #include <qline.h>
@@ -18,13 +14,11 @@ static void testSpline( const char *name, QwtSplineInterpolating *spline,
 {
 	spline->setParametrization( type );
 
-#if QT_VERSION < 0x040700
-  QTime timer;
-#else
 	QElapsedTimer timer;
-#endif
 	timer.start();
+
 	const QVector<QLineF> lines = spline->bezierControlLines( points );
+
 	qDebug() << name << ":" << timer.elapsed();
 }
 

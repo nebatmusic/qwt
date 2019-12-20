@@ -11,12 +11,7 @@
 
 static inline bool fuzzyCompare( double a, double b )
 {
-#if QT_VERSION < 0x040600
-    const int eps = 0.000000000001;
-    return ( ( qAbs(a) <= eps ) && ( qAbs(b) <= eps ) ) || qFuzzyCompare(a, b);
-#else
     return ( qFuzzyIsNull(a) && qFuzzyIsNull(b) ) || qFuzzyCompare(a, b);
-#endif
 }
 
 static QwtSplinePolynomial polynomialAt( int index,

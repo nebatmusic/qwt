@@ -20,6 +20,7 @@
 #include <qstyleoption.h>
 
 #include <algorithm>
+#include <functional>
 
 static inline void qwtDrawLine( QPainter *painter, int pos,
     const QColor &color, const QRect &pipeRect, const QRect &liquidRect,

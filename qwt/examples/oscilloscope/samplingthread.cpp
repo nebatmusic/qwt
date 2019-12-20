@@ -9,10 +9,6 @@
 #include <qwt_math.h>
 #include <qmath.h>
 
-#if QT_VERSION < 0x040600
-#define qFastSin(x) ::sin(x)
-#endif
-
 SamplingThread::SamplingThread( QObject *parent ):
     QwtSamplingThread( parent ),
     d_frequency( 5.0 ),

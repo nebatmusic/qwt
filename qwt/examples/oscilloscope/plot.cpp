@@ -65,16 +65,12 @@ private:
     {
         QPalette pal = palette();
 
-#if QT_VERSION >= 0x040400
         QLinearGradient gradient;
         gradient.setCoordinateMode( QGradient::StretchToDeviceMode );
         gradient.setColorAt( 0.0, QColor( 0, 49, 110 ) );
         gradient.setColorAt( 1.0, QColor( 0, 87, 174 ) );
 
         pal.setBrush( QPalette::Window, QBrush( gradient ) );
-#else
-        pal.setBrush( QPalette::Window, QBrush( color ) );
-#endif
 
         // QPalette::WindowText is used for the curve color
         pal.setColor( QPalette::WindowText, Qt::green );

@@ -388,9 +388,7 @@ QList<QRect> QwtDynGridLayout::layoutItems( const QRect &rect,
         colX[c] = colX[c-1] + colWidth[c-1] + xySpace;
 
     const int itemCount = d_data->itemList.size();
-#if QT_VERSION >= 0x040700
     itemGeometries.reserve( itemCount );
-#endif
 
     for ( int i = 0; i < itemCount; i++ )
     {

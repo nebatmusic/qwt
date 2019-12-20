@@ -21,11 +21,6 @@
 #include <qapplication.h>
 #include <qmath.h>
 
-#if QT_VERSION < 0x040601
-#define qFastCos(x) qCos(x)
-#define qFastSin(x) qSin(x)
-#endif
-
 static QSize qwtKnobSizeHint( const QwtKnob *knob, int min )
 {
     int knobWidth = knob->knobWidth();

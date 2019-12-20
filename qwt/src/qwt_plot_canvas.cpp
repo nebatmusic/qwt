@@ -332,13 +332,11 @@ void QwtPlotCanvas::paintEvent( QPaintEvent *event )
 */
 void QwtPlotCanvas::drawBorder( QPainter *painter )
 {
-#if QT_VERSION >= 0x040500
     if ( borderRadius() <= 0 )
     {
         drawFrame( painter );
         return;
     }
-#endif
 
     QwtPlotAbstractCanvas::drawBorder( painter );
 }
@@ -422,14 +420,10 @@ QImage QwtPlotCanvas::toImageFBO( const QSize &size )
 
     d_data->surfaceGL->makeCurrent();
 
-#if QT_VERSION >= 0x040600
     QGLFramebufferObjectFormat fboFormat;
     fboFormat.setSamples(numSamples);
 
     QGLFramebufferObject fbo( size, fboFormat );
-#else
-    QGLFramebufferObject fbo( size );
-#endif
     QGLFramebufferObject &pd = fbo;
 
 #endif

@@ -143,10 +143,6 @@ void QwtPlotGLCanvas::paintGL()
 
     QPainter painter;
 
-#if QT_VERSION < 0x040600
-    painter.begin( this );
-    draw( &painter );
-#else
     if ( testPaintAttribute( QwtPlotGLCanvas::BackingStore ) )
     {
         const qreal pixelRatio = QwtPainter::devicePixelRatio( NULL );
@@ -199,7 +195,6 @@ void QwtPlotGLCanvas::paintGL()
         painter.begin( this );
         draw( &painter );
     }
-#endif
 
     if ( hasFocusIndicator )
         drawFocusIndicator( &painter );

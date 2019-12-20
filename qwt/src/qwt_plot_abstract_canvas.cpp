@@ -695,7 +695,6 @@ void QwtPlotAbstractCanvas::drawBorder( QPainter *painter )
     }
     else
     {
-#if QT_VERSION >= 0x040500
         const int frameShape = w->property( "frameShape" ).toInt();
         const int frameShadow = w->property( "frameShadow" ).toInt();
 
@@ -733,9 +732,6 @@ void QwtPlotAbstractCanvas::drawBorder( QPainter *painter )
             opt.state |= QStyle::State_Raised;
 
         w->style()->drawControl(QStyle::CE_ShapedFrame, &opt, painter, w );
-#else
-        // TODO: do we really need Qt 4.4 ?
-#endif
     }
 }
 
