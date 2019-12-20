@@ -22,6 +22,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qapplication.h>
+#include <qmargins.h>
 
 class QwtScaleWidget::PrivateData
 {
@@ -755,9 +756,8 @@ QSize QwtScaleWidget::minimumSizeHint() const
     if ( o == Qt::Vertical )
         size.transpose();
 
-    int left, right, top, bottom;
-    getContentsMargins( &left, &top, &right, &bottom );
-    return size + QSize( left + right, top + bottom );
+    const QMargins m = contentsMargins();
+    return size + QSize( m.left() + m.right(), m.top() + m.bottom() );
 }
 
 /*!

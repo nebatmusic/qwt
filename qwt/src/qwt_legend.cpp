@@ -18,6 +18,7 @@
 #include <qscrollbar.h>
 #include <qscrollarea.h>
 #include <qpainter.h>
+#include <qmargins.h>
 
 namespace
 {
@@ -680,14 +681,13 @@ void QwtLegend::renderLegend( QPainter *painter,
     if ( legendLayout == NULL )
         return;
 
-    int left, right, top, bottom;
-    getContentsMargins( &left, &top, &right, &bottom );
+    const QMargins m = contentsMargins();
 
     QRect layoutRect;
-    layoutRect.setLeft( qwtCeil( rect.left() ) + left );
-    layoutRect.setTop( qwtCeil( rect.top() ) + top );
-    layoutRect.setRight( qwtFloor( rect.right() ) - right );
-    layoutRect.setBottom( qwtFloor( rect.bottom() ) - bottom );
+    layoutRect.setLeft( qwtCeil( rect.left() ) + m.left() );
+    layoutRect.setTop( qwtCeil( rect.top() ) + m.top() );
+    layoutRect.setRight( qwtFloor( rect.right() ) - m.right() );
+    layoutRect.setBottom( qwtFloor( rect.bottom() ) - m.bottom() );
 
     uint numCols = legendLayout->columnsForWidth( layoutRect.width() );
     const QList<QRect> itemRects =

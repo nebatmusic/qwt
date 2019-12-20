@@ -19,6 +19,7 @@
 #include <qstyle.h>
 #include <qstyleoption.h>
 #include <qapplication.h>
+#include <qmargins.h>
 
 static QSize qwtHandleSize( const QSize &size,
     Qt::Orientation orientation, bool hasTrough )
@@ -974,11 +975,10 @@ QSize QwtSlider::minimumSizeHint() const
     }
 
     // finally add margins
-    int left, right, top, bottom;
-    getContentsMargins( &left, &top, &right, &bottom );
+    const QMargins m = contentsMargins();
 
-    w += left + right;
-    h += top + bottom;
+    w += m.left() + m.right();
+    h += m.top() + m.bottom();
 
     d_data->sizeHintCache = QSize( w, h );
     return d_data->sizeHintCache;
