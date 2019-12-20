@@ -218,7 +218,7 @@ Plot::Plot( QWidget *parent ):
     for ( int i = 0; i < CurveCount; i++ )
         d_curves[i]->attach( this );
 
-    d_time.start();
+    d_timer.start();
     ( void )startTimer( 40 );
 }
 
@@ -232,7 +232,7 @@ void Plot::updateCurves()
 {
     const double speed = 2 * M_PI / 25000.0; // a cycle every 25 seconds
 
-    const double phase = d_time.elapsed() * speed;
+    const double phase = d_timer.elapsed() * speed;
     for ( int i = 0; i < CurveCount; i++ )
         d_curves[i]->updateSamples( phase );
 }
