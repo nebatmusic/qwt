@@ -1121,21 +1121,13 @@ void QwtPlot::attachItem( QwtPlotItem *plotItem, bool on )
   into a QVariant object. When overloading itemToInfo()
   usually infoToItem() needs to reimplemeted too.
 
-\code
-    QVariant itemInfo;
-    qVariantSetValue( itemInfo, plotItem );
-\endcode
-
   \param plotItem Plot item
   \return Plot item embedded in a QVariant
   \sa infoToItem()
  */
 QVariant QwtPlot::itemToInfo( QwtPlotItem *plotItem ) const
 {
-    QVariant itemInfo;
-    qVariantSetValue( itemInfo, plotItem );
-
-    return itemInfo;
+    return QVariant::fromValue( plotItem );
 }
 
 /*!
