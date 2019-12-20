@@ -955,7 +955,6 @@ void QwtPlotCanvas::drawBorder( QPainter *painter )
     }
     else
     {
-#if QT_VERSION >= 0x040500
 #if QT_VERSION < 0x050000
         QStyleOptionFrameV3 opt;
 #else
@@ -996,9 +995,6 @@ void QwtPlotCanvas::drawBorder( QPainter *painter )
             opt.state |= QStyle::State_Raised;
 
         style()->drawControl(QStyle::CE_ShapedFrame, &opt, painter, this);
-#else
-        drawFrame( painter );
-#endif
     }
 }
 

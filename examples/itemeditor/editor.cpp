@@ -226,19 +226,7 @@ bool Editor::moved( const QPoint& pos )
     const QPointF p1 = QwtScaleMap::invTransform( xMap, yMap, d_currentPos );
     const QPointF p2 = QwtScaleMap::invTransform( xMap, yMap, pos );
 
-#if QT_VERSION >= 0x040600
     const QPainterPath shape = d_editedItem->shape().translated( p2 - p1 );
-#else
-    const double dx = p2.x() - p1.x();
-    const double dy = p2.y() - p1.y();
-
-    QPainterPath shape = d_editedItem->shape();
-    for ( int i = 0; i < shape.elementCount(); i++ )
-    {
-        const QPainterPath::Element &el = shape.elementAt( i );
-        shape.setElementPositionAt( i, el.x + dx, el.y + dy );
-    }
-#endif
 
     d_editedItem->setShape( shape );
     d_currentPos = pos;

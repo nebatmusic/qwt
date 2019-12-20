@@ -687,9 +687,7 @@ void QwtPlotMultiBarChart::drawBar( QPainter *painter,
 QList<QwtLegendData> QwtPlotMultiBarChart::legendData() const
 {
     QList<QwtLegendData> list;
-#if QT_VERSION >= 0x040700
     list.reserve( d_data->barTitles.size() );
-#endif
 
     for ( int i = 0; i < d_data->barTitles.size(); i++ )
     {

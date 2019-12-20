@@ -20,10 +20,6 @@
 #include <qdatetime.h>
 #include <qmath.h>
 
-#if QT_VERSION < 0x040601
-#define qFastSin(x) std::sin(x)
-#endif
-
 class QwtWheel::PrivateData
 {
 public:

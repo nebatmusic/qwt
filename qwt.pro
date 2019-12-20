@@ -7,6 +7,13 @@
 # modify it under the terms of the Qwt License, Version 1.0
 ################################################################
 
+lessThan(QT_MAJOR_VERSION, 5) {
+
+    lessThan(QT_MINOR_VERSION, 7) {
+        error(Qt >= 4.7 required.)
+    }
+}
+
 include( qwtconfig.pri )
 
 TEMPLATE = subdirs

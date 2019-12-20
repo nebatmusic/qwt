@@ -413,9 +413,7 @@ void QwtLegend::updateLegend( const QVariant &itemInfo,
             w->deleteLater();
         }
 
-#if QT_VERSION >= 0x040700
         widgetList.reserve( legendData.size() );
-#endif
 
         for ( int i = widgetList.size(); i < legendData.size(); i++ )
         {

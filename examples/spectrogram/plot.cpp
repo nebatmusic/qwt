@@ -18,12 +18,7 @@
 #include <qprinter.h>
 #include <qpen.h>
 #include <qprintdialog.h>
-
-#if QT_VERSION < 0x040700
-#include <qdatetime.h>
-#else
 #include <qelapsedtimer.h>
-#endif
 
 class MyZoomer: public QwtPlotZoomer
 {
@@ -182,11 +177,7 @@ protected:
         const QwtScaleMap &xMap, const QwtScaleMap &yMap,
         const QRectF &area, const QSize &imageSize ) const QWT_OVERRIDE
     {
-#if QT_VERSION < 0x040700
-        QTime t;
-#else
         QElapsedTimer t;
-#endif
         t.start();
 
         QImage image = QwtPlotSpectrogram::renderImage(
