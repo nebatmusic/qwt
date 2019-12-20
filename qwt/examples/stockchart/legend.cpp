@@ -15,6 +15,7 @@
 #include <qstandarditemmodel.h>
 #include <qitemdelegate.h>
 #include <qpainter.h>
+#include <qmargins.h>
 
 static void qwtRenderBackground( QPainter *painter,
     const QRectF &rect, const QWidget *widget )
