@@ -110,7 +110,7 @@ Plot::Plot( QWidget *parent ):
     canvas->setBorderRadius( 15 );
 
     QPalette canvasPalette( Qt::white );
-    canvasPalette.setColor( QPalette::Foreground, QColor( 133, 190, 232 ) );
+    canvasPalette.setColor( QPalette::WindowText, QColor( 133, 190, 232 ) );
     canvas->setPalette( canvasPalette );
 
     setCanvas( canvas );

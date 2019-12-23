@@ -56,7 +56,7 @@ LegendTreeView::LegendTreeView( Legend *legend ):
     QTreeView( legend )
 {
     setFrameStyle( NoFrame );
-    viewport()->setBackgroundRole(QPalette::Background);
+    viewport()->setBackgroundRole( QPalette::Window );
     viewport()->setAutoFillBackground( false );
 
     setRootIsDecorated( true );

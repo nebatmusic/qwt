@@ -141,7 +141,7 @@ BarChart::BarChart( QWidget *parent ):
     canvas->setBorderRadius( 10 );
 
     QPalette canvasPalette( QColor( "Plum" ) );
-    canvasPalette.setColor( QPalette::Foreground, QColor( "Indigo" ) );
+    canvasPalette.setColor( QPalette::WindowText, QColor( "Indigo" ) );
     canvas->setPalette( canvasPalette );
 
     setCanvas( canvas );
