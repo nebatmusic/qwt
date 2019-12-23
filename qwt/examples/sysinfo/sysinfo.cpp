@@ -50,7 +50,7 @@ public:
 #endif
 
         QVBoxLayout *layout = new QVBoxLayout( this );
-        layout->setMargin( 0 );
+        layout->setContentsMargins( QMargins() );
         layout->setSpacing( 0 );
 
         if ( orientation == Qt::Horizontal )
@@ -85,11 +85,13 @@ public:
     SysInfo( QWidget *parent = NULL ):
         QFrame( parent )
     {
+        const int margin = 15;
+
         QGroupBox *memBox = new QGroupBox( "Memory Usage", this );
         memBox->setFont( QFont( "Helvetica", 10 ) );
 
         QVBoxLayout *memLayout = new QVBoxLayout( memBox );
-        memLayout->setMargin( 15 );
+        memLayout->setContentsMargins( margin, margin, margin, margin );
         memLayout->setSpacing( 5 );
 
         Qt::Orientation o = Qt::Horizontal;
@@ -104,7 +106,7 @@ public:
         cpuBox->setFont( QFont( "Helvetica", 10 ) );
 
         QHBoxLayout *cpuLayout = new QHBoxLayout( cpuBox );
-        cpuLayout->setMargin( 15 );
+        cpuLayout->setContentsMargins( margin, margin, margin, margin );
         cpuLayout->setSpacing( 5 );
 
         o = Qt::Vertical;
@@ -114,7 +116,7 @@ public:
         cpuLayout->addWidget( new ValueBar( o, "Idle", cpuBox, 27 ) );
 
         QHBoxLayout *layout = new QHBoxLayout( this );
-        layout->setMargin( 10 );
+        layout->setContentsMargins( 10, 10, 10, 10 );
         layout->addWidget( memBox, 10 );
         layout->addWidget( cpuBox, 0 );
     }

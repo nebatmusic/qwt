@@ -25,7 +25,7 @@ MainWindow::MainWindow()
     d_plot = createPlot( w );
 
     QHBoxLayout *layout = new QHBoxLayout( w );
-    layout->setMargin( 0 );
+    layout->setContentsMargins( QMargins() );
     layout->addWidget( panel, 0 );
     layout->addWidget( d_plot, 10 );
 

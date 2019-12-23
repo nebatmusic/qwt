@@ -33,7 +33,7 @@ public:
         label->setAlignment( Qt::AlignCenter );
 
         QVBoxLayout *layout = new QVBoxLayout( this );
-        layout->setMargin( 0 );
+        layout->setContentsMargins( QMargins() );
         layout->addWidget( d_thermo );
         layout->addWidget( label );
 
@@ -83,12 +83,12 @@ TunerFrame::TunerFrame( QWidget *parent ):
     connect( d_sliderFrequency, SIGNAL( valueChanged( double ) ), SLOT( adjustFreq( double ) ) );
 
     QVBoxLayout *mainLayout = new QVBoxLayout( this );
-    mainLayout->setMargin( 10 );
+    mainLayout->setContentsMargins( 10, 10, 10, 10 );
     mainLayout->setSpacing( 5 );
     mainLayout->addWidget( d_sliderFrequency );
 
     QHBoxLayout *hLayout = new QHBoxLayout;
-    hLayout->setMargin( 0 );
+    hLayout->setContentsMargins( QMargins() );
     hLayout->addWidget( d_thermoTune, 0 );
     hLayout->addStretch( 5 );
     hLayout->addWidget( d_wheelFrequency, 2 );

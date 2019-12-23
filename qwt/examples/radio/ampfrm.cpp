@@ -111,7 +111,7 @@ public:
         label->setAlignment( Qt::AlignTop | Qt::AlignLeft );
 
         QVBoxLayout *layout = new QVBoxLayout( this );
-        layout->setMargin( 0 );
+        layout->setContentsMargins( QMargins() );
         layout->setSpacing( 0 );
         layout->addWidget( d_thermo, 10 );
         layout->addWidget( label );
@@ -139,7 +139,7 @@ AmpFrame::AmpFrame( QWidget *p ):
 
     QHBoxLayout *layout = new QHBoxLayout( this );
     layout->setSpacing( 0 );
-    layout->setMargin( 10 );
+    layout->setContentsMargins( 10, 10, 10, 10 );
     layout->addWidget( d_knbVolume );
     layout->addWidget( d_knbBalance);
     layout->addWidget( d_knbTreble);
