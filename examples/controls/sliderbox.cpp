@@ -12,6 +12,7 @@
 #include <qwt_slider.h>
 #include <qwt_scale_engine.h>
 #include <qwt_transform.h>
+#include <qwt_painter.h>
 
 #include <qlabel.h>
 #include <qlayout.h>
@@ -44,7 +45,10 @@ SliderBox::SliderBox( int sliderType, QWidget *parent ):
 
     d_label = new QLabel( this );
     d_label->setAlignment( alignment );
-    d_label->setFixedWidth( d_label->fontMetrics().width( "10000.9" ) );
+
+    const int labelWidth = QwtPainter::horizontalAdvance(
+        d_label->fontMetrics(), "10000.9" );
+    d_label->setFixedWidth( labelWidth );
 
     connect( d_slider, SIGNAL( valueChanged( double ) ), SLOT( setNum( double ) ) );
 
