@@ -183,8 +183,10 @@ static inline void qwtExecCommand(
                 painter->setRenderHint( QPainter::SmoothPixmapTransform,
                     hints.testFlag( QPainter::SmoothPixmapTransform ) );
 
+#if QT_VERSION < 0x050100
                 painter->setRenderHint( QPainter::HighQualityAntialiasing,
                     hints.testFlag( QPainter::HighQualityAntialiasing ) );
+#endif
 
 #if QT_VERSION < 0x050000
                 painter->setRenderHint( QPainter::NonCosmeticDefaultPen,
