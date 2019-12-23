@@ -73,7 +73,7 @@ void QwtCounter::initCounter()
 
     QHBoxLayout *layout = new QHBoxLayout( this );
     layout->setSpacing( 0 );
-    layout->setMargin( 0 );
+    layout->setContentsMargins( QMargins() );
 
     for ( int i = ButtonCnt - 1; i >= 0; i-- )
     {
