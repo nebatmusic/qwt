@@ -338,7 +338,7 @@ int QwtTextLabel::defaultIndent() const
     else
         fnt = font();
 
-    return QFontMetrics( fnt ).width( 'x' ) / 2;
+    return QwtPainter::horizontalAdvance( QFontMetrics( fnt ), 'x' ) / 2;
 }
 
 #if QWT_MOC_INCLUDE

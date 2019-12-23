@@ -1365,6 +1365,75 @@ void QwtPainter::drawBackgound( QPainter *painter,
 }
 
 /*!
+  Distance appropriate for drawing a subsequent character after text.
+
+  \return horizontal advance in pixels
+  \param fontMetrics Font metrics
+  \param text Text
+ */
+int QwtPainter::horizontalAdvance(
+    const QFontMetrics& fontMetrics, const QString& text )
+{
+#if QT_VERSION >= 0x050b00
+    return fontMetrics.horizontalAdvance( text );
+#else
+    return fontMetrics.width( text );
+#endif
+
+}
+
+/*!
+  Distance appropriate for drawing a subsequent character after text.
+
+  \return horizontal advance in pixels
+  \param fontMetrics Font metrics
+  \param text Text
+ */
+qreal QwtPainter::horizontalAdvance(
+    const QFontMetricsF& fontMetrics, const QString& text )
+{
+#if QT_VERSION >= 0x050b00
+    return fontMetrics.horizontalAdvance( text );
+#else
+    return fontMetrics.width( text );
+#endif
+}
+
+/*!
+  Distance appropriate for drawing a subsequent character after ch.
+
+  \return horizontal advance in pixels
+  \param fontMetrics Font metrics
+  \param ch Character
+ */
+int QwtPainter::horizontalAdvance(
+    const QFontMetrics& fontMetrics, QChar ch )
+{
+#if QT_VERSION >= 0x050b00
+    return fontMetrics.horizontalAdvance( ch );
+#else
+    return fontMetrics.width( ch );
+#endif
+}
+
+/*!
+  Distance appropriate for drawing a subsequent character after ch.
+
+  \return horizontal advance in pixels
+  \param fontMetrics Font metrics
+  \param ch Character
+ */
+qreal QwtPainter::horizontalAdvance(
+    const QFontMetricsF& fontMetrics, QChar ch )
+{
+#if QT_VERSION >= 0x050b00
+    return fontMetrics.horizontalAdvance( ch );
+#else
+    return fontMetrics.width( ch );
+#endif
+}
+
+/*!
   \return Pixel ratio for a paint device
   \param paintDevice Paint device
  */

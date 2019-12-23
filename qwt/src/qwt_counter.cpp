@@ -9,6 +9,7 @@
 
 #include "qwt_arrow_button.h"
 #include "qwt_counter.h"
+#include "qwt_painter.h"
 #include "qwt_math.h"
 
 #include <qlayout.h>
@@ -485,7 +486,9 @@ bool QwtCounter::event( QEvent *event )
 {
     if ( event->type() == QEvent::PolishRequest )
     {
-        const int w = d_data->valueEdit->fontMetrics().width( "W" ) + 8;
+        const QFontMetrics fm = d_data->valueEdit->fontMetrics();
+
+        const int w = QwtPainter::horizontalAdvance( fm, "W" ) + 8;
         for ( int i = 0; i < ButtonCnt; i++ )
         {
             d_data->buttonDown[i]->setMinimumWidth( w );
@@ -767,8 +770,8 @@ QSize QwtCounter::sizeHint() const
 
     tmp.fill( '9', w );
 
-    QFontMetrics fm( d_data->valueEdit->font() );
-    w = fm.width( tmp ) + 2;
+    w = QwtPainter::horizontalAdvance( d_data->valueEdit->fontMetrics(), tmp ) + 2;
+
     if ( d_data->valueEdit->hasFrame() )
         w += 2 * style()->pixelMetric( QStyle::PM_DefaultFrameWidth );
 
@@ -779,6 +782,7 @@ QSize QwtCounter::sizeHint() const
 
     const int h = qMin( QWidget::sizeHint().height(),
         d_data->valueEdit->minimumSizeHint().height() );
+
     return QSize( w, h );
 }
 
