@@ -337,17 +337,25 @@ void QwtWheel::wheelEvent( QWheelEvent *event )
 
     double increment = 0.0;
 
+#if QT_VERSION < 0x050000
+    const int wheelDelta = event->delta();
+#else
+    const QPoint delta = event->angleDelta();
+    const int wheelDelta = ( qAbs( delta.x() ) > qAbs( delta.y() ) )
+        ? delta.x() : delta.y();
+#endif
+
     if ( ( event->modifiers() & Qt::ControlModifier) ||
         ( event->modifiers() & Qt::ShiftModifier ) )
     {
         // one page regardless of delta
         increment = d_data->singleStep * d_data->pageStepCount;
-        if ( event->delta() < 0 )
+        if ( wheelDelta < 0 )
             increment = -increment;
     }
     else
     {
-        const int numSteps = event->delta() / 120;
+        const int numSteps = wheelDelta / 120;
         increment = d_data->singleStep * numSteps;
     }
 
