@@ -41,7 +41,7 @@ QBoxLayout *SliderTab::createLayout(
         layout->setDirection( QBoxLayout::TopToBottom );
 
     layout->setSpacing( 20 );
-    layout->setMargin( 0 );
+    layout->setContentsMargins( QMargins() );
 
     return layout;
 }

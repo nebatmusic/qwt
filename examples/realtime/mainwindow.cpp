@@ -117,7 +117,7 @@ QToolBar *MainWindow::toolBar()
     d_timerCount->setValue( 0 );
 
     QHBoxLayout *layout = new QHBoxLayout( hBox );
-    layout->setMargin( 0 );
+    layout->setContentsMargins( QMargins() );
     layout->setSpacing( 0 );
     layout->addSpacing( 10 );
     layout->addWidget( new QWidget( hBox ), 10 ); // spacer

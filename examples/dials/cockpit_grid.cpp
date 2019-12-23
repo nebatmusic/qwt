@@ -22,7 +22,7 @@ CockpitGrid::CockpitGrid( QWidget *parent ):
 
     QGridLayout *layout = new QGridLayout( this );
     layout->setSpacing( 5 );
-    layout->setMargin( 0 );
+    layout->setContentsMargins( QMargins() );
 
     int i;
     for ( i = 0; i < 3; i++ )
