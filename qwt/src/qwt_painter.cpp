@@ -999,21 +999,6 @@ void QwtPainter::drawFrame( QPainter *painter, const QRectF &rect,
             painter->setBrush( palette.mid() );
             painter->drawPath( path5 );
         }
-#if 0
-        // qDrawWinPanel doesn't result in something nice
-        // on a scalable document like PDF. Better draw a
-        // Panel.
-
-        else if ( shape == QFrame::WinPanel )
-        {
-            painter->setRenderHint( QPainter::NonCosmeticDefaultPen, true );
-            qDrawWinPanel ( painter, rect.toRect(), palette,
-                frameStyle & QFrame::Sunken );
-        }
-        else if ( shape == QFrame::StyledPanel )
-        {
-        }
-#endif
         else
         {
             const QRectF outerRect = rect.adjusted( 0.0, 0.0, -1.0, -1.0 );
