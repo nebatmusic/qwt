@@ -52,12 +52,12 @@ static QRectF qwtStrokedPathRect(
     QRectF rect;
     if ( qwtHasScalablePen( painter ) )
     {
-        QPainterPath stroke = stroker.createStroke(path);
-        rect = painter->transform().map(stroke).boundingRect();
+        QPainterPath stroke = stroker.createStroke( path );
+        rect = painter->transform().map( stroke ).boundingRect();
     }
     else
     {
-        QPainterPath mappedPath = painter->transform().map(path);
+        QPainterPath mappedPath = painter->transform().map( path );
         mappedPath = stroker.createStroke( mappedPath );
 
         rect = mappedPath.boundingRect();
@@ -159,7 +159,7 @@ static inline void qwtExecCommand(
             if ( data->flags & QPaintEngine::DirtyClipEnabled )
                 painter->setClipping( data->isClipEnabled );
 
-            if ( data->flags & QPaintEngine::DirtyClipRegion)
+            if ( data->flags & QPaintEngine::DirtyClipRegion )
             {
                 painter->setClipRegion( data->clipRegion,
                     data->clipOperation );
@@ -170,7 +170,7 @@ static inline void qwtExecCommand(
                 painter->setClipPath( data->clipPath, data->clipOperation );
             }
 
-            if ( data->flags & QPaintEngine::DirtyHints)
+            if ( data->flags & QPaintEngine::DirtyHints )
             {
                 const QPainter::RenderHints hints = data->renderHints;
 
@@ -194,10 +194,10 @@ static inline void qwtExecCommand(
 #endif
             }
 
-            if ( data->flags & QPaintEngine::DirtyCompositionMode)
+            if ( data->flags & QPaintEngine::DirtyCompositionMode )
                 painter->setCompositionMode( data->compositionMode );
 
-            if ( data->flags & QPaintEngine::DirtyOpacity)
+            if ( data->flags & QPaintEngine::DirtyOpacity )
                 painter->setOpacity( data->opacity );
 
             break;
@@ -205,7 +205,6 @@ static inline void qwtExecCommand(
         default:
             break;
     }
-
 }
 
 class QwtGraphic::PathInfo
@@ -225,8 +224,7 @@ public:
     {
     }
 
-    inline QRectF scaledBoundingRect( double sx, double sy,
-        bool scalePens ) const
+    inline QRectF scaledBoundingRect( qreal sx, qreal sy, bool scalePens ) const
     {
         if ( sx == 1.0 && sy == 1.0 )
             return d_boundingRect;
@@ -243,10 +241,10 @@ public:
         {
             rect = transform.mapRect( d_pointRect );
 
-            const double l = qAbs( d_pointRect.left() - d_boundingRect.left() );
-            const double r = qAbs( d_pointRect.right() - d_boundingRect.right() );
-            const double t = qAbs( d_pointRect.top() - d_boundingRect.top() );
-            const double b = qAbs( d_pointRect.bottom() - d_boundingRect.bottom() );
+            const qreal l = qAbs( d_pointRect.left() - d_boundingRect.left() );
+            const qreal r = qAbs( d_pointRect.right() - d_boundingRect.right() );
+            const qreal t = qAbs( d_pointRect.top() - d_boundingRect.top() );
+            const qreal b = qAbs( d_pointRect.bottom() - d_boundingRect.bottom() );
 
             rect.adjust( -l, -t, r, b );
         }
@@ -262,8 +260,8 @@ public:
 
         const QPointF p0 = d_pointRect.center();
 
-        const double l = qAbs( pathRect.left() - p0.x() );
-        const double r = qAbs( pathRect.right() - p0.x() );
+        const qreal l = qAbs( pathRect.left() - p0.x() );
+        const qreal r = qAbs( pathRect.right() - p0.x() );
 
         const double w = 2.0 * qwtMinF( l, r )
             * targetRect.width() / pathRect.width();
@@ -275,7 +273,7 @@ public:
         }
         else
         {
-            const double pw = qwtMaxF(
+            const qreal pw = qwtMaxF(
                 qAbs( d_boundingRect.left() - d_pointRect.left() ),
                 qAbs( d_boundingRect.right() - d_pointRect.right() ) );
 
@@ -293,10 +291,10 @@ public:
 
         const QPointF p0 = d_pointRect.center();
 
-        const double t = qAbs( pathRect.top() - p0.y() );
-        const double b = qAbs( pathRect.bottom() - p0.y() );
+        const qreal t = qAbs( pathRect.top() - p0.y() );
+        const qreal b = qAbs( pathRect.bottom() - p0.y() );
 
-        const double h = 2.0 * qwtMinF( t, b )
+        const qreal h = 2.0 * qwtMinF( t, b )
             * targetRect.height() / pathRect.height();
 
         double sy;
@@ -306,7 +304,7 @@ public:
         }
         else
         {
-            const double pw = qwtMaxF(
+            const qreal pw = qwtMaxF(
                 qAbs( d_boundingRect.top() - d_pointRect.top() ),
                 qAbs( d_boundingRect.bottom() - d_pointRect.bottom() ) );
 
@@ -333,8 +331,8 @@ public:
     }
 
     QSizeF defaultSize;
-    QVector<QwtPainterCommand> commands;
-    QVector<QwtGraphic::PathInfo> pathInfos;
+    QVector< QwtPainterCommand > commands;
+    QVector< QwtGraphic::PathInfo > pathInfos;
 
     QRectF boundingRect;
     QRectF pointRect;
@@ -381,7 +379,7 @@ QwtGraphic::~QwtGraphic()
   \param other Source
   \return A reference of this object
  */
-QwtGraphic& QwtGraphic::operator=(const QwtGraphic &other)
+QwtGraphic& QwtGraphic::operator=( const QwtGraphic &other )
 {
     setMode( other.mode() );
     *d_data = *other.d_data;
@@ -697,8 +695,7 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
 
   \param painter Qt painter
   \param pos Reference point, where to render
-  \param alignment Flags how to align the target rectangle
-                   to pos.
+  \param alignment Flags how to align the target rectangle to pos.
  */
 void QwtGraphic::render( QPainter *painter,
     const QPointF &pos, Qt::Alignment alignment ) const
@@ -929,7 +926,7 @@ void QwtGraphic::drawPixmap( const QRectF &rect,
   \sa QPaintEngine::drawImage()
  */
 void QwtGraphic::drawImage( const QRectF &rect, const QImage &image,
-    const QRectF &subRect, Qt::ImageConversionFlags flags)
+    const QRectF &subRect, Qt::ImageConversionFlags flags )
 {
     const QPainter *painter = paintEngine()->painter();
     if ( painter == NULL )
@@ -949,7 +946,7 @@ void QwtGraphic::drawImage( const QRectF &rect, const QImage &image,
   \param state State to be stored
   \sa QPaintEngine::updateState()
  */
-void QwtGraphic::updateState( const QPaintEngineState &state)
+void QwtGraphic::updateState( const QPaintEngineState &state )
 {
     d_data->commands += QwtPainterCommand( state );
 }
@@ -996,7 +993,7 @@ const QVector< QwtPainterCommand > &QwtGraphic::commands() const
   \param commands Paint commands
   \sa commands()
  */
-void QwtGraphic::setCommands( QVector< QwtPainterCommand > &commands )
+void QwtGraphic::setCommands( const QVector< QwtPainterCommand > &commands )
 {
     reset();
 
