@@ -29,9 +29,20 @@ public:
         {
             const QWheelEvent *we = static_cast<QWheelEvent *>( event );
 
-            QWheelEvent wheelEvent( QPoint( 5, 5 ), we->delta(),
+            const QPoint pos = wheelRect().center();
+
+#if QT_VERSION >= 0x050c00
+            QWheelEvent wheelEvent(
+                pos, mapToGlobal( pos ),
+                we->pixelDelta(), we->angleDelta(),
+                we->buttons(), we->modifiers(),
+                we->phase(), we->inverted() );
+#else
+            QWheelEvent wheelEvent(
+                pos, we->delta(),
                 we->buttons(), we->modifiers(),
                 we->orientation() );
+#endif
 
             d_ignoreWheelEvent = true;
             QApplication::sendEvent( this, &wheelEvent );
