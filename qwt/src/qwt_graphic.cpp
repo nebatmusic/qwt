@@ -348,6 +348,7 @@ public:
     QRectF boundingRect;
     QRectF pointRect;
 
+    QwtGraphic::CommandTypes commandTypes;
     QwtGraphic::RenderHints renderHints;
     QTransform *initialTransform;
 };
@@ -407,10 +408,11 @@ void QwtGraphic::reset()
     d_data->commands.clear();
     d_data->pathInfos.clear();
 
+    d_data->commandTypes = 0;
+
     d_data->boundingRect = QRectF( 0.0, 0.0, -1.0, -1.0 );
     d_data->pointRect = QRectF( 0.0, 0.0, -1.0, -1.0 );
     d_data->defaultSize = QSizeF();
-
 }
 
 /*!
@@ -429,6 +431,14 @@ bool QwtGraphic::isNull() const
 bool QwtGraphic::isEmpty() const
 {
     return d_data->boundingRect.isEmpty();
+}
+
+/*! 
+   \return Types of painter commands being used
+ */
+QwtGraphic::CommandTypes QwtGraphic::commandTypes() const
+{
+    return d_data->commandTypes;
 }
 
 /*!
@@ -705,13 +715,13 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
 
     if ( aspectRatioMode == Qt::KeepAspectRatio )
     {
-        const double s = qwtMinF( sx, sy );
+        const qreal s = qwtMinF( sx, sy );
         sx = s;
         sy = s;
     }
     else if ( aspectRatioMode == Qt::KeepAspectRatioByExpanding )
     {
-        const double s = qwtMaxF( sx, sy );
+        const qreal s = qwtMaxF( sx, sy );
         sx = s;
         sy = s;
     }
@@ -981,6 +991,7 @@ void QwtGraphic::drawPath( const QPainterPath &path )
         return;
 
     d_data->commands += QwtPainterCommand( path );
+    d_data->commandTypes |= QwtGraphic::VectorData;
 
     if ( !path.isEmpty() )
     {
@@ -1020,6 +1031,7 @@ void QwtGraphic::drawPixmap( const QRectF &rect,
         return;
 
     d_data->commands += QwtPainterCommand( rect, pixmap, subRect );
+    d_data->commandTypes |= QwtGraphic::RasterData;
 
     const QRectF r = painter->transform().mapRect( rect );
     updateControlPointRect( r );
@@ -1044,6 +1056,7 @@ void QwtGraphic::drawImage( const QRectF &rect, const QImage &image,
         return;
 
     d_data->commands += QwtPainterCommand( rect, image, subRect, flags );
+    d_data->commandTypes |= QwtGraphic::RasterData;
 
     const QRectF r = painter->transform().mapRect( rect );
 
@@ -1060,6 +1073,20 @@ void QwtGraphic::drawImage( const QRectF &rect, const QImage &image,
 void QwtGraphic::updateState( const QPaintEngineState &state )
 {
     d_data->commands += QwtPainterCommand( state );
+
+    if ( state.state() & QPaintEngine::DirtyTransform )
+    {
+        if ( !( d_data->commandTypes & QwtGraphic::Transformation ) )
+        {
+            /*
+                QTransform::isScaling() returns true for all type
+                of transformations beside simple translations
+                even if it is f.e a rotation
+             */
+            if ( state.transform().isScaling() )
+                d_data->commandTypes |= QwtGraphic::Transformation;
+        }
+    }
 }
 
 void QwtGraphic::updateBoundingRect( const QRectF &rect )
@@ -1117,9 +1144,12 @@ void QwtGraphic::setCommands( const QVector< QwtPainterCommand > &commands )
 
     const QwtPainterCommand *cmds = commands.constData();
 
+    const QTransform noTransform;
+    const RenderHints noRenderHints;
+
     QPainter painter( this );
     for ( int i = 0; i < numCommands; i++ )
-        qwtExecCommand( &painter, cmds[i], RenderHints(), QTransform(), NULL );
+        qwtExecCommand( &painter, cmds[i], noRenderHints, noTransform, NULL );
 
     painter.end();
 }
