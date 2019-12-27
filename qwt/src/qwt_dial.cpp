@@ -828,8 +828,14 @@ void QwtDial::changeEvent( QEvent *event )
 */
 void QwtDial::wheelEvent( QWheelEvent *event )
 {
+#if QT_VERSION < 0x050000
+    const QPoint wheelPos = event->pos();
+#else
+    const QPoint wheelPos = event->position().toPoint();
+#endif
+
     const QRegion region( innerRect(), QRegion::Ellipse );
-    if ( region.contains( event->pos() ) )
+    if ( region.contains( wheelPos ) )
         QwtAbstractSlider::wheelEvent( event );
 }
 
