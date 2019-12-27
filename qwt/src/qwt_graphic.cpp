@@ -795,6 +795,10 @@ void QwtGraphic::render( QPainter *painter,
   The size of the pixmap is the default size ( ceiled to integers )
   of the graphic.
 
+  \param devicePixelRatio Device pixel ratio for the pixmap.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
+
   \return The graphic as pixmap in default size
   \sa defaultSize(), toImage(), render()
  */
@@ -838,6 +842,9 @@ QPixmap QwtGraphic::toPixmap( qreal devicePixelRatio ) const
 
   \param size Size of the image
   \param aspectRatioMode Aspect ratio how to scale the graphic
+  \param devicePixelRatio Device pixel ratio for the pixmap.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
 
   \return The graphic as pixmap
   \sa toImage(), render()
@@ -874,8 +881,11 @@ QPixmap QwtGraphic::toPixmap( const QSize &size,
 
   The format of the image is QImage::Format_ARGB32_Premultiplied.
 
-  \param size Size of the image
+  \param size Size of the image ( will be multiplied by the devicePixelRatio )
   \param aspectRatioMode Aspect ratio how to scale the graphic
+  \param devicePixelRatio Device pixel ratio for the image.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
 
   \return The graphic as image
   \sa toPixmap(), render()
@@ -914,7 +924,11 @@ QImage QwtGraphic::toImage( const QSize &size,
   The format of the image is QImage::Format_ARGB32_Premultiplied.
 
   The size of the image is the default size ( ceiled to integers )
-  of the graphic.
+  of the graphic multiplied by the devicePixelRatio.
+
+  \param devicePixelRatio Device pixel ratio for the image.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
 
   \return The graphic as image in default size
   \sa defaultSize(), toPixmap(), render()
