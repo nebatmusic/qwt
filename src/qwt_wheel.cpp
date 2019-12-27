@@ -324,7 +324,18 @@ void QwtWheel::timerEvent( QTimerEvent *event )
 */
 void QwtWheel::wheelEvent( QWheelEvent *event )
 {
-    if ( !wheelRect().contains( event->pos() ) )
+#if QT_VERSION < 0x050000
+    const QPoint wheelPos = event->pos();
+    const int wheelDelta = event->delta();
+#else
+    const QPoint wheelPos = event->position().toPoint();
+
+    const QPoint delta = event->angleDelta();
+    const int wheelDelta = ( qAbs( delta.x() ) > qAbs( delta.y() ) )
+        ? delta.x() : delta.y();
+#endif
+
+    if ( !wheelRect().contains( wheelPos ) )
     {
         event->ignore();
         return;
@@ -336,14 +347,6 @@ void QwtWheel::wheelEvent( QWheelEvent *event )
     stopFlying();
 
     double increment = 0.0;
-
-#if QT_VERSION < 0x050000
-    const int wheelDelta = event->delta();
-#else
-    const QPoint delta = event->angleDelta();
-    const int wheelDelta = ( qAbs( delta.x() ) > qAbs( delta.y() ) )
-        ? delta.x() : delta.y();
-#endif
 
     if ( ( event->modifiers() & Qt::ControlModifier) ||
         ( event->modifiers() & Qt::ShiftModifier ) )

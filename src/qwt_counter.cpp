@@ -607,24 +607,27 @@ void QwtCounter::wheelEvent( QWheelEvent *event )
             increment = d_data->increment[2];
     }
 
+#if QT_VERSION < 0x050000
+    const QPoint wheelPos = event->pos();
+    const int wheelDelta = event->delta();
+#else
+    const QPoint wheelPos = event->position().toPoint();
+
+    const QPoint delta = event->angleDelta();
+    const int wheelDelta = ( qAbs( delta.x() ) > qAbs( delta.y() ) )
+        ? delta.x() : delta.y();
+#endif
+
     for ( int i = 0; i < d_data->numButtons; i++ )
     {
-        if ( d_data->buttonDown[i]->geometry().contains( event->pos() ) ||
-            d_data->buttonUp[i]->geometry().contains( event->pos() ) )
+        if ( d_data->buttonDown[i]->geometry().contains( wheelPos ) ||
+            d_data->buttonUp[i]->geometry().contains( wheelPos ) )
         {
             increment = d_data->increment[i];
         }
     }
 
-    const int wheel_delta = 120;
-
-#if 1
-    int delta = event->delta();
-    if ( delta >= 2 * wheel_delta )
-        delta /= 2; // Never saw an abs(delta) < 240
-#endif
-
-    incrementValue( delta / wheel_delta * increment );
+    incrementValue( wheelDelta / 120 * increment );
 }
 
 void QwtCounter::incrementValue( int numSteps )
