@@ -16,7 +16,8 @@ class Wheel: public QwtWheel
 {
 public:
     Wheel( WheelBox *parent ):
-        QwtWheel( parent )
+        QwtWheel( parent ),
+        d_ignoreWheelEvent( false )
     {
         setFocusPolicy( Qt::WheelFocus );
         parent->installEventFilter( this );
@@ -24,7 +25,7 @@ public:
 
     virtual bool eventFilter( QObject *object, QEvent *event ) QWT_OVERRIDE
     {
-        if ( event->type() == QEvent::Wheel )
+        if ( event->type() == QEvent::Wheel && !d_ignoreWheelEvent )
         {
             const QWheelEvent *we = static_cast<QWheelEvent *>( event );
 
@@ -32,11 +33,17 @@ public:
                 we->buttons(), we->modifiers(),
                 we->orientation() );
 
+            d_ignoreWheelEvent = true;
             QApplication::sendEvent( this, &wheelEvent );
+            d_ignoreWheelEvent = false;
+
             return true;
         }
+
         return QwtWheel::eventFilter( object, event );
     }
+private:
+    bool d_ignoreWheelEvent;
 };
 
 WheelBox::WheelBox( const QString &title,
