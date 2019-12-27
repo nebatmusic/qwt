@@ -89,8 +89,7 @@ static inline void qwtExecCommand(
         {
             bool doMap = false;
 
-            if ( renderHints.testFlag( QwtGraphic::RenderPensUnscaled )
-                && painter->transform().isScaling() )
+            if ( painter->transform().isScaling() )
             {
                 bool isCosmetic = painter->pen().isCosmetic();
 #if QT_VERSION < 0x050000
@@ -101,7 +100,18 @@ static inline void qwtExecCommand(
                         isCosmetic = false;
                 }
 #endif
-                doMap = !isCosmetic;
+
+                if ( isCosmetic )
+                {
+                    // OpenGL2 seems to be buggy for cosmetic pens.
+                    // It interpolates curves in too rough steps then
+
+                    doMap = painter->paintEngine()->type() == QPaintEngine::OpenGL2;
+                }
+                else
+                {
+                    doMap = renderHints.testFlag( QwtGraphic::RenderPensUnscaled );
+                }
             }
 
             if ( doMap )
@@ -336,8 +346,7 @@ class QwtGraphic::PrivateData
 public:
     PrivateData():
         boundingRect( 0.0, 0.0, -1.0, -1.0 ),
-        pointRect( 0.0, 0.0, -1.0, -1.0 ),
-        initialTransform( NULL )
+        pointRect( 0.0, 0.0, -1.0, -1.0 )
     {
     }
 
@@ -350,7 +359,6 @@ public:
 
     QwtGraphic::CommandTypes commandTypes;
     QwtGraphic::RenderHints renderHints;
-    QTransform *initialTransform;
 };
 
 /*!
@@ -520,10 +528,12 @@ QRectF QwtGraphic::controlPointRect() const
   \return Scaled bounding rectangle
   \sa boundingRect(), controlPointRect()
  */
-QRectF QwtGraphic::scaledBoundingRect( double sx, double sy ) const
+QRectF QwtGraphic::scaledBoundingRect( qreal sx, qreal sy ) const
 {
     if ( sx == 1.0 && sy == 1.0 )
         return d_data->boundingRect;
+
+    const bool scalePens = !( d_data->renderHints & RenderPensUnscaled );
 
     QTransform transform;
     transform.scale( sx, sy );
@@ -531,10 +541,7 @@ QRectF QwtGraphic::scaledBoundingRect( double sx, double sy ) const
     QRectF rect = transform.mapRect( d_data->pointRect );
 
     for ( int i = 0; i < d_data->pathInfos.size(); i++ )
-    {
-        rect |= d_data->pathInfos[i].scaledBoundingRect( sx, sy,
-            !d_data->renderHints.testFlag( RenderPensUnscaled ) );
-    }
+        rect |= d_data->pathInfos[i].scaledBoundingRect( sx, sy, scalePens );
 
     return rect;
 }
@@ -633,6 +640,11 @@ qreal QwtGraphic::widthForHeight( qreal height ) const
  */
 void QwtGraphic::render( QPainter *painter ) const
 {
+    renderGraphic( painter, nullptr );
+}
+
+void QwtGraphic::renderGraphic( QPainter* painter, QTransform *initialTransform ) const
+{
     if ( isNull() )
         return;
 
@@ -646,7 +658,7 @@ void QwtGraphic::render( QPainter *painter ) const
     for ( int i = 0; i < numCommands; i++ )
     {
         qwtExecCommand( painter, commands[i],
-            d_data->renderHints, transform, d_data->initialTransform );
+            d_data->renderHints, transform, initialTransform );
     }
 
     painter->restore();
@@ -693,12 +705,11 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
     if ( d_data->pointRect.height() > 0.0 )
         sy = rect.height() / d_data->pointRect.height();
 
-    const bool scalePens =
-        !d_data->renderHints.testFlag( RenderPensUnscaled );
+    const bool scalePens = !d_data->renderHints.testFlag( RenderPensUnscaled );
 
     for ( int i = 0; i < d_data->pathInfos.size(); i++ )
     {
-        const PathInfo info = d_data->pathInfos[i];
+        const PathInfo &info = d_data->pathInfos[i];
 
         const double ssx = info.scaleFactorX(
             d_data->pointRect, rect, scalePens );
@@ -733,23 +744,26 @@ void QwtGraphic::render( QPainter *painter, const QRectF &rect,
     tr.translate( -d_data->pointRect.x(), -d_data->pointRect.y() );
 
     const QTransform transform = painter->transform();
+
+    painter->setTransform( tr, true );
+
     if ( !scalePens && transform.isScaling() )
     {
         // we don't want to scale pens according to sx/sy,
         // but we want to apply the scaling from the
         // painter transformation later
 
-        d_data->initialTransform = new QTransform();
-        d_data->initialTransform->scale( transform.m11(), transform.m22() );
+        QTransform initialTransform;
+        initialTransform.scale( transform.m11(), transform.m22() );
+
+        renderGraphic( painter, &initialTransform );
+    }
+    else
+    {
+        renderGraphic( painter, NULL );
     }
 
-    painter->setTransform( tr, true );
-    render( painter );
-
     painter->setTransform( transform );
-
-    delete d_data->initialTransform;
-    d_data->initialTransform = NULL;
 }
 
 /*!
