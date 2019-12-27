@@ -118,21 +118,21 @@ public:
     void render( QPainter * ) const;
 
     void render( QPainter *, const QSizeF &,
-            Qt::AspectRatioMode = Qt::IgnoreAspectRatio  ) const;
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
 
     void render( QPainter *, const QRectF &,
-            Qt::AspectRatioMode = Qt::IgnoreAspectRatio  ) const;
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
 
     void render( QPainter *, const QPointF &,
         Qt::Alignment = Qt::AlignTop | Qt::AlignLeft ) const;
 
     QPixmap toPixmap() const;
     QPixmap toPixmap( const QSize &,
-        Qt::AspectRatioMode = Qt::IgnoreAspectRatio  ) const;
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
 
     QImage toImage() const;
     QImage toImage( const QSize &,
-        Qt::AspectRatioMode = Qt::IgnoreAspectRatio  ) const;
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
 
     QRectF scaledBoundingRect( double sx, double sy ) const;
 
@@ -140,13 +140,18 @@ public:
     QRectF controlPointRect() const;
 
     const QVector< QwtPainterCommand > &commands() const;
-    void setCommands( QVector< QwtPainterCommand > & );
+    void setCommands( const QVector< QwtPainterCommand > & );
 
     void setDefaultSize( const QSizeF & );
     QSizeF defaultSize() const;
 
+    qreal heightForWidth( qreal width ) const;
+    qreal widthForHeight( qreal height ) const;
+
     void setRenderHint( RenderHint, bool on = true );
     bool testRenderHint( RenderHint ) const;
+
+    RenderHints renderHints() const;
 
 protected:
     virtual QSize sizeMetrics() const QWT_OVERRIDE;
