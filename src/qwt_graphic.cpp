@@ -18,6 +18,17 @@
 #include <qpixmap.h>
 #include <qpainterpath.h>
 
+#if QT_VERSION >= 0x050000
+
+#include <qguiapplication.h>
+
+static inline qreal qwtDevicePixelRatio()
+{
+    return qGuiApp ? qGuiApp->devicePixelRatio() : 1.0;
+}
+
+#endif
+
 static bool qwtHasScalablePen( const QPainter *painter )
 {
     const QPen pen = painter->pen();
@@ -784,10 +795,14 @@ void QwtGraphic::render( QPainter *painter,
   The size of the pixmap is the default size ( ceiled to integers )
   of the graphic.
 
+  \param devicePixelRatio Device pixel ratio for the pixmap.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
+
   \return The graphic as pixmap in default size
   \sa defaultSize(), toImage(), render()
  */
-QPixmap QwtGraphic::toPixmap() const
+QPixmap QwtGraphic::toPixmap( qreal devicePixelRatio ) const
 {
     if ( isNull() )
         return QPixmap();
@@ -798,6 +813,16 @@ QPixmap QwtGraphic::toPixmap() const
     const int h = qwtCeil( sz.height() );
 
     QPixmap pixmap( w, h );
+
+#if QT_VERSION >= 0x050000
+    if ( devicePixelRatio <= 0.0 )
+        devicePixelRatio = qwtDevicePixelRatio();
+
+    pixmap.setDevicePixelRatio( devicePixelRatio );
+#else
+    Q_UNUSED( devicePixelRatio )
+#endif
+
     pixmap.fill( Qt::transparent );
 
     const QRectF r( 0.0, 0.0, sz.width(), sz.height() );
@@ -817,14 +842,26 @@ QPixmap QwtGraphic::toPixmap() const
 
   \param size Size of the image
   \param aspectRatioMode Aspect ratio how to scale the graphic
+  \param devicePixelRatio Device pixel ratio for the pixmap.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
 
   \return The graphic as pixmap
   \sa toImage(), render()
  */
 QPixmap QwtGraphic::toPixmap( const QSize &size,
-    Qt::AspectRatioMode aspectRatioMode ) const
+    Qt::AspectRatioMode aspectRatioMode, qreal devicePixelRatio ) const
 {
     QPixmap pixmap( size );
+
+#if QT_VERSION >= 0x050000
+    if ( devicePixelRatio <= 0.0 )
+        devicePixelRatio = qwtDevicePixelRatio();
+
+    pixmap.setDevicePixelRatio( devicePixelRatio );
+#else
+    Q_UNUSED( devicePixelRatio )
+#endif
     pixmap.fill( Qt::transparent );
 
     const QRect r( 0, 0, size.width(), size.height() );
@@ -844,16 +881,29 @@ QPixmap QwtGraphic::toPixmap( const QSize &size,
 
   The format of the image is QImage::Format_ARGB32_Premultiplied.
 
-  \param size Size of the image
+  \param size Size of the image ( will be multiplied by the devicePixelRatio )
   \param aspectRatioMode Aspect ratio how to scale the graphic
+  \param devicePixelRatio Device pixel ratio for the image.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
 
   \return The graphic as image
   \sa toPixmap(), render()
  */
 QImage QwtGraphic::toImage( const QSize &size,
-    Qt::AspectRatioMode aspectRatioMode  ) const
+    Qt::AspectRatioMode aspectRatioMode, qreal devicePixelRatio  ) const
 {
+#if QT_VERSION >= 0x050000
+    if ( devicePixelRatio <= 0.0 )
+        devicePixelRatio = qwtDevicePixelRatio();
+
+    QImage image( size * devicePixelRatio, QImage::Format_ARGB32_Premultiplied );
+    image.setDevicePixelRatio( devicePixelRatio );
+#else
+    Q_UNUSED( devicePixelRatio )
     QImage image( size, QImage::Format_ARGB32_Premultiplied );
+#endif
+
     image.fill( 0 );
 
     const QRect r( 0, 0, size.width(), size.height() );
@@ -874,22 +924,39 @@ QImage QwtGraphic::toImage( const QSize &size,
   The format of the image is QImage::Format_ARGB32_Premultiplied.
 
   The size of the image is the default size ( ceiled to integers )
-  of the graphic.
+  of the graphic multiplied by the devicePixelRatio.
+
+  \param devicePixelRatio Device pixel ratio for the image.
+                          If devicePixelRatio <= 0.0 the pixmap
+                          is initialized with the system default.
 
   \return The graphic as image in default size
   \sa defaultSize(), toPixmap(), render()
  */
-QImage QwtGraphic::toImage() const
+QImage QwtGraphic::toImage( qreal devicePixelRatio ) const
 {
     if ( isNull() )
         return QImage();
 
     const QSizeF sz = defaultSize();
 
-    const int w = qwtCeil( sz.width() );
-    const int h = qwtCeil( sz.height() );
+    int w = qwtCeil( sz.width() );
+    int h = qwtCeil( sz.height() );
+
+#if QT_VERSION >= 0x050000
+    if ( devicePixelRatio <= 0.0 )
+        devicePixelRatio = qwtDevicePixelRatio();
+
+    w *= devicePixelRatio;
+    h *= devicePixelRatio;
 
     QImage image( w, h, QImage::Format_ARGB32 );
+    image.setDevicePixelRatio( devicePixelRatio );
+#else
+    Q_UNUSED( devicePixelRatio )
+    QImage image( w, h, QImage::Format_ARGB32 );
+#endif
+
     image.fill( 0 );
 
     const QRect r( 0, 0, sz.width(), sz.height() );

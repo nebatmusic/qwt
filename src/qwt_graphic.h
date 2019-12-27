@@ -126,13 +126,17 @@ public:
     void render( QPainter *, const QPointF &,
         Qt::Alignment = Qt::AlignTop | Qt::AlignLeft ) const;
 
-    QPixmap toPixmap() const;
-    QPixmap toPixmap( const QSize &,
-        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
+    QPixmap toPixmap( qreal devicePixelRatio = 0.0 ) const;
 
-    QImage toImage() const;
+    QPixmap toPixmap( const QSize &,
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio,
+        qreal devicePixelRatio = 0.0 ) const;
+
+    QImage toImage( qreal devicePixelRatio = 0.0 ) const;
+
     QImage toImage( const QSize &,
-        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio,
+        qreal devicePixelRatio = 0.0 ) const;
 
     QRectF scaledBoundingRect( double sx, double sy ) const;
 
