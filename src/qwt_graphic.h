@@ -101,7 +101,29 @@ public:
 
         The default setting is to disable all hints
      */
-    typedef QFlags<RenderHint> RenderHints;
+    typedef QFlags< RenderHint > RenderHints;
+
+    /*!
+       Indicator if the graphic contains a specific type of painter command
+       \sa CommandTypes, commandTypes();
+     */
+    enum CommandType
+    {
+        //! The graphic contains scalable vector data
+        VectorData     = 1 << 0,
+
+        //! The graphic contains raster data ( QPixmap or QImage )
+        RasterData     = 1 << 1,
+
+        //! The graphic contains transformations beyond simple translations
+        Transformation = 1 << 2
+    };
+
+    /*! 
+       Flag indicating what types of painter commands are in a QskGraphic
+       \sa commandTypes();
+     */
+    typedef QFlags< CommandType > CommandTypes;
 
     QwtGraphic();
     QwtGraphic( const QwtGraphic & );
@@ -114,6 +136,8 @@ public:
 
     bool isNull() const;
     bool isEmpty() const;
+
+    CommandTypes commandTypes() const;
 
     void render( QPainter * ) const;
 
@@ -181,6 +205,7 @@ private:
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS( QwtGraphic::RenderHints )
+Q_DECLARE_OPERATORS_FOR_FLAGS( QwtGraphic::CommandTypes )
 Q_DECLARE_METATYPE( QwtGraphic )
 
 #endif
