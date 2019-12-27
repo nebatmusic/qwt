@@ -144,11 +144,11 @@ public:
     void render( QPainter *, const QSizeF &,
         Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
 
-    void render( QPainter *, const QRectF &,
-        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
-
     void render( QPainter *, const QPointF &,
         Qt::Alignment = Qt::AlignTop | Qt::AlignLeft ) const;
+
+    void render( QPainter *, const QRectF &,
+        Qt::AspectRatioMode = Qt::IgnoreAspectRatio ) const;
 
     QPixmap toPixmap( qreal devicePixelRatio = 0.0 ) const;
 
@@ -162,7 +162,7 @@ public:
         Qt::AspectRatioMode = Qt::IgnoreAspectRatio,
         qreal devicePixelRatio = 0.0 ) const;
 
-    QRectF scaledBoundingRect( double sx, double sy ) const;
+    QRectF scaledBoundingRect( qreal sx, qreal sy ) const;
 
     QRectF boundingRect() const;
     QRectF controlPointRect() const;
@@ -195,6 +195,8 @@ protected:
     virtual void updateState( const QPaintEngineState & ) QWT_OVERRIDE;
 
 private:
+    void renderGraphic( QPainter *, QTransform * ) const;
+
     void updateBoundingRect( const QRectF & );
     void updateControlPointRect( const QRectF & );
 
