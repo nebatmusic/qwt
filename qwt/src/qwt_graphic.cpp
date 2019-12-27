@@ -448,6 +448,12 @@ bool QwtGraphic::testRenderHint( RenderHint hint ) const
     return d_data->renderHints.testFlag( hint );
 }
 
+//! \return Render hints
+QwtGraphic::RenderHints QwtGraphic::renderHints() const
+{
+    return d_data->renderHints;
+}
+
 /*!
   The bounding rectangle is the controlPointRect()
   extended by the areas needed for rendering the outlines
@@ -560,6 +566,44 @@ QSizeF QwtGraphic::defaultSize() const
         return d_data->defaultSize;
 
     return boundingRect().size();
+}
+
+/*!
+   Find the height for a given width
+
+   The height is calculated using the aspect ratio of defaultSize().
+
+   \param width Width
+
+   \return Calculated height
+   \sa defaultSize()
+*/
+qreal QwtGraphic::heightForWidth( qreal width ) const
+{
+    const auto sz = defaultSize();
+    if ( sz.isEmpty() )
+        return 0.0;
+
+    return sz.height() * width / sz.width();
+}
+
+/*!
+   Find the width for a given height
+
+   The width is calculated using the aspect ratio of defaultSize().
+
+   \param height Height
+
+   \return Calculated width
+   \sa defaultSize()
+*/
+qreal QwtGraphic::widthForHeight( qreal height ) const
+{
+    const auto sz = defaultSize();
+    if ( sz.isEmpty() )
+        return 0.0;
+
+    return sz.width() * height / sz.height();
 }
 
 /*!
