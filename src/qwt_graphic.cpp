@@ -193,26 +193,11 @@ static inline void qwtExecCommand(
 
             if ( data->flags & QPaintEngine::DirtyHints )
             {
-                const QPainter::RenderHints hints = data->renderHints;
-
-                painter->setRenderHint( QPainter::Antialiasing,
-                    hints.testFlag( QPainter::Antialiasing ) );
-
-                painter->setRenderHint( QPainter::TextAntialiasing,
-                    hints.testFlag( QPainter::TextAntialiasing ) );
-
-                painter->setRenderHint( QPainter::SmoothPixmapTransform,
-                    hints.testFlag( QPainter::SmoothPixmapTransform ) );
-
-#if QT_VERSION < 0x050100
-                painter->setRenderHint( QPainter::HighQualityAntialiasing,
-                    hints.testFlag( QPainter::HighQualityAntialiasing ) );
-#endif
-
-#if QT_VERSION < 0x050000
-                painter->setRenderHint( QPainter::NonCosmeticDefaultPen,
-                    hints.testFlag( QPainter::NonCosmeticDefaultPen ) );
-#endif
+                for ( int i = 0; i < 8; i++ )
+                {
+                    const auto hint = static_cast< QPainter::RenderHint >( 1 << i );
+                    painter->setRenderHint( hint, data->renderHints.testFlag( hint ) );
+                }
             }
 
             if ( data->flags & QPaintEngine::DirtyCompositionMode )
