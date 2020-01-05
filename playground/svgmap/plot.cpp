@@ -5,11 +5,19 @@
 
 #include "plot.h"
 
-#include <qwt_plot_svgitem.h>
+#include <qwt_plot_graphicitem.h>
 #include <qwt_plot_layout.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_magnifier.h>
+#include <qwt_graphic.h>
 
+#define DEBUG_SCALE 0
+
+#if DEBUG_SCALE
+#include <qwt_plot_grid.h>
+#endif
+
+#include <qsvgrenderer.h>
 #include <qfiledialog.h>
 
 Plot::Plot( QWidget *parent ):
@@ -17,7 +25,10 @@ Plot::Plot( QWidget *parent ):
     d_mapItem( NULL ),
     d_mapRect( 0.0, 0.0, 100.0, 100.0 ) // something
 {
-#if 1
+#if DEBUG_SCALE
+    QwtPlotGrid *grid = new QwtPlotGrid();
+    grid->attach( this );
+#else
     /*
        d_mapRect is only a reference for zooming, but
        the ranges are nothing useful for the user. So we
@@ -26,9 +37,6 @@ Plot::Plot( QWidget *parent ):
     plotLayout()->setCanvasMargin( 0 );
     for ( int axis = 0; axis < QwtPlot::axisCnt; axis++ )
         enableAxis( axis, false );
-#else
-    QwtPlotGrid *grid = new QwtPlotGrid();
-    grid->attach( this );
 #endif
 
     /*
@@ -43,6 +51,8 @@ Plot::Plot( QWidget *parent ):
     ( void )new QwtPlotMagnifier( canvas() );
 
     canvas()->setFocusPolicy( Qt::WheelFocus );
+    setCanvasBackground( Qt::white );
+
     rescale();
 }
 
@@ -65,13 +75,22 @@ void Plot::loadSVG( const QString &fileName )
 {
     if ( d_mapItem == NULL )
     {
-        d_mapItem = new QwtPlotSvgItem();
+        d_mapItem = new QwtPlotGraphicItem();
         d_mapItem->attach( this );
     }
 
-    d_mapItem->loadFile( d_mapRect, fileName );
-    rescale();
+    QwtGraphic graphic;
 
+    QSvgRenderer renderer;
+    if ( renderer.load( fileName ) )
+    {
+        QPainter p( &graphic );
+        renderer.render( &p );
+    }
+
+    d_mapItem->setGraphic( d_mapRect, graphic );
+
+    rescale();
     replot();
 }
 

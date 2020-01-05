@@ -7,8 +7,11 @@
 
 #include <qapplication.h>
 #include <qmainwindow.h>
+
+#ifndef QT_NO_FILEDIALOG
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
+#endif
 
 class MainWindow: public QMainWindow
 {
@@ -22,7 +25,6 @@ public:
         setCentralWidget( plot );
 
 #ifndef QT_NO_FILEDIALOG
-
         QToolBar *toolBar = new QToolBar( this );
 
         QToolButton *btnLoad = new QToolButton( toolBar );
@@ -44,10 +46,17 @@ int main( int argc, char **argv )
 
     QString fileName;
     if ( argc > 1 )
+    {
         fileName = argv[1];
+    }
+    else
+    {
+        // see: https://commons.wikimedia.org/wiki/File:Schlosspark_Nymphenburg.svg
+        fileName = ":/svg/Schlosspark_Nymphenburg.svg";
+    }
 
     MainWindow w( fileName );
-    w.resize( 600, 400 );
+    w.resize( 600, 600 );
     w.show();
 
     int rv = a.exec();
