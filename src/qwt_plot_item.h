@@ -103,8 +103,8 @@ public:
         //! For QwtPlotSpectrogram
         Rtti_PlotSpectrogram,
 
-        //! For QwtPlotSvgItem
-        Rtti_PlotSVG,
+        //! For QwtPlotGraphicItem, QwtPlotSvgItem
+        Rtti_PlotGraphic,
 
         //! For QwtPlotTradingCurve
         Rtti_PlotTradingCurve,
