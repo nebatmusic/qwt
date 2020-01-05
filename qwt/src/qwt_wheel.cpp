@@ -324,7 +324,7 @@ void QwtWheel::timerEvent( QTimerEvent *event )
 */
 void QwtWheel::wheelEvent( QWheelEvent *event )
 {
-#if QT_VERSION < 0x050000
+#if QT_VERSION < 0x050e00
     const QPoint wheelPos = event->pos();
     const int wheelDelta = event->delta();
 #else
