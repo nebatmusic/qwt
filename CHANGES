@@ -26,3 +26,4 @@
 - QwtValuePointData added for curves, where the x values are the index
 - a couple of new QwtPlotCurve::setSamples alternatives
 - qwtMinF/qwtMaxF added to avoid compiler issues, when qreal us a float
+- QwtPlotGraphicItem added
