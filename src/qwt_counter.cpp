@@ -607,7 +607,7 @@ void QwtCounter::wheelEvent( QWheelEvent *event )
             increment = d_data->increment[2];
     }
 
-#if QT_VERSION < 0x050000
+#if QT_VERSION < 0x050e00
     const QPoint wheelPos = event->pos();
     const int wheelDelta = event->delta();
 #else

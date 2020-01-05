@@ -1092,7 +1092,7 @@ void QwtPicker::widgetMouseDoubleClickEvent( QMouseEvent *mouseEvent )
 */
 void QwtPicker::widgetWheelEvent( QWheelEvent *wheelEvent )
 {
-#if QT_VERSION < 0x050000
+#if QT_VERSION < 0x050e00
     const QPoint wheelPos = wheelEvent->pos();
 #else
     const QPoint wheelPos = wheelEvent->position().toPoint();
