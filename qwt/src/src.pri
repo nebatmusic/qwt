@@ -115,6 +115,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_plot_curve.h \
         qwt_plot_dict.h \
         qwt_plot_directpainter.h \
+        qwt_plot_graphicitem.h \
         qwt_plot_grid.h \
         qwt_plot_histogram.h \
         qwt_plot_item.h \
@@ -168,6 +169,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_plot_curve.cpp \
         qwt_plot_dict.cpp \
         qwt_plot_directpainter.cpp \
+        qwt_plot_graphicitem.cpp \
         qwt_plot_grid.cpp \
         qwt_plot_histogram.cpp \
         qwt_plot_item.cpp \
