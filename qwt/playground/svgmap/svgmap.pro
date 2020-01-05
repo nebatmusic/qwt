@@ -5,10 +5,10 @@
 
 include( $${PWD}/../playground.pri )
 
-!contains(QWT_CONFIG, QwtSvg) {
-
-    message("Are you trying to build Qwt with the Qt Creator as Shadow Build ?")
-    error("Qwt is configured without SVG support !")
+greaterThan(QT_MAJOR_VERSION, 4) {
+    !qtHaveModule(svg) {
+        error("Qt has been built without SVG support !")
+    }
 }
 
 TARGET   = svgmap

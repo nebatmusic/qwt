@@ -5,6 +5,12 @@
 
 include( $${PWD}/../playground.pri )
 
+greaterThan(QT_MAJOR_VERSION, 4) { 
+    !qtHaveModule(svg) {
+        error("Qt has been built without SVG support !")
+    }   
+}
+
 TARGET   = graphicscale
 QT      += svg
 
