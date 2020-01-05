@@ -14,6 +14,9 @@ include( $${PWD}/../playground.pri )
 TARGET   = svgmap
 QT      += svg
 
+RESOURCES += \
+    svgmap.qrc
+
 HEADERS = \
     plot.h
 

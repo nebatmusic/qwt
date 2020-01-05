@@ -9,7 +9,7 @@
 #include <qwt_plot.h>
 #include <qrect.h>
 
-class QwtPlotSvgItem;
+class QwtPlotGraphicItem;
 
 class Plot: public QwtPlot
 {
@@ -29,7 +29,7 @@ public Q_SLOTS:
 private:
     void rescale();
 
-    QwtPlotSvgItem *d_mapItem;
+    QwtPlotGraphicItem *d_mapItem;
     const QRectF d_mapRect;
 };
 
