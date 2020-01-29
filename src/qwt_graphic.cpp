@@ -195,7 +195,7 @@ static inline void qwtExecCommand(
             {
                 for ( int i = 0; i < 8; i++ )
                 {
-                    const auto hint = static_cast< QPainter::RenderHint >( 1 << i );
+                    const QPainter::RenderHint hint = static_cast< QPainter::RenderHint >( 1 << i );
                     painter->setRenderHint( hint, data->renderHints.testFlag( hint ) );
                 }
             }
@@ -593,7 +593,7 @@ QSizeF QwtGraphic::defaultSize() const
 */
 qreal QwtGraphic::heightForWidth( qreal width ) const
 {
-    const auto sz = defaultSize();
+    const QSizeF sz = defaultSize();
     if ( sz.isEmpty() )
         return 0.0;
 
@@ -612,7 +612,7 @@ qreal QwtGraphic::heightForWidth( qreal width ) const
 */
 qreal QwtGraphic::widthForHeight( qreal height ) const
 {
-    const auto sz = defaultSize();
+    const QSizeF sz = defaultSize();
     if ( sz.isEmpty() )
         return 0.0;
 
