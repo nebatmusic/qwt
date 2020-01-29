@@ -625,7 +625,7 @@ qreal QwtGraphic::widthForHeight( qreal height ) const
  */
 void QwtGraphic::render( QPainter *painter ) const
 {
-    renderGraphic( painter, nullptr );
+    renderGraphic( painter, NULL );
 }
 
 void QwtGraphic::renderGraphic( QPainter* painter, QTransform *initialTransform ) const
