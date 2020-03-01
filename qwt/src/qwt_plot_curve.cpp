@@ -83,10 +83,7 @@ public:
         baseline( 0.0 ),
         symbol( NULL ),
         pen( Qt::black ),
-        attributes( 0 ),
-        paintAttributes(
-            QwtPlotCurve::ClipPolygons | QwtPlotCurve::FilterPoints ),
-        legendAttributes( 0 )
+        paintAttributes( QwtPlotCurve::ClipPolygons | QwtPlotCurve::FilterPoints )
     {
         curveFitter = new QwtSplineCurveFitter;
     }

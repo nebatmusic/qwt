@@ -81,7 +81,7 @@ public:
     virtual QSize minimumSizeHint( const QwtPlot * ) const;
 
     virtual void activate( const QwtPlot *,
-        const QRectF &plotRect, Options options = Options( 0 ) );
+        const QRectF &plotRect, Options options = Options() );
 
     virtual void invalidate();
 

@@ -51,7 +51,6 @@ class QwtPlotCanvas::PrivateData
 {
 public:
     PrivateData():
-        paintAttributes( 0 ),
 #ifndef QWT_NO_OPENGL
         surfaceGL( NULL ),
 #endif

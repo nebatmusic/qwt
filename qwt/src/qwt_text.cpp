@@ -142,8 +142,6 @@ public:
         borderRadius( 0 ),
         borderPen( Qt::NoPen ),
         backgroundBrush( Qt::NoBrush ),
-        paintAttributes( 0 ),
-        layoutAttributes( 0 ),
         textEngine( NULL )
     {
     }

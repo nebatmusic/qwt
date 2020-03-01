@@ -401,7 +401,7 @@ void QwtGraphic::reset()
     d_data->commands.clear();
     d_data->pathInfos.clear();
 
-    d_data->commandTypes = CommandTypes( 0 );
+    d_data->commandTypes = CommandTypes();
 
     d_data->boundingRect = QRectF( 0.0, 0.0, -1.0, -1.0 );
     d_data->pointRect = QRectF( 0.0, 0.0, -1.0, -1.0 );
