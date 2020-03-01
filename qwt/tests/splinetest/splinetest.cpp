@@ -2,6 +2,7 @@
 #include <qwt_spline_local.h>
 #include <qwt_spline_parametrization.h>
 #include <qwt_spline_polynomial.h>
+#include <qwt_math.h>
 
 #include <qpolygon.h>
 #include <qpainterpath.h>
@@ -509,7 +510,7 @@ static void testSplines()
     const int mod = y2 - y1;
     for ( int i = 1; i < n - 1; i++ )
     {
-        const double r = qrand() % mod;
+        const double r = qwtRand() % mod;
         points += QPointF( x1 + i * dx, y1 + r );
     }
     points += QPointF( x2, y1 );

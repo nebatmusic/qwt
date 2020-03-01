@@ -94,7 +94,7 @@ void QwtScaleWidget::initScale( QwtScaleDraw::Alignment align )
 {
     d_data = new PrivateData;
 
-    d_data->layoutFlags = 0;
+    d_data->layoutFlags = LayoutFlags( 0 );
     if ( align == QwtScaleDraw::RightScale )
         d_data->layoutFlags |= TitleInverted;
 

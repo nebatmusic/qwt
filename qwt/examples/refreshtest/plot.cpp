@@ -44,7 +44,7 @@ static double wave( double x )
 
 static double noise( double )
 {
-    return 2.0 * ( qrand() / ( static_cast<double>( RAND_MAX ) + 1 ) ) - 1.0;
+    return 2.0 * ( qwtRand() / ( static_cast<double>( RAND_MAX ) + 1 ) ) - 1.0;
 }
 
 Plot::Plot( QWidget *parent ):

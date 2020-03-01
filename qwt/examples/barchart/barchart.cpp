@@ -12,6 +12,7 @@
 #include <qwt_legend.h>
 #include <qwt_scale_draw.h>
 #include <qwt_text.h>
+#include <qwt_math.h>
 
 BarChart::BarChart( QWidget *parent ):
     QwtPlot( parent )
@@ -72,7 +73,7 @@ void BarChart::populate()
     {
         QVector<double> values;
         for ( int j = 0; j < numBars; j++ )
-            values += ( 2 + qrand() % 8 );
+            values += ( 2 + qwtRand() % 8 );
 
         series += values;
     }

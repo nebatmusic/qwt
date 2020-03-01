@@ -11,6 +11,7 @@
 #include <qwt_plot_layout.h>
 #include <qwt_interval.h>
 #include <qwt_painter.h>
+#include <qwt_math.h>
 
 #include <qpainter.h>
 
@@ -135,11 +136,11 @@ Plot::Plot( QWidget *parent, const QwtInterval &interval ):
     for ( int i = 0; i < numEllipses; i++ )
     {
         const double x = interval.minValue() +
-            qrand() % qRound( interval.width() );
+            qwtRand() % qRound( interval.width() );
         const double y = interval.minValue() +
-            qrand() % qRound( interval.width() );
+            qwtRand() % qRound( interval.width() );
         const double r = interval.minValue() +
-            qrand() % qRound( interval.width() / 6 );
+            qwtRand() % qRound( interval.width() / 6 );
 
         const QRectF area( x - r, y - r , 2 * r, 2 * r );
 
