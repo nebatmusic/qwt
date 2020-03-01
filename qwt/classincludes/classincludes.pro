@@ -101,6 +101,7 @@ contains(QWT_CONFIG, QwtPlot) {
         QwtPlotCurve \
         QwtPlotDict \
         QwtPlotDirectPainter \
+        QwtPlotGraphicItem \
         QwtPlotGrid \
         QwtPlotHistogram \
         QwtPlotIntervalCurve \
