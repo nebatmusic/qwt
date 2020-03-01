@@ -11,6 +11,7 @@
 #include <qwt_plot_layout.h>
 #include <qwt_scale_widget.h>
 #include <qwt_scale_draw.h>
+#include <qwt_math.h>
 
 #include <qpen.h>
 #include <qtimer.h>
@@ -96,11 +97,11 @@ QSize RandomPlot::sizeHint() const
 
 void RandomPlot::appendPoint()
 {
-    double x = qrand() % c_rangeMax;
-    x += ( qrand() % 100 ) / 100;
+    double x = qwtRand() % c_rangeMax;
+    x += ( qwtRand() % 100 ) / 100;
 
-    double y = qrand() % c_rangeMax;
-    y += ( qrand() % 100 ) / 100;
+    double y = qwtRand() % c_rangeMax;
+    y += ( qwtRand() % 100 ) / 100;
 
     IncrementalPlot::appendPoint( QPointF( x, y ) );
 

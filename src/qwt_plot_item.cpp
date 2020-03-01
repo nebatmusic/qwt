@@ -22,9 +22,6 @@ public:
     PrivateData():
         plot( NULL ),
         isVisible( true ),
-        attributes( 0 ),
-        interests( 0 ),
-        renderHints( 0 ),
         renderThreadCount( 1 ),
         z( 0.0 ),
         xAxis( QwtPlot::xBottom ),

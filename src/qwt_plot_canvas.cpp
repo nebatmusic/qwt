@@ -507,7 +507,6 @@ public:
     PrivateData():
         focusIndicator( NoFocusIndicator ),
         borderRadius( 0 ),
-        paintAttributes( 0 ),
         backingStore( NULL )
     {
         styleSheet.hasBorder = false;

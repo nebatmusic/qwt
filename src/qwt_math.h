@@ -154,6 +154,7 @@ QWT_CONSTEXPR inline double qwtBoundF( double min, double value, double max)
 
 QWT_EXPORT double qwtNormalizeRadians( double radians );
 QWT_EXPORT double qwtNormalizeDegrees( double degrees );
+QWT_EXPORT quint32 qwtRand();
 
 /*!
   \brief Compare 2 values, relative to an interval

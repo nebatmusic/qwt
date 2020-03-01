@@ -269,7 +269,6 @@ public:
     PrivateData():
         len( 0 ),
         alignment( QwtScaleDraw::BottomScale ),
-        labelAlignment( 0 ),
         labelRotation( 0.0 )
     {
     }

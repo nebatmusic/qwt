@@ -11,7 +11,7 @@
 static double randomValue()
 {
     // a number between [ 0.0, 1.0 ]
-    return ( qrand() % 100000 ) / 100000.0;
+    return ( qwtRand() % 100000 ) / 100000.0;
 }
 
 MainWindow::MainWindow()

@@ -12,6 +12,7 @@
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_layout.h>
+#include <qwt_math.h>
 
 #include <qpen.h>
 
@@ -56,11 +57,11 @@ public:
     {
         QVector<QPointF> points;
 
-        double y = qrand() % 1000;
+        double y = qwtRand() % 1000;
 
         for ( double x = 0.0; x <= 1000.0; x += 100.0 )
         {
-            double off = qrand() % 200 - 100;
+            double off = qwtRand() % 200 - 100;
             if ( y + off > 980.0 || y + off < 20.0 )
                 off = -off;
 
