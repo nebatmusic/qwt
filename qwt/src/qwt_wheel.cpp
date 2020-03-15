@@ -10,13 +10,13 @@
 #include "qwt_wheel.h"
 #include "qwt_math.h"
 #include "qwt_painter.h"
+#include "qwt.h"
 
 #include <qevent.h>
 #include <qdrawutil.h>
 #include <qpainter.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
-#include <qapplication.h>
 #include <qelapsedtimer.h>
 #include <qmath.h>
 
@@ -953,7 +953,7 @@ int QwtWheel::wheelWidth() const
 QSize QwtWheel::sizeHint() const
 {
     const QSize hint = minimumSizeHint();
-    return hint.expandedTo( QApplication::globalStrut() );
+    return qwtExpandedToGlobalStrut( hint );
 }
 
 /*!

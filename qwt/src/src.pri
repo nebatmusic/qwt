@@ -55,6 +55,7 @@ HEADERS += \
     qwt_widget_overlay.h
 
 SOURCES += \
+    qwt.cpp \
     qwt_abstract_scale_draw.cpp \
     qwt_bezier.cpp \
     qwt_clipper.cpp \

@@ -13,6 +13,7 @@
 #include "qwt_scale_map.h"
 #include "qwt_round_scale_draw.h"
 #include "qwt_painter.h"
+#include "qwt.h"
 
 #include <qpainter.h>
 #include <qpalette.h>
@@ -20,7 +21,6 @@
 #include <qevent.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
-#include <qapplication.h>
 
 static inline double qwtAngleDist( double a1, double a2 )
 {
@@ -690,7 +690,7 @@ QSize QwtDial::sizeHint() const
 
     QSize hint( d, d );
     if ( !isReadOnly() )
-        hint = hint.expandedTo( QApplication::globalStrut() );
+        hint = qwtExpandedToGlobalStrut( hint );
 
     return hint;
 }
