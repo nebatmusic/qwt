@@ -12,13 +12,13 @@
 #include "qwt_scale_draw.h"
 #include "qwt_scale_map.h"
 #include "qwt_math.h"
+#include "qwt.h"
 
 #include <qevent.h>
 #include <qdrawutil.h>
 #include <qpainter.h>
 #include <qstyle.h>
 #include <qstyleoption.h>
-#include <qapplication.h>
 #include <qmargins.h>
 
 static QSize qwtHandleSize( const QSize &size,
@@ -912,7 +912,7 @@ bool QwtSlider::hasGroove() const
 QSize QwtSlider::sizeHint() const
 {
     const QSize hint = minimumSizeHint();
-    return hint.expandedTo( QApplication::globalStrut() );
+    return qwtExpandedToGlobalStrut( hint );
 }
 
 /*!

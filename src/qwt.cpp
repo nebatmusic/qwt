@@ -7,20 +7,14 @@
  * modify it under the terms of the Qwt License, Version 1.0
  *****************************************************************************/
 
-#ifndef QWT_H
-#define QWT_H
+#include "qwt.h"
+#include <qapplication.h>
 
-#include "qwt_global.h"
-
-class QSize;
-
-/*!
-  Some constants for use within Qwt.
-*/
-namespace Qwt
+QSize qwtExpandedToGlobalStrut( const QSize &size )
 {
-}
-
-QWT_EXPORT QSize qwtExpandedToGlobalStrut( const QSize & );
-
+#if QT_DEPRECATED_SINCE(5, 15)
+    return size.expandedTo( QApplication::globalStrut() );
+#else
+    return size;
 #endif
+}

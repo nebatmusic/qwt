@@ -12,6 +12,7 @@
 #include "qwt_painter.h"
 #include "qwt_scale_map.h"
 #include "qwt_math.h"
+#include "qwt.h"
 
 #include <qpainter.h>
 #include <qpalette.h>
@@ -19,7 +20,6 @@
 #include <qstyleoption.h>
 #include <qevent.h>
 #include <qmargins.h>
-#include <qapplication.h>
 #include <qmath.h>
 
 static QSize qwtKnobSizeHint( const QwtKnob *knob, int min )
@@ -833,7 +833,7 @@ int QwtKnob::markerSize() const
 QSize QwtKnob::sizeHint() const
 {
     const QSize hint = qwtKnobSizeHint( this, 50 );
-    return hint.expandedTo( QApplication::globalStrut() );
+    return qwtExpandedToGlobalStrut( hint );
 }
 
 /*!
