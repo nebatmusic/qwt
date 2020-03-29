@@ -13,6 +13,7 @@
 #include <qwt_plot_renderer.h>
 
 #include <qpen.h>
+#include <qpainterpath.h>
 
 class Legend: public QwtLegend
 {

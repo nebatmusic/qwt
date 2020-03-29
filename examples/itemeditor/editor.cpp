@@ -13,6 +13,7 @@
 
 #include <qevent.h>
 #include <qpainter.h>
+#include <qpainterpath.h>
 
 class Overlay: public QwtWidgetOverlay
 {

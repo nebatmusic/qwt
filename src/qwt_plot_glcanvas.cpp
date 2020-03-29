@@ -13,6 +13,7 @@
 
 #include <qcoreevent.h>
 #include <qpainter.h>
+#include <qpainterpath.h>
 #include <qdrawutil.h>
 #include <qstyle.h>
 #include <qstyleoption.h>

@@ -12,6 +12,7 @@
 
 #include <qapplication.h>
 #include <qpainter.h>
+#include <qpainterpath.h>
 #include <qbuffer.h>
 #include <qmath.h>
 

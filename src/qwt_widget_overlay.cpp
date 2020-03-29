@@ -12,6 +12,7 @@
 
 #include <qpainter.h>
 #include <qpaintengine.h>
+#include <qpainterpath.h>
 #include <qimage.h>
 #include <qevent.h>
 
