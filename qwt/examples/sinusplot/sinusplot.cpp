@@ -16,6 +16,7 @@
 #include <qwt_math.h>
 
 #include <qapplication.h>
+#include <qpainterpath.h>
 #include <qlayout.h>
 
 //-----------------------------------------------------------------

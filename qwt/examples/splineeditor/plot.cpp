@@ -26,6 +26,7 @@
 #include <qcoreevent.h>
 #include <qprinter.h>
 #include <qprintdialog.h>
+#include <qpainterpath.h>
 
 class Symbol: public QwtSymbol
 {

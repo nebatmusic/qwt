@@ -12,6 +12,7 @@
 #include "qwt_painter.h"
 
 #include <qpainter.h>
+#include <qpainterpath.h>
 #include <qcoreevent.h>
 #include <qopenglframebufferobject.h>
 #include <qopenglpaintdevice.h>

@@ -45,6 +45,7 @@ typedef QGLWidget QwtPlotCanvasSurfaceGL;
 #endif // !QWT_NO_OPENGL
 
 #include <qpainter.h>
+#include <qpainterpath.h>
 #include <qevent.h>
 
 class QwtPlotCanvas::PrivateData

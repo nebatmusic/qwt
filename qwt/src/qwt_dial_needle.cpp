@@ -12,6 +12,7 @@
 
 #include <qapplication.h>
 #include <qpainter.h>
+#include <qpainterpath.h>
 #include <qmath.h>
 
 static void qwtDrawStyle1Needle( QPainter *painter,
