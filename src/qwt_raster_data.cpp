@@ -281,6 +281,10 @@ QwtRasterData::ContourLines QwtRasterData::contourLines(
     QwtRasterData *that = const_cast<QwtRasterData *>( this );
     that->initRaster( rect, raster );
 
+#if __GNUC__ >= 9
+#pragma GCC diagnostic ignored "-Wdeprecated-copy"
+#endif
+
     for ( int y = 0; y < raster.height() - 1; y++ )
     {
         enum Position
@@ -397,6 +401,10 @@ QwtRasterData::ContourLines QwtRasterData::contourLines(
             }
         }
     }
+
+#if __GNUC__ >= 9
+#pragma GCC diagnostic pop
+#endif
 
     that->discardRaster();
 
