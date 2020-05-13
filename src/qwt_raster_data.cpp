@@ -282,6 +282,7 @@ QwtRasterData::ContourLines QwtRasterData::contourLines(
     that->initRaster( rect, raster );
 
 #if __GNUC__ >= 9
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-copy"
 #endif
 
