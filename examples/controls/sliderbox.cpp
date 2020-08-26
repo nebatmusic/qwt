@@ -185,3 +185,5 @@ void SliderBox::setNum( double v )
 
     d_label->setText( text );
 }
+
+#include "moc_sliderbox.cpp"

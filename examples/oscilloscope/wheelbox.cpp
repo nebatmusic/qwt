@@ -124,3 +124,5 @@ double WheelBox::value() const
 {
     return d_wheel->value();
 }
+
+#include "moc_wheelbox.cpp"

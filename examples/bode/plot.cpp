@@ -193,3 +193,5 @@ void Plot::setDamp( double damping )
 
     replot();
 }
+
+#include "moc_plot.cpp"

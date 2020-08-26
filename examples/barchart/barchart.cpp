@@ -137,3 +137,5 @@ void BarChart::exportChart()
     QwtPlotRenderer renderer;
     renderer.exportTo( this, "barchart.pdf" );
 }
+
+#include "moc_barchart.cpp"

@@ -125,3 +125,5 @@ QRect ScalePicker::scaleRect( const QwtScaleWidget *scale ) const
     }
     return rect;
 }
+
+#include "moc_scalepicker.cpp"

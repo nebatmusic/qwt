@@ -98,3 +98,5 @@ void Plot::setSamples( const QVector<QPointF> &samples )
 
     d_curve->setSamples( samples );
 }
+
+#include "moc_plot.cpp"

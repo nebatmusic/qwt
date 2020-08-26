@@ -94,3 +94,5 @@ void Plot::applyAxisSettings( int axis, const Settings &settings )
     setAxisScale( axis, QwtDate::toDouble( settings.startDateTime ),
         QwtDate::toDouble( settings.endDateTime ) );
 }
+
+#include "moc_plot.cpp"

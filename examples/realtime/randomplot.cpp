@@ -147,3 +147,5 @@ void RandomPlot::clear()
     clearPoints();
     replot();
 }
+
+#include "moc_randomplot.cpp"

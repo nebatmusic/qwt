@@ -174,3 +174,5 @@ int ScrollBar::extent() const
         opt.state |= QStyle::State_Horizontal;
     return style()->pixelMetric( QStyle::PM_ScrollBarExtent, &opt, this );
 }
+
+#include "moc_scrollbar.cpp"

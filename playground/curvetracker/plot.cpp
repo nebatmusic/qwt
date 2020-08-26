@@ -109,4 +109,4 @@ void Plot::insertCurve( const QString &title,
     curve->attach( this );
 }
 
-
+#include "moc_plot.cpp"

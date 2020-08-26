@@ -127,3 +127,5 @@ void IncrementalPlot::showSymbols( bool on )
 
     replot();
 }
+
+#include "moc_incrementalplot.cpp"

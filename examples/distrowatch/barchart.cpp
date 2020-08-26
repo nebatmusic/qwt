@@ -254,3 +254,4 @@ void BarChart::render( QPainter* painter, const QRectF & targetRect )
     renderer.render( this, painter, plotRect );
 }
 
+#include "moc_barchart.cpp"

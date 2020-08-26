@@ -121,3 +121,4 @@ void ColorBar::drawColorBar( QPainter *painter, const QRect &rect ) const
     painter->restore();
 }
 
+#include "moc_colorbar.cpp"

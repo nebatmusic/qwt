@@ -39,3 +39,5 @@ void MainWindow::setSamples( int numPoints )
 
     d_plot->setSamples( samples );
 }
+
+#include "moc_mainwindow.cpp"

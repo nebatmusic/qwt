@@ -3,6 +3,9 @@
  * This file may be used under the terms of the 3-clause BSD License
  *****************************************************************************/
 
+#ifndef COLOR_BAR_H
+#define COLOR_BAR_H
+
 #include <qwt_global.h>
 #include <qwidget.h>
 
@@ -37,3 +40,5 @@ private:
     QColor d_light;
     QColor d_dark;
 };
+
+#endif

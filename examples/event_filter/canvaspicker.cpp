@@ -377,3 +377,5 @@ void CanvasPicker::shiftPointCursor( bool up )
         showCursor( true );
     }
 }
+
+#include "moc_canvaspicker.cpp"

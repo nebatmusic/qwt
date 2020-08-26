@@ -125,3 +125,5 @@ MainWindow::MainWindow( QWidget *parent ):
     connect( d_transformPlot, SIGNAL( selected( QwtTransform * ) ),
         d_plot, SLOT( setTransformation( QwtTransform * ) ) );
 }
+
+#include "moc_mainwindow.cpp"

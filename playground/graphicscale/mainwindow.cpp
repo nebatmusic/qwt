@@ -113,3 +113,5 @@ void MainWindow::loadPath( const QPainterPath &path )
     d_canvas[0]->setSvg( buf.data() );
     d_canvas[1]->setSvg( buf.data() );
 }
+
+#include "moc_mainwindow.cpp"

@@ -172,3 +172,5 @@ void DialBox::setNum( double v )
 
     d_label->setText( text );
 }
+
+#include "moc_dialbox.cpp"

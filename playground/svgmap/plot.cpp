@@ -101,3 +101,5 @@ void Plot::rescale()
     setAxisScale( QwtPlot::yLeft,
         d_mapRect.top(), d_mapRect.bottom() );
 }
+
+#include "moc_plot.cpp"

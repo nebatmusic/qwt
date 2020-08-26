@@ -181,3 +181,5 @@ void Plot::insertCurve( Qt::Orientation o,
     curve->setSamples( x, y, sizeof( x ) / sizeof( x[0] ) );
     curve->attach( this );
 }
+
+#include "moc_plot.cpp"

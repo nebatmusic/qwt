@@ -237,3 +237,5 @@ void MainWindow::selected( const QPolygon & )
 {
     showInfo();
 }
+
+#include "moc_mainwindow.cpp"

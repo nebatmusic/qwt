@@ -262,3 +262,5 @@ void Plot::exportPlot()
     QwtPlotRenderer renderer;
     renderer.exportTo( this, "stockchart.pdf" );
 }
+
+#include "moc_plot.cpp"

@@ -71,3 +71,5 @@ double MainWindow::signalInterval() const
 {
     return d_timerWheel->value();
 }
+
+#include "moc_mainwindow.cpp"

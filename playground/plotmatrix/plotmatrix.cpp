@@ -423,3 +423,5 @@ void PlotMatrix::alignScaleBorder( int rowOrColumn, int axis )
         }
     }
 }
+
+#include "moc_plotmatrix.cpp"

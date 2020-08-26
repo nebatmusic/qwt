@@ -3,8 +3,8 @@
  * This file may be used under the terms of the 3-clause BSD License
  *****************************************************************************/
 
-#ifndef COLOR_BAR_H
-#define COLOR_BAR_H
+#ifndef PLOT_H
+#define PLOT_H
 
 #include <qwt_plot.h>
 
