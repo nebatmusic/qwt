@@ -1158,4 +1158,3 @@ QwtPlotItem *QwtPlot::infoToItem( const QVariant &itemInfo ) const
 #if QWT_MOC_INCLUDE
 #include "moc_qwt_plot.cpp"
 #endif
-
