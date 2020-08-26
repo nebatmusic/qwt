@@ -40,3 +40,6 @@ PlotDialog::PlotDialog( const QString &properties, QWidget *parent ):
     setLayout( mainLayout );
 }
 
+#if QWT_MOC_INCLUDE
+#include "moc_qwt_designer_plotdialog.cpp"
+#endif
