@@ -75,3 +75,5 @@ void Plot::setTransformation( QwtTransform *transform )
 
     replot();
 }
+
+#include "moc_plot.cpp"

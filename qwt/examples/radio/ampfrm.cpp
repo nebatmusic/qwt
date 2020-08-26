@@ -204,3 +204,5 @@ void AmpFrame::setMaster( double v )
 {
     d_master = v;
 }
+
+#include "moc_ampfrm.cpp"

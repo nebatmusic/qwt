@@ -117,3 +117,5 @@ void Plot::setResampleMode( int mode )
 
     replot();
 }
+
+#include "moc_plot.cpp"

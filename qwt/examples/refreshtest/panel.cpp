@@ -328,3 +328,5 @@ void Panel::setSettings( const Settings &s )
         s.curve.pen.style() == Qt::SolidLine ? 0 : 1 );
     d_curveFilled->setChecked( s.curve.brush.style() != Qt::NoBrush );
 }
+
+#include "moc_panel.cpp"

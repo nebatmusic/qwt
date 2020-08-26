@@ -40,3 +40,5 @@ void TreeView::currentChanged( const QModelIndex &current, const QModelIndex &pr
     QFileSystemModel* fsModel = qobject_cast< QFileSystemModel* >( model() );
     Q_EMIT selected( fsModel->filePath( current ) );
 }
+
+#include "moc_treeview.cpp"

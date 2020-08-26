@@ -54,3 +54,5 @@ double SamplingThread::value( double timeStamp ) const
 
     return v;
 }
+
+#include "moc_samplingthread.cpp"

@@ -584,3 +584,5 @@ void Plot::printPlot()
 }
 
 #endif
+
+#include "moc_plot.cpp"

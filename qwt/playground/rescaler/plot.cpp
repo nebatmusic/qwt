@@ -186,3 +186,5 @@ void Plot::setRectOfInterest( const QRectF &rect )
 {
     d_rectOfInterest->setRect( rect );
 }
+
+#include "moc_plot.cpp"

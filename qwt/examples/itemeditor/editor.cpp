@@ -370,3 +370,4 @@ void Editor::setItemVisible( QwtPlotShapeItem *item, bool on )
 
 }
 
+#include "moc_editor.cpp"

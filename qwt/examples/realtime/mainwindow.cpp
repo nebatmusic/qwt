@@ -196,3 +196,4 @@ void MainWindow::initWhatsThis()
     d_clearAction->setWhatsThis( text5 );
 }
 
+#include "moc_mainwindow.cpp"

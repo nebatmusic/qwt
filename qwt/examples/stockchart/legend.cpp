@@ -358,3 +358,5 @@ void Legend::handleClick( const QModelIndex &index )
             item->checkState() == Qt::Checked, 0 );
     }
 }
+
+#include "moc_legend.cpp"

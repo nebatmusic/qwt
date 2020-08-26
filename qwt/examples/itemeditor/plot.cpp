@@ -128,3 +128,4 @@ void Plot::setMode( int mode )
     d_editor->setMode( static_cast<Editor::Mode>( mode ) );
 }
 
+#include "moc_plot.cpp"

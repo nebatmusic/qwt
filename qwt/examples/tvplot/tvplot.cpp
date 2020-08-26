@@ -175,3 +175,4 @@ void TVPlot::showItem( const QVariant &itemInfo, bool on )
         plotItem->setVisible( on );
 }
 
+#include "moc_tvplot.cpp"

@@ -270,3 +270,4 @@ void Plot::replot()
     QwtPlot::replot();
 }
 
+#include "moc_plot.cpp"

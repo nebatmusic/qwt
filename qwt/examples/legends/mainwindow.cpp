@@ -65,3 +65,5 @@ void MainWindow::exportPlot()
     QwtPlotRenderer renderer;
     renderer.exportTo( d_plot, "legends.pdf" );
 }
+
+#include "moc_mainwindow.cpp"

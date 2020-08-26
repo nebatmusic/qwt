@@ -191,3 +191,5 @@ void CockpitGrid::changeGradient()
 
     d_ai->setGradient( gradient + offset );
 }
+
+#include "moc_cockpit_grid.cpp"

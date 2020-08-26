@@ -132,3 +132,5 @@ void AttitudeIndicator::keyPressEvent( QKeyEvent *event )
             QwtDial::keyPressEvent( event );
     }
 }
+
+#include "moc_attitude_indicator.cpp"

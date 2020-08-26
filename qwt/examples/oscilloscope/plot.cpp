@@ -256,3 +256,5 @@ bool Plot::eventFilter( QObject *object, QEvent *event )
 
     return QwtPlot::eventFilter( object, event );
 }
+
+#include "moc_plot.cpp"

@@ -223,3 +223,5 @@ void Plot::timerEvent( QTimerEvent * )
         replot();
     }
 }
+
+#include "moc_plot.cpp"

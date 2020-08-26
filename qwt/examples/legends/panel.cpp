@@ -221,3 +221,5 @@ Settings Panel::settings() const
 
     return s;
 }
+
+#include "moc_panel.cpp"

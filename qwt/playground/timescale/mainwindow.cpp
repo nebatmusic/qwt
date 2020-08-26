@@ -63,3 +63,5 @@ void MainWindow::updatePanel()
 
     d_panel->setSettings( settings );
 }
+
+#include "moc_mainwindow.cpp"

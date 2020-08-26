@@ -483,3 +483,5 @@ int ScrollZoomer::oppositeAxis( int axis ) const
 
     return axis;
 }
+
+#include "moc_scrollzoomer.cpp"

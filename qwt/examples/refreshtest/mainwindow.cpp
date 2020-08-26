@@ -79,3 +79,5 @@ void MainWindow::applySettings( const Settings &settings )
     d_plot->canvas()->removeEventFilter( this );
     d_plot->canvas()->installEventFilter( this );
 }
+
+#include "moc_mainwindow.cpp"

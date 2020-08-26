@@ -113,3 +113,5 @@ void FormulaView::renderFormula( QPainter *painter ) const
         doc.paint( painter, docRect.topLeft() );
     }
 }
+
+#include "moc_formulaview.cpp"

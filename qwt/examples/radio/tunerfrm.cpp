@@ -117,3 +117,5 @@ void TunerFrame::setFreq( double frq )
 {
     d_wheelFrequency->setValue( frq );
 }
+
+#include "moc_tunerfrm.cpp"

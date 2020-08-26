@@ -148,3 +148,5 @@ void MainWindow::updateColors( const bool &colors )
 {
     d_formulaView->setColors( colors );
 }
+
+#include "moc_mainwindow.cpp"

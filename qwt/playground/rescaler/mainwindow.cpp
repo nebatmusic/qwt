@@ -150,3 +150,4 @@ void MainWindow::showRatio( double xRatio, double yRatio )
     statusBar()->showMessage( msg );
 }
 
+#include "moc_mainwindow.cpp"

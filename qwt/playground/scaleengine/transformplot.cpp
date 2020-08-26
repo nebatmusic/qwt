@@ -111,3 +111,5 @@ void TransformPlot::setLegendChecked( QwtPlotItem *plotItem )
         }
     }
 }
+
+#include "moc_transformplot.cpp"

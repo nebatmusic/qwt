@@ -197,3 +197,5 @@ void WheelBox::setNum( double v )
 
     d_label->setText( text );
 }
+
+#include "moc_wheelbox.cpp"

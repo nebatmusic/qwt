@@ -178,3 +178,5 @@ void CanvasPicker::move( const QPoint &pos )
 
     plot()->replot();
 }
+
+#include "moc_canvaspicker.cpp"

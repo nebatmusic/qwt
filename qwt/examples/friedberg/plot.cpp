@@ -213,3 +213,5 @@ void Plot::exportPlot()
     QwtPlotRenderer renderer;
     renderer.exportTo( this, "friedberg.pdf" );
 }
+
+#include "moc_plot.cpp"
