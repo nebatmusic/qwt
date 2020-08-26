@@ -29,7 +29,6 @@ class QWT_EXPORT QwtPointPolar
 public:
     QwtPointPolar();
     QwtPointPolar( double azimuth, double radius );
-    QwtPointPolar( const QwtPointPolar & );
     QwtPointPolar( const QPointF & );
 
     void setPoint( const QPointF & );
@@ -76,16 +75,6 @@ inline QwtPointPolar::QwtPointPolar():
 inline QwtPointPolar::QwtPointPolar( double azimuth, double radius ):
     d_azimuth( azimuth ),
     d_radius( radius )
-{
-}
-
-/*!
-    Constructs a point using the values of the point specified.
-    \param other Other point
-*/
-inline QwtPointPolar::QwtPointPolar( const QwtPointPolar &other ):
-    d_azimuth( other.d_azimuth ),
-    d_radius( other.d_radius )
 {
 }
 
