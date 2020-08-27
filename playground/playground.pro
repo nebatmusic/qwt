@@ -16,6 +16,7 @@ contains(QWT_CONFIG, QwtPlot) {
         rescaler \
         shapes \
         curvetracker \
+        vectorfield \
         symbols
 
     greaterThan(QT_MAJOR_VERSION, 4) {

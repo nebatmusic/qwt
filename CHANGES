@@ -28,3 +28,4 @@
 - qwtMinF/qwtMaxF added to avoid compiler issues, when qreal us a float
 - QwtPlotGraphicItem added
 - QwtMatrixRasterData::BicubicInterpolation added
+- QwtPlotVectorField added

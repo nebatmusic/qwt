@@ -232,7 +232,8 @@ public:
 
         const QSize visibleSize = viewport()->contentsRect().size();
 
-        const int minW = tl->maxItemWidth() + 2 * tl->margin();
+        const QMargins m = tl->contentsMargins();
+        const int minW = tl->maxItemWidth() + m.left() + m.right();
 
         int w = qMax( visibleSize.width(), minW );
         int h = qMax( tl->heightForWidth( w ), visibleSize.height() );

@@ -136,6 +136,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_plot_legenditem.h \
         qwt_plot_seriesitem.h \
         qwt_plot_shapeitem.h \
+        qwt_plot_vectorfield.h \
         qwt_plot_canvas.h \
         qwt_plot_panner.h \
         qwt_plot_picker.h \
@@ -145,6 +146,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_point_mapper.h \
         qwt_raster_data.h \
         qwt_matrix_raster_data.h \
+        qwt_vectorfield_symbol.h \
         qwt_sampling_thread.h \
         qwt_samples.h \
         qwt_series_data.h \
@@ -183,6 +185,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_plot_legenditem.cpp \
         qwt_plot_seriesitem.cpp \
         qwt_plot_shapeitem.cpp \
+        qwt_plot_vectorfield.cpp \
         qwt_plot_marker.cpp \
         qwt_plot_textlabel.cpp \
         qwt_plot_layout.cpp \
@@ -196,6 +199,7 @@ contains(QWT_CONFIG, QwtPlot) {
         qwt_point_mapper.cpp \
         qwt_raster_data.cpp \
         qwt_matrix_raster_data.cpp \
+        qwt_vectorfield_symbol.cpp \
         qwt_sampling_thread.cpp \
         qwt_series_data.cpp \
         qwt_point_data.cpp \
