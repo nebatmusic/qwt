@@ -36,6 +36,7 @@ MainWindow::MainWindow( QWidget *parent ):
     QComboBox *modeBox = new QComboBox( toolBar );
     modeBox->addItem( "Nearest Neighbour" );
     modeBox->addItem( "Bilinear Interpolation" );
+    modeBox->addItem( "Bicubic Interpolation" );
 
     toolBar->addWidget( new QLabel( "Resampling ", toolBar ) );
     toolBar->addWidget( modeBox );
