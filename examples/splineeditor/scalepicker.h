@@ -19,6 +19,7 @@ class ScalePicker: public QObject
     Q_OBJECT
 public:
     ScalePicker( QwtPlot *plot );
+
     virtual bool eventFilter( QObject *, QEvent * ) QWT_OVERRIDE;
 
 Q_SIGNALS:
