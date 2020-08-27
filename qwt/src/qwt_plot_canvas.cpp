@@ -381,8 +381,6 @@ QPainterPath QwtPlotCanvas::borderPath( const QRect &rect ) const
 
 #ifndef QWT_NO_OPENGL
 
-#define FIX_GL_TRANSLATION 0
-
 QImage QwtPlotCanvas::toImageFBO( const QSize &size )
 {
     const int numSamples = 4;
@@ -397,9 +395,7 @@ QImage QwtPlotCanvas::toImageFBO( const QSize &size )
 
     QOpenGLContext context;
     context.create();
-
     context.makeCurrent( d_data->surfaceGL );
-
 
     QOpenGLFramebufferObjectFormat fboFormat;
     fboFormat.setSamples(numSamples);
