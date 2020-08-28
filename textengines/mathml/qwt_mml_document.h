@@ -2,10 +2,12 @@
 #define QWT_MML_DOCUMENT_H
 
 #include <qwt_global.h>
-#include <QString>
 
+class QString;
+class QSize;
 class QPainter;
 class QPoint;
+class QColor;
 
 class QwtMmlDocument;
 
