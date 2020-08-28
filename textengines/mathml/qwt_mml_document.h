@@ -29,7 +29,7 @@ public:
 
     void clear();
 
-    bool setContent( QString text, QString *errorMsg = 0,
+    bool setContent( const QString& text, QString *errorMsg = 0,
         int *errorLine = 0, int *errorColumn = 0 );
 
     void paint( QPainter *, const QPoint &pos ) const;
