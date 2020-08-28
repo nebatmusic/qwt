@@ -714,8 +714,7 @@ void QwtPlotRenderer::renderLegend( const QwtPlot *plot,
   \param baseDist Base distance
   \param scaleRect Bounding rectangle for the scale
 */
-void QwtPlotRenderer::renderScale( const QwtPlot *plot,
-    QPainter *painter,
+void QwtPlotRenderer::renderScale( const QwtPlot *plot, QPainter *painter,
     int axisId, int startDist, int endDist, int baseDist,
     const QRectF &scaleRect ) const
 {
@@ -744,7 +743,6 @@ void QwtPlotRenderer::renderScale( const QwtPlot *plot,
         case QwtPlot::yLeft:
         {
             x = scaleRect.right() - 1.0 - baseDist - off;
-
             y = scaleRect.y() + startDist;
             w = scaleRect.height() - startDist - endDist;
             align = QwtScaleDraw::LeftScale;
