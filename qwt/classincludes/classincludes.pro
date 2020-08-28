@@ -17,6 +17,7 @@ include( $${QWT_ROOT}/qwtfunctions.pri )
 CLASSHEADERS = \
     QwtAbstractScaleDraw \
     QwtAlphaColorMap \
+    QwtBezier \
     QwtClipper \
     QwtColorMap \
     QwtColumnRect \
@@ -71,6 +72,7 @@ CLASSHEADERS = \
     QwtSplineInterpolating \
     QwtSplineLocal \
     QwtSplineParameter \
+    QwtSplineParametrization \
     QwtSplinePleasing \
     QwtSplinePolynomial \
     QwtSymbol \
@@ -121,7 +123,6 @@ contains(QWT_CONFIG, QwtPlot) {
         QwtPlotShapeItem \
         QwtPlotSpectroCurve \
         QwtPlotSpectrogram \
-        QwtPlotSvgItem \
         QwtPlotTextLabel \
         QwtPlotTradingCurve \
         QwtPlotVectorField \
@@ -140,6 +141,11 @@ contains(QWT_CONFIG, QwtPlot) {
         QwtSyntheticPointData \
         QwtPointArrayData \
         QwtTradingChartData \
+        QwtVectorFieldSymbol \
+        QwtVectorFieldArrow \
+        QwtVectorFieldThinArrow \
+        QwtVectorFieldData \
+        QwtVectorFieldSample \
         QwtCPointerData
 }
 
@@ -181,6 +187,11 @@ contains(QWT_CONFIG, QwtWidgets) {
         QwtWheel
 }
 
+contains(QWT_CONFIG, QwtSvg) {
+
+    CLASSHEADERS += \
+        QwtPlotSvgItem
+}
     
 target.path    = $${QWT_INSTALL_HEADERS}
 target.files   = $${CLASSHEADERS}
