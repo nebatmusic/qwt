@@ -5,7 +5,7 @@
 
 class QString;
 
-class QWT_EXPORT QwtMMLEntityTable
+class QwtMMLEntityTable
 {
 public:
     struct Spec
