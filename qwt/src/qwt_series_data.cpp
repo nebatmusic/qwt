@@ -371,12 +371,24 @@ double QwtVectorFieldData::maxMagnitude() const
     return d_maxMagnitude;
 }
 
+/*!
+   Constructor
+   \param samples Samples
+*/
 QwtSetSeriesData::QwtSetSeriesData(
         const QVector<QwtSetSample> &samples ):
     QwtArraySeriesData<QwtSetSample>( samples )
 {
 }
 
+/*!
+  \brief Calculate the bounding rectangle
+
+  The bounding rectangle is calculated once by iterating over all
+  points and is stored for all following requests.
+
+  \return Bounding rectangle
+*/
 QRectF QwtSetSeriesData::boundingRect() const
 {
     if ( d_boundingRect.width() < 0.0 )
