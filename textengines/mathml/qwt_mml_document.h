@@ -39,6 +39,12 @@ public:
     int baseFontPointSize() const;
     void setBaseFontPointSize( int size );
 
+    QColor foregroundColor() const;
+    void setForegroundColor( const QColor &color );
+
+    QColor backgroundColor() const;
+    void setBackgroundColor( const QColor &color );
+
 private:
     QwtMmlDocument *m_doc;
 };

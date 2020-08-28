@@ -6270,3 +6270,41 @@ void QwtMathMLDocument::setBaseFontPointSize( int size )
 {
     m_doc->setBaseFontPointSize( size );
 }
+
+/*!
+    Returns the color used to render expressions.
+*/
+QColor QwtMathMLDocument::foregroundColor() const
+{
+    return m_doc->foregroundColor();
+}
+
+/*!
+    Sets the color used to render expressions.
+*/
+void QwtMathMLDocument::setForegroundColor( const QColor &color )
+{
+    if ( color == m_doc->foregroundColor() )
+        return;
+
+    m_doc->setForegroundColor( color );
+}
+
+/*!
+    Returns the color used to render the background of expressions.
+*/
+QColor QwtMathMLDocument::backgroundColor() const
+{
+    return m_doc->backgroundColor();
+}
+
+/*!
+    Sets the color used to render the background of expressions.
+*/
+void QwtMathMLDocument::setBackgroundColor( const QColor &color )
+{
+    if ( color == m_doc->backgroundColor() )
+        return;
+
+    m_doc->setBackgroundColor( color );
+}
