@@ -17,6 +17,7 @@ include( $${QWT_ROOT}/qwtfunctions.pri )
 CLASSHEADERS = \
     QwtAbstractScaleDraw \
     QwtAlphaColorMap \
+    QwtBezier \
     QwtClipper \
     QwtColorMap \
     QwtColumnRect \
@@ -71,6 +72,7 @@ CLASSHEADERS = \
     QwtSplineInterpolating \
     QwtSplineLocal \
     QwtSplineParameter \
+    QwtSplineParametrization \
     QwtSplinePleasing \
     QwtSplinePolynomial \
     QwtSymbol \
@@ -139,6 +141,11 @@ contains(QWT_CONFIG, QwtPlot) {
         QwtSyntheticPointData \
         QwtPointArrayData \
         QwtTradingChartData \
+        QwtVectorFieldSymbol \
+        QwtVectorFieldArrow \
+        QwtVectorFieldThinArrow \
+        QwtVectorFieldData \
+        QwtVectorFieldSample \
         QwtCPointerData
 }
 
