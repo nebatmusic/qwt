@@ -36,7 +36,7 @@ public:
     virtual ~QwtVectorFieldSymbol();
 
     virtual void setLength( qreal length ) = 0;
-    virtual double length() const = 0;
+    virtual qreal length() const = 0;
 
     virtual void paint( QPainter * ) const = 0;
 
@@ -51,11 +51,11 @@ private:
 class QWT_EXPORT QwtVectorFieldArrow : public QwtVectorFieldSymbol
 {
 public:
-    QwtVectorFieldArrow( double headWidth = 6.0, double tailWidth = 1.0 );
+    QwtVectorFieldArrow( qreal headWidth = 6.0, qreal tailWidth = 1.0 );
     virtual ~QwtVectorFieldArrow() QWT_OVERRIDE;
 
     virtual void setLength( qreal length ) QWT_OVERRIDE;
-    virtual double length() const QWT_OVERRIDE;
+    virtual qreal length() const QWT_OVERRIDE;
     virtual void paint( QPainter * ) const QWT_OVERRIDE;
 
 private:
@@ -70,11 +70,11 @@ private:
 class QWT_EXPORT QwtVectorFieldThinArrow : public QwtVectorFieldSymbol
 {
 public:
-    QwtVectorFieldThinArrow( double headWidth = 6.0 );
+    QwtVectorFieldThinArrow( qreal headWidth = 6.0 );
     virtual ~QwtVectorFieldThinArrow() QWT_OVERRIDE;
 
     virtual void setLength( qreal length ) QWT_OVERRIDE;
-    virtual double length() const QWT_OVERRIDE;
+    virtual qreal length() const QWT_OVERRIDE;
     virtual void paint( QPainter * ) const QWT_OVERRIDE;
 
 private:
