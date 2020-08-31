@@ -108,15 +108,9 @@ linux {
 
             QMAKE_CXXFLAGS   *= -Wcast-qual
             QMAKE_CXXFLAGS   *= -Wcast-align
-            QMAKE_CXXFLAGS   *= -Wuseless-cast
             QMAKE_CXXFLAGS   *= -Wlogical-op
-            QMAKE_CXXFLAGS   *= -Wmissing-declarations
             QMAKE_CXXFLAGS   *= -Wredundant-decls
-            QMAKE_CXXFLAGS   *= -Winline
-
-            QMAKE_CXXFLAGS   *= -Wdouble-promotion
             QMAKE_CXXFLAGS   *= -Wformat
-
             QMAKE_CXXFLAGS   *= -Wshadow 
             QMAKE_CXXFLAGS   *= -Woverloaded-virtual
 
@@ -125,6 +119,10 @@ linux {
 
             # checks qwt code does not pass
 
+            # QMAKE_CXXFLAGS   *= -Wuseless-cast
+            # QMAKE_CXXFLAGS   *= -Wmissing-declarations
+            # QMAKE_CXXFLAGS   *= -Winline
+            # QMAKE_CXXFLAGS   *= -Wdouble-promotion
             # QMAKE_CXXFLAGS   *= -Wfloat-equal 
             # QMAKE_CXXFLAGS   *= -Wpadded
             # QMAKE_CXXFLAGS   *= -Waggregate-return
