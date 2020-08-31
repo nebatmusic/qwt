@@ -29,3 +29,4 @@
 - QwtPlotGraphicItem added
 - QwtMatrixRasterData::BicubicInterpolation added
 - QwtPlotVectorField added
+- MathML code removed, code can be found at https://github.com/uwerat/qwt-mml-dev

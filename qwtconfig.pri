@@ -102,17 +102,6 @@ QWT_CONFIG     += QwtSvg
 QWT_CONFIG     += QwtOpenGL
 
 ######################################################################
-# You can use the MathML renderer of the Qt solutions package to
-# enable MathML support in Qwt. Because of license implications
-# the ( modified ) code of the MML Widget solution is included and
-# linked together with the QwtMathMLTextEngine into an own library.
-# To use it you will have to add "CONFIG += qwtmathml"
-# to your qmake project file.
-######################################################################
-
-QWT_CONFIG     += QwtMathML
-
-######################################################################
 # If you want to build the Qwt designer plugin,
 # enable the line below.
 # Otherwise you have to build it from the designer directory.

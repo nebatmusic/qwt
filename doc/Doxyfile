@@ -808,7 +808,6 @@ EXCLUDE_PATTERNS       = qwt.h
 # exclude all test directories use the pattern */test/*
 
 EXCLUDE_SYMBOLS        = \
-    QwtMathMLDocument \
 	QwtPainterCommand::PixmapData \
 	QwtPainterCommand::ImageData \
 	QwtPainterCommand::StateData

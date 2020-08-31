@@ -685,7 +685,6 @@ const QwtTextEngine *QwtText::textEngine( const QString &text,
    \param format Text format
    \param engine Text engine
 
-   \sa QwtMathMLTextEngine
    \warning Using QwtText::AutoText does nothing.
 */
 void QwtText::setTextEngine( QwtText::TextFormat format,
