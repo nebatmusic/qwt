@@ -115,7 +115,7 @@ linux {
             QMAKE_CXXFLAGS   *= -Woverloaded-virtual
 
             # checks qwt code does not pass, but should be able to
-            #QMAKE_CXXFLAGS   *= -Wconversion 
+            # QMAKE_CXXFLAGS   *= -Wconversion 
 
             # checks qwt code does not pass
 
