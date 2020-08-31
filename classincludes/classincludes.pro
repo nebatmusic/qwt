@@ -98,6 +98,7 @@ contains(QWT_CONFIG, QwtPlot) {
         QwtOHLCSample \
         QwtPlot \
         QwtPlotAbstractBarChart \
+        QwtPlotAbstractCanvas \
         QwtPlotBarChart \
         QwtPlotCanvas \
         QwtPlotCurve \
@@ -153,6 +154,15 @@ contains(QWT_CONFIG, QwtOpenGL) {
 
     CLASSHEADERS += \
         QwtPlotGLCanvas
+
+    greaterThan(QT_MAJOR_VERSION, 4) {
+
+        greaterThan(QT_MINOR_VERSION, 3) {
+
+            CLASSHEADERS += \
+                QwtPlotOpenGLCanvas
+        }
+    }
 }
 
 contains(QWT_CONFIG, QwtWidgets) {
