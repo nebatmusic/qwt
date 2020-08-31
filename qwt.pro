@@ -9,8 +9,8 @@
 
 lessThan(QT_MAJOR_VERSION, 5) {
 
-    lessThan(QT_MINOR_VERSION, 7) {
-        error(Qt >= 4.7 required.)
+    lessThan(QT_MINOR_VERSION, 8) {
+        error(Qt >= 4.8 required.)
     }
 }
 
