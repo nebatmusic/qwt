@@ -24,6 +24,6 @@ namespace QuoteFactory
 
     QVector<QwtOHLCSample> samples2010( Stock );
     QString title( Stock );
-};
+}
 
 #endif
