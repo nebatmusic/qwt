@@ -70,9 +70,7 @@ static inline bool qwtIsRasterPaintEngineBuggy()
     return isBuggy == 1;
 #endif
 
-#if QT_VERSION < 0x040800
-    return false;
-#elif QT_VERSION < 0x050000
+#if QT_VERSION < 0x050000
     return true;
 #elif QT_VERSION < 0x050100
     return false;
@@ -114,17 +112,6 @@ static inline void qwtDrawPolyline( QPainter *painter,
         {
             if ( painter->pen().width() <= 1 )
             {
-#if QT_VERSION < 0x040800
-                if ( painter->renderHints() & QPainter::Antialiasing )
-                {
-                    /*
-                        all versions <= 4.7 have issues with
-                        antialiased lines
-                     */
-
-                    doSplit = true;
-                }
-#endif
                 // work around a bug with short lines below 2 pixels difference
                 // in height and width
 

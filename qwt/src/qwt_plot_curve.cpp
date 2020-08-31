@@ -27,14 +27,7 @@ static inline QRectF qwtIntersectedClipRect( const QRectF &rect, QPainter *paint
 {
     QRectF clipRect = rect;
     if ( painter->hasClipping() )
-    {
-#if QT_VERSION >= 0x040800
-        const QRectF r = painter->clipBoundingRect();
-#else
-        const QRectF r = painter->clipRegion().boundingRect();
-#endif
-        clipRect &= r;
-    }
+        clipRect &= painter->clipBoundingRect();
 
     return clipRect;
 }
@@ -501,25 +494,6 @@ void QwtPlotCurve::drawLines( QPainter *painter,
         clipRect = clipRect.adjusted(-pw, -pw, pw, pw);
     }
 
-    bool doIntegers = false;
-
-#if QT_VERSION < 0x040800
-    if ( painter->paintEngine()->type() == QPaintEngine::Raster )
-    {
-
-        // For Qt <= 4.7 the raster paint engine is significantly faster
-        // for rendering QPolygon than for QPolygonF. So let's
-        // see if we can use it.
-
-        // In case of filling or fitting performance doesn't count
-        // because both operations are much more expensive
-        // then drawing the polyline itself
-
-        if ( !doFit && !doFill )
-            doIntegers = true;
-    }
-#endif
-
     QwtPointMapper mapper;
 
     if ( doAlign )
@@ -535,78 +509,63 @@ void QwtPlotCurve::drawLines( QPainter *painter,
 
     mapper.setBoundingRect( canvasRect );
 
-    if ( doIntegers )
-    {
-        QPolygon polyline = mapper.toPolygon(
-            xMap, yMap, data(), from, to );
+    QPolygonF polyline = mapper.toPolygonF( xMap, yMap, data(), from, to );
 
-        if ( testPaintAttribute( ClipPolygons ) )
+    if ( doFill )
+    {
+        if ( doFit )
         {
-            QwtClipper::clipPolygon( clipRect, polyline, false );
+            // it might be better to extend and draw the curvePath, but for
+            // the moment we keep an implementation, where we translate the
+            // path back to a polyline.
+
+            polyline = d_data->curveFitter->fitCurve( polyline );
         }
 
-        QwtPainter::drawPolyline( painter, polyline );
+        if ( painter->pen().style() != Qt::NoPen )
+        {
+            // here we are wasting memory for the filled copy,
+            // do polygon clipping twice etc .. TODO
+
+            QPolygonF filled = polyline;
+            fillCurve( painter, xMap, yMap, canvasRect, filled );
+            filled.clear();
+
+            if ( d_data->paintAttributes & ClipPolygons )
+                QwtClipper::clipPolygonF( clipRect, polyline, false );
+
+            QwtPainter::drawPolyline( painter, polyline );
+        }
+        else
+        {
+            fillCurve( painter, xMap, yMap, canvasRect, polyline );
+        }
     }
     else
     {
-        QPolygonF polyline = mapper.toPolygonF( xMap, yMap, data(), from, to );
-
-        if ( doFill )
+        if ( testPaintAttribute( ClipPolygons ) )
         {
-            if ( doFit )
+            QwtClipper::clipPolygonF( clipRect, polyline, false );
+        }
+
+        if ( doFit )
+        {
+            if ( d_data->curveFitter->mode() == QwtCurveFitter::Path )
             {
-                // it might be better to extend and draw the curvePath, but for
-                // the moment we keep an implementation, where we translate the
-                // path back to a polyline.
+                const QPainterPath curvePath =
+                    d_data->curveFitter->fitCurvePath( polyline );
 
-                polyline = d_data->curveFitter->fitCurve( polyline );
-            }
-
-            if ( painter->pen().style() != Qt::NoPen )
-            {
-                // here we are wasting memory for the filled copy,
-                // do polygon clipping twice etc .. TODO
-
-                QPolygonF filled = polyline;
-                fillCurve( painter, xMap, yMap, canvasRect, filled );
-                filled.clear();
-
-                if ( d_data->paintAttributes & ClipPolygons )
-                    QwtClipper::clipPolygonF( clipRect, polyline, false );
-
-                QwtPainter::drawPolyline( painter, polyline );
+                painter->drawPath( curvePath );
             }
             else
             {
-                fillCurve( painter, xMap, yMap, canvasRect, polyline );
+                polyline = d_data->curveFitter->fitCurve( polyline );
+                QwtPainter::drawPolyline( painter, polyline );
             }
         }
         else
         {
-            if ( testPaintAttribute( ClipPolygons ) )
-            {
-                QwtClipper::clipPolygonF( clipRect, polyline, false );
-            }
-
-            if ( doFit )
-            {
-                if ( d_data->curveFitter->mode() == QwtCurveFitter::Path )
-                {
-                    const QPainterPath curvePath =
-                        d_data->curveFitter->fitCurvePath( polyline );
-
-                    painter->drawPath( curvePath );
-                }
-                else
-                {
-                    polyline = d_data->curveFitter->fitCurve( polyline );
-                    QwtPainter::drawPolyline( painter, polyline );
-                }
-            }
-            else
-            {
-                QwtPainter::drawPolyline( painter, polyline );
-            }
+            QwtPainter::drawPolyline( painter, polyline );
         }
     }
 }
