@@ -23,7 +23,7 @@ QwtVectorFieldSymbol::~QwtVectorFieldSymbol()
 class QwtVectorFieldArrow::PrivateData
 {
 public:
-    PrivateData( double headW, double tailW ):
+    PrivateData( qreal headW, qreal tailW ):
         headWidth( headW ),
         tailWidth( tailW ),
         length( headW + 4.0 )
@@ -43,23 +43,23 @@ public:
         path.closeSubpath();
     }
         
-    void setTailLength( qreal length )
+    void setLength( qreal l )
     {
-        length = headWidth + length;
+        length = qMax( l, headWidth );
 
         path.setElementPositionAt( 3, -length, tailWidth );
         path.setElementPositionAt( 4, -length, -tailWidth );
     }
 
-    const double headWidth;
-    const double tailWidth;
-    double length;
+    const qreal headWidth;
+    const qreal tailWidth;
+    qreal length;
 
     QPainterPath path;
 
 };
 
-QwtVectorFieldArrow::QwtVectorFieldArrow( double headWidth, double tailWidth )
+QwtVectorFieldArrow::QwtVectorFieldArrow( qreal headWidth, qreal tailWidth )
 {
     d_data = new PrivateData( headWidth, tailWidth );
 }
@@ -71,13 +71,10 @@ QwtVectorFieldArrow::~QwtVectorFieldArrow()
 
 void QwtVectorFieldArrow::setLength( qreal length )
 {
-    if ( length < d_data->headWidth )
-        d_data->setTailLength( 0 ); // only the triangle will be drawn
-    else
-        d_data->setTailLength( length - d_data->headWidth );
+    d_data->setLength( length );
 }
 
-double QwtVectorFieldArrow::length() const
+qreal QwtVectorFieldArrow::length() const
 {
     return d_data->length;
 }
@@ -90,7 +87,7 @@ void QwtVectorFieldArrow::paint( QPainter *painter ) const
 class QwtVectorFieldThinArrow::PrivateData
 {
 public:
-    PrivateData( double headW ):
+    PrivateData( qreal headW ):
         headWidth( headW ),
         length( headW + 4.0 )
     {
@@ -101,13 +98,13 @@ public:
         path.lineTo( -length, 0 );
     }
 
-    const double headWidth;
-    double length;
+    const qreal headWidth;
+    qreal length;
 
     QPainterPath path;
 };
 
-QwtVectorFieldThinArrow::QwtVectorFieldThinArrow( double headWidth )
+QwtVectorFieldThinArrow::QwtVectorFieldThinArrow( qreal headWidth )
 {
     d_data = new PrivateData( headWidth );
 }
@@ -130,7 +127,7 @@ void QwtVectorFieldThinArrow::setLength( qreal length )
     path.setElementPositionAt( 5, -length, 0 );
 }
 
-double QwtVectorFieldThinArrow::length() const
+qreal QwtVectorFieldThinArrow::length() const
 {
     return d_data->length;
 }
