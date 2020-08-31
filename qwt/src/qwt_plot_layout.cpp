@@ -351,18 +351,22 @@ void QwtPlotLayout::setLegendPosition( QwtPlot::LegendPosition pos, double ratio
     {
         case QwtPlot::TopLegend:
         case QwtPlot::BottomLegend:
+        {
             if ( ratio <= 0.0 )
                 ratio = 0.33;
             d_data->legendRatio = ratio;
             d_data->legendPos = pos;
             break;
+        }
         case QwtPlot::LeftLegend:
         case QwtPlot::RightLegend:
+        {
             if ( ratio <= 0.0 )
                 ratio = 0.5;
             d_data->legendRatio = ratio;
             d_data->legendPos = pos;
             break;
+        }
         default:
             break;
     }
@@ -555,7 +559,6 @@ void QwtPlotLayout::invalidate()
 
   \sa QwtPlot::minimumSizeHint()
 */
-
 QSize QwtPlotLayout::minimumSizeHint( const QwtPlot *plot ) const
 {
     class ScaleData
@@ -668,7 +671,7 @@ QSize QwtPlotLayout::minimumSizeHint( const QwtPlot *plot ) const
 
     for ( int i = 0; i < 2; i++ )
     {
-        const QwtTextLabel *label   = labels[i];
+        const QwtTextLabel *label = labels[i];
         if ( label && !label->text().isEmpty() )
         {
             // If only QwtPlot::yLeft or QwtPlot::yRight is showing,
@@ -721,7 +724,7 @@ QSize QwtPlotLayout::minimumSizeHint( const QwtPlot *plot ) const
 
             w += legendW + d_data->spacing;
         }
-        else // QwtPlot::Top, QwtPlot::Bottom
+        else
         {
             int legendW = qMin( legend->sizeHint().width(), w );
             int legendH = legend->heightForWidth( legendW );
@@ -748,7 +751,6 @@ QSize QwtPlotLayout::minimumSizeHint( const QwtPlot *plot ) const
   \return Geometry for the legend
   \sa Options
 */
-
 QRectF QwtPlotLayout::layoutLegend( Options options,
     const QRectF &rect ) const
 {
@@ -1292,17 +1294,25 @@ void QwtPlotLayout::activate( const QwtPlot *plot,
         switch ( d_data->legendPos )
         {
             case QwtPlot::LeftLegend:
+            {
                 rect.setLeft( rect.left() + d_data->spacing );
                 break;
+            }
             case QwtPlot::RightLegend:
+            {
                 rect.setRight( rect.right() - d_data->spacing );
                 break;
+            }
             case QwtPlot::TopLegend:
+            {
                 rect.setTop( rect.top() + d_data->spacing );
                 break;
+            }
             case QwtPlot::BottomLegend:
+            {
                 rect.setBottom( rect.bottom() - d_data->spacing );
                 break;
+            }
         }
     }
 
@@ -1390,21 +1400,29 @@ void QwtPlotLayout::activate( const QwtPlot *plot,
             switch ( axis )
             {
                 case QwtPlot::yLeft:
+                {
                     scaleRect.setX( d_data->canvasRect.left() - dim );
                     scaleRect.setWidth( dim );
                     break;
+                }
                 case QwtPlot::yRight:
+                {
                     scaleRect.setX( d_data->canvasRect.right() );
                     scaleRect.setWidth( dim );
                     break;
+                }
                 case QwtPlot::xBottom:
+                {
                     scaleRect.setY( d_data->canvasRect.bottom() );
                     scaleRect.setHeight( dim );
                     break;
+                }
                 case QwtPlot::xTop:
+                {
                     scaleRect.setY( d_data->canvasRect.top() - dim );
                     scaleRect.setHeight( dim );
                     break;
+                }
             }
             scaleRect = scaleRect.normalized();
         }
