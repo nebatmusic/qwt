@@ -21,6 +21,17 @@
 #include <QDesignerTaskMenuExtension>
 #include <QExtensionFactory>
 
+#define QWT_DESIGNER_INTERFACE( name ) \
+    class name: public CustomWidgetInterface \
+    { \
+        Q_OBJECT \
+        Q_INTERFACES( QDesignerCustomWidgetInterface ) \
+    public: \
+        name( QObject *parent ); \
+        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE; \
+    };
+
+
 namespace QwtDesignerPlugin
 {
     class CustomWidgetInterface: public QObject,
@@ -67,7 +78,6 @@ namespace QwtDesignerPlugin
         Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QDesignerCustomWidgetCollectionInterface" )
 #endif
 
-
     public:
         CustomWidgetCollectionInterface( QObject *parent = NULL );
 
@@ -77,144 +87,23 @@ namespace QwtDesignerPlugin
         QList<QDesignerCustomWidgetInterface*> d_plugins;
     };
 
-#ifndef NO_QWT_PLOT
-    class PlotInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        PlotInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-
-    class PlotCanvasInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        PlotCanvasInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-#ifndef NO_QWT_WIDGETS
-    class AnalogClockInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        AnalogClockInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-#ifndef NO_QWT_WIDGETS
-    class CompassInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        CompassInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-#ifndef NO_QWT_WIDGETS
-    class CounterInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        CounterInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-#ifndef NO_QWT_WIDGETS
-    class DialInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        DialInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-#ifndef NO_QWT_WIDGETS
-    class KnobInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        KnobInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
+    QWT_DESIGNER_INTERFACE( TextLabelInterface )
 
 #ifndef NO_QWT_PLOT
-    class ScaleWidgetInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        ScaleWidgetInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
+    QWT_DESIGNER_INTERFACE( PlotInterface )
+    QWT_DESIGNER_INTERFACE( PlotCanvasInterface )
+    QWT_DESIGNER_INTERFACE( ScaleWidgetInterface )
 #endif
 
 #ifndef NO_QWT_WIDGETS
-    class SliderInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        SliderInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-    class TextLabelInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        TextLabelInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-
-#ifndef NO_QWT_WIDGETS
-    class ThermoInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        ThermoInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
-#endif
-
-#ifndef NO_QWT_WIDGETS
-    class WheelInterface: public CustomWidgetInterface
-    {
-        Q_OBJECT
-        Q_INTERFACES( QDesignerCustomWidgetInterface )
-
-    public:
-        WheelInterface( QObject *parent );
-        virtual QWidget *createWidget( QWidget *parent ) QWT_OVERRIDE;
-    };
+    QWT_DESIGNER_INTERFACE( AnalogClockInterface )
+    QWT_DESIGNER_INTERFACE( CompassInterface )
+    QWT_DESIGNER_INTERFACE( CounterInterface )
+    QWT_DESIGNER_INTERFACE( DialInterface )
+    QWT_DESIGNER_INTERFACE( KnobInterface )
+    QWT_DESIGNER_INTERFACE( SliderInterface )
+    QWT_DESIGNER_INTERFACE( ThermoInterface )
+    QWT_DESIGNER_INTERFACE( WheelInterface )
 #endif
 
     class TaskMenuFactory: public QExtensionFactory
@@ -249,7 +138,6 @@ namespace QwtDesignerPlugin
         QAction *d_editAction;
         QWidget *d_widget;
     };
-
 }
 
 #endif
