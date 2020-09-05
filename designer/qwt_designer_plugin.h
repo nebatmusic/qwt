@@ -95,6 +95,10 @@ namespace QwtDesignerPlugin
     QWT_DESIGNER_INTERFACE( ScaleWidgetInterface )
 #endif
 
+#ifndef NO_QWT_POLAR
+    QWT_DESIGNER_INTERFACE( PolarPlotInterface )
+#endif
+
 #ifndef NO_QWT_WIDGETS
     QWT_DESIGNER_INTERFACE( AnalogClockInterface )
     QWT_DESIGNER_INTERFACE( CompassInterface )

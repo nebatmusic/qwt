@@ -170,6 +170,29 @@ QWidget *PlotCanvasInterface::createWidget( QWidget *parent )
 
 #endif
 
+#ifndef NO_QWT_POLAR
+
+PolarPlotInterface::PolarPlotInterface( QObject *parent ):
+    CustomWidgetInterface( parent )
+{
+    d_name = "QwtPolarPlot";
+    d_include = "qwt_polar_plot.h";
+    d_icon = QPixmap( ":/pixmaps/qwt_polar_plot.png" );
+    d_domXml =
+        "<widget class=\"QwtPolarPlot\" name=\"qwtPolarPlot\">\n"
+        " <property name=\"geometry\">\n"
+        "  <rect>\n"
+        "   <x>0</x>\n"
+        "   <y>0</y>\n"
+        "   <width>400</width>\n"
+        "   <height>400</height>\n"
+        "  </rect>\n"
+        " </property>\n"
+        "</widget>\n";
+}
+
+#endif
+
 #ifndef NO_QWT_WIDGETS
 
 AnalogClockInterface::AnalogClockInterface( QObject *parent ):

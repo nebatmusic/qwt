@@ -234,6 +234,42 @@ contains(QWT_CONFIG, QwtPlot) {
         SOURCES += \
             qwt_plot_svgitem.cpp
     }
+
+    contains(QWT_CONFIG, QwtPolar) {
+
+        HEADERS += \
+            qwt_polar.h \
+            qwt_polar_canvas.h \
+            qwt_polar_curve.h \
+            qwt_polar_fitter.h \
+            qwt_polar_grid.h \
+            qwt_polar_itemdict.h \
+            qwt_polar_item.h \
+            qwt_polar_layout.h \
+            qwt_polar_magnifier.h \
+            qwt_polar_marker.h \
+            qwt_polar_panner.h \
+            qwt_polar_picker.h \
+            qwt_polar_plot.h \
+            qwt_polar_renderer.h \
+            qwt_polar_spectrogram.h
+
+        SOURCES += \
+            qwt_polar_canvas.cpp \
+            qwt_polar_curve.cpp \
+            qwt_polar_fitter.cpp \
+            qwt_polar_grid.cpp \
+            qwt_polar_item.cpp \
+            qwt_polar_itemdict.cpp \
+            qwt_polar_layout.cpp \
+            qwt_polar_magnifier.cpp \
+            qwt_polar_marker.cpp \
+            qwt_polar_panner.cpp \
+            qwt_polar_picker.cpp \
+            qwt_polar_plot.cpp \
+            qwt_polar_renderer.cpp \
+            qwt_polar_spectrogram.cpp
+    }
 }
 
 greaterThan(QT_MAJOR_VERSION, 4) {

@@ -111,6 +111,10 @@ contains(QWT_CONFIG, QwtDesigner) {
         DEFINES += NO_QWT_PLOT
     }
 
+    !contains(QWT_CONFIG, QwtPolar) {
+        DEFINES += NO_QWT_POLAR
+    }
+
     !contains(QWT_CONFIG, QwtWidgets) {
         DEFINES += NO_QWT_WIDGETS
     }
