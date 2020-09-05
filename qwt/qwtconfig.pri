@@ -82,6 +82,13 @@ QWT_CONFIG           += QwtDll
 QWT_CONFIG       += QwtPlot
 
 ######################################################################
+# QwtPPolar enables all classes, that are needed to use the QwtPolar
+# classes. It can't be enabled without also enabling QwtPlot
+######################################################################
+
+QWT_CONFIG       += QwtPolar
+
+######################################################################
 # QwtWidgets enables all classes, that are needed to use the all other
 # widgets (sliders, dials, ...), beside QwtPlot.
 ######################################################################

@@ -35,6 +35,13 @@ contains(QWT_CONFIG, QwtPlot) {
             splineeditor \
             oscilloscope  
     }
+
+    contains(QWT_CONFIG, QwtPolar) {
+
+        SUBDIRS += \
+            polardemo \
+            polarspectrogram \
+    }
 }
 
 contains(QWT_CONFIG, QwtWidgets) {
