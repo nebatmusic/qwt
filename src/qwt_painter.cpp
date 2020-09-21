@@ -805,7 +805,7 @@ void QwtPainter::drawFocusRect( QPainter *painter, const QWidget *widget,
     const QRect &rect )
 {
     QStyleOptionFocusRect opt;
-    opt.init( widget );
+    opt.initFrom( widget );
     opt.rect = rect;
     opt.state |= QStyle::State_HasFocus;
     opt.backgroundColor = widget->palette().color( widget->backgroundRole() );

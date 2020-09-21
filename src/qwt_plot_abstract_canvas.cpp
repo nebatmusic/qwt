@@ -653,7 +653,7 @@ void QwtPlotAbstractCanvas::drawBorder( QPainter *painter )
 #else
         QStyleOptionFrame opt;
 #endif
-        opt.init( w );
+        opt.initFrom( w );
 
         opt.frameShape = QFrame::Shape( int( opt.frameShape ) | frameShape );
 

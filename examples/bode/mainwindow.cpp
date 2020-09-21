@@ -78,7 +78,7 @@ MainWindow::MainWindow( QWidget *parent ):
          d_plot->canvas() );
 
     d_panner = new QwtPlotPanner( d_plot->canvas() );
-    d_panner->setMouseButton( Qt::MidButton );
+    d_panner->setMouseButton( Qt::MiddleButton );
 
     d_picker = new QwtPlotPicker( QwtPlot::xBottom, QwtPlot::yLeft,
         QwtPlotPicker::CrossRubberBand, QwtPicker::AlwaysOn,
