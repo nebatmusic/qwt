@@ -17,7 +17,7 @@
 
 #include <qpainter.h>
 #include <qpainterpath.h>
-
+#include <qnumeric.h>
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
