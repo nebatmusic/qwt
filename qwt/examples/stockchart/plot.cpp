@@ -143,7 +143,7 @@ Plot::Plot( QWidget *parent ):
         Qt::RightButton );
 
     QwtPlotPanner *panner = new QwtPlotPanner( canvas() );
-    panner->setMouseButton( Qt::MidButton );
+    panner->setMouseButton( Qt::MiddleButton );
 
     connect( legend, SIGNAL( checked( QwtPlotItem *, bool, int ) ),
         SLOT( showItem( QwtPlotItem *, bool ) ) );
