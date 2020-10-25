@@ -27,7 +27,10 @@
 #include <qstyleoption.h>
 #include <qpaintengine.h>
 #include <qapplication.h>
+
+#if QT_VERSION < 0x060000
 #include <qdesktopwidget.h>
+#endif
 
 #if QT_VERSION < 0x050000
 
@@ -177,12 +180,24 @@ static inline QSize qwtScreenResolution()
     static QSize screenResolution;
     if ( !screenResolution.isValid() )
     {
+        /*
+            We might have screens with different resolutions. TODO ...
+         */
+#if QT_VERSION >= 0x060000
+        QScreen *screen = QGuiApplication::primaryScreen();
+        if ( screen )
+        {
+            screenResolution.setWidth( screen->logicalDotsPerInchX() );
+            screenResolution.setHeight( screen->logicalDotsPerInchY() );
+        }
+#else
         QDesktopWidget *desktop = QApplication::desktop();
         if ( desktop )
         {
             screenResolution.setWidth( desktop->logicalDpiX() );
             screenResolution.setHeight( desktop->logicalDpiY() );
         }
+#endif
     }
 
     return screenResolution;
