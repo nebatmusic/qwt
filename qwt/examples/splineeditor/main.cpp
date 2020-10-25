@@ -104,8 +104,7 @@ int main ( int argc, char **argv )
     w.addTab( new PlotTab( false, &w ), "Non Parametric" );
     w.addTab( new PlotTab( true, &w ), "Parametric" );
 
-    const QSize sz = 0.6 * QApplication::desktop()->size();
-    w.resize( sz.boundedTo( QSize( 800, 600 ) ) );
+    w.resize( 800, 600 );
     w.show();
 
     return a.exec();
