@@ -20,6 +20,9 @@ CONFIG           -= depend_includepath
 # CONFIG += sanitize
 # CONFIG += pedantic
 
+# older Qt headers result in tons of warnings with modern compilers and flags
+unix:lessThan(QT_MAJOR_VERSION, 5) CONFIG += qtsystemincludes
+
 # CONFIG += c++11
 
 c++11 {
@@ -168,6 +171,17 @@ linux {
     }
 
     # QMAKE_CXXFLAGS   *= -Werror
+}
+
+qtsystemincludes {
+    
+    # mark Qt directories as a system directories - usually to get rid
+    # of compiler warnings in Qt headers of old Qt versions
+    # when being built with modern compilers
+
+    QMAKE_CXXFLAGS += \
+        -isystem $$[QT_INSTALL_HEADERS]/QtCore \
+        -isystem $$[QT_INSTALL_HEADERS]/QtGui
 }
 
 ######################################################################
