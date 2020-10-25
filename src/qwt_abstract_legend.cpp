@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include "qwt_abstract_legend.h"
+#include "qwt_legend_data.h"
 
 /*!
   Constructor
