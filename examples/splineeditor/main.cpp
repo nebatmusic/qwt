@@ -6,7 +6,6 @@
 #include "plot.h"
 
 #include <qapplication.h>
-#include <qdesktopwidget.h>
 #include <qmainwindow.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
@@ -57,8 +56,13 @@ public:
             parameterBox->addItem( "Chordal" );
             parameterBox->addItem( "Manhattan" );
             toolBar->addWidget( parameterBox );
+#if QT_VERSION >= 0x060000
+            connect( parameterBox, SIGNAL( textActivated( const QString & ) ),
+                plot, SLOT( setParametric( const QString & ) ) );
+#else
             connect( parameterBox, SIGNAL( activated( const QString & ) ),
                 plot, SLOT( setParametric( const QString & ) ) );
+#endif
 
             parameterBox->setCurrentIndex( 2 ); // chordal
             plot->setParametric( parameterBox->currentText() );
@@ -79,8 +83,13 @@ public:
         boundaryBox->addItem( "Not a Knot" );
 
         toolBar->addWidget( boundaryBox );
+#if QT_VERSION >= 0x060000
+        connect( boundaryBox, SIGNAL( textActivated( const QString & ) ),
+            plot, SLOT( setBoundaryCondition( const QString & ) ) );
+#else
         connect( boundaryBox, SIGNAL( activated( const QString & ) ),
             plot, SLOT( setBoundaryCondition( const QString & ) ) );
+#endif
 
         addToolBar( toolBar );
     }
@@ -95,8 +104,7 @@ int main ( int argc, char **argv )
     w.addTab( new PlotTab( false, &w ), "Non Parametric" );
     w.addTab( new PlotTab( true, &w ), "Parametric" );
 
-    const QSize sz = 0.6 * QApplication::desktop()->size();
-    w.resize( sz.boundedTo( QSize( 800, 600 ) ) );
+    w.resize( 800, 600 );
     w.show();
 
     return a.exec();

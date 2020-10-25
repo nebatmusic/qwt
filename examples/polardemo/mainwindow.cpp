@@ -12,7 +12,6 @@
 #include <qwt_polar_magnifier.h>
 #include <qwt_polar_renderer.h>
 
-#include <qregexp.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qprinter.h>
@@ -86,12 +85,16 @@ void MainWindow::printDocument()
     QString docName = d_plot->title().text();
     if ( !docName.isEmpty() )
     {
-        docName.replace ( QRegExp ( QString::fromLatin1 ( "\n" ) ), tr ( " -- " ) );
+        docName.replace ( "\n", " -- " );
         printer.setDocName ( docName );
     }
 
     printer.setCreator( "polar plot demo example" );
+#if QT_VERSION >= 0x050300
+    printer.setPageOrientation( QPageLayout::Landscape );
+#else
     printer.setOrientation( QPrinter::Landscape );
+#endif
 
     QPrintDialog dialog( &printer );
     if ( dialog.exec() )
