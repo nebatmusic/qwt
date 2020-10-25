@@ -13,7 +13,9 @@ class QwtPlotCurve;
 class QwtPlotIntervalCurve;
 class QwtIntervalSample;
 
+#if QT_VERSION < 0x060000
 template <typename T> class QVector;
+#endif
 
 class Plot: public QwtPlot
 {
