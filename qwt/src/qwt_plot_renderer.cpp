@@ -117,7 +117,11 @@ static QPainterPath qwtCanvasClip(
 static inline QFont qwtResolvedFont( const QWidget *widget )
 {
     QFont font = widget->font();
+#if QT_VERSION >= 0x060000
+    font.setResolveMask( QFont::AllPropertiesResolved );
+#else
     font.resolve( QFont::AllPropertiesResolved );
+#endif
 
     return font;
 }

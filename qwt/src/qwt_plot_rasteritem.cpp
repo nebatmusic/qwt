@@ -374,7 +374,9 @@ static bool qwtUseCache( QwtPlotRasterItem::CachePolicy policy,
         {
             case QPaintEngine::SVG:
             case QPaintEngine::Pdf:
+#if QT_VERSION < 0x060000
             case QPaintEngine::PostScript:
+#endif
             case QPaintEngine::MacPrinter:
             case QPaintEngine::Picture:
                 break;

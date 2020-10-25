@@ -201,8 +201,7 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
     if ( !borderClip.isEmpty() )
         painter->setClipPath( borderClip, Qt::IntersectClip );
 
-    const QBrush &brush =
-        canvas->palette().brush( canvas->backgroundRole() );
+    const QBrush &brush = canvas->palette().brush( canvas->backgroundRole() );
 
     if ( brush.style() == Qt::TexturePattern )
     {
