@@ -18,7 +18,6 @@
 #include <qwt_plot_renderer.h>
 #include <qwt_text.h>
 
-#include <qregexp.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
@@ -161,12 +160,16 @@ void MainWindow::print()
     QString docName = d_plot->title().text();
     if ( !docName.isEmpty() )
     {
-        docName.replace ( QRegExp ( QString::fromLatin1 ( "\n" ) ), tr ( " -- " ) );
+        docName.replace ( "\n", " -- " );
         printer.setDocName ( docName );
     }
 
     printer.setCreator( "Bode example" );
+#if QT_VERSION >= 0x050300
+    printer.setPageOrientation( QPageLayout::Landscape );
+#else
     printer.setOrientation( QPrinter::Landscape );
+#endif
 
     QPrintDialog dialog( &printer );
     if ( dialog.exec() )
