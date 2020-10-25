@@ -7,7 +7,7 @@
  *****************************************************************************/
 
 #ifndef QWT_POLAR_RENDERER_H
-#define QWT_POLAR_RENDERER_H 1
+#define QWT_POLAR_RENDERER_H
 
 #include "qwt_global.h"
 #include <qobject.h>

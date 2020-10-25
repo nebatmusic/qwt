@@ -7,7 +7,7 @@
  *****************************************************************************/
 
 #ifndef QWT_POLAR_CANVAS_H
-#define QWT_POLAR_CANVAS_H 1
+#define QWT_POLAR_CANVAS_H
 
 #include "qwt_global.h"
 #include "qwt_point_polar.h"
