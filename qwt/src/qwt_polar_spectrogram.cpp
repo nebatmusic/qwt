@@ -17,10 +17,13 @@
 
 #include <qpainter.h>
 #include <qpainterpath.h>
-#include <qnumeric.h>
 #include <qthread.h>
 #include <qfuture.h>
 #include <qtconcurrentrun.h>
+
+#if QT_VERSION < 0x050000
+#include <qnumeric.h>
+#endif
 
 class QwtPolarSpectrogram::TileInfo
 {
@@ -287,14 +290,20 @@ QImage QwtPolarSpectrogram::renderImage(
     {
         if ( i == tileInfos.size() - 1 )
         {
-            renderTile( azimuthMap, radialMap, pole, &tileInfos[i] );
+            renderTileInfo( azimuthMap, radialMap, pole, &tileInfos[i] );
         }
         else
         {
-            futures += QtConcurrent::run( this, &QwtPolarSpectrogram::renderTile,
+            futures += QtConcurrent::run(
+#if QT_VERSION >= 0x060000
+                &QwtPolarSpectrogram::renderTileInfo, this,
+#else
+                this, &QwtPolarSpectrogram::renderTileInfo,
+#endif
                 azimuthMap, radialMap, pole, &tileInfos[i] );
         }
     }
+
     for ( int i = 0; i < futures.size(); i++ )
         futures[i].waitForFinished();
 
@@ -307,7 +316,7 @@ QImage QwtPolarSpectrogram::renderImage(
     return image;
 }
 
-void QwtPolarSpectrogram::renderTile(
+void QwtPolarSpectrogram::renderTileInfo(
     const QwtScaleMap &azimuthMap, const QwtScaleMap &radialMap,
     const QPointF &pole, TileInfo *tileInfo ) const
 {
