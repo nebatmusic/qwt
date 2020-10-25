@@ -214,63 +214,13 @@ static void qwtDrawBackground( QPainter *painter, QWidget *canvas )
         const bool fillClipRegion =
             brush.gradient()->coordinateMode() != QGradient::ObjectBoundingMode;
 
-        bool useRaster = false;
+        painter->setPen( Qt::NoPen );
+        painter->setBrush( brush );
 
-#if QT_VERSION < 0x050000
-        if ( painter->paintEngine()->type() == QPaintEngine::X11 )
-        {
-            // Qt 4.7.1: gradients on X11 are broken ( subrects +
-            // QGradient::StretchToDeviceMode ) and horrible slow.
-            // As workaround we have to use the raster paintengine.
-            // Even if the QImage -> QPixmap translation is slow
-            // it is three times faster, than using X11 directly
-
-            useRaster = true;
-        }
-#endif
-        if ( useRaster )
-        {
-            QImage::Format format = QImage::Format_RGB32;
-
-            const QGradientStops stops = brush.gradient()->stops();
-            for ( int i = 0; i < stops.size(); i++ )
-            {
-                if ( stops[i].second.alpha() != 255 )
-                {
-                    // don't use Format_ARGB32_Premultiplied. It's
-                    // recommended by the Qt docs, but QPainter::drawImage()
-                    // is horrible slow on X11.
-
-                    format = QImage::Format_ARGB32;
-                    break;
-                }
-            }
-
-            QImage image( canvas->size(), format );
-
-            QPainter p( &image );
-            p.setPen( Qt::NoPen );
-            p.setBrush( brush );
-
-            if ( fillClipRegion )
-                qwtFillRegion( &p, painter->clipRegion() );
-            else
-                p.drawRect( canvas->rect() );
-
-            p.end();
-
-            painter->drawImage( 0, 0, image );
-        }
+        if ( fillClipRegion )
+            qwtFillRegion( painter, painter->clipRegion() );
         else
-        {
-            painter->setPen( Qt::NoPen );
-            painter->setBrush( brush );
-
-            if ( fillClipRegion )
-                qwtFillRegion( painter, painter->clipRegion() );
-            else
-                painter->drawRect( canvas->rect() );
-        }
+            painter->drawRect( canvas->rect() );
     }
     else
     {
