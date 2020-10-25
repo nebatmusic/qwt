@@ -28,7 +28,9 @@
 #include <qpaintengine.h>
 #include <qapplication.h>
 
-#if QT_VERSION < 0x060000
+#if QT_VERSION >= 0x060000
+#include <qscreen.h>
+#else
 #include <qdesktopwidget.h>
 #endif
 
