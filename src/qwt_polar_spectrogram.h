@@ -80,7 +80,7 @@ protected:
 
 private:
     class TileInfo;
-    void renderTile( const QwtScaleMap &, const QwtScaleMap &,
+    void renderTileInfo( const QwtScaleMap &, const QwtScaleMap &,
         const QPointF &pole, TileInfo * ) const;
 
     class PrivateData;
