@@ -14,7 +14,10 @@
 #include <qcolor.h>
 
 class QwtInterval;
+
+#if QT_VERSION < 0x060000
 template <typename T> class QVector;
+#endif
 
 /*!
   \brief QwtColorMap is used to map values into colors.
