@@ -11,19 +11,25 @@
 #include <qapplication.h>
 
 #ifndef QWT_NO_OPENGL
-#define USE_OPENGL 1
-#endif
+    #if QT_VERSION < 0x050000
+        #include <qgl.h>
+    #endif
 
-#if USE_OPENGL
-#include <qgl.h>
-#include <qwt_plot_glcanvas.h>
+    #if QT_VERSION >= 0x060000
+        #include <qwt_plot_opengl_canvas.h>
+        typedef QwtPlotOpenGLCanvas Canvas;
+    #else
+        #include <qwt_plot_glcanvas.h>
+        typedef QwtPlotGLCanvas Canvas;
+    #endif
 #else
-#include <qwt_plot_canvas.h>
+    typedef QwtPlotCanvas Canvas;
+    #include <qwt_plot_canvas.h>
 #endif
 
 int main ( int argc, char **argv )
 {
-#if USE_OPENGL
+#ifndef QWT_NO_OPENGL
 #if QT_VERSION < 0x050000
     // on my box QPaintEngine::OpenGL2 has serious problems, f.e:
     // the lines of a simple drawRect are wrong.
@@ -36,13 +42,8 @@ int main ( int argc, char **argv )
 
     Plot plot;
 
-#if USE_OPENGL
-    QwtPlotGLCanvas *canvas = new QwtPlotGLCanvas();
-    canvas->setPaintAttribute( QwtPlotGLCanvas::BackingStore, false );
-#else
-    QwtPlotCanvas *canvas = new QwtPlotCanvas();
-    canvas->setPaintAttribute( QwtPlotCanvas::BackingStore, false );
-#endif
+    Canvas *canvas = new Canvas();
+    canvas->setPaintAttribute( Canvas::BackingStore, false );
     canvas->setFrameStyle( QFrame::NoFrame );
 
     plot.setCanvas( canvas );
