@@ -125,6 +125,8 @@ public:
     static int horizontalAdvance( const QFontMetrics&, QChar );
     static qreal horizontalAdvance( const QFontMetricsF&, QChar );
 
+    static QFont scaledFont( const QFont&, const QPaintDevice* = nullptr );
+
 private:
     static bool d_polylineSplitting;
     static bool d_roundingAlignment;

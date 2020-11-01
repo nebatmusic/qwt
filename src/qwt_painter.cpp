@@ -1372,9 +1372,9 @@ void QwtPainter::drawBackgound( QPainter *painter,
 /*!
   Distance appropriate for drawing a subsequent character after text.
 
-  \return horizontal advance in pixels
   \param fontMetrics Font metrics
   \param text Text
+  \return horizontal advance in pixels
  */
 int QwtPainter::horizontalAdvance(
     const QFontMetrics& fontMetrics, const QString& text )
@@ -1390,9 +1390,9 @@ int QwtPainter::horizontalAdvance(
 /*!
   Distance appropriate for drawing a subsequent character after text.
 
-  \return horizontal advance in pixels
   \param fontMetrics Font metrics
   \param text Text
+  \return horizontal advance in pixels
  */
 qreal QwtPainter::horizontalAdvance(
     const QFontMetricsF& fontMetrics, const QString& text )
@@ -1407,9 +1407,9 @@ qreal QwtPainter::horizontalAdvance(
 /*!
   Distance appropriate for drawing a subsequent character after ch.
 
-  \return horizontal advance in pixels
   \param fontMetrics Font metrics
   \param ch Character
+  \return horizontal advance in pixels
  */
 int QwtPainter::horizontalAdvance(
     const QFontMetrics& fontMetrics, QChar ch )
@@ -1424,9 +1424,9 @@ int QwtPainter::horizontalAdvance(
 /*!
   Distance appropriate for drawing a subsequent character after ch.
 
-  \return horizontal advance in pixels
   \param fontMetrics Font metrics
   \param ch Character
+  \return horizontal advance in pixels
  */
 qreal QwtPainter::horizontalAdvance(
     const QFontMetricsF& fontMetrics, QChar ch )
@@ -1436,6 +1436,52 @@ qreal QwtPainter::horizontalAdvance(
 #else
     return fontMetrics.width( ch );
 #endif
+}
+
+/*!
+  Adjust the DPI value of font according to the DPI value of the paint device
+
+  \param font Unscaled font
+  \param paintDevice Paint device providing a DPI value. If paintDevice == null
+                     the DPI value of the primary screen will be used
+
+  \return Font being adjustes to the DPI value of the paint device
+ */
+QFont QwtPainter::scaledFont( const QFont& font, const QPaintDevice *paintDevice )
+{
+    if ( paintDevice == nullptr )
+    {
+#if QT_VERSION < 0x060000
+        paintDevice = QApplication::desktop();
+#else
+        class PaintDevice : public QPaintDevice
+        {
+            virtual QPaintEngine *paintEngine() const QWT_OVERRIDE
+            {
+                return nullptr;
+            }
+
+            virtual int metric( PaintDeviceMetric metric ) const QWT_OVERRIDE
+            {
+                if ( metric == PdmDpiY )
+                {
+                    QScreen *screen = QGuiApplication::primaryScreen();
+                    if ( screen )
+                    {
+                        return screen->logicalDotsPerInchY();
+                    }
+                }
+
+                return QPaintDevice::metric( metric );
+            }
+        };
+
+        static PaintDevice dummyPaintDevice;
+        paintDevice = &dummyPaintDevice;
+#endif
+    }
+
+    return QFont( font, const_cast< QPaintDevice * >( paintDevice ) );
 }
 
 /*!
