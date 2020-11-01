@@ -216,7 +216,7 @@ static inline void qwtUnscaleFont( QPainter *painter )
     if ( pd->logicalDpiX() != screenResolution.width() ||
         pd->logicalDpiY() != screenResolution.height() )
     {
-        QFont pixelFont( painter->font(), QApplication::desktop() );
+        QFont pixelFont = QwtPainter::scaledFont( painter->font() );
         pixelFont.setPixelSize( QFontInfo( pixelFont ).pixelSize() );
 
         painter->setFont( pixelFont );

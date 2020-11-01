@@ -45,6 +45,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 contains(QWT_CONFIG, QwtOpenGL ) {
 
     QT += opengl
+
+    greaterThan(QT_MAJOR_VERSION, 5) {
+        QT += openglwidgets
+    }
 }
 else {
 
