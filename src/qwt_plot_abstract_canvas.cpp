@@ -538,9 +538,9 @@ QwtPlotAbstractCanvas::QwtPlotAbstractCanvas( QWidget *canvasWidget )
 
     canvasWidget->setAutoFillBackground( true );
 
-    canvasWidget->setProperty( "lineWidth", 2 );
-    canvasWidget->setProperty( "frameShadow", QFrame::Sunken );
-    canvasWidget->setProperty( "frameShape", QFrame::Panel );
+    //canvasWidget->setProperty( "lineWidth", 2 );
+    //canvasWidget->setProperty( "frameShadow", QFrame::Sunken );
+    //canvasWidget->setProperty( "frameShape", QFrame::Panel );
 }
 
 QwtPlotAbstractCanvas::~QwtPlotAbstractCanvas()

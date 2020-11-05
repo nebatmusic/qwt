@@ -72,7 +72,7 @@ QWT_INSTALL_FEATURES  = $${QWT_INSTALL_PREFIX}/features
 # it will be a static library.
 ######################################################################
 
-QWT_CONFIG           += QwtDll
+QWT_CONFIG           -= QwtDll
 
 ######################################################################
 # QwtPlot enables all classes, that are needed to use the QwtPlot
@@ -100,7 +100,7 @@ QWT_CONFIG     += QwtWidgets
 # export a plot to a SVG document
 ######################################################################
 
-QWT_CONFIG     += QwtSvg
+QWT_CONFIG     -= QwtSvg
 
 ######################################################################
 # If you want to use a OpenGL plot canvas
@@ -114,7 +114,7 @@ QWT_CONFIG     += QwtOpenGL
 # Otherwise you have to build it from the designer directory.
 ######################################################################
 
-QWT_CONFIG     += QwtDesigner
+QWT_CONFIG     -= QwtDesigner
 
 ######################################################################
 # Compile all Qwt classes into the designer plugin instead
@@ -137,7 +137,7 @@ win32 {
 # Otherwise you have to build them from the examples directory.
 ######################################################################
 
-QWT_CONFIG     += QwtExamples
+QWT_CONFIG     -= QwtExamples
 
 ######################################################################
 # The playground is primarily intended for the Qwt development
@@ -148,14 +148,14 @@ QWT_CONFIG     += QwtExamples
 # Otherwise you have to build them from the playground directory.
 ######################################################################
 
-QWT_CONFIG     += QwtPlayground
+QWT_CONFIG     -= QwtPlayground
 
 ######################################################################
 # If you want to auto build the tests, enable the line below
 # Otherwise you have to build them from the tests directory.
 ######################################################################
 
-QWT_CONFIG     += QwtTests
+QWT_CONFIG     -= QwtTests
 
 ######################################################################
 # When Qt has been built as framework qmake wants
